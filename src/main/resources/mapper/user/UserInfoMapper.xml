@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.team32ndproject.user.mapper.UserInfoMapper">
+	<sql id="userInfoCols">
+		UI_NUM, UI_NAME, UI_ID, UI_PWD, UI_MOBILE, UI_EMAIL,
+		UI_BIRTH, UI_ROLES, CREDAT, LMODAT, ACTIVE
+	</sql>
+	<select id="selectUserInfoByUiId"
+		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">
+		SELECT
+		<include refid="userInfoCols" />
+		FROM USER_INFO
+		WHERE UI_ID= #{uiId}
+	</select>
+
+	<insert id="insertUserInfo">
+		INSERT INTO USER_INFO(
+		UI_NAME, UI_ID, UI_PWD, UI_MOBILE,
+		UI_EMAIL, UI_BIRTH, UI_ROLES
+		)
+		VALUES(
+		#{uiName}, #{uiId}, #{uiPwd}, #{uiMobile},
+		#{uiEmail}, #{uiBirth}, #{uiRoles}
+		)
+	</insert>
+</mapper>

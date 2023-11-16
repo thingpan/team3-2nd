@@ -1,0 +1,37 @@
+
+server:
+  port: 80
+
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+      
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+  datasource:
+    url: jdbc:log4jdbc:mariadb://team3.crufuqrrmmdr.ap-northeast-2.rds.amazonaws.com:3306/project
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    username : admin 
+    password : Ample35790
+
+    hikari:
+      minimum-idle : 1
+      maximum-pool-size : 1
+      connection-init-sql : select now()
+ 
+mybatis:
+  mapper-locations : mapper/**/*.xml
+  configuration :
+    map-underscore-to-camel-case : true
+    
+upload:
+  file-path: C:\dev\upload
+  
+download: 
+  file-path: file:///dev/upload/
+  resource-url: /file/**
