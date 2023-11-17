@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="EUC-KR">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="/css/team/team-members.css"> 
+</head>
+
+<body>
+	<div th:replace="/page/fragment/header.html :: f-head"></div>
+	<div class="main">
+		<div class="team-profile">
+			<div class="team-photo">
+				<img src="/imgs/basketball.png" />
+			</div>
+			<div class="score-badge">
+				<span id="team-name"></span>
+				<span id="score-value"></span>
+			</div>
+		</div>
+		<div class="team-user-list">
+			<table class="table">
+				<thead>
+					<tr id="team-user-list-head">
+						<th scope="col">이름</th>
+						<th scope="col">역할</th>
+						<th scope="col">주소</th>
+						<th scope="col">전화번호</th>
+						<th scope="col">방출</th>
+					</tr>
+				</thead>
+				<tbody id="team-user-list-info">
+				</tbody>
+			</table>
+			
+		</div>
+		<div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
+			<nav aria-label="Page navigation">
+				<ul class="pagination justify-content-center">
+					<li class="page-item">
+						<a class="page-link" href="#" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">4</a></li>
+					<li class="page-item"><a class="page-link" href="#">5</a></li>
+					<li class="page-item">
+						<a class="page-link" href="#" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div th:replace="/page/fragment/side-bar.html :: f-side-bar"></div>
+	<script>
+		const team = {
+			taNum: 1,
+			taFilePath: '/imgs/basketball',
+			taPoint: 200,
+			taName: '농구 짱짱'
+		}
+		const user1 = {
+			taNum: 1,
+			tuNum: 1,
+			uiNum: 1,
+			tuRole: 'user',
+			uiName: '이원준',
+			uiAddress: '서울 성북구',
+			uiPhoneNum: '01063473534' 
+		}
+		const user2 = {
+			taNum: 1,
+			tuNum: 1,
+			uiNum: 2,
+			tuRole: 'user',
+			uiName: '이왕균',
+			uiAddress: '시골',
+			uiPhoneNum: '01063473534'
+		}
+		const user3 = {
+			taNum: 1,
+			tuNum: 1,
+			uiNum: 3,
+			tuRole: 'user',
+			uiName: '이명관',
+			uiAddress: '서울 성북구',
+			uiPhoneNum: '01063473534'
+		}
+		const user4 = {
+			taNum: 1,
+			tuNum: 1,
+			uiNum: 4,
+			tuRole: 'user',
+			uiName: '김아영',
+			uiAddress: '서울 성북구',
+			uiPhoneNum: '01063473534'
+		}
+		const user5 = {
+			taNum: 1,
+			tuNum: 1,
+			uiNum: 5,
+			tuRole: 'user',
+			uiName: '박경훈',
+			uiAddress: '서울 성북구',
+			uiPhoneNum: '01063473534'
+		}
+		const userList = [user1, user2, user3, user4, user5];
+
+		document.querySelector('#team-name').innerHTML = team.taName;
+
+
+		const scoreValue = document.querySelector('#score-value');
+		const teamPoint = team.taPoint;
+		scoreValue.innerHTML = `${teamPoint}점`;
+
+		// 점수에 따라 배경색과 텍스트색 변경
+		if (teamPoint <= 100) {
+			scoreValue.style.backgroundColor = '#ececec';
+			scoreValue.style.color = '#767676';
+		} else if (teamPoint <= 200) {
+			scoreValue.style.backgroundColor = '#ede0c4';
+			scoreValue.style.color = '#825e01';
+		} else if (teamPoint <= 300) {
+			scoreValue.style.backgroundColor = '#fffbd5';
+			scoreValue.style.color = '#ffb800';
+		} else if (teamPoint <= 400) { 
+			scoreValue.style.backgroundColor = '#e6f0ff';
+			scoreValue.style.color = '#0066ff';
+		} else {
+			scoreValue.style.backgroundColor = '#f4e2ff';
+			scoreValue.style.color = '#8200d2';
+		}
+
+
+		let html = '';
+		for (let user of userList) {
+			html += '<tr>';
+			html += `<td>${user.uiName}</td>`;
+			html += `<td>${user.tuRole}</td>`;
+			html += `<td>${user.uiAddress}</td>`;
+			html += `<td>${user.uiPhoneNum}</td>`;
+			html += `<td><button class="btn btn-dark" onclick="doRelease(${user.taNum},${user.uiNum})")>퇴출</button></td>`
+			html += '</tr>';
+		}
+		document.querySelector('#team-user-list-info').innerHTML = html;
+
+
+	</script>
+
+</body>
+
+</html>

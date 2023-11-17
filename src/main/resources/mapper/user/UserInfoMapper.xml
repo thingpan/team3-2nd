@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sp.team32ndproject.user.mapper.UserInfoMapper">
+<mapper
+	namespace="com.sp.team32ndproject.user.mapper.UserInfoMapper">
 	<sql id="userInfoCols">
-		UI_NUM, UI_NAME, UI_ID, UI_PWD, UI_MOBILE, UI_EMAIL,
-		UI_BIRTH, UI_ROLES, CREDAT, LMODAT, ACTIVE
+		UI_NAME, UI_ID, UI_PWD, UI_PHONE_NUM,
+		UI_BIRTH, UI_EMAIL, UI_ADDRESS,
+		UI_CREDAT, UI_CRETIM
 	</sql>
 	<select id="selectUserInfoByUiId"
 		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">
 		SELECT
 		<include refid="userInfoCols" />
-		FROM USER_INFO
+		FROM USER_INFO 
 		WHERE UI_ID= #{uiId}
 	</select>
 
-	<insert id="insertUserInfo">
+	<insert id="insertUserInfo" parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
 		INSERT INTO USER_INFO(
 		UI_NAME, UI_ID, UI_PWD, UI_PHONE_NUM,
-		UI_EMAIL, UI_GENDER, UI_ROLES
+		UI_BIRTH, UI_EMAIL, UI_ADDRESS,
+		UI_CREDAT, UI_CRETIM
 		)
 		VALUES(
-		#{uiName}, #{uiId}, #{uiPwd}, #{uiMobile},
-		#{uiEmail}, #{uiBirth}, #{uiRoles}
-		)
+		#{uiName}, #{uiId}, #{uiPwd}, #{uiPhoneNum},
+		#{uiBirth}, #{uiEmail},#{uiAddress},
+		DATE_FORMAT(NOW(),'%Y%m%d'),DATE_FORMAT(NOW(),'%H%i%s')
+		);
 	</insert>
 </mapper>
