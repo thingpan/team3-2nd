@@ -10,17 +10,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 58vh;
-            margin-left: 52px;
+            height: 100%;
             scale: 130%;
-            overflow: hidden;
-            /* 오버플로우를 숨겨 불필요한 스크롤바 제거 */
+            overflow-y: scroll;
+            /* 세로 스크롤만 허용 */
+            overflow-x: hidden;
+            /* 가로 스크롤 숨김 */
         }
 
         h3 {
             font-size: 15px;
             text-align: right;
-            margin-top: 100px;
+            margin-top: 85px;
             margin-right: 65px;
         }
 
@@ -60,7 +61,6 @@
     <div>
         <h3>Match Me If You Can</h3>
         <div>
-            <h3>Match Me If You Can</h3>
             <label for="uiId" style="font-size: 8px;">아이디</label><br>
             <input type="text" id="uiId" style="font-size: 8px;" placeholder="아이디"><br>
             <div id="errorUiId" class="error-message"></div>
