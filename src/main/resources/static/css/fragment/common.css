@@ -1,0 +1,70 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	list-style: none;
+	scroll-behavior: smooth;
+}
+
+/* 
+색상 설정
+사용법: color: var(--white-color);
+*/
+:root {
+	--white-color: #fff;
+	--black-color: #111;
+	--btn-blue-color: #0066ff;
+	--btn-red-color: #ff0000;
+	--btn-gray-color: #d3d3d3;
+	--text-gray-color: #8f8f8f;
+	--text-light-gray-color: #dddddd;
+	--big-font: 6rem;
+	--h2-font: 3rem;
+	--p-font: 1rem;
+}
+
+body {
+	background: var(--white-color);
+	color: var(--black-color);
+}
+
+header {
+	position: sticky;
+	top: 0;
+	right: 0;
+	width: 100%;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: transparent;
+	padding: 30px 18%;
+	transition: ease 0.4s;
+}
+
+.logo {
+	font-size: 20px;
+	font-weight: 600;
+	letter-spacing: 1px;
+	color: var(--black-color);
+}
+
+.navbar {
+	display: flex;
+}
+
+.navbar a {
+	color: var(--black-color);
+	font-size: var(--p-font);
+	font-weight: 400;
+	padding: 10px 22px;
+	transition: ease 0.4s;
+}
+
+.navbar a:hover {
+	background: var(--white-color);
+	color: var(--black-color);
+	font-weight: 600;
+	border-radius: 4px;
+}
