@@ -15,8 +15,8 @@
 
 	<insert id="insertUserInfo">
 		INSERT INTO USER_INFO(
-		UI_NAME, UI_ID, UI_PWD, UI_MOBILE,
-		UI_EMAIL, UI_BIRTH, UI_ROLES
+		UI_NAME, UI_ID, UI_PWD, UI_PHONE_NUM,
+		UI_EMAIL, UI_GENDER, UI_ROLES
 		)
 		VALUES(
 		#{uiName}, #{uiId}, #{uiPwd}, #{uiMobile},
