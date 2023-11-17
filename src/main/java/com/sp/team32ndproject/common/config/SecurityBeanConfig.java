@@ -37,7 +37,7 @@ public class SecurityBeanConfig {
 				.anyRequest().authenticated())
 		.formLogin(formLogin -> formLogin
 				.loginPage("/page/user/login")
-				.usernameParameter("uiId") 
+				.usernameParameter("uiId")  
 				.passwordParameter("uiPwd")
 				.loginProcessingUrl("/login")
 				.defaultSuccessUrl("/")
