@@ -25,5 +25,10 @@ public class UserInfoService implements UserDetailsService{
 		}
 		return user;
 	}
+	
+	public int insertUserInfo(UserInfoVO user) {
+		user.setUiPwd(passwordEncoder.encode(user.getPassword()));
+		return userInfoMapper.insertUserInfo(user);
+	}
 
 }

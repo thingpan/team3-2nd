@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>join</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 58vh;
+            margin-left: 52px;
+            scale: 130%;
+            overflow: hidden;
+            /* 오버플로우를 숨겨 불필요한 스크롤바 제거 */
+        }
+
+        h3 {
+            font-size: 15px;
+            text-align: right;
+            margin-top: 100px;
+            margin-right: 65px;
+        }
+
+        input {
+            margin-bottom: 4px;
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            padding: 4px;
+            font-size: 12px;
+            border: 1.5px solid black;
+            width: 184px;
+        }
+
+        .btn {
+            font-size: 10px;
+        }
+
+        select {
+            font-size: 10px;
+            width: 45px;
+        }
+
+        input {
+            margin-bottom: -50px;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 3px;
+            font-size: 8px;
+        }
+    </style>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</head>
+
+<body>
+    <div>
+        <h3>Match Me If You Can</h3>
+        <div>
+            <h3>Match Me If You Can</h3>
+            <label for="uiId" style="font-size: 8px;">아이디</label><br>
+            <input type="text" id="uiId" style="font-size: 8px;" placeholder="아이디"><br>
+            <div id="errorUiId" class="error-message"></div>
+
+            <label for="uiPwd" style="font-size: 8px;">비밀번호</label><br>
+            <input type="password" id="uiPwd" style="font-size: 8px;" placeholder="비밀번호"><br>
+            <div id="errorUiPwd" class="error-message"></div>
+
+            <label for="uiPwdConfirm" style="font-size: 8px;">비밀번호 확인</label><br>
+            <input type="password" id="uiPwdConfirm" style="font-size: 8px;" placeholder="비밀번호 확인"><br>
+            <div id="errorUiPwdConfirm" class="error-message"></div>
+
+            <label for="uiName" style="font-size: 8px;">이름</label><br>
+            <input type="text" id="uiName" style="font-size: 8px;" placeholder="이름"><br>
+            <div id="errorUiName" class="error-message"></div>
+
+            <label for="uiMobile" style="font-size: 8px;">전화번호</label><br>
+            <input type="text" id="uiMobile" style="font-size: 8px;" placeholder="전화번호"><br>
+            <div id="errorUiMobile" class="error-message"></div>
+
+            <label for="uiId" style="font-size: 8px;">이메일</label><br>
+            <input type="email" id="uiEmail" style="font-size: 8px;" placeholder="이메일"><br>
+            <div id="errorEmail" class="error-message"></div>
+
+            <label for="uiYear" style="font-size: 8px;">생년월일</label><br>
+
+            <select id="uiYear">
+                <option value="" selected>년도</option>
+            </select>
+            <script>
+                const currentYear = new Date().getFullYear();
+                const selectYear = document.getElementById("uiYear");
+
+                for (let year = 1900; year <= currentYear; year++) {
+                    let option = document.createElement("option");
+                    option.text = year;
+                    option.value = year;
+                    selectYear.appendChild(option);
+                }
+            </script>
+
+            <select id="uiMonth">
+                <option value="" selected>월</option>
+            </select>
+            <script>
+                const selectMonth = document.getElementById("uiMonth");
+
+                for (let month = 1; month <= 12; month++) {
+                    let option = document.createElement("option");
+                    let monthValue = month < 10 ? "0" + month : month;
+                    option.text = monthValue;
+                    option.value = monthValue;
+                    selectMonth.appendChild(option);
+                }
+            </script>
+
+            <select id="uiDay">
+                <option value="" selected>일</option>
+            </select>
+
+            <script>
+                const selectDay = document.getElementById("uiDay");
+
+                for (let day = 1; day <= 31; day++) {
+                    let option = document.createElement("option");
+                    let dayValue = day < 10 ? "0" + day : day;
+                    option.text = dayValue;
+                    option.value = dayValue;
+                    selectDay.appendChild(option);
+                }
+            </script><br><br>
+
+            <input type="text" id="uiAddress" style="font-size: 8px;" placeholder="주소" readonly>
+            <button type="button" class="btn btn-dark" id="searchButton" style="font-size: 7px;"
+                onclick="searchAddress()">검색</button><br>
+            <input type="text" id="uiAddress2" style="font-size: 8px;" placeholder="상세주소"><br><br>
+            <button type="button" class="btn btn-dark" id="joinButton" style="width: 184px;"
+                onclick="join()">회원가입</button>
+        </div>
+
+        <script>
+            async function join() {
+                const uiId = document.querySelector('#uiId').value;
+                const uiPwd = document.querySelector('#uiPwd').value;
+                const uiPwdConfirm = document.querySelector('#uiPwdConfirm').value;
+                const uiName = document.querySelector('#uiName').value;
+                const uiMobile = document.querySelector('#uiMobile').value
+                const uiAddress = document.querySelector('#uiAddress').value;
+                const uiAddress2 = document.querySelector('#uiAddress2').value;
+                const selectedYear = document.getElementById('uiYear').value;
+                const selectedMonth = document.getElementById('uiMonth').value;
+                const selectedDay = document.getElementById('uiDay').value;
+                const uiBirth = `${selectedYear}${selectedMonth}${selectedDay}`;
+
+                console.log('아이디:', uiId);
+                console.log('비밀번호:', uiPwd);
+                console.log('비밀번호 확인:', uiPwdConfirm);
+                console.log('이름:', uiName);
+                console.log('전화번호:', uiMobile)
+                console.log('생년월일:', uiBirth);
+                console.log('주소:', uiAddress);
+                console.log('상세주소:', uiAddress2);
+
+
+                if (!uiId) {
+                    document.getElementById('errorUiId').innerHTML = "<span style='color: red;'>아이디를 입력해주세요.</span>";
+                    return;
+                } else {
+                    document.getElementById('errorUiId').innerHTML = "";
+                }
+
+                if (uiPwd.length < 8 || uiPwd.length > 20) {
+                    document.getElementById('errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상 20자 이하여야 합니다.</span>";
+                    return;
+                } else {
+                    document.getElementById('errorUiPwd').innerHTML = "";
+                }
+
+                if (uiPwd !== uiPwdConfirm) {
+                    document.getElementById('errorUiPwdConfirm').innerHTML = "<span style='color: red;'>비밀번호가 일치하지 않습니다.</span>";
+                    return;
+                } else {
+                    document.getElementById('errorUiPwdConfirm').innerHTML = "";
+                }
+
+                if (!uiName) {
+                    document.getElementById('errorUiName').innerHTML = "<span style='color: red; font-size: 8px;'>이름을 입력해주세요.</span>";
+                    return;
+                } else {
+                    document.getElementById('errorUiName').innerHTML = "";
+                }
+
+                if (!document.querySelector('#uiMobile').value) {
+                    document.getElementById('errorUiMobile').innerHTML = "<span style='color: red;'>전화번호를 입력해주세요.</span>";
+                    return;
+                } else {
+                    document.getElementById('errorUiMobile').innerHTML = "";
+                }
+
+                if (!document.querySelector('#uiEmail').value) {
+                    document.getElementById('errorEmail').innerHTML = "<span style='color: red;'>이메일을 입력해주세요.</span>";
+                    return;
+                } else {
+                    document.getElementById('errorEmail').innerHTML = "";
+                }
+
+                const data = { 
+                    uiId: document.querySelector('#uiId').value,
+                    uiPwd: document.querySelector('#uiPwd').value,
+                    uiName: document.querySelector('#uiName').value,
+                    uiPhoneNum: document.querySelector('#uiMobile').value,
+                    uiEmail: document.querySelector('#uiEmail').value,
+                    uiBirth: uiBirth,
+                    uiAddress: document.querySelector('#uiAddress').value
+                };
+                const res = await fetch('/join', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    }
+                });
+                console.log(res);
+                const result = await res.json();
+                if (result) {
+                    alert(`로그인 해주세요`);
+                    location.href = '/page/user/login';
+                }
+                //회원 가입 실패 경우 넣어야함
+            }
+
+            function searchAddress() {
+                const searchButton = document.getElementById('searchButton');
+                searchButton.disabled = true; // 버튼 비활성화
+                new daum.Postcode({
+                    oncomplete: function (data) {
+                        document.getElementById('uiAddress').value = data.address;
+                        searchButton.disabled = false; // 검색이 완료되면 버튼 활성화
+                    },
+                    onclose: function (state) {
+                        if (state === "FORCE_CLOSE") {
+                            searchButton.disabled = false; // 강제로 창이 닫힐 경우 버튼 활성화
+                        }
+                    }
+                }).open();
+            }
+        </script>
+</body>
+
+</html>

@@ -9,4 +9,9 @@ public class HTMLController {
 	public String goHome() {
 		return "index";
 	}
+	
+	@GetMapping("/page/**")
+	public void goPage() {
+		 
+	}
 }
