@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.sp.team32ndproject.team.mapper.TeamInfoMapper">	
+	<select id="selectTeamInfos" resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		SELECT * FROM TEAM_INFO
+	</select>
+	
+	<insert id="insertTeamInfo"
+		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		INSERT INTO TEAM_INFO(
+		UI_NUM, TA_NAME, TA_BOUNDARY_SIDO, TA_BOUNDARY_SIGUNGU,
+		TA_DESC,TA_TYPE
+		) 
+		VALUES(
+		#{uiNum}, #{taName}, #{taBoundarySido},#{taBoundarySigungu}, #{taDesc},#{taType}
+		);
+	</insert>
+</mapper>

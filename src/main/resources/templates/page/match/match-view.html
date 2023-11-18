@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="EUC-KR">
+	<title>Insert title here</title>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=604cb758f63da64f7c5e72d8fd9c83d0&libraries=services,clusterer,drawing">
+		</script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="/css/match/match-view.css">
+</head>
+
+<body>
+	<div th:replace="/page/fragment/header.html :: f-head"></div>
+	<div class="match-pic"><img src="/imgs/match-view-test.png"></div>
+	<div class="main">
+		<div class="info-main">
+			<b>주소 시간 날짜</b>
+			<div class="address-time-date">
+				<p id="mbAddress"></p>
+				<p id="mbDate"></p>
+				<p id="mbTime"></p>
+				<span>구장가격 </span><span id="mbPay"></span><span> 원</span>
+			</div>
+			<hr>
+			<b>공지사항</b>
+			<div class="desc">
+				<span id="mbDesc"></span>
+			</div>
+			<hr>
+			<b>팀 정보</b>
+			<div class="team-info" onclick="goTeamPage(this)">
+				<div class="team-img"><img src="/imgs/basketball.png"></div>
+				<span id="taName"></span><span id="score-value"></span>
+				<p>상세보기 ></p>
+			</div>
+			<hr>
+			<b>위치</b>
+			<div id="map" style="width:100%;height:350px;"></div>
+		</div>
+		<div class="send-info">
+			<b>팀 선택</b>
+			<div class="select-team">
+			</div>
+			<div class="team-list"></div>
+			<div class="send-button">
+				<button onclick="matchRequest()">신청하기</button>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		//선택한 팀
+		let selectedTeamNum;
+
+		window.addEventListener('load', function () {
+
+			const matchBoardInfo = {
+				mbNum: 1,
+				taNum: 1,
+				taType: "basketball",
+				taName: "농구 짱짱",
+				riPoint: 235,
+				mbAddress: "서울 성북구 하월곡동 산 2-1",
+				mbMapX: "127.04078274791296",
+				mbMapY: "37.60867019706736",
+				mbDate: "2023-11-05",
+				mbTime: "17:35",
+				mbDesc: "유니폼 남색입니다.",
+				mbPay: 30000
+			}
+
+			const team2 = {
+				taNum: 2,
+				taType: "축구",
+				tuRole: "1",
+				taName: "축구 2팀"
+			}
+			const team3 = {
+				taNum: 3,
+				taType: "bassball",
+				tuRole: "1",
+				taName: "야구 1팀"
+			}
+			const team4 = {
+				taNum: 4,
+				taType: "bassball",
+				tuRole: "1",
+				taName: "야구 2팀"
+			}
+			const team5 = {
+				taNum: 5,
+				taType: "basketball",
+				tuRole: "1",
+				taName: "농구 1팀"
+			}
+			const team6 = {
+				taNum: 6,
+				taType: "basketball",
+				tuRole: "1",
+				taName: "농구 2팀"
+			}
+			const team7 = {
+				taNum: 6,
+				taType: "basketball",
+				tuRole: "1",
+				taName: "농구 2팀"
+			}
+			const team8 = {
+				taNum: 6,
+				taType: "basketball",
+				tuRole: "1",
+				taName: "농구 2팀"
+			}
+
+			const teamList = [team2, team3, team4, team5, team6];
+
+			document.querySelector('.select-team').innerHTML = `<img src="/imgs/${matchBoardInfo.taType}.png"></img>`;
+			document.querySelector('.team-info').value = matchBoardInfo.taNum;
+			console.log(document.querySelector('.team-info').value);
+			for (let key in matchBoardInfo) {
+				if(document.querySelector(`#${key}`) != null){
+					document.querySelector(`#${key}`).innerHTML = matchBoardInfo[key];
+				}
+			}
+
+			for (const team of teamList) {
+				let html = '';
+				if (matchBoardInfo.taType == team.taType) {
+					html += '<div id="team-list-div" style="display: inline-block; margin: 0 auto;">'
+					html += `<button onclick="selectedTeam(this)" value="${team.taNum}" id="team${team.taNum}">`;
+					html += '</button>';
+					html += `<span>${team.taName}<span>`;
+					html += '</div>';
+				}
+				document.querySelector('.team-list').innerHTML += html;
+			}
+
+
+
+
+			//게시글 올린 팀 점수 배지 표시
+			const scoreValue = document.querySelector('#score-value');
+			const teamPoint = matchBoardInfo.riPoint;
+			scoreValue.innerHTML = `${teamPoint}점`;
+
+			// 점수에 따라 배경색과 텍스트색 변경
+			if (teamPoint <= 100) {
+				scoreValue.style.backgroundColor = '#ececec';
+				scoreValue.style.color = '#767676';
+			} else if (teamPoint <= 200) {
+				scoreValue.style.backgroundColor = '#ede0c4';
+				scoreValue.style.color = '#825e01';
+			} else if (teamPoint <= 300) {
+				scoreValue.style.backgroundColor = '#fffbd5';
+				scoreValue.style.color = '#ffb800';
+			} else if (teamPoint <= 400) {
+				scoreValue.style.backgroundColor = '#e6f0ff';
+				scoreValue.style.color = '#0066ff';
+			} else {
+				scoreValue.style.backgroundColor = '#f4e2ff';
+				scoreValue.style.color = '#8200d2';
+			}
+
+
+
+
+			//지도파트!!
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				mapOption = {
+					center: new kakao.maps.LatLng(matchBoardInfo.mbMapY, matchBoardInfo.mbMapX), // 지도의 중심좌표
+					level: 3 // 지도의 확대 레벨
+				};
+
+			var map = new kakao.maps.Map(mapContainer, mapOption);
+
+			// 마커가 표시될 위치입니다 
+			var markerPosition = new kakao.maps.LatLng(matchBoardInfo.mbMapY, matchBoardInfo.mbMapX);
+
+			// 마커를 생성합니다
+			var marker = new kakao.maps.Marker({
+				position: markerPosition
+			});
+
+			// 마커가 지도 위에 표시되도록 설정합니다
+			marker.setMap(map);
+
+			var iwContent = `<div style="padding:5px;">${matchBoardInfo.mbAddress} <br> <a href="https://map.kakao.com/link/to/${matchBoardInfo.mbAddress},${matchBoardInfo.mbMapY},${matchBoardInfo.mbMapX}" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+				iwPosition = new kakao.maps.LatLng(matchBoardInfo.mbMapY, matchBoardInfo.mbMapX); //인포윈도우 표시 위치입니다
+
+			// 인포윈도우를 생성합니다
+			var infowindow = new kakao.maps.InfoWindow({
+				position: iwPosition,
+				content: iwContent
+			});
+
+			// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+			infowindow.open(map, marker);
+
+
+
+		})
+
+		//팀 선택시 팀 번호 저장
+		function selectedTeam(obj) {
+			selectedTeamNum = obj.value;
+			let myTeams = document.querySelectorAll('.team-list button');
+			for (i = 0; i < myTeams.length; i++) {
+				myTeams[i].style.backgroundColor = "gray";
+			}
+			document.querySelector(`#team${selectedTeamNum}`).style.backgroundColor = "black";
+			console.log(selectedTeamNum);
+		}
+
+		function matchRequest(){
+			if(selectedTeamNum == undefined){
+				alert('팀을 선택해 주세요!');
+			}else{
+				alert('이미 신청된 게시물인지도 확인 해야함')
+			}
+		}
+		
+		function goTeamPage(obj){
+			location.href=`/html/team/team-view?taNum=${obj.value}`; 
+		}
+
+
+
+	</script>
+</body>
+
+</html>
