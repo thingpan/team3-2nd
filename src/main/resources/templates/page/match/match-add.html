@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<link rel="stylesheet" href="/css/match/match-add.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="/css/fragment/common.css">
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=604cb758f63da64f7c5e72d8fd9c83d0&libraries=services"></script>
+</head>
+
+<body>
+	<div th:replace="/page/fragment/header.html :: f-head"></div>
+	<div name="main" class="main">
+		<hr>
+		<div name="select-team" id="team-main">
+			<span>팀 선택</span>
+			<div id="select-team">
+				<div style="float: left;">
+					<button id="bas" onclick="selectTeamType(this)" value="야구"><img
+							src="/imgs/ta-bassball.png"></img></button>
+				</div>
+				<div>
+					<button id="bak" onclick="selectTeamType(this)" value="농구"><img
+							src="/imgs/ta-basketball.png"></img></button>
+				</div>
+			</div>
+			<div id="team-list" class="myTeam"></div>
+		</div>
+		<hr>
+		<div id="info-main">
+			<div id="info-main-left">
+				<span>날짜 및 시간</span>
+				<div id="date-input">
+					<input type="date" id="mbDate">
+				</div>
+				<div id="time-input">
+					<input type="time" id="mbTime">
+				</div>
+				<span>구장 가격</span>
+				<div>
+					<input type="number" id="mbPay">
+					<p>원</p>
+				</div>
+			</div>
+			<div id="info-main-right">
+				<span>세부사항</span>
+				<div>
+					<textarea placeholder="세부사항을 입력해 주세요 ex)조끼 유무, 유니폼 색깔" id="mbDesc"></textarea>
+				</div>
+				<span>구장사진 첨부(선택사항)</span>
+				<div>
+					<input type="file" id="file">
+				</div>
+			</div>
+		</div>
+		<hr>
+
+		<input type="text" id="sample5_address" placeholder="주소">
+		<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+		<input type="text" id="address_detail" placeholder="상세주소">
+		<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+		<div id="okButton">
+			<button type="button" class="btn btn-dark" onclick="sendObj()">확인</button>
+		</div>
+	</div>
+
+
+	<script>
+		//목 데이터
+		const team1 = {
+			taNum: 1,
+			taType: "축구",
+			tuRole: "1",
+			taName: "축구 1팀"
+		}
+		const team2 = {
+			taNum: 2,
+			taType: "축구",
+			tuRole: "1",
+			taName: "축구 2팀"
+		}
+		const team3 = {
+			taNum: 3,
+			taType: "야구",
+			tuRole: "1",
+			taName: "야구 1팀"
+		}
+		const team4 = {
+			taNum: 4,
+			taType: "야구",
+			tuRole: "1",
+			taName: "야구 2팀"
+		}
+		const team5 = {
+			taNum: 5,
+			taType: "농구",
+			tuRole: "1",
+			taName: "농구 1팀"
+		}
+		const team6 = {
+			taNum: 6,
+			taType: "농구",
+			tuRole: "1",
+			taName: "농구 2팀"
+		}
+		const teamList = [team1, team2, team3, team4, team5, team6];
+
+		//내가 선택한 팀 번호
+		let selectedTeamNum;
+
+		//내가 선택한 종목 별로 소속된 팀 보여주기
+		function selectTeamType(obj) {
+			selectedTeamNum = null;
+			document.querySelector('#team-list').innerHTML = '';
+			for (team of teamList) {
+				let html = '';
+				if (team.taType == obj.value) {
+					html += '<div id="team-list-div">'
+					html += `<button onclick="selectedTeam(this)" value="${team.taNum}" id="team${team.taNum}">`;
+					html += '</button>';
+					html += `<span>${team.taName}<span>`;
+					html += '</div>';
+				}
+				document.querySelector('#team-list').innerHTML += html;
+			}
+		}
+
+		//팀 선택시 팀 번호 저장
+		function selectedTeam(obj) {
+			selectedTeamNum = obj.value;
+			let myTeams = document.querySelectorAll('.myTeam button');
+			for (i = 0; i < myTeams.length; i++) {
+				myTeams[i].style.backgroundColor = "gray";
+			}
+			document.querySelector(`#team${selectedTeamNum}`).style.backgroundColor = "black";
+			console.log(selectedTeamNum);
+		}
+
+
+
+
+
+		//카카오 맵 파트!!!!!!
+		//선택 주소 변수
+		let mdAddress;
+		let mbSido;
+		let mbSigungu;
+		let mbMapX;
+		let mbMapY;
+
+
+		//카카오 지도 부분
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+			mapOption = {
+				center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+				level: 5 // 지도의 확대 레벨
+			};
+
+		//지도를 미리 생성
+		var map = new daum.maps.Map(mapContainer, mapOption);
+		//주소-좌표 변환 객체를 생성
+		var geocoder = new daum.maps.services.Geocoder();
+		//마커를 미리 생성
+		var marker = new daum.maps.Marker({
+			position: new daum.maps.LatLng(37.537187, 127.005476),
+			map: map
+		});
+
+
+		function sample5_execDaumPostcode() {
+			new daum.Postcode({
+				oncomplete: function (data) {
+					var addr = data.address; // 최종 주소 변수
+					// 주소 정보를 해당 필드에 넣는다.
+					document.getElementById("sample5_address").value = addr;
+					// 주소로 상세 정보를 검색
+					geocoder.addressSearch(data.address, function (results, status) {
+						// 정상적으로 검색이 완료됐으면
+						if (status === daum.maps.services.Status.OK) {
+
+							var result = results[0]; //첫번째 결과의 값을 활용
+
+							// 해당 주소에 대한 좌표를 받아서
+							var coords = new daum.maps.LatLng(result.y, result.x);
+							// 지도를 보여준다.
+							mapContainer.style.display = "block";
+							map.relayout();
+							// 지도 중심을 변경한다.
+							map.setCenter(coords);
+							// 마커를 결과값으로 받은 위치로 옮긴다.
+							marker.setPosition(coords)
+							mdAddress = data.address;
+							mbSido = data.sido;
+							mbSigungu = data.sigungu;
+							mbMapX = result.x;
+							mbMapY = result.y;
+							console.log(mdAddress,mbSido,mbSigungu,mbMapX,mbMapY)
+						}
+					});
+				}
+			}).open();
+		}
+
+		//데이터 보내는 부분
+		async function sendObj() {
+			const inputFile = document.querySelector('#file');
+			const formData = new FormData();
+			const taNum = selectedTeamNum;
+			const mbDate = document.querySelector('#mbDate').value;
+			const mbTime = document.querySelector('#mbTime').value;
+			const mbDesc = document.querySelector('#mbDesc').value;
+			const mbPay = document.querySelector('#mbPay').value;
+			const mbAddressDetail = document.querySelector('#address_detail').value;
+			if (!(taNum && mbDate && mbTime && mbPay && mbMapX && mbMapY && mdAddress && mbSido && mbSigungu)) {
+				alert('정보를 입력해 주세요');
+			}
+			else {
+				formData.append('taNum', taNum);
+				formData.append('mbDate', mbDate);
+				formData.append('mbTime', mbTime);
+				formData.append('mbDesc', mbDesc);
+				formData.append('mbPay', mbPay);
+				formData.append('mbMapX', mbMapX);
+				formData.append('mbMapY', mbMapY); 
+				formData.append('mbAddress', mdAddress);
+				formData.append('mbAddressDetail', mbAddressDetail);
+				formData.append('mbSido', mbSido);
+				formData.append('mbSigungu', mbSigungu);
+				
+				if (inputFile.files.length) {
+					const file = inputFile.files[0];
+					formData.append('file', file);
+				}
+				const res = await fetch('/match-add',{
+					method: 'POST',
+					body: formData
+				});
+			}
+
+		}
+
+	</script>
+</body>
+
+</html>

@@ -30,7 +30,7 @@ public class SecurityBeanConfig {
 	SecurityFilterChain securityFilterChain(HttpSecurity hs) throws Exception {
 		
 		hs.authorizeRequests(req->req
-				.antMatchers("/login","/join","/page/user/login","/page/user/join", "/" )
+				.antMatchers("/login","/join","/page/user/login","/page/user/join", "/" , "/**")
 				.permitAll()
 //				.antMatchers("html/admin/**").hasRole("ADMIN")
 //				.antMatchers("html/user/**").hasRole("USER")
