@@ -1,0 +1,224 @@
+/* 전체 영역 기본 스타일 */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  scroll-behavior: smooth;
+  font-family: 'Do Hyeon', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 색상 설정 */
+:root {
+  --white-color: #fff;
+  --black-color: #111;
+  --btn-blue-color: #0066ff;
+  --btn-red-color: #ff0000;
+  --text-light-gray-color: #dddddd;
+  --dark-gray-color: rgb(153, 153, 153);
+  --p-font: 1rem;
+}
+
+/* 이미지 슬라이드 css */
+.main-slide {
+  position: relative;
+  max-height: 450px;
+}
+
+.image-slider {
+  width: 70%; /* 전체 영역의 70% 사용 (공통) */
+  height: 410px;
+  margin: 0 auto;
+  overflow: hidden; /* 영역을 벗어나면 보이지 않게 */
+  border-radius: 20px;
+}
+
+/* 슬라이더 내 이미지 resize */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.prev-btn,
+.next-btn {
+  background-color: var(--black-color);
+  color: var(--white-color);
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  border-radius: 20px;
+  border: none;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.prev-btn {
+  left: 10rem;
+}
+
+.next-btn {
+  right: 10rem;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  background-color: var(--text-light-gray-color);
+  color: var(--black-color);
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  border-radius: 20px;
+  border: none;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.team-table {
+  width: 90%;
+  margin: 1rem auto;
+  border-collapse: collapse;
+  position: relative;
+}
+
+/* 테이블 캡션(표 제목) 스타일 */
+.team-table-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.caption-content {
+  margin-top: 3rem;
+  width: 90%;
+  margin-left: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.caption-content select {
+  font-size: var(--p-font);
+  padding: 5px;
+  border: 1px solid var(--text-light-gray-color);
+  border-radius: 5px;
+  margin-left: auto;
+}
+
+/* 팀 랭킹 테이블 색상(추후 수정) */
+.team-table thead {
+  background-color: var(--text-light-gray-color);
+}
+
+.team-table th,
+.team-table td {
+  border-bottom: 1px solid var(--text-light-gray-color);
+  padding: 10px;
+  text-align: center;
+}
+
+/* 더보기 버튼 스타일 */
+.ranking-view-more {
+  display: block;
+  position: absolute;
+  right: 0;
+  text-align: right;
+  text-decoration: none;
+  color: var(--dark-gray-color);
+  cursor: pointer;
+}
+
+.bottom-caption a {
+  top: 21rem;
+  margin-right: 4rem;
+}
+
+.team-table-wrapper {
+  position: relative;
+}
+
+
+/* 매치 일정 영역 스타일 */
+.calendar-container {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  outline: none;
+  margin: 0 10px;
+}
+
+.calendar {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.day {
+  width: 130px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #111;
+  margin: 0 5px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #111;
+  color: #fff;
+}
+
+.filter {
+  width: 70%;
+  margin: 2rem auto 1rem;
+}
+
+.filter-select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.schedule-table {
+  width: 70%;
+  margin: 2rem auto 1rem;
+  border-collapse: collapse;
+  border-top: 1px solid #ccc;
+}
+
+.schedule-table th,
+.schedule-table td {
+  border: none; /* 다른 테두리 제거 */
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.schedule-caption {
+  text-align: right; /* 우측 정렬 */
+  margin-bottom: 2rem;
+  margin-right: 13rem;
+}
+
+.schedule-view-more {
+  text-decoration: none;
+  color: var(--dark-gray-color); /* 링크 색상 */
+}

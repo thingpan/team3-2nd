@@ -1,10 +1,13 @@
+/* 전체 영역 기본 스타일 */
 * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	text-decoration: none;
-	list-style: none;
-	scroll-behavior: smooth;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  scroll-behavior: smooth;
+  font-family: 'Do Hyeon', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 /* 
@@ -12,59 +15,81 @@
 사용법: color: var(--white-color);
 */
 :root {
-	--white-color: #fff;
-	--black-color: #111;
-	--btn-blue-color: #0066ff;
-	--btn-red-color: #ff0000;
-	--btn-gray-color: #d3d3d3;
-	--text-gray-color: #8f8f8f;
-	--text-light-gray-color: #dddddd;
-	--big-font: 6rem;
-	--h2-font: 3rem;
-	--p-font: 1rem;
+  --white-color: #fff;
+  --black-color: #111;
+  --btn-blue-color: #0066ff;
+  --btn-red-color: #ff0000;
+  --text-light-gray-color: #dddddd;
+  --dark-gray-color: rgb(153, 153, 153);
+  --p-font: 1rem;
 }
 
 body {
-	background: var(--white-color);
-	color: var(--black-color);
+  background: var(--white-color);
+  color: var(--black-color);
 }
 
 header {
-	position: sticky;
-	top: 0;
-	right: 0;
-	width: 100%;
-	z-index: 1000;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	background: transparent;
-	padding: 30px 18%;
-	transition: ease 0.4s;
+  position: sticky;
+  top: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  padding: 30px 15%;
+  transition: ease 0.4s;
 }
 
 .logo {
-	font-size: 20px;
-	font-weight: 600;
-	letter-spacing: 1px;
-	color: var(--black-color);
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--black-color);
+}
+
+.logo:hover {
+  color: var(--black-color);
+  text-decoration: none;
 }
 
 .navbar {
-	display: flex;
+  display: flex;
+  margin-top: 1rem;
 }
 
 .navbar a {
-	color: var(--black-color);
-	font-size: var(--p-font);
-	font-weight: 400;
-	padding: 10px 22px;
-	transition: ease 0.4s;
+  color: var(--black-color);
+  font-size: var(--p-font);
+  font-weight: 400;
+  padding: 10px 22px;
+  transition: ease 0.4s;
+  text-decoration: none;
 }
 
 .navbar a:hover {
-	background: var(--white-color);
-	color: var(--black-color);
-	font-weight: 600;
-	border-radius: 4px;
+  background: var(--white-color);
+  color: var(--black-color);
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+#login-button,
+#register-button {
+  letter-spacing: 1;
+  font-size: 14px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 10px;
+  margin: 3px;
+  cursor: pointer;
+}
+
+#login-button:hover,
+#register-button:hover {
+  background-color: var(--text-light-gray-color);
+  color: var(--black-color);
 }
