@@ -63,6 +63,7 @@
 
 		<input type="text" id="sample5_address" placeholder="주소">
 		<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+		<input type="text" id="address_detail" placeholder="상세주소">
 		<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
 		<div id="okButton">
 			<button type="button" class="btn btn-dark" onclick="sendObj()">확인</button>
@@ -147,9 +148,11 @@
 
 		//카카오 맵 파트!!!!!!
 		//선택 주소 변수
-		let selectAddress;
-		let placeX;
-		let placeY;
+		let mdAddress;
+		let mbSido;
+		let mbSigungu;
+		let mbMapX;
+		let mbMapY;
 
 
 		//카카오 지도 부분
@@ -174,7 +177,6 @@
 			new daum.Postcode({
 				oncomplete: function (data) {
 					var addr = data.address; // 최종 주소 변수
-					console.log(data);
 					// 주소 정보를 해당 필드에 넣는다.
 					document.getElementById("sample5_address").value = addr;
 					// 주소로 상세 정보를 검색
@@ -193,10 +195,12 @@
 							map.setCenter(coords);
 							// 마커를 결과값으로 받은 위치로 옮긴다.
 							marker.setPosition(coords)
-							selectAddress = data.address;
-							placeX = result.x;
-							placeY = result.y;
-							console.log(placeX, placeY, selectAddress);
+							mdAddress = data.address;
+							mbSido = data.sido;
+							mbSigungu = data.sigungu;
+							mbMapX = result.x;
+							mbMapY = result.y;
+							console.log(mdAddress,mbSido,mbSigungu,mbMapX,mbMapY)
 						}
 					});
 				}
@@ -204,7 +208,7 @@
 		}
 
 		//데이터 보내는 부분
-		function sendObj() {
+		async function sendObj() {
 			const inputFile = document.querySelector('#file');
 			const formData = new FormData();
 			const taNum = selectedTeamNum;
@@ -212,10 +216,8 @@
 			const mbTime = document.querySelector('#mbTime').value;
 			const mbDesc = document.querySelector('#mbDesc').value;
 			const mbPay = document.querySelector('#mbPay').value;
-			const mbMapX = placeX;
-			const mbMapY = placeY;
-			const mbAddress = selectAddress;
-			if (!(taNum && mbDate && mbTime && mbPay && mbMapX && mbMapY && mbAddress)) {
+			const mbAddressDetail = document.querySelector('#address_detail').value;
+			if (!(taNum && mbDate && mbTime && mbPay && mbMapX && mbMapY && mdAddress && mbSido && mbSigungu)) {
 				alert('정보를 입력해 주세요');
 			}
 			else {
@@ -225,22 +227,25 @@
 				formData.append('mbDesc', mbDesc);
 				formData.append('mbPay', mbPay);
 				formData.append('mbMapX', mbMapX);
-				formData.append('mbMapY', mbMapY);
-				formData.append('mbAddress', mbAddress);
+				formData.append('mbMapY', mbMapY); 
+				formData.append('mbAddress', mdAddress);
+				formData.append('mbAddressDetail', mbAddressDetail);
+				formData.append('mbSido', mbSido);
+				formData.append('mbSigungu', mbSigungu);
+				
 				if (inputFile.files.length) {
 					const file = inputFile.files[0];
 					formData.append('file', file);
 				}
-				console.log(formData);
+				const res = await fetch('/match-add',{
+					method: 'POST',
+					body: formData
+				});
 			}
 
 		}
 
-
-
 	</script>
-
-
 </body>
 
 </html>
