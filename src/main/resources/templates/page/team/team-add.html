@@ -1,10 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="styles.css">
+	<title>프로필 및 팀 정보</title>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+		rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="/css/team/team-members.css">
+	<script src="/js/mock/region.js"></script>
 </head>
+
 <body>
+	<div th:replace="/page/fragment/header.html :: f-head"></div>
+	<h2 id="team-heading"> 팀만들기</h2>
+	<div id="profile-container">
+		<img id="profile-preview" alt="프로필 이미지" src="/imgs/profile.jpg" onclick="openProfilePopup()">
+
+	</div>
+	<button id="change-photo-button" onclick="openProfilePopup()">사진 첨부</button>
+	<div id="photo-modal" class="modal">
+		<div class="modal-content">
+			<span class="close" onclick="closeProfilePopup()">&times;</span>
+			<h3>프로필 사진 변경</h3>
+			<button type="button" id="basketball" value="농구" onclick="changeProfile('/imgs/basketball.png')">
+				<img src='/imgs/basketball1.png'>
+			</button>
+			<button type="button" id="baseball" value="야구" onclick="changeProfile('/imgs/baseball.png')">
+				<img src='/imgs/baseball1.png'>
+			</button>
+			<button type="button" id="soccer" value="축구" onclick="changeProfile('/imgs/soccer.png')">
+				<img src='/imgs/soccer1.png'>
+			</button>
+
+		</div>
+	</div>
+	<div class="form1">
+		<select id="sport-select">
+			<option value="">종목</option>
+			<option value="농구">농구</option>
+			<option value="야구">야구</option>
+			<option value="축구">축구</option>
+		</select>
+
+		<div id="location-buttons">
+			<button onclick="showLocationSelects()">지역</button>
+		</div>
+
+		<div id="location-selects" style="display: none;">
+
+			<select id="sido" onchange="makeSigungu()">
+				<option>시/도</option>
+			</select>
+			<select id="sigungu">
+				<option>시/군/구</option>
+
+			</select>
+			<script>
+
+
+			</script>
+		</div>
+
+
+		<div id="team-name">
+			<label for="team-name-input">팀 이름</label><br>
+			<input type="text" id="team-name-input" placeholder="팀 이름을 입력하세요">
+		</div>
+
+		<div id="team-intro">
+			<label for="team-intro-input">팀 소개</label><br>
+			<textarea id="team-intro-input" placeholder="팀 소개를 입력하세요"></textarea>
+		</div>
+
+		<button id="complete-button" onclick="completeSetup()">완료</button>
+	</div>
+	<!-- 프로필 모달 관련 스크립트 등을 추가해야 합니다 -->
+
+	<script>
+
+		function openProfilePopup() {
+			document.getElementById('photo-modal').style.display = 'block';
+		}
+
+		function closeProfilePopup() {
+			document.getElementById('photo-modal').style.display = 'none';
+		}
+
+
+
+		function changeProfile(imageUrl) {
+			document.getElementById('profile-preview').src = imageUrl;
+			closeProfilePopup();
+		}
+
+		function showLocationSelects() {
+			// 지역 선택 셀렉트 박스 보이기
+			document.getElementById('location-selects').style.display = 'flex';
+		}
+	async function completeSetup() {
+	
+			const selectedSport = document.querySelector('#sport-select').value;
+			const selectedSido = document.querySelector('#sido').value;
+			const selectedSigungu = document.querySelector('#sigungu').value;
+			const teamName = document.querySelector('#team-name-input').value;
+			const teamIntro = document.querySelector('#team-intro-input').value;
+
+		
+			const formData = new FormData();
+			formData.append('sport', selectedSport);
+			formData.append('sido', selectedSido);
+			formData.append('sigungu', selectedSigungu);
+			formData.append('name', teamName);
+			formData.append('intro', teamIntro);
+
+			try {
+				const res = await fetch('/your-server-endpoint', {
+					method: 'POST',
+					body: formData
+				});
+
+				if (res.ok) {
+					// 서버 응답이 성공인 경우의 처리
+					const data = await res.json();
+					console.log('Success:', data);
+					// 서버에서 받은 응답에 따른 처리 추가
+				} else {
+					// 서버 응답이 에러인 경우의 처리
+					console.error('Error:', res.status);
+				}
+			} catch (error) {
+				// 네트워크 오류 등 예외 발생 시의 처리
+				console.error('Error:', error);
+			}
+		}
+
+
+	</script>
 
 </body>
+
 </html>
