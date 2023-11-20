@@ -187,7 +187,8 @@ function generateMockData() {
             // 랜덤으로 종목, 시간, 장소, 성별, 및 인원수 선택 (db 작업 후 수정)
             const randomSportIcon =
                 sportsIcons[Math.floor(Math.random() * sportsIcons.length)];
-            const randomTime = `${Math.floor(Math.random() * 12) + 8}:${Math.random() < 0.5 ? '00' : '30'
+            const randomTime = `${Math.floor(Math.random() * 12) + 8}:${
+                Math.random() < 0.5 ? '00' : '30'
             }`;
             const randomLocation = `장소 ${j}`;
             const randomGender = generateRandomGender();
@@ -254,7 +255,7 @@ function showSchedule(date) {
                     모두: '#80FF00',
                     학생: '#FFE500',
                 };
-                const color = colors[gender] || 'gray'; // 기본 색상
+                const color = colors[gender];
 
                 return `
           <span style="background-color: ${color}; border-radius: 50%; width: 8px; height: 8px; display: inline-block; margin-right: 4px;"></span>
@@ -276,7 +277,7 @@ function showSchedule(date) {
             const statusBadge = document.createElement('span');
             statusBadge.textContent = scheduleItem.statusBadge;
 
-// 상태에 따라 스타일을 지정
+            // 상태에 따라 스타일을 지정
             switch (scheduleItem.statusBadge) {
                 case '마감':
                     statusBadge.style.backgroundColor = '#D3D3D3';
@@ -295,7 +296,7 @@ function showSchedule(date) {
                     break;
             }
 
-            statusBadge.style.borderRadius = '15px';
+            statusBadge.style.borderRadius = '18px';
             statusBadge.style.fontSize = '14px';
             statusBadge.style.fontWeight = '500';
 
