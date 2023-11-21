@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+		rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="/css/team/team-rank.css">
+	<script src="/js/mock/teamData.js"></script>
+	<script src="/js/mock/region.js"></script>
+
+</head>
+
+<body>
+	<div th:replace="/page/fragment/header.html :: f-head"></div>
+
+
+	<div class="content-container">
+		<form class="search-form">
+			<h3>Rank</h3>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<select id="s" name="s">
+				<option value="">종목 v</option>
+				<option value="baseball">야구</option>
+				<option value="soccer">축구</option>
+				<option value="basketball">농구</option>
+			</select>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<select id="s2" name="s2">
+				<option value="">지역 v</option>
+
+			</select>
+			<script type="module">
+				// 시/도 옵션 추가
+				const sidoSelect = document.querySelector('#s2');
+				const sigunguSelect = document.querySelector('#sigungu');
+
+				for (let key in address) {
+					let option = document.createElement('option');
+					option.text = key;
+					sidoSelect.add(option);
+				}
+
+				function makeSigungu() {
+					let sido = sidoSelect.value;
+					sigunguSelect.innerHTML = '<option>시/군/구</option>';
+
+					if (sido !== '시/도') {
+						let siGunGu = address[sido];
+						for (let j = 0; j < siGunGu.length; j++) {
+							let option = document.createElement('option');
+							option.text = siGunGu[j];
+							sigunguSelect.add(option);
+						}
+					}
+				}
+			</script>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="slidecontainer" style="margin-top:50px;">
+				<input type="range" min="0" max="1000" value="0" class="slider" id="myRange">
+				<p>팀 점수: <span id="value"></span></p>
+			</div>
+
+			<button type="button" id="search-button" onclick="performSearch()">search</button>
+		</form>
+	</div>
+
+	<div class="table-container" style="margin-top:-400px;">
+		<table border="1" id="teamTable">
+			<thead>
+				<tr>
+					<th>순위</th>
+					<th>팀</th>
+					<th>포인트</th>
+				</tr>
+			</thead>
+			<tbody id="tBody">
+				<script>
+					const teamData = [
+						{
+							name: 'Soccer 1',
+							points: 450,
+							sport: 'soccer',
+						},
+						{
+							name: 'KIA TIGERS',
+							points: 480,
+							sport: 'baseball',
+						},
+						{
+							name: 'BasketBall 1',
+							points: 400,
+							sport: 'basketball',
+						},
+						{
+							name: 'Soccer 2',
+							points: 430,
+							sport: 'soccer',
+						},
+						{
+							name: 'Baseball 2',
+							points: 401,
+							sport: 'baseball',
+						},
+						{
+							name: 'BasketBall 2',
+							points: 390,
+							sport: 'basketball',
+						},
+						{
+							name: 'Soccer 3',
+							points: 312,
+							sport: 'soccer',
+						},
+						{
+							name: 'Baseball 3',
+							points: 391,
+							sport: 'baseball',
+						},
+						{
+							name: 'BasketBall 3',
+							points: 310,
+							sport: 'basketball',
+						},
+						{
+							name: 'Soccer 4',
+							points: 281,
+							sport: 'soccer',
+						},
+						{
+							name: 'Baseball 4',
+							points: 211,
+							sport: 'baseball',
+						},
+						{
+							name: 'BasketBall 4',
+							points: 280,
+							sport: 'basketball',
+						},
+						{
+							name: 'Soccer 5',
+							points: 450,
+							sport: 'soccer',
+						},
+						{
+							name: 'Baseball 5',
+							points: 135,
+							sport: 'baseball',
+						},
+						{
+							name: 'BasketBall 5',
+							points: 129,
+							sport: 'basketball',
+						},
+					];
+				</script>
+			</tbody>
+		</table>
+	</div>
+
+
+	<script>
+		var slider = document.getElementById("myRange");
+		var output = document.getElementById("value");
+		output.innerHTML = slider.value;
+
+		slider.oninput = function () {
+			output.innerHTML = this.value;
+		}
+
+
+		function displayInitialData() {
+			const tableBody = document.getElementById("tBody");
+			tableBody.innerHTML = ''; // Clear existing data
+
+			teamData.forEach((row, index) => {
+				addRow(tableBody, index + 1, row.name, row.points, row.sport);
+			});
+		}
+		function performSearch() {
+			const sport = document.getElementById("s").value;
+			const area = document.getElementById("s2").value;
+			const skill = document.getElementById("myRange").value;
+
+			// 슬라이드바 값 기반으로 점수 범위 계산
+			const minScore = parseInt(skill) - 50;
+			const maxScore = parseInt(skill) + 50;
+
+			const filteredData = teamData.filter((row) => {
+				const isSportMatch = sport === "" || row.sport === sport;
+				const isAreaMatch = area === "" || true; // Assume true as there is no area information
+				const isSkillMatch = skill === "0" || (row.points >= minScore && row.points <= maxScore);
+
+				return isSportMatch && isAreaMatch && isSkillMatch;
+			});
+
+			const tableBody = document.getElementById("tBody");
+			tableBody.innerHTML = ''; // Clear existing data
+
+			filteredData.forEach((row, index) => {
+				addRow(tableBody, index + 1, row.name, row.points, row.sport);
+			});
+		}
+
+		function addRow(tableBody, rowIndex, name, points, sport) {
+			const row = document.createElement('tr');
+			row.innerHTML = `
+                <td>${rowIndex}</td>
+                <td>${name}</td>
+                <td>${points}</td>
+            `;
+			tableBody.appendChild(row);
+		}
+
+		// 페이지 로드 시 초기 데이터 표시
+		displayInitialData();
+	</script>
+
+	</script>
+</body>
+
+</html>
