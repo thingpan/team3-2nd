@@ -13,55 +13,6 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// teamData 관련 코드
-document.addEventListener('DOMContentLoaded', function () {
-    const tbody = document.querySelector('.team-table tbody');
-    const sportFilter = document.querySelector('#sport-filter');
-
-    // 페이지 로드 시 기본적으로 축구 데이터 표시
-    const defaultSport = 'soccer';
-
-    sportFilter.value = defaultSport;
-
-    // 해당 스포츠 데이터 필터링
-    const filteredTeams = teamData.filter((team) => team.sport === defaultSport);
-
-    // 필터링된 데이터를 HTML에 추가
-    filteredTeams.forEach((team) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-        <td>${team.rank}</td>
-        <td>${team.name}</td>
-        <td>${team.points}</td>
-      `;
-        tbody.appendChild(row);
-    });
-
-    // 스포츠 필터 변경 시, 해당 스포츠 팀 데이터만 필터링하여 표시
-    sportFilter.addEventListener('change', () => {
-        const selectedSport = sportFilter.value;
-
-        // 해당 스포츠 데이터 필터링
-        const filteredTeams = teamData.filter(
-            (team) => team.sport === selectedSport
-        );
-
-        // 테이블 비우기
-        tbody.innerHTML = '';
-
-        // 필터링된 데이터를 HTML에 추가
-        filteredTeams.forEach((team) => {
-            const row = document.querySelector('tr');
-            row.innerHTML = `
-          <td>${team.rank}</td>
-          <td>${team.name}</td>
-          <td>${team.points}</td>
-        `;
-            tbody.appendChild(row);
-        });
-    });
-});
-
 const calendar = document.querySelector('.calendar');
 const calendarPrevBtn = document.querySelector(
     '.calendar-button:first-of-type'
@@ -75,6 +26,7 @@ let selectedDateDiv = null;
 function updateCalendar(date) {
     calendar.innerHTML = '';
 
+    // 주간 캘린더(7일) 표시
     for (let i = -3; i <= 3; i++) {
         const day = new Date(date); // 현재 날짜에서부터 i일 전/후의 날짜를 계산
         day.setDate(date.getDate() + i);
@@ -87,6 +39,7 @@ function updateCalendar(date) {
         dayDiv.textContent = `${dayDate}\n${dayName}`;
 
         dayDiv.addEventListener('click', () => {
+            // 선택된 날짜 스타일 제거 및 새로운 날짜 선택
             if (selectedDateDiv) {
                 selectedDateDiv.classList.remove('selected'); // 기존 선택된 날짜 스타일 제거
             }
@@ -96,12 +49,15 @@ function updateCalendar(date) {
 
         calendar.appendChild(dayDiv);
 
+        // 처음 로딩 될 때는 오늘 날짜를 선택된 날짜로 표시
         if (i === 0) {
-            selectDate(dayDiv); // 현재 날짜 (i가 0인 경우)를 선택된 날짜로 표시
-            selectedDateDiv = dayDiv; // 선택된 날짜로 설정
+            selectDate(dayDiv);
+            selectedDateDiv = dayDiv;
         }
     }
 }
+
+// 선택된 날짜에 대한 스타일을 적용하는 함수
 function selectDate(selectedDate) {
     const dayDivs = document.querySelectorAll('.day');
     dayDivs.forEach((dayDiv) => {
@@ -111,6 +67,7 @@ function selectDate(selectedDate) {
     selectedDate.classList.add('selected');
 }
 
+// 초기 캘린더 업데이트
 let currentDate = new Date();
 updateCalendar(currentDate);
 
@@ -212,7 +169,7 @@ function showSchedule(date) {
                     모두: '#80FF00',
                     학생: '#FFE500',
                 };
-                const color = colors[gender] || 'gray'; // 기본 색상
+                const color = colors[gender];
 
                 return `
           <span style="background-color: ${color}; border-radius: 50%; width: 8px; height: 8px; display: inline-block; margin-right: 4px;"></span>
