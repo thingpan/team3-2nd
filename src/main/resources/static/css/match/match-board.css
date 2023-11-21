@@ -1,0 +1,164 @@
+/* 전체 영역 기본 스타일 */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    scroll-behavior: smooth;
+    font-family: 'Do Hyeon', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 색상 설정 */
+:root {
+    --white-color: #fff;
+    --black-color: #111;
+    --btn-blue-color: #0066ff;
+    --btn-red-color: #ff0000;
+    --text-light-gray-color: #dddddd;
+    --dark-gray-color: rgb(153, 153, 153);
+    --p-font: 1rem;
+}
+
+body {
+    background: var(--white-color);
+    color: var(--black-color);
+}
+
+/* 일정 영역 */
+.calendar-container {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    outline: none;
+    margin: 0 10px;
+}
+
+.calendar {
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.day {
+    width: 130px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    color: #111;
+    margin: 0 5px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: #111;
+    color: #fff;
+}
+
+.filter {
+    width: 70%;
+    margin: 2rem auto 1rem;
+}
+
+.filter-select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.schedule-table {
+    width: 70%;
+    margin: 2rem auto 1rem;
+    border-collapse: collapse;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.schedule-table th,
+.schedule-table td {
+    border: none; /* 다른 테두리 제거 */
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.schedule-table td:last-child {
+    text-align: right;
+}
+
+.schedule-table th.time {
+    width: 20%;
+}
+
+.schedule-table th.location {
+    width: 40%;
+}
+
+.schedule-table th.time,
+.schedule-table td.time,
+.schedule-table th.location,
+.schedule-table td.location {
+    text-align: left; /* 좌측 정렬 */
+}
+
+.schedule-table th.status {
+    width: 40%;
+}
+
+.schedule-caption {
+    text-align: right; /* 우측 정렬 */
+    margin-bottom: 2rem;
+    margin-right: 13rem;
+}
+
+.schedule-view-more {
+    text-decoration: none;
+    color: var(--dark-gray-color); /* 링크 색상 */
+}
+
+.write-section {
+    display: block;
+    position: absolute;
+    text-align: right;
+    right: 0;
+    width: 70%;
+}
+
+#write-button {
+    background-color: var(--black-color);
+    color: var(--white-color);
+    letter-spacing: normal;
+    font-size: 14px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 10px;
+    margin-right: 13rem;
+    margin-bottom: 3rem;
+    cursor: pointer;
+}
+
+#write-button:hover {
+    background-color: var(--text-light-gray-color);
+    color: var(--black-color);
+    letter-spacing: normal;
+    font-size: 14px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 10px;
+    margin-right: 13rem;
+    margin-bottom: 3rem;
+    cursor: pointer;
+}

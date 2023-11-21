@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Team Rankings</title>
+    <link href="/css/match/match-board.css" rel="stylesheet"/>
+
+    <link
+            href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@200;300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+    />
+
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+            integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+            crossorigin="anonymous"
+    />
+    <script
+            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+            crossorigin="anonymous"
+    ></script>
+</head>
+<body>
+<div th:replace="/page/fragment/header.html :: f-head"></div>
+
+<section>
+    <div class="calendar-container">
+        <button id="prev-btn" class="calendar-button">&lt;</button>
+        <div class="calendar"></div>
+        <button id="next-btn" class="calendar-button">&gt;</button>
+    </div>
+    <div class="filter">
+        <select id="sports" class="filter-select">
+            <option value="all">종목</option>
+            <option value="soccer">축구</option>
+            <option value="baseball">야구</option>
+            <option value="basketball">농구</option>
+        </select>
+        <select id="sido" class="filter-select" onchange="makeSigungu()">
+            <option>시/도</option>
+        </select>
+        <select id="sigungu" class="filter-select" onchange="updateSchedule()">
+            <option>시/군/구</option>
+        </select>
+        <select id="point" class="filter-select">
+            <option value="all">포인트</option>
+        </select>
+    </div>
+    <table class="schedule-table">
+        <tbody id="schedule"></tbody>
+    </table>
+    <ul class="pagination" id="pagination"></ul>
+</section>
+<div class="write-section">
+    <button id="write-button">글쓰기</button>
+</div>
+<script type="module" src="/js/match/match-board-script.js"></script>
+<script src="/js/mock/region.js"></script>
+</body>
+</html>

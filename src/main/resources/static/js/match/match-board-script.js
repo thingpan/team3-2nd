@@ -1,11 +1,6 @@
 // 팀 데이터 가져오기
 import teamData from '/js/mock/teamData.js';
 
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
-const slideCount = slides.length;
-let slideInterval;
-
 const header = document.querySelector('#header');
 
 window.addEventListener('scroll', () => {
@@ -18,48 +13,8 @@ window.addEventListener('scroll', () => {
     }
 });
 
-function showSlide(n) {
-    slides.forEach((slide) => (slide.style.display = 'none'));
-    slides[n].style.display = 'block';
-}
-
-function nextSlide() {
-    currentSlide = (currentSlide + 1) % slideCount;
-    showSlide(currentSlide);
-}
-
-function prevSlide() {
-    currentSlide = (currentSlide - 1 + slideCount) % slideCount;
-    showSlide(currentSlide);
-}
-
-// 페이지 로드 시 슬라이드 표시
-document.addEventListener('DOMContentLoaded', () => {
-    showSlide(currentSlide);
-    slideInterval = setInterval(nextSlide, 3000); // 3초마다 자동 슬라이드
-
-    const slidePrevBtn = document.querySelector('.prev-btn');
-    const slideNextBtn = document.querySelector('.next-btn');
-
-    // 이전 버튼 클릭 시 이전 슬라이드로 이동
-    slidePrevBtn.addEventListener('click', () => {
-        clearInterval(slideInterval); // 자동 슬라이드 중지
-        prevSlide();
-        slideInterval = setInterval(nextSlide, 3000); // 다시 자동 슬라이드 시작
-    });
-
-    // 다음 버튼 클릭 시 다음 슬라이드로 이동
-    slideNextBtn.addEventListener('click', () => {
-        clearInterval(slideInterval); // 자동 슬라이드 중지
-        nextSlide();
-        slideInterval = setInterval(nextSlide, 3000); // 다시 자동 슬라이드 시작
-    });
-});
-
 // teamData 관련 코드
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('Team Data:', teamData); // 콘솔에 출력
-
     const tbody = document.querySelector('.team-table tbody');
     const sportFilter = document.querySelector('#sport-filter');
 
@@ -68,26 +23,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
     sportFilter.value = defaultSport;
 
+    // 해당 스포츠 데이터 필터링
+    const filteredTeams = teamData.filter((team) => team.sport === defaultSport);
+
+    // 필터링된 데이터를 HTML에 추가
+    filteredTeams.forEach((team) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+        <td>${team.rank}</td>
+        <td>${team.name}</td>
+        <td>${team.points}</td>
+      `;
+        tbody.appendChild(row);
+    });
+
     // 스포츠 필터 변경 시, 해당 스포츠 팀 데이터만 필터링하여 표시
     sportFilter.addEventListener('change', () => {
         const selectedSport = sportFilter.value;
 
         // 해당 스포츠 데이터 필터링
-        const selectedSportTeams = teamData[selectedSport] || []; // 선택된 스포츠 데이터가 없을 경우 빈 배열로 기본 설정
-
-        const top5Teams = selectedSportTeams.slice(0, 5);
+        const filteredTeams = teamData.filter(
+            (team) => team.sport === selectedSport
+        );
 
         // 테이블 비우기
         tbody.innerHTML = '';
 
         // 필터링된 데이터를 HTML에 추가
-        top5Teams.forEach((team) => {
-            const row = document.createElement('tr');
+        filteredTeams.forEach((team) => {
+            const row = document.querySelector('tr');
             row.innerHTML = `
-        <td>${team.rank}</td>
-        <td>${team.name}</td>
-        <td>${team.points}</td>
-      `;
+          <td>${team.rank}</td>
+          <td>${team.name}</td>
+          <td>${team.points}</td>
+        `;
             tbody.appendChild(row);
         });
     });
@@ -133,7 +102,6 @@ function updateCalendar(date) {
         }
     }
 }
-
 function selectDate(selectedDate) {
     const dayDivs = document.querySelectorAll('.day');
     dayDivs.forEach((dayDiv) => {
@@ -172,8 +140,8 @@ function generateMockData() {
         const randomDate = new Date(currentDate);
         randomDate.setDate(currentDate.getDate() + i);
 
-        // 각 날짜당 5개의 일정 생성
-        const numberOfSchedules = 6;
+        // 각 날짜당 랜덤으로 일정 생성
+        const numberOfSchedules = 20;
         for (let j = 1; j < numberOfSchedules; j++) {
             // 랜덤으로 종목, 시간, 장소, 성별, 및 인원수 선택 (db 작업 후 수정)
             const randomSportIcon =
@@ -218,8 +186,6 @@ function generateRandomCapacity(sportIcon) {
             return '12vs12';
         case '🏀':
             return '6vs6';
-        default:
-            return 'N/A';
     }
 }
 
@@ -246,7 +212,7 @@ function showSchedule(date) {
                     모두: '#80FF00',
                     학생: '#FFE500',
                 };
-                const color = colors[gender];
+                const color = colors[gender] || 'gray'; // 기본 색상
 
                 return `
           <span style="background-color: ${color}; border-radius: 50%; width: 8px; height: 8px; display: inline-block; margin-right: 4px;"></span>
@@ -263,6 +229,7 @@ function showSchedule(date) {
             )}</span>
   <span style="color: gray;">${scheduleItem.capacity}</span>
 `;
+
             // 상태 뱃지 표시
             const statusCell = row.insertCell(2);
             const statusBadge = document.createElement('span');
