@@ -56,6 +56,9 @@ tr {
     text-align: center;
 }
 
+tr {
+    height: 60px;
+}
 select {
     font-size: var(--p-font);
     padding: 5px;
@@ -145,6 +148,7 @@ span {
     border-radius: 8px;
 }
 
+
 .status-button {
     background-color: transparent;
     border: none;
@@ -161,21 +165,25 @@ span {
 }
 
 .status-button button[value="accept"] {
-    background-color: #0068ff;
-    color: #fff;
+    background-color: #D9E5FF;
+    color: #0066FF;
+    font-weight: 600;
 }
 
 .status-button button[value="accept"]:hover {
-    background-color: #014fc2;
+    background-color: #0066ff;
     color: #fff;
+    font-weight: 600;
 }
 
 .status-button button[value="refuse"] {
-    background-color: #ff1200;
-    color: #fff;
+    background-color: #FFE6E6;
+    color: #ff1200;
+    font-weight: 600;
 }
 
 .status-button button[value="refuse"]:hover {
-    background-color: #d31100;
+    background-color: #ff1200;
     color: #fff;
+    font-weight: 600;
 }
