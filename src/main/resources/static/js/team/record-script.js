@@ -1,5 +1,3 @@
-const header = document.querySelector('#header');
-
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
         header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
@@ -387,72 +385,3 @@ function handleMatchEndButtonClick() {
             }
         });
 }
-
-// 사이드바 토글 기능 함수
-function showMenu(toggleId, navbarId, bodyId) {
-    const toggle = document.querySelector('#' + toggleId);
-    const navbar = document.querySelector('#' + navbarId);
-    const bodypadding = document.querySelector('#' + bodyId);
-
-    if (toggle && navbar) {
-        toggle.addEventListener('click', function () {
-            navbar.classList.toggle('expander');
-            bodypadding.classList.toggle('body-pd');
-        });
-    }
-}
-
-// showMenu 함수 호출
-showMenu('nav-toggle', 'navbar', 'body-pd');
-
-const linkColor = document.querySelectorAll('.nav__link');
-
-function colorLink() {
-    linkColor.forEach(function (l) {
-        l.classList.remove('active');
-    });
-    this.classList.add('active');
-}
-
-linkColor.forEach(function (l) {
-    l.addEventListener('click', colorLink);
-});
-
-const linkCollapse = document.querySelectorAll('.collapse__link');
-
-for (let i = 0; i < linkCollapse.length; i++) {
-    linkCollapse[i].addEventListener('click', function () {
-        // 클릭한 링크의 다음 요소인 메뉴를 토글(show/hide)
-        const collapseMenu = this.nextElementSibling;
-        collapseMenu.classList.toggle('showCollapse');
-
-        // 클릭한 링크의 이전 요소인 아이콘을 회전 토글
-        const rotate = collapseMenu.previousElementSibling;
-        rotate.classList.toggle('rotate');
-    });
-}
-
-// 배경 토글 함수
-function toggleBackdrop() {
-    const backdrop = document.querySelector('#backdrop');
-    backdrop.classList.toggle('active');
-}
-
-// 네비게이션 토글 버튼에 클릭 이벤트 리스너 등록
-document.querySelector('#nav-toggle').addEventListener('click', function (event) {
-    event.stopPropagation();
-    toggleBackdrop();
-});
-
-// 문서 전체에 클릭 이벤트 리스너 등록
-document.addEventListener('click', function (event) {
-    const backdrop = document.querySelector('#backdrop');
-    const sidebar = document.querySelector('#navbar');
-    const isClickInsideSidebar = sidebar.contains(event.target);
-    const isClickInsideBackdrop = backdrop.contains(event.target);
-
-    // 사이드바나 배경 외부를 클릭했을 때 배경 제거
-    if (!isClickInsideSidebar && !isClickInsideBackdrop) {
-        backdrop.classList.remove('active');
-    }
-});

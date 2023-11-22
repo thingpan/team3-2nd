@@ -1,0 +1,181 @@
+/* 전체 영역 기본 스타일 */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    scroll-behavior: smooth;
+    font-family: 'Do Hyeon', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 색상 설정 */
+:root {
+    --white-color: #fff;
+    --black-color: #111;
+    --btn-blue-color: #0066ff;
+    --btn-red-color: #ff0000;
+    --text-light-gray-color: #dddddd;
+    --dark-gray-color: rgb(153, 153, 153);
+    --p-font: 1rem;
+    --nav--width: 92px;
+
+    --first-color: #0c5df4;
+    --bg-color: #000000;
+    --sub-color: #b6cefc;
+    --white-color: #fff;
+}
+
+.team-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    position: relative;
+}
+
+.team-photo img {
+    width: 200px;
+    height: 150px;
+    border-radius: 20px;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+#score-value {
+    font-weight: 600;
+    font-size: 16px;
+    padding: 6px 14px;
+    border-radius: 8px;
+}
+
+thead,
+tr {
+    text-align: center;
+}
+
+select {
+    font-size: var(--p-font);
+    padding: 5px;
+    border: 1px solid var(--text-light-gray-color);
+    border-radius: 5px;
+    margin-left: auto;
+}
+
+.match--table {
+    width: 70%;
+    margin-top: 1rem;
+    margin-left: 17%;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    border-radius: 15px;
+    border-collapse: separate;
+    box-shadow: 0 0 0 1px #000000;
+}
+
+.table-head {
+    background-color: #e3eeff;
+    border-radius: 15px;
+}
+
+th {
+    padding: 20px;
+    border-bottom: 1px solid black;
+}
+
+th:first-of-type {
+    border-top-left-radius: 15px;
+}
+th:last-of-type {
+    border-top-right-radius: 15px;
+}
+
+td {
+    padding: 10px;
+}
+
+td:last-child {
+    border-top: 0;
+}
+
+.match-table caption {
+    color: var(--black-color);
+    font-weight: 600;
+    text-align: left;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--text-light-gray-color);
+}
+
+tr {
+    border-bottom: 1px solid #111;
+}
+
+/* 맨 아래 행 border-bottom 제거 */
+tr:last-child {
+    border-bottom: none;
+}
+
+.caption-content {
+    align-items: center;
+    margin-top: 3rem;
+    width: 90%;
+    margin-left: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+#sport-filter {
+    margin-left: 80%;
+}
+
+span {
+    font-weight: 600;
+    font-size: 16px;
+    padding: 6px 14px;
+    border-radius: 8px;
+}
+
+.status-button {
+    background-color: transparent;
+    border: none;
+}
+
+.status-button button {
+    margin-right: 5px;
+    padding: 7px 15px;
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.status-button button[value="accept"] {
+    background-color: #0068ff;
+    color: #fff;
+}
+
+.status-button button[value="accept"]:hover {
+    background-color: #014fc2;
+    color: #fff;
+}
+
+.status-button button[value="refuse"] {
+    background-color: #ff1200;
+    color: #fff;
+}
+
+.status-button button[value="refuse"]:hover {
+    background-color: #d31100;
+    color: #fff;
+}

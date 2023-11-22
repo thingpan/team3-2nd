@@ -8,11 +8,15 @@
   color: var(--white-color);
   padding: 1.5rem 1.5rem 2rem;
   transition: 0.5s;
-  z-index: 1001; /* 백드롭보다 위에 나타나도록 설정 */
+}
+
+span {
+  font-size: 16px;
+  padding: 6px 14px;
+  border-radius: 8px;
 }
 
 .nav {
-  height: 100%;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
@@ -41,7 +45,6 @@
   display: grid;
   grid-template-columns: max-content max-content;
   align-items: center;
-  column-gap: 0.75rem;
   padding: 0.75rem;
   color: var(--white-color);
   border-radius: 0.5rem;
@@ -62,53 +65,18 @@
   font-size: 1.25rem;
 }
 
-.nav_name {
-  font-size: var(--small-font-size);
-}
-
 .expander {
   width: calc(var(--nav--width) + 10rem);
-}
-
-.body-pd {
-  padding: 2rem 0 0 16rem;
 }
 
 .active {
   background-color: var(--first-color);
 }
 
-.collapse {
-  grid-template-columns: 20px max-content 1fr;
-}
-
-.collapse__link {
-  justify-self: flex-end;
-  transition: 0.5;
-}
-
-.collapse__menu {
-  display: none;
-  padding: 0.75rem 2.25rem;
-}
-
-.collapse__sublink {
-  color: var(--sub-color);
-  font-size: var(--small-font-size);
-}
-
-.collapse__sublink:hover {
-  color: var(--white-color);
-}
-
-.showCollapse {
-  display: block;
-}
-
 .rotate {
   transform: rotate(180deg);
   transition: 0.5s;
-} 
+}
 
 .backdrop {
   position: fixed;
@@ -123,6 +91,10 @@
 
 .backdrop.active {
   display: block; /* 토글되었을 때 보이도록 변경 */
+}
+
+.l-navbar {
+  z-index: 1001; /* 백드롭보다 위에 나타나도록 설정 */
 }
 
 .l-navbar.expander .backdrop {

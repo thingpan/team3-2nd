@@ -18,6 +18,18 @@ showMenu('nav-toggle', 'navbar', 'body-pd');
 // 내비게이션 링크 색상 변경
 const linkColor = document.querySelectorAll('.nav__link');
 
+// 페이지 로드 시 현재 URL에 해당하는 링크에 active 클래스 설정
+document.addEventListener('DOMContentLoaded', function () {
+  const currentURL = window.location.href;
+
+  linkColor.forEach(function (link) {
+    if (link.href === currentURL) {
+      link.classList.add('active');
+    }
+  });
+});
+
+// 내비게이션 링크 색상 변경 함수 업데이트
 function colorLink() {
   linkColor.forEach(function (l) {
     l.classList.remove('active');
@@ -25,6 +37,7 @@ function colorLink() {
   this.classList.add('active');
 }
 
+// 내비게이션 링크에 click 이벤트 추가
 linkColor.forEach(function (l) {
   l.addEventListener('click', colorLink);
 });
