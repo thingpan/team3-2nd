@@ -1,13 +1,3 @@
-/* 전체 영역 기본 스타일 */
-* {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	text-decoration: none;
-	list-style: none;
-	scroll-behavior: smooth;
-	font-family: 'Noto Sans KR', sans-serif;
-}
 
 /* 
 색상 설정
@@ -60,7 +50,7 @@
 
 .send-info {
 	position: sticky;
-	top: 10%;
+	top: 15%;
 	border: 1px solid var(--black-color);
 	width: 30%;
 	height: 50%;
@@ -116,48 +106,3 @@
 	text-align: center;
 }
 
-body {
-	padding-top: 140px;
-	background: var(--white-color);
-	color: var(--black-color);
-}
-
-header {
-	position: fixed;
-	top: 0;
-	right: 0;
-	width: 100%;
-	z-index: 1000;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	background: transparent;
-	padding: 30px 18%;
-	transition: ease 0.4s;
-}
-
-.logo {
-	font-size: 20px;
-	font-weight: 600;
-	letter-spacing: 1px;
-	color: var(--black-color);
-}
-
-.navbar {
-	display: flex;
-}
-
-.navbar a {
-	color: var(--black-color);
-	font-size: var(--p-font);
-	font-weight: 400;
-	padding: 10px 22px;
-	transition: ease 0.4s;
-}
-
-.navbar a:hover {
-	background: var(--white-color);
-	color: var(--black-color);
-	font-weight: 600;
-	border-radius: 4px;
-}

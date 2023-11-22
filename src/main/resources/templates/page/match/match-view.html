@@ -49,13 +49,25 @@
 			</div>
 			<div class="team-list"></div>
 			<div class="send-button">
-				<button onclick="matchRequest()">신청하기</button>
+				<button onclick="matchRequest()" class="btn btn-dark">신청하기</button>
+				<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					쪽지 보내기
+				</button>
 			</div>
 		</div>
 	</div>
+	<!-- Vertically centered modal -->
+	<div th:replace="/page/fragment/post-message-modal.html :: f-post-message-modal">
+
+	</div>
+
+
 
 
 	<script>
+
+
+
 		//선택한 팀
 		let selectedTeamNum;
 
@@ -121,11 +133,20 @@
 
 			const teamList = [team2, team3, team4, team5, team6];
 
+			document.querySelector('#exampleModalLabel').value = matchBoardInfo.taName;
+			const myModal = document.getElementById('myModal')
+			const myInput = document.getElementById('myInput')
+
+			myModal.addEventListener('shown.bs.modal', () => {
+				myInput.focus()
+				document.querySelector('#modal-body').value = 'asdasd';
+			})
+
 			document.querySelector('.select-team').innerHTML = `<img src="/imgs/${matchBoardInfo.taType}.png"></img>`;
 			document.querySelector('.team-info').value = matchBoardInfo.taNum;
 			console.log(document.querySelector('.team-info').value);
 			for (let key in matchBoardInfo) {
-				if(document.querySelector(`#${key}`) != null){
+				if (document.querySelector(`#${key}`) != null) {
 					document.querySelector(`#${key}`).innerHTML = matchBoardInfo[key];
 				}
 			}
@@ -218,16 +239,16 @@
 			console.log(selectedTeamNum);
 		}
 
-		function matchRequest(){
-			if(selectedTeamNum == undefined){
+		function matchRequest() {
+			if (selectedTeamNum == undefined) {
 				alert('팀을 선택해 주세요!');
-			}else{
+			} else {
 				alert('이미 신청된 게시물인지도 확인 해야함')
 			}
 		}
-		
-		function goTeamPage(obj){
-			location.href=`/html/team/team-view?taNum=${obj.value}`; 
+
+		function goTeamPage(obj) {
+			location.href = `/html/team/team-view?taNum=${obj.value}`;
 		}
 
 
