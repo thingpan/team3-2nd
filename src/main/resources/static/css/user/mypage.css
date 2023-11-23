@@ -7,8 +7,17 @@
 }
 
 .form-box {
-	width: 500%;
+	width: 1250%;
 	height: 100%;
+	padding: 20px;
+	border: 2px solid #ddd;
+	border-radius: 10px;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+#box2{
+	width: 100%;
+
 	padding: 20px;
 	border: 2px solid #ddd;
 	border-radius: 10px;
@@ -78,7 +87,10 @@
 	margin-right: 20px;
 }
 
-
+#team-heading{
+	
+margin-right: 280px;
+}
 
 
 
@@ -143,29 +155,21 @@
 	font-size: 10px;
 	width: 80px;
 	border-radius: 5px;
-	margin-left: 400px;
-	margin-top: 100px;
+	margin-left: 380px;
+	margin-top: 30px;
 }
 
 .first {
-	margin-left: 43%;
+    margin-left:600px ;
 	width: 30%;
 	box-sizing: border-box;
 }
 
-.second {
-	border-radius: 5px;
-	margin-right: 44%;
-	width: 30%;
-	box-sizing: border-box;
-}
 
 
 
 /* SECTION - BIRTH */
-.info#info__birth {
-	display: flex;
-}
+
 
 .info#info__birth select {
 	margin-left: 7px;
@@ -189,7 +193,9 @@
 	border-radius: 6px;
 }
 
-
+#address1{
+	margin-left:50px;
+}
 select.box {
 	height: 50px;
 	box-sizing: border-box;
@@ -278,10 +284,7 @@ input[type=button]:hover {
 }
 
 /* 데이터에 스타일 적용 */
-.edit-profile-form h4 {
-	margin: 0;
-	/* 데이터의 기본 마진 제거 */
-}
+
 
 .modal {
 	display: none;
