@@ -10,10 +10,11 @@
 		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		INSERT INTO TEAM_INFO(
 		UI_NUM, TA_NAME, TA_BOUNDARY_SIDO, TA_BOUNDARY_SIGUNGU,
-		TA_DESC,TA_TYPE
+		TA_DESC,TA_TYPE, TA_GENDER
 		) 
 		VALUES(
-		#{uiNum}, #{taName}, #{taBoundarySido},#{taBoundarySigungu}, #{taDesc},#{taType}
+		#{uiNum}, #{taName}, #{taBoundarySido},#{taBoundarySigungu}, 
+		#{taDesc},#{taType},#{taGender}
 		);
 	</insert>
 </mapper>
