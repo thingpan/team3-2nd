@@ -14,9 +14,8 @@
 
 <body>
 	<div th:replace="/page/fragment/header.html :: f-head"></div>
-	<div class="profile-container">
-		<img id="profile-preview" alt="Profile Preview" src="/imgs/profile.jpg" onclick="openProfilePopup()">
-	</div>
+	<div id="main">
+
 
 	<div class="action-buttons">
 		<div class="first">
@@ -37,40 +36,40 @@
 	<div class="team-section">
 		<h3>소속팀</h3>
 		<div class="team-buttons">
-			<button type="button" id="basketball" value="농구"><img src='/imgs/basketball.png'></button>
-			<button type="button" id="baseball" value="야구"><img src='/imgs/baseball.png'></button>
-			<button type="button" id="soccer" value="축구"><img src='/imgs/soccer.p ng'></button>
+			<img src='/imgs/basketball.png'id="basketball" value="농구">
+			<img src='/imgs/baseball.png'id="baseball" value="야구">
+		<img src='/imgs/soccer.png'id="soccer" value="축구">
 		</div>
 	</div>
 
 
-	<!-- 추가된 팀 목록을 나타낼 엘리먼트 -->
+
 	<div class="team-list"></div>
-
+ 
 	<div class="edit-profile-form" style="display: none;">
-
+  <div class="form-box">
 		<h3>내 정보</h3>
 		<p style="margin-bottom: 50px;"></p>
-		<label for="name">이름</label><br>
-		<h4 id="name"></h4><br>
+		<label for="name">이름</label>
+		<h4 id="name"></h4>
 		<p style="margin-bottom: 3px;"></p>
 
 
-		<label for="email">이메일</label><br>
-		<h4 id="email"></h4><br>
+		<label for="email">이메일</label>
+		<h4 id="email"></h4>
 		<p style="margin-bottom: 30px;"></p>
-		<label for="password">비밀번호</label><br>
-		<input type="password" id="password" name="password" placeholder="비밀번호" class="in-line"><br>
+		<label for="password">비밀번호</label>
+		<input type="password" id="password" name="password" placeholder="비밀번호" class="in-line">
 		<p style="margin-bottom: 30px;"></p>
 		<p style="margin-bottom: 30px;"></p>
-		<label for="gender">성별</label><br>
+		<label for="gender">성별</label>
 		<div class="in-line">
 			<input type="radio" id="male" name="gender" value="남자">
 			<label for="male">남자</label>
 			<input type="radio" id="female" name="gender" value="여자">
 			<label for="female">여자</label>
 		</div>
-		<label for="phone">전화번호</label><br>
+		<label for="phone">전화번호</label>
 		<input type="tel" id="phone" name="phone" placeholder="01012345678" class="in-line"><br>
 		<p style="margin-bottom: 30px;"></p>
 		<label for="year">생년월일</label><br>
@@ -91,11 +90,13 @@
 		<div class="in-line">
 			<input type="text" id="address" name="address" value="" placeholder="주소">
 			<button type="button" id="search-address" value="JOIN" onclick="openAddressSearchModal()">검색</button>
-
+</div>
 
 			<div id="search-results"></div>
 			<button type="button" id="save-profile">완료</button>
-		</div>
+		
+  </div>
+	</div>
 
 		<script>
 
@@ -181,15 +182,7 @@
 			onchange="previewProfileImage(event)">
 
 		<div id="overlay"></div>
-		<div class="modal" id="profileModal">
-			<h2>프로필 변경</h2>
-			<!-- Remove the input for newProfile URL -->
-			<!-- Add the label and input for file selection -->
-			<label for="profile-image-upload">새로운 프로필 이미지 업로드:</label>
-			<input type="file" id="profile-image-upload" accept="image/*" onchange="previewProfileImage(event)">
-			<button onclick="changeProfile()">변경</button>
-			<button onclick="closeProfilePopup()">닫기</button>
-		</div>
+	
 
 		<script>
 			function openProfilePopup() {
@@ -321,7 +314,7 @@
 
 		</script>
 
-
+</div>
 </body>
 
 </html>
