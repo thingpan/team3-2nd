@@ -31,21 +31,23 @@
 			<button id="edit-button">정보 수정</button>
 		</div>
 
-		<div id="box2">
+
 		<hr style="margin-top:20px ;">
-		<div class="team-section">
-			<h3>소속팀</h3>
-			<div class="team-buttons">
-				<img src='/imgs/basketball.png' id="basketball" value="농구">
-				<img src='/imgs/baseball.png' id="baseball" value="야구">
-				<img src='/imgs/soccer.png' id="soccer" value="축구">
+		<div id="box2">
+			<div class="team-section">
+				<h3>소속팀</h3>
+				<div class="team-buttons">
+					<img src='/imgs/basketball.png' id="basketball" value="농구">
+					<img src='/imgs/baseball.png' id="baseball" value="야구">
+					<img src='/imgs/soccer.png' id="soccer" value="축구">
+				</div>
 			</div>
+			<div class="team-list"></div>
 		</div>
-	</div>
 
 
 
-		<div class="team-list"></div>
+
 
 		<div class="edit-profile-form" style="display: none;">
 			<div class="form-box">
@@ -57,10 +59,12 @@
 				<p style="margin-bottom: 3px;"></p>
 				<label for="email">이메일</label>
 				<h4 id="email"></h4>
+				<button id="change-email-button" onclick="openChangeEmailPopup()">이메일 변경</button>
 				<hr style="margin-top:20px ;">
 				<p style="margin-bottom: 30px;"></p>
 				<label for="password">비밀번호</label>
 				<input type="password" id="password" name="password" placeholder="비밀번호" class="in-line">
+				<button id="change-password-button" onclick="openChangePasswordPopup()">비밀번호 변경</button>
 				<p style="margin-bottom: 30px;"></p>
 				<hr style="margin-top:20px ;">
 				<label for="gender">성별</label>
@@ -97,232 +101,345 @@
 
 
 				<div id="search-results"></div>
-				<button type="button" id="save-profile">완료</button>
+				<button type="button" id="save-profile" style="float: right;">완료</button>
 
 			</div>
 		</div>
 
-		<script>
-			function popup(){
-				window. open("/page/team/team-add.html", "popup01", "width=700, height=500");
-			}
+		<div id="change-email-popup"
+			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
+			<h3>이메일 변경</h3>
+			<label for="new-email">새 이메일</label>
+			<input type="email" id="new-email" name="new-email" placeholder="새 이메일 입력">
+			<button type="button" id="confirm-email-change">확인</button>
+			<button type="button" id="cancel-email-change">취소</button>
+		</div>
 
-			const profileData1 = {
-				name: '이왕균',
-				email: 'diskldffm@naver.com',
-				birthday: '1999-02-12',
-				phonenumber: '010-2222-3344',
-				password: '********',
-			};
+		<!-- 비밀번호 변경 팝업 -->
+		<div id="change-password-popup"
+			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
+			<h3>비밀번호 변경</h3>
+			<label for="current-password">현재 비밀번호</label><br>
+			<input type="password" id="current-password" name="current-password" placeholder="현재 비밀번호 입력">
+			<label for="new-password">새 비밀번호</label><br>
+			<input type="password" id="new-password" name="new-password" placeholder="새 비밀번호 입력">
+			<label for="confirm-new-password">새 비밀번호 확인</label><br>
+			<input type="password" id="confirm-new-password" name="confirm-new-password" placeholder="새 비밀번호 확인"><br>
+			<button type="button" id="confirm-password-change">확인</button><br>
+			<button type="button" id="cancel-password-change">취소</button>
+		</div>
+		<div id="change-password-popup" style="display: none;">
+			<script>
+				function openChangePasswordPopup() {
+					// Display the password change popup
+					document.getElementById('change-password-popup').style.display = 'block';
 
-			document.querySelector('h4#name').textContent = profileData1.name;
-			document.querySelector('h4#email').textContent = profileData1.email;
-			document.querySelector('#phone').textContent = profileData1.phone;
-			document.querySelector('input#password').value = profileData1.password.replace(/./g, '*');
+					// You can add additional logic here if needed
+				}
 
-			const birthYearEl = document.querySelector('#birth-year')
-			// option 목록 생성 여부 확인
-			isYearOptionExisted = false;
-			birthYearEl.addEventListener('focus', function () {
+				// Add an event listener for the cancel button in the password change popup
+				document.getElementById('cancel-password-change').addEventListener('click', function () {
+					// Close the password change popup when the cancel button is clicked
+					document.getElementById('change-password-popup').style.display = 'none';
+				});
 
-				if (!isYearOptionExisted) {
-					isYearOptionExisted = true
-					for (var i = 1940; i <= 2023; i++) {
-						// option element 생성
-						const YearOption = document.createElement('option')
-						YearOption.setAttribute('value', i)
-						YearOption.innerText = i
-						// birthYearEl의 자식 요소로 추가
-						this.appendChild(YearOption);
+				function popup() {
+					window.open("/page/team/team-add.html", "popup01", "width=700, height=500");
+				}
+
+				const profileData1 = {
+					name: '이왕균',
+					email: 'diskldffm@naver.com',
+					birthday: '1999-02-12',
+					phonenumber: '010-2222-3344',
+					password: '********',
+				};
+
+				document.querySelector('h4#name').textContent = profileData1.name;
+				document.querySelector('h4#email').textContent = profileData1.email;
+				document.querySelector('#phone').textContent = profileData1.phone;
+				document.querySelector('input#password').value = profileData1.password.replace(/./g, '*');
+
+				const birthYearEl = document.querySelector('#birth-year')
+				// option 목록 생성 여부 확인
+				isYearOptionExisted = false;
+				birthYearEl.addEventListener('focus', function () {
+
+					if (!isYearOptionExisted) {
+						isYearOptionExisted = true
+						for (var i = 1940; i <= 2023; i++) {
+							// option element 생성
+							const YearOption = document.createElement('option')
+							YearOption.setAttribute('value', i)
+							YearOption.innerText = i
+							// birthYearEl의 자식 요소로 추가
+							this.appendChild(YearOption);
+						}
+					}
+				});
+				let isMonthOptionExisted = false;
+				const birthMonthEl = document.querySelector('#birth-month');
+				birthMonthEl.addEventListener('focus', function () {
+					if (!isMonthOptionExisted) {
+						isMonthOptionExisted = true;
+						for (let i = 1; i <= 12; i++) {
+							const monthOption = document.createElement('option');
+							monthOption.setAttribute('value', i);
+							monthOption.innerText = i;
+							this.appendChild(monthOption);
+						}
+					}
+				});
+
+				// 일 목록 생성 여부 확인
+				let isDayOptionExisted = false;
+				const birthDayEl = document.querySelector('#birth-day');
+				birthDayEl.addEventListener('focus', function () {
+					if (!isDayOptionExisted) {
+						isDayOptionExisted = true;
+						for (let i = 1; i <= 31; i++) {
+							const dayOption = document.createElement('option');
+							dayOption.setAttribute('value', i);
+							dayOption.innerText = i;
+							this.appendChild(dayOption);
+						}
+					}
+				})
+
+				function profile() {
+					var image = document.getElementById('image');
+					var source = image.src;
+					window.open(source);
+				}
+
+				function openAddressSearchModal() {
+					new daum.Postcode({
+						oncomplete: function (data) {
+							const selectedAddress = data.address;
+							const searchResults = document.getElementById('search-results')
+
+							const addressInput = document.getElementById('address');
+							addressInput.value = selectedAddress;
+						}
+					}).open();
+				}
+			</script>
+
+			<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+			<div class="overlay" id="overlay"></div>
+			<input type="file" id="profile-image-upload" style="display: none" accept="image/*"
+				onchange="previewProfileImage(event)">
+
+			<div id="overlay"></div>
+
+
+			<script>
+				function openChangeEmailPopup() {
+					// Display the email change popup
+					document.getElementById('change-email-popup').style.display = 'block';
+
+					// You can add additional logic here if needed
+				}
+
+				// Add an event listener for the cancel button in the email change popup
+				document.getElementById('cancel-email-change').addEventListener('click', function () {
+					// Close the email change popup when the cancel button is clicked
+					document.getElementById('change-email-popup').style.display = 'none';
+				});
+
+				// Add an event listener for the confirm button in the email change popup
+				document.getElementById('confirm-email-change').addEventListener('click', function () {
+					// Handle the email change logic here
+					// Close the email change popup after handling the logic
+					document.getElementById('change-email-popup').style.display = 'none';
+					// You can add additional logic here if needed
+				});
+
+				function openProfilePopup() {
+					// 모달 창 열기
+					document.getElementById('overlay').style.display = 'block';
+					document.getElementById('profileModal').style.display = 'block';
+
+
+
+				}
+				function previewProfileImage(event) {
+					const input = event.target;
+					const profileImage = document.getElementById('profile-preview');
+					const file = input.files[0];
+
+					if (file) {
+						const reader = new FileReader();
+
+						reader.onload = function (e) {
+							profileImage.src = e.target.result;
+						};
+
+						reader.readAsDataURL(file);
 					}
 				}
-			});
-			let isMonthOptionExisted = false;
-			const birthMonthEl = document.querySelector('#birth-month');
-			birthMonthEl.addEventListener('focus', function () {
-				if (!isMonthOptionExisted) {
-					isMonthOptionExisted = true;
-					for (let i = 1; i <= 12; i++) {
-						const monthOption = document.createElement('option');
-						monthOption.setAttribute('value', i);
-						monthOption.innerText = i;
-						this.appendChild(monthOption);
+
+
+				function changeProfile() {
+
+					// Close the modal
+					closeProfilePopup();
+				}
+
+				function closeProfilePopup() {
+					// 모달 창 닫기
+					document.getElementById('overlay').style.display = 'none';
+					document.getElementById('profileModal').style.display = 'none';
+				}
+				// 이메일 변경 버튼 클릭 시 이벤트 리스너
+				// 이메일 변경 관련 스크립트
+				const changeEmailPopup = document.getElementById('change-email-popup');
+				const confirmEmailChangeButton = document.getElementById('confirm-email-change');
+				const cancelEmailChangeButton = document.getElementById('cancel-email-change');
+
+				confirmEmailChangeButton.addEventListener('click', function () {
+					const newEmailInput = document.getElementById('new-email');
+					const newEmail = newEmailInput.value.trim();
+
+					// 이메일 변경 로직
+					// 여기에서 서버로 변경된 이메일을 보내는 등의 로직을 추가해야 합니다.
+
+					// 성공적으로 변경되면 아래의 코드를 실행하여 팝업을 닫습니다.
+					changeEmailPopup.style.display = 'none';
+					// 이메일 변경 완료 메시지 등을 추가할 수 있습니다.
+				});
+
+				cancelEmailChangeButton.addEventListener('click', function () {
+					// 팝업을 닫을 수 있도록 처리
+					changeEmailPopup.style.display = 'none';
+				});
+
+				// 비밀번호 변경 관련 스크립트
+				const changePasswordPopup = document.getElementById('change-password-popup');
+				const confirmPasswordChangeButton = document.getElementById('confirm-password-change');
+				const cancelPasswordChangeButton = document.getElementById('cancel-password-change');
+
+				confirmPasswordChangeButton.addEventListener('click', function () {
+					const currentPasswordInput = document.getElementById('current-password');
+					const newPasswordInput = document.getElementById('new-password');
+					const confirmNewPasswordInput = document.getElementById('confirm-new-password');
+
+					const currentPassword = currentPasswordInput.value.trim();
+					const newPassword = newPasswordInput.value.trim();
+					const confirmNewPassword = confirmNewPasswordInput.value.trim();
+
+					// 비밀번호 변경 로직
+					// 여기에서 서버로 변경된 비밀번호를 보내는 등의 로직을 추가해야 합니다.
+
+					// 비밀번호 변경 성공 여부에 따라 처리
+					if (newPassword === confirmNewPassword) {
+						// 성공적으로 변경되면 아래의 코드를 실행하여 팝업을 닫습니다.
+						changePasswordPopup.style.display = 'none';
+						// 비밀번호 변경 완료 메시지 등을 추가할 수 있습니다.
+					} else {
+						// 변경 실패 시 사용자에게 알림 등을 추가할 수 있습니다.
+						alert('새 비밀번호가 일치하지 않습니다. 다시 확인해주세요.');
+					}
+				});
+
+				cancelPasswordChangeButton.addEventListener('click', function () {
+					// 팝업을 닫을 수 있도록 처리
+					changePasswordPopup.style.display = 'none';
+				});
+
+			</script>
+
+
+
+
+
+
+
+			<script>
+				const basketballButton = document.getElementById('basketball');
+				const baseballButton = document.getElementById('baseball');
+				const soccerButton = document.getElementById('soccer');
+				const teamList = document.querySelector('.team-list');
+				const editButton = document.getElementById('edit-button');
+				const editProfileForm = document.querySelector('.edit-profile-form');
+				const saveButton = document.getElementById('save-profile');
+
+				const profileData = [
+					{id: 1, image: '/imgs/basketball.png', name: '이름 1', data: "농구"},
+					{id: 2, image: '/imgs/baseball.png', name: '이름 2', data: "야구"},
+					{id: 3, image: '/imgs/soccer.png', name: '이름 3', data: "축구"},
+					{id: 4, image: '/imgs/basketball.png', name: '이름 4', data: "농구"}
+				];
+
+				// 초기화 함수
+				function initializeTeamList(selectedSport) {
+					teamList.innerHTML = '';
+
+					if (selectedSport === '') {
+						profileData.forEach(data => {
+							const team = createTeamElement(data);
+							teamList.appendChild(team);
+						});
+					} else {
+						const filteredData = profileData.filter(data => data.data === selectedSport);
+						filteredData.forEach(data => {
+							const team = createTeamElement(data);
+							teamList.appendChild(team);
+						});
 					}
 				}
-			});
 
-			// 일 목록 생성 여부 확인
-			let isDayOptionExisted = false;
-			const birthDayEl = document.querySelector('#birth-day');
-			birthDayEl.addEventListener('focus', function () {
-				if (!isDayOptionExisted) {
-					isDayOptionExisted = true;
-					for (let i = 1; i <= 31; i++) {
-						const dayOption = document.createElement('option');
-						dayOption.setAttribute('value', i);
-						dayOption.innerText = i;
-						this.appendChild(dayOption);
-					}
+				// 팀 엘리먼트 생성 함수
+				function createTeamElement(data) {
+					const team = document.createElement('div');
+					team.classList.add('team');
+
+					const imageLink = document.createElement('a');
+					imageLink.href = 'page.html?id=' + data.id;
+
+					const image = document.createElement('img');
+					image.src = data.image;
+					imageLink.appendChild(image);
+
+					const h3 = document.createElement('h3');
+					h3.textContent = data.name;
+
+					team.appendChild(imageLink);
+					team.appendChild(h3);
+
+					return team;
 				}
-			})
 
-			function profile() {
-				var image = document.getElementById('image');
-				var source = image.src;
-				window.open(source);
-			}
+				// 버튼 클릭 시 이벤트 리스너
+				basketballButton.addEventListener('click', function () {
+					initializeTeamList('농구');
+				});
 
-			function openAddressSearchModal() {
-				new daum.Postcode({
-					oncomplete: function (data) {
-						const selectedAddress = data.address;
-						const searchResults = document.getElementById('search-results')
+				baseballButton.addEventListener('click', function () {
+					initializeTeamList('야구');
+				});
 
-						const addressInput = document.getElementById('address');
-						addressInput.value = selectedAddress;
-					}
-				}).open();
-			}
-		</script>
+				soccerButton.addEventListener('click', function () {
+					initializeTeamList('축구');
+				});
 
-		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-		<div class="overlay" id="overlay"></div>
-		<input type="file" id="profile-image-upload" style="display: none" accept="image/*"
-			onchange="previewProfileImage(event)">
+				// 정보 수정 버튼 클릭 시 이벤트 리스너
+				editButton.addEventListener('click', function () {
+					editProfileForm.style.display = 'block';
+				});
 
-		<div id="overlay"></div>
+				// 완료 버튼 클릭 시 이벤트 리스너
+				saveButton.addEventListener('click', function () {
+					editProfileForm.style.display = 'none';
+				});
 
-
-		<script>
-			function openProfilePopup() {
-				// 모달 창 열기
-				document.getElementById('overlay').style.display = 'block';
-				document.getElementById('profileModal').style.display = 'block';
+				// 페이지 로드 시 초기화 함수 호출
+				initializeTeamList('');
 
 
+			</script>
 
-			}
-			function previewProfileImage(event) {
-				const input = event.target;
-				const profileImage = document.getElementById('profile-preview');
-				const file = input.files[0];
-
-				if (file) {
-					const reader = new FileReader();
-
-					reader.onload = function (e) {
-						profileImage.src = e.target.result;
-					};
-
-					reader.readAsDataURL(file);
-				}
-			}
-
-
-			function changeProfile() {
-
-				// Close the modal
-				closeProfilePopup();
-			}
-
-			function closeProfilePopup() {
-				// 모달 창 닫기
-				document.getElementById('overlay').style.display = 'none';
-				document.getElementById('profileModal').style.display = 'none';
-			}
-		</script>
-
-
-
-
-
-
-
-		<script>
-			const basketballButton = document.getElementById('basketball');
-			const baseballButton = document.getElementById('baseball');
-			const soccerButton = document.getElementById('soccer');
-			const teamList = document.querySelector('.team-list');
-			const editButton = document.getElementById('edit-button');
-			const editProfileForm = document.querySelector('.edit-profile-form');
-			const saveButton = document.getElementById('save-profile');
-
-			const profileData = [
-				{id: 1, image: '/imgs/basketball.png', name: '이름 1', data: "농구"},
-				{id: 2, image: '/imgs/baseball.png', name: '이름 2', data: "야구"},
-				{id: 3, image: '/imgs/soccer.png', name: '이름 3', data: "축구"},
-				{id: 4, image: '/imgs/basketball.png', name: '이름 4', data: "농구"}
-			];
-
-			// 초기화 함수
-			function initializeTeamList(selectedSport) {
-				teamList.innerHTML = '';
-
-				if (selectedSport === '') {
-					profileData.forEach(data => {
-						const team = createTeamElement(data);
-						teamList.appendChild(team);
-					});
-				} else {
-					const filteredData = profileData.filter(data => data.data === selectedSport);
-					filteredData.forEach(data => {
-						const team = createTeamElement(data);
-						teamList.appendChild(team);
-					});
-				}
-			}
-
-			// 팀 엘리먼트 생성 함수
-			function createTeamElement(data) {
-				const team = document.createElement('div');
-				team.classList.add('team');
-
-				const imageLink = document.createElement('a');
-				imageLink.href = 'page.html?id=' + data.id;
-
-				const image = document.createElement('img');
-				image.src = data.image;
-				imageLink.appendChild(image);
-
-				const h3 = document.createElement('h3');
-				h3.textContent = data.name;
-
-				team.appendChild(imageLink);
-				team.appendChild(h3);
-
-				return team;
-			}
-
-			// 버튼 클릭 시 이벤트 리스너
-			basketballButton.addEventListener('click', function () {
-				initializeTeamList('농구');
-			});
-
-			baseballButton.addEventListener('click', function () {
-				initializeTeamList('야구');
-			});
-
-			soccerButton.addEventListener('click', function () {
-				initializeTeamList('축구');
-			});
-
-			// 정보 수정 버튼 클릭 시 이벤트 리스너
-			editButton.addEventListener('click', function () {
-				editProfileForm.style.display = 'block';
-			});
-
-			// 완료 버튼 클릭 시 이벤트 리스너
-			saveButton.addEventListener('click', function () {
-				editProfileForm.style.display = 'none';
-			});
-
-			// 페이지 로드 시 초기화 함수 호출
-			initializeTeamList('');
-
-
-		</script>
-
-	</div>
+		</div>
 </body>
 
 </html>

@@ -7,7 +7,7 @@
 }
 
 .form-box {
-	width: 1250%;
+	width: 1300%;
 	height: 100%;
 	padding: 20px;
 	border: 2px solid #ddd;
@@ -15,7 +15,22 @@
 	background-color: #fff;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-#box2{
+
+#name,
+#email,
+#password,
+#gender,
+#phone,
+#address,
+#address1,
+#info__birth {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+
+
+#box2 {
 	width: 100%;
 
 	padding: 20px;
@@ -30,7 +45,14 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-
+#change-email-button,
+#change-password-button,
+#search-address,
+#save-profile {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+}
 
 
 .team-list {
@@ -52,6 +74,29 @@
 	justify-content: space-between;
 	align-items: center;
 	margin-top: 10px;
+}
+
+.edit-profile-form {
+	text-align: center;
+}
+
+/* Reset alignment for specific elements */
+#name-container,
+#email-container,
+#password-container,
+#gender-container,
+#phone-container,
+#address-container,
+#info__birth {
+	text-align: left;
+	margin: 10px 0;
+	/* Add some margin for spacing */
+}
+
+/* Adjustments for the entire form */
+.edit-profile-form {
+	max-width: 400px;
+	margin: 0 auto;
 }
 
 .action-buttonss {
@@ -87,9 +132,9 @@
 	margin-right: 20px;
 }
 
-#team-heading{
-	
-margin-right: 280px;
+#team-heading {
+
+	margin-right: 280px;
 }
 
 
@@ -160,7 +205,7 @@ margin-right: 280px;
 }
 
 .first {
-    margin-left:600px ;
+	margin-left: 600px;
 	width: 30%;
 	box-sizing: border-box;
 }
@@ -193,9 +238,10 @@ margin-right: 280px;
 	border-radius: 6px;
 }
 
-#address1{
-	margin-left:50px;
+#address1 {
+	margin-left: 50px;
 }
+
 select.box {
 	height: 50px;
 	box-sizing: border-box;
