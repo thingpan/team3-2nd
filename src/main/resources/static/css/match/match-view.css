@@ -106,3 +106,16 @@
 	text-align: center;
 }
 
+#post-message-textarea{
+	resize: none;
+	
+}
+
+.post-message-info{
+	text-align: center;
+	margin-bottom: 5%;
+}
+.post-message-info button{
+	margin-top: 3%;
+}
+
