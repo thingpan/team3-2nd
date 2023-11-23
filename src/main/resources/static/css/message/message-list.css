@@ -1,0 +1,62 @@
+@charset "EUC-KR";
+
+ 	#main{
+		 width:70%;
+		 margin-left: 300px;
+	 }
+    #teamList {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .teamContainer {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .teamDetails {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .teamInfo {
+      flex: 1;
+    }
+
+    .teamName {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .teamLeader {
+      font-size: 14px;
+      color: #777;
+    }
+
+    .lastMessage {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .dateTime {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .iconContainer {
+      display: flex;
+      align-items: center;
+    }
+
+    .statusIcon {
+      margin-left: 10px;
+      font-size: 16px;
+      color: #007bff;
+    }

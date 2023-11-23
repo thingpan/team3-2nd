@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쪽지 보내기</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="/css/message/message.css">
+</head>
+
+<body>
+<div th:replace="/page/fragment/header.html :: f-head"></div>
+<div id="main">
+  <div id="chatContainer">
+    <div class="teamName">팀 이름</div>
+
+    <div class="messageContainer">
+      <div class="messageContent">
+        안녕하세요!
+        <div class="messageDetails">
+          <div class="senderInfo">보낸쪽지</div>
+          <div class="dateTime">2023-11-22 15:30</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="messageContainer">
+      <div class="messageContent">
+        안녕하세요! 어떤 일로 오셨나요?
+        <div class="messageDetails">
+          <div class="senderInfo">받은쪽지</div>
+          <div class="dateTime">2023-11-22 15:35</div>
+        </div>
+      </div>
+    </div>
+
+    <i id="sendMessageBtn" class="fas fa-paper-plane"></i>
+
+  
+   	<div class="modal" tabindex="-1" id="post-message-modal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">쪽지보내기</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div>
+						<span>보내는 팀 : </span><span id="post-message-taName"></span>
+					</div>
+					<hr>
+					<div>
+						<span>받는 팀 : </span><span id="post-message-oponentName"></span>
+					</div>
+					<hr>
+					<div>
+						<p>보낼 내용</p>
+						<textarea class="form-control" id="post-message-textarea" cols="30" rows="15"></textarea>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-dark" onclick="sendPostMessage()">보내기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+    </div>
+  </div>
+
+ <script>
+  const sendMessageBtn = document.getElementById('sendMessageBtn');
+  const postMessageModal = new bootstrap.Modal(document.getElementById('post-message-modal'), {
+    keyboard: false
+  });
+
+  sendMessageBtn.addEventListener('click', () => {
+
+    const teamName = "팀 이름"; 
+    const opponentName = "상대방 팀"; 
+
+    // 팝업에 팀 정보 설정
+    document.getElementById('post-message-taName').textContent = teamName;
+    document.getElementById('post-message-oponentName').textContent = opponentName;
+
+    // 팝업 열기
+    postMessageModal.show();
+  });
+
+
+  function sendPostMessage() {
+ 
+    const messageContent = document.getElementById('post-message-textarea').value;
+
+ 
+    const currentTime = new Date();
+    const formattedTime = `${currentTime.getFullYear()}-${(currentTime.getMonth() + 1).toString().padStart(2, '0')}-${currentTime.getDate().toString().padStart(2, '0')} ${currentTime.getHours().toString().padStart(2, '0')}:${currentTime.getMinutes().toString().padStart(2, '0')}`;
+
+
+    const senderInfo = '보낸쪽지';
+    const dateTime = formattedTime;
+    const senderDetails = `${senderInfo} ${dateTime}`;
+
+   
+    const messageContainer = document.createElement('div');
+    messageContainer.classList.add('messageContainer');
+
+    const messageContentDiv = document.createElement('div');
+    messageContentDiv.classList.add('messageContent');
+    messageContentDiv.textContent = messageContent;
+
+    const messageDetails = document.createElement('div');
+    messageDetails.classList.add('messageDetails');
+    messageDetails.textContent = senderDetails;
+
+    messageContentDiv.appendChild(messageDetails);
+    messageContainer.appendChild(messageContentDiv);
+
+    document.getElementById('chatContainer').appendChild(messageContainer);
+
+    postMessageModal.hide();
+  }
+</script>
+
+  </script>
+
+</body>
+
+</html>

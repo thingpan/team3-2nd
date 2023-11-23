@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쪽지</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="/css/message/message-list.css">
+
+</head>
+<body>
+<div th:replace="/page/fragment/header.html :: f-head"></div>
+<div id="main">
+	
+  <div id="teamList">
+    <h2>쪽지<h2>
+    <div class="teamContainer">
+      <div class="teamDetails">
+        <div class="teamInfo">
+          <div class="teamName">팀 A</div>
+          <div class="teamLeader">팀 리더: 리더 A</div>
+          <div class="lastMessage">마지막 내용: 안녕하세요!</div>
+        </div>
+        <div class="iconContainer">
+          <div class="dateTime">2023-11-22 15:30</div>
+          <i class="fas fa-eye statusIcon" title="열람됨"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="teamContainer">
+      <div class="teamDetails">
+        <div class="teamInfo">
+          <div class="teamName">팀 B</div>
+          <div class="teamLeader">팀 리더: 리더 B</div>
+          <div class="lastMessage">마지막 내용: 어떤 일로 오셨나요?</div>
+        </div>
+        <div class="iconContainer">
+          <div class="dateTime">2023-11-22 15:35</div>
+          <i class="fas fa-eye-slash statusIcon" title="열람되지 않음"></i>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
