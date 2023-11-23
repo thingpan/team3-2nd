@@ -81,7 +81,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-dark">보내기</button>
+					<button type="button" class="btn btn-dark" onclick="sendPostMessage()">보내기</button>
 				</div>
 			</div>
 		</div>
@@ -280,7 +280,13 @@
 		function goTeamPage(obj) {
 			location.href = `/html/team/team-view?taNum=${obj.value}`;
 		}
-
+		
+		//쪽지 보내기
+		async function sendPostMessage(){
+			const param ={
+				
+			}
+		}
 
 	</script>
 </body>
