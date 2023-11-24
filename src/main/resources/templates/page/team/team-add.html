@@ -17,69 +17,69 @@
 
 
 	<h3 id="team-heading">팀만들기</h3>
-	<div id ="main">
-	<section id="team-section">
+	<div id="main">
+		<section id="team-section">
 
-		<div id="profile-container">
-			<img id="profile-preview" alt="프로필 이미지" src="/imgs/basketball.png">
-			<button id="change-photo-button" onclick="openProfilePopup()">사진 첨부</button>
-		</div>
-
-		<!-- 프로필 모달 -->
-		<div id="photo-modal" class="modal">
-			<div class="modal-content">
-				<span class="close" onclick="closeProfilePopup()">&times;</span>
-				<h3>프로필 사진 변경</h3>
-				<input type="file" id="profile-image-input" accept="image/*" onchange="previewProfileImage(this)">
-
-				<!-- Image preview container -->
-				<div id="image-preview-container">
-					<img id="image-preview" alt="프로필 이미지 미리보기" src="">
-				</div>
-				<button type="button" id="change-profile-button" onclick="applyProfileChange()">프로필 변경</button>
-
+			<div id="profile-container">
+				<img id="profile-preview" alt="프로필 이미지" src="/imgs/basketball.png">
+				<button id="change-photo-button" onclick="openProfilePopup()">사진 첨부</button>
 			</div>
-		</div>
 
-		<!-- 팀 정보 입력 폼 -->
-		<div class="form1">
-			<select id="sport-select">
-				<option value="">종목</option>
-				<option value="농구">농구</option>
-				<option value="야구">야구</option>
-				<option value="축구">축구</option>
-			</select>
+			<!-- 프로필 모달 -->
+			<div id="photo-modal" class="modal">
+				<div class="modal-content">
+					<span class="close" onclick="closeProfilePopup()">&times;</span>
+					<h3>프로필 사진 변경</h3>
+					<input type="file" id="profile-image-input" accept="image/*" onchange="previewProfileImage(this)">
 
-			<div class="location-section">
-				<div id="location-buttons">
-					<button onclick="showLocationSelects()">지역</button>
-				</div>
+					<!-- Image preview container -->
+					<div id="image-preview-container">
+						<img id="image-preview" alt="프로필 이미지 미리보기" src="">
+					</div>
+					<button type="button" id="change-profile-button" onclick="applyProfileChange()">프로필 변경</button>
 
-				<div id="location-selects" style="display: none;">
-					<select id="sido" class="filter-select" onchange="makeSigungu()">
-						<option>시/도</option>
-					</select>
-					<select id="sigungu" class="filter-select" onchange="updateSchedule()">
-						<option>시/군/구</option>
-					</select>
 				</div>
 			</div>
 
-			<div id="team-name">
-				<label for="team-name-input">팀 이름</label>
-				<input type="text" id="team-name-input" placeholder="팀 이름을 입력하세요">
-			</div>
+			<!-- 팀 정보 입력 폼 -->
+			<div class="form1">
+				<select id="sport-select">
+					<option value="">종목</option>
+					<option value="농구">농구</option>
+					<option value="야구">야구</option>
+					<option value="축구">축구</option>
+				</select>
 
-			<div id="team-intro">
-				<label for="team-intro-input">팀 소개</label>
-				<textarea id="team-intro-input" placeholder="팀 소개를 입력하세요"></textarea>
-				<div id="c-button-section">
-					<button id="complete-button" onclick="completeSetup()">완료</button>
+				<div class="location-section">
+					<div id="location-buttons">
+						<button onclick="showLocationSelects()">지역</button>
+					</div>
+
+					<div id="location-selects" style="display: none;">
+						<select id="sido" class="filter-select" onchange="makeSigungu()">
+							<option>시/도</option>
+						</select>
+						<select id="sigungu" class="filter-select" onchange="updateSchedule()">
+							<option>시/군/구</option>
+						</select>
+					</div>
 				</div>
-			</div>
 
-		</div>
-		</div>
+				<div id="team-name">
+					<label for="team-name-input">팀 이름</label>
+					<input type="text" id="team-name-input" placeholder="팀 이름을 입력하세요">
+				</div>
+
+				<div id="team-intro">
+					<label for="team-intro-input">팀 소개</label>
+					<textarea id="team-intro-input" placeholder="팀 소개를 입력하세요"></textarea>
+					<div id="c-button-section">
+						<button id="complete-button" onclick="completeSetup()">완료</button>
+					</div>
+				</div>
+
+			</div>
+	</div>
 	</section>
 	<script type="module">
 		// 시/도 옵션 추가
@@ -152,18 +152,26 @@
 			const selectedSigungu = document.querySelector('#sigungu').value;
 			const teamName = document.querySelector('#team-name-input').value;
 			const teamIntro = document.querySelector('#team-intro-input').value;
-
+			const inputFile = document.querySelector('#profile-image-input');
+			const taGender = 'A';
 			const formData = new FormData();
-			formData.append('sport', selectedSport);
-			formData.append('sido', selectedSido);
-			formData.append('sigungu', selectedSigungu);
-			formData.append('name', teamName);
-			formData.append('intro', teamIntro);
+			formData.append('taType', selectedSport);
+			formData.append('taBoundarySido', selectedSido);
+			formData.append('taBoundarySigungu', selectedSigungu);
+			formData.append('taName', teamName);
+			formData.append('taDesc', teamIntro);
+			formData.append('taGender', taGender);
+
+			if (inputFile.files.length) {
+				const file = inputFile.files[0];
+				formData.append('file', file);
+			}
 
 			try {
-				const res = await fetch('/your-server-endpoint', {
+				const res = await fetch('/team-add', {
 					method: 'POST',
 					body: formData
+
 				});
 
 				if (res.ok) {

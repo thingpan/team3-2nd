@@ -48,8 +48,8 @@
 			<div class="select-team">
 			</div>
 			<div class="team-list"></div>
-			<div class="send-button">
-				<button onclick="matchRequest()" class="btn btn-dark">신청하기</button>
+			<div class="send-button" id="send-button">
+				
 			</div>
 			<div class="post-message-info" id="post-message-info">
 
@@ -256,6 +256,8 @@
 		
 		//쪽지 보내기 div 생성
 		function doMakePostMessageDiv() {
+			document.querySelector('#send-button').innerHTML = null;
+			document.querySelector('#send-button').innerHTML = `<button onclick="matchRequest()" class="btn btn-dark">신청하기</button>`;
 			document.querySelector('#post-message-info').innerHTML = null;
 			document.querySelector('#post-message-info').innerHTML += `
 			<hr><div>
