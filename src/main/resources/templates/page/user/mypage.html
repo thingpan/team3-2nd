@@ -14,12 +14,13 @@
 
 <body>
 	<div th:replace="/page/fragment/header.html :: f-head"></div>
+
 	<div id="main">
 
 
-
+			<h2 id="username" ></h2>
+	<p style ="margin-bottom:30px"></p>
 		<div class="first">
-
 
 
 			<button id="logout-button">로그아웃</button>
@@ -52,57 +53,49 @@
 		<div class="edit-profile-form" style="display: none;">
 			<div class="form-box">
 				<h3>내 정보</h3>
+
 				<p style="margin-bottom: 50px;"></p>
 				<label for="name">이름</label>
-				<h4 id="name"></h4>
-				<hr style="margin-top:20px ;">
-				<p style="margin-bottom: 3px;"></p>
-				<label for="email">이메일</label>
-				<h4 id="email"></h4>
-				<button id="change-email-button" onclick="openChangeEmailPopup()">이메일 변경</button>
-				<hr style="margin-top:20px ;">
-				<p style="margin-bottom: 30px;"></p>
-				<label for="password">비밀번호</label>
-				<input type="password" id="password" name="password" placeholder="비밀번호" class="in-line">
-				<button id="change-password-button" onclick="openChangePasswordPopup()">비밀번호 변경</button>
-				<p style="margin-bottom: 30px;"></p>
-				<hr style="margin-top:20px ;">
-				<label for="gender">성별</label>
+				<h6 id="name" ></h6>
+				<hr>
+				</hr>
 
-				<input type="radio" id="male" name="gender" value="남자">
-				<label for="male">남자</label>
-				<input type="radio" id="female" name="gender" value="여자">
-				<label for="female">여자</label>
-				<hr style="margin-top:20px ;">
-				<label for="phone">전화번호</label>
-				<input type="text" id="phone" name="phone" placeholder="01012345678" class="in-line">
-				<hr style="margin-top:20px ;">
-				<p style="margin-bottom: 30px;"></p>
-				<label for="year">생년월일</label>
-				<div class="info" id="info__birth">
-					<select class="box" id="birth-year">
-						<option disabled selected>년도</option>
-					</select>
-					<select class="box" id="birth-month">
-						<option disabled selected>월</option>
-					</select>
-					<select class="box" id="birth-day">
-						<option disabled selected>일</option>
-					</select>
+				<label for="email">이메일</label>
+				<h6 id="email"></h6>
+				<button id="change-email-button" onclick="openChangeEmailPopup()">이메일 변경</button>
+				<hr>
+				</hr>
+
+				<label for="password">비밀번호</label>
+				<input type="password" id="password" name="password" placeholder="비밀번호">
+				<button id="change-password-button" onclick="openChangePasswordPopup()">비밀번호 변경</button>
+
+				<hr>
+				</hr>
+				<label for="gender">성별</label>
+				<div id="sex">
+					<input type="radio" id="male" name="gender" value="남자">
+					<label for="male">남자</label>
+					<input type="radio" id="female" name="gender" value="여자">
+					<label for="female">여자</label>
 				</div>
-				<hr style="margin-top:20px ;">
-				<p style="margin-bottom: 30px;"></p>
+				<hr>
+				</hr>
+				<label for="phone">전화번호</label>
+				<input type="text" id="phone" placeholder="01012345678" >
+				<hr>
+				</hr>
+
+				<label for="year">생년월일</label>
+				<input type="text" id="date" name="date">
+				<hr>
+				</hr>
 				<label for="address">주소</label>
 
 				<input type="text" id="address" name="address" value="" placeholder="주소">
 				<button type="button" id="search-address" value="JOIN" onclick="openAddressSearchModal()">검색</button>
-				<input type="text" id="address1" name="address1" value="" placeholder="상세주소">
-				<hr style="margin-top:20px ;">
-
-
-				<div id="search-results"></div>
-				<button type="button" id="save-profile" style="float: right;">완료</button>
-
+				<hr>
+				<button type="button" id="save-profile">완료</button>
 			</div>
 		</div>
 
@@ -119,27 +112,28 @@
 		<div id="change-password-popup"
 			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
 			<h3>비밀번호 변경</h3>
-			<label for="current-password">현재 비밀번호</label><br>
-			<input type="password" id="current-password" name="current-password" placeholder="현재 비밀번호 입력">
-			<label for="new-password">새 비밀번호</label><br>
-			<input type="password" id="new-password" name="new-password" placeholder="새 비밀번호 입력">
-			<label for="confirm-new-password">새 비밀번호 확인</label><br>
-			<input type="password" id="confirm-new-password" name="confirm-new-password" placeholder="새 비밀번호 확인"><br>
-			<button type="button" id="confirm-password-change">확인</button><br>
+
+			<input type="password" id="current-password" name="current-password" placeholder="현재 비밀번호 입력"> <label
+				for="current-password">현재 비밀번호</label><br>
+			<input type="password" id="new-password" name="new-password" placeholder="새 비밀번호 입력"> <label
+				for="new-password">새 비밀번호</label> <br>
+			<input type="password" id="confirm-new-password" name="confirm-new-password" placeholder="새 비밀번호 확인"> <label
+				for="confirm-new-password">새 비밀번호 확인</label><br>
+			<button type="button" id="confirm-password-change">확인</button>
 			<button type="button" id="cancel-password-change">취소</button>
 		</div>
 		<div id="change-password-popup" style="display: none;">
 			<script>
+
 				function openChangePasswordPopup() {
-					// Display the password change popup
+
 					document.getElementById('change-password-popup').style.display = 'block';
 
-					// You can add additional logic here if needed
 				}
 
-				// Add an event listener for the cancel button in the password change popup
+
 				document.getElementById('cancel-password-change').addEventListener('click', function () {
-					// Close the password change popup when the cancel button is clicked
+
 					document.getElementById('change-password-popup').style.display = 'none';
 				});
 
@@ -150,13 +144,20 @@
 				const profileData1 = {
 					name: '이왕균',
 					email: 'diskldffm@naver.com',
-					birthday: '1999-02-12',
-					phonenumber: '010-2222-3344',
+					birthday: '1999.02.12',
+					phone: '010-2222-3344',
 					password: '********',
 				};
+				const userNameElement = document.getElementById('username');
+				userNameElement.textContent = ` ${profileData1.name}님`;
+				const birthdateInput = document.getElementById('date');
+				const phoneInput = document.getElementById('phone');
 
-				document.querySelector('h4#name').textContent = profileData1.name;
-				document.querySelector('h4#email').textContent = profileData1.email;
+				// Display user's birthdate and phone number in the form
+				birthdateInput.value = profileData1.birthday;
+				phoneInput.value = profileData1.phone;
+				document.querySelector('h6#name').textContent = profileData1.name;
+				document.querySelector('h6#email').textContent = profileData1.email;
 				document.querySelector('#phone').textContent = profileData1.phone;
 				document.querySelector('input#password').value = profileData1.password.replace(/./g, '*');
 
@@ -217,7 +218,6 @@
 						oncomplete: function (data) {
 							const selectedAddress = data.address;
 							const searchResults = document.getElementById('search-results')
-
 							const addressInput = document.getElementById('address');
 							addressInput.value = selectedAddress;
 						}
@@ -235,33 +235,29 @@
 
 			<script>
 				function openChangeEmailPopup() {
-					// Display the email change popup
+				
 					document.getElementById('change-email-popup').style.display = 'block';
 
-					// You can add additional logic here if needed
+			
 				}
 
-				// Add an event listener for the cancel button in the email change popup
+
 				document.getElementById('cancel-email-change').addEventListener('click', function () {
-					// Close the email change popup when the cancel button is clicked
+				
 					document.getElementById('change-email-popup').style.display = 'none';
 				});
 
-				// Add an event listener for the confirm button in the email change popup
+			
 				document.getElementById('confirm-email-change').addEventListener('click', function () {
-					// Handle the email change logic here
-					// Close the email change popup after handling the logic
+				
 					document.getElementById('change-email-popup').style.display = 'none';
-					// You can add additional logic here if needed
+				
 				});
 
 				function openProfilePopup() {
 					// 모달 창 열기
 					document.getElementById('overlay').style.display = 'block';
 					document.getElementById('profileModal').style.display = 'block';
-
-
-
 				}
 				function previewProfileImage(event) {
 					const input = event.target;
@@ -291,8 +287,7 @@
 					document.getElementById('overlay').style.display = 'none';
 					document.getElementById('profileModal').style.display = 'none';
 				}
-				// 이메일 변경 버튼 클릭 시 이벤트 리스너
-				// 이메일 변경 관련 스크립트
+
 				const changeEmailPopup = document.getElementById('change-email-popup');
 				const confirmEmailChangeButton = document.getElementById('confirm-email-change');
 				const cancelEmailChangeButton = document.getElementById('cancel-email-change');
@@ -301,10 +296,7 @@
 					const newEmailInput = document.getElementById('new-email');
 					const newEmail = newEmailInput.value.trim();
 
-					// 이메일 변경 로직
-					// 여기에서 서버로 변경된 이메일을 보내는 등의 로직을 추가해야 합니다.
 
-					// 성공적으로 변경되면 아래의 코드를 실행하여 팝업을 닫습니다.
 					changeEmailPopup.style.display = 'none';
 					// 이메일 변경 완료 메시지 등을 추가할 수 있습니다.
 				});
@@ -328,16 +320,12 @@
 					const newPassword = newPasswordInput.value.trim();
 					const confirmNewPassword = confirmNewPasswordInput.value.trim();
 
-					// 비밀번호 변경 로직
-					// 여기에서 서버로 변경된 비밀번호를 보내는 등의 로직을 추가해야 합니다.
-
-					// 비밀번호 변경 성공 여부에 따라 처리
 					if (newPassword === confirmNewPassword) {
-						// 성공적으로 변경되면 아래의 코드를 실행하여 팝업을 닫습니다.
+
 						changePasswordPopup.style.display = 'none';
-						// 비밀번호 변경 완료 메시지 등을 추가할 수 있습니다.
+
 					} else {
-						// 변경 실패 시 사용자에게 알림 등을 추가할 수 있습니다.
+
 						alert('새 비밀번호가 일치하지 않습니다. 다시 확인해주세요.');
 					}
 				});

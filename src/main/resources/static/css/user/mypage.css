@@ -7,26 +7,76 @@
 }
 
 .form-box {
-	width: 1300%;
-	height: 100%;
+	width: 1269%;
+	margin-right: 510px;
 	padding: 20px;
 	border: 2px solid #ddd;
 	border-radius: 10px;
+	margin-left:-585px;
 	background-color: #fff;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#name,
-#email,
-#password,
+#username {
+	margin-left: 560px;
+}
+
+#date,
 #gender,
 #phone,
-#address,
-#address1,
 #info__birth {
-	display: block;
+	display: inline-block;
 	margin: 0 auto;
+	border: 0 solid white;
+    margin-left: 60px;
+
+}
+#address{
+	display: inline-block;
+	width:280px;
+	margin: 0 auto;
+	border: 0 solid white;
+ margin-left:100px;
+}
+
+
+#password {
+	display: inline-block;
+	margin: 0 auto;
+	margin-left:70px;
+	width:100px;
+	border: 0 solid white;
+
+}
+
+#name {
+	display: inline-block;
+	margin: 0 auto;
+	margin-left: 100px;
+	text-align: cetneter;
+	border: 0 solid white;
 	text-align: center;
+
+}
+
+#email {
+	display: inline-block;
+	margin: 0 auto;
+	margin-left: 90px;
+	text-align: cetneter;
+	border: 0 solid white;
+	text-align: center;
+
+}
+
+#sex {
+	display: inline-block;
+	margin: 0 auto;
+	margin-left: 100px;
+	text-align: cetneter;
+	border: 0 solid white;
+	text-align: center;
+
 }
 
 
@@ -45,13 +95,50 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-#change-email-button,
-#change-password-button,
-#search-address,
-#save-profile {
-    display: block;
-    margin-left: auto;
-    margin-right: 0;
+
+#change-email-button
+{
+	display: inline-block;
+	margin-left:76px;
+	padding: 10px 15px;
+	background-color: #000000f5;
+	color: #fff;
+	width: 130px;
+	height: 40px;
+	border: none;
+	margin-top:-10px;
+	font-size: 15px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 5px;
+}
+#change-password-button{
+	display: inline-block;	
+	padding: 10px 15px;
+	background-color: #000000f5;
+	color: #fff;
+	width: 130px;
+	height: 40px;
+	border: none;
+	margin-left:135px;
+	margin-top:-10px;
+	font-size: 15px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 5px;
+}
+#search-address {
+	
+	padding: 10px 15px;
+	background-color: #000000f5;
+	color: #fff;
+	width: 80px;
+	height: 40px;
+	border: none;
+	font-size: 15px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 5px;
 }
 
 
@@ -81,17 +168,7 @@
 }
 
 /* Reset alignment for specific elements */
-#name-container,
-#email-container,
-#password-container,
-#gender-container,
-#phone-container,
-#address-container,
-#info__birth {
-	text-align: left;
-	margin: 10px 0;
-	/* Add some margin for spacing */
-}
+
 
 /* Adjustments for the entire form */
 .edit-profile-form {
@@ -179,10 +256,8 @@
 	/* 텍스트를 왼쪽 정렬 */
 	width: 100px;
 	/* 폼의 너비를 조절, 필요에 따라 조절 가능 */
-	margin-right: auto;
+
 	/* 오른쪽 여백을 최대로 설정하여 왼쪽으로 정렬 */
-	margin-left: 10px;
-	/* 왼쪽 여백을 추가하여 왼쪽 끝에 배치 */
 	margin-top: 20px;
 }
 
@@ -197,15 +272,25 @@
 
 #save-profile {
 	padding: 10px 15px;
-	font-size: 10px;
+	font-size: 7px;
 	width: 80px;
 	border-radius: 5px;
-	margin-left: 380px;
+	margin-left: 1137px;
 	margin-top: 30px;
+		display: inline-block;
+	padding: 10px 15px;
+	background-color: #000000f5;
+	color: #fff;
+	height: 40px;
+	border: none;
+	font-size: 15px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 5px;
 }
 
 .first {
-	margin-left: 600px;
+	margin-left: 50px;
 	width: 30%;
 	box-sizing: border-box;
 }
@@ -238,9 +323,7 @@
 	border-radius: 6px;
 }
 
-#address1 {
-	margin-left: 50px;
-}
+
 
 select.box {
 	height: 50px;
@@ -310,7 +393,7 @@ input[type=button]:hover {
 }
 
 /* 각 레이블과 데이터 묶음 간 간격을 조절 */
-.edit-profile-form .info {
+.edit-profile-form.info {
 	margin-bottom: 20px;
 	/* 간격 조절 */
 }
@@ -347,9 +430,7 @@ input[type=button]:hover {
 	text-align: center;
 }
 
-.modal h2 {
-	margin-bottom: 20px;
-}
+
 
 .modal label {
 	display: block;
@@ -383,16 +464,18 @@ input[type=button]:hover {
 }
 
 #logout-button {
+
 	background-color: #000000f5;
 	color: #fff;
+	margin-left:520px;
+	width: 100px;
+	height: 35px;
 	border: none;
-	height: 30px;
-	width: 60px;
-	font-size: 10px;
+	font-size: 15px;
 	border-radius: 5px;
-	margin-right: 50px;
-	;
 	cursor: pointer;
+
+
 }
 
 #create-team-button {
