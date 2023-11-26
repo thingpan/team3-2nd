@@ -1,197 +1,149 @@
 @charset "EUC-KR";
-
-#box {
-width: 1000%;
-  margin-right: 1000px;
-  height:outo;
-  margin-top:150px;
-  padding: 20px;
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 550px;
-  box-sizing: border-box;
-  position: relative;
-}
-
-#main {
-	width: 70%;
-	margin-left: 300px;
-}
-
-#teamList {
-	max-width: 600px;
-	margin: 0 auto;
-	padding: 20px;
-	box-sizing: border-box;
-}
-
-.teamContainer {
-	margin-bottom: 20px;
-	padding: 15px;
-	background-color: #f9f9f9;
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	position: relative;
-}
-
-.teamDetails {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.teamInfo {
-	flex: 1;
-}
-
-.teamName {
-	font-size: 18px;
-	font-weight: bold;
-}
-
-.teamLeader {
-	font-size: 14px;
-	color: #777;
-}
-
-.lastMessage {
-	margin-top: 10px;
-	font-size: 14px;
-}
-
-
-
-.iconContainer {
-	display: flex;
-	align-items: center;
-}
-
-.statusIcon {
-	margin-left: 10px;
-	font-size: 16px;
-	color: #007bff;
-}
-#chatContainer {
-  width: 500%;
-  margin-left:570px;
-  margin-top: -405px;;
-  height: 100%;
-  padding: 20px;
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 550px;
-  box-sizing: border-box;
-  position: relative;
-}
-
-
-.messageContainer {
-	margin-bottom: 10px;
-	position: relative;
-}
-
-.messageContent {
-	position: relative;
-	padding: 10px;
-	background-color: #f9f9f9;
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	word-wrap: break-word;
-}
-
-
-
-.senderInfo {
-	font-size: 10px;
-	color: #777;
-	top: 0;
-	margin-bottom: 5px;
-}
-
-.dateTime {
-	font-size: 10px;
-	 order: 10;
-	color: #999;
-	position: absolute;
-	right: 0;
-	/* Positioned on the top right */
-}
-
-
-
-
-
-.teamName {
-	text-align: center;
-	font-size: 18px;
-	font-weight: bold;
-	margin-bottom: 20px;
-}
-
-#sendMessageBtn {
-	cursor: pointer;
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	font-size: 20px;
-	color: #007bff;
-}
-
-#messagePopup {
-	display: none;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	padding: 20px;
-	background-color: #fff;
-	border: 1px solid #ccc;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	z-index: 9999;
-	max-width: 400px;
-	width: 100%;
-}
-
-#messagePopup textarea {
-	width: 100%;
-	box-sizing: border-box;
-	margin-bottom: 10px;
-}
-
-#sendPopupBtn,
-#closePopupBtn {
-	padding: 10px;
-	cursor: pointer;
-}
-.messageDetails {
+	 #verticalLine {
+    width: 2px;
+    background-color: #ddd;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 0;
+  }
+  #box {
     display: flex;
-    justify-content: space-between;
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+       border-bottom: 1px solid #ddd;
   }
 
+  #teamList {
+    flex: 1;
+    max-width: 600px;
+    padding: 20px;
+    box-sizing: border-box;
+  }
 
+  #chatContainer {
+    flex: 1;
+    margin-left: 20px;
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
 
-#sendPopupBtn {
-	background-color: #007bff;
-	color: #fff;
-	border: none;
-}
+  #main {
+    width: 70%;
+    margin-left: 300px;
+  }
 
-#closePopupBtn {
-	background-color: #dc3545;
-	color: #fff;
-	border: none;
-}
+  .teamContainer {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    position: relative;
+  }
 
-.form-box {
-	width: 1250%;
-	height: 100%;
-	padding: 20px;
-	border: 2px solid #ddd;
-	border-radius: 10px;
-	background-color: #fff;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+  .teamDetails {
+    margin-bottom: 10px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .teamInfo {
+    margin-bottom: 10px;
+  }
+
+  .teamName {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .teamLeader {
+    font-size: 14px;
+    color: #777;
+  }
+
+  .lastMessage {
+    font-size: 14px;
+  }
+
+  .iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* 아이콘을 오른쪽 끝으로 정렬 */
+  }
+
+  .statusIcon {
+    margin-left: 10px;
+    font-size: 16px;
+    margin-top:-100px;
+    color: #007bff;
+  }
+
+  #messageContainer {
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .messageContent {
+    position: relative;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    word-wrap: break-word;
+    margin-bottom: 10px;
+  }
+
+  .messageDetails {
+    display: flex;
+    justify-content: space-between; /* 오른쪽 끝 아래로 정렬 */
+  }
+
+  .senderInfo {
+    font-size: 10px;
+    color: #777;
+    margin-bottom: 5px;
+  }
+
+  .dateTime {
+    font-size: 10px;
+    color: #999;
+     margin-left: auto;
+  }
+
+  .teamName {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  #sendMessageBtn {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: #007bff;
+  }
+
+  .modal {
+    /* 모달 스타일은 필요에 따라 수정하세요. */
+  }
+
+  .teamContainer:hover, .teamDetails:hover {
+    background-color: #e8e8e8;
+  }
