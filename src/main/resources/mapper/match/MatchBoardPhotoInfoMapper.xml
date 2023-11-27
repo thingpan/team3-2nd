@@ -7,7 +7,7 @@
 		parameterType="com.sp.team32ndproject.match.vo.MatchBoardPhotoInfoVO">
 		INSERT INTO MATCH_BOARD_PHOTO_INFO(MB_NUM,
 		MBP_FILE_NAME, MBP_FILE_PATH)
-		VALUE(#{MB_NUM}, #{MBP_FILE_NAME}, #{MBP_FILE_PATH})
+		VALUE(#{mbNum}, #{mbpFileName}, #{mbpFilePath})
 	</insert>
 
 </mapper>
