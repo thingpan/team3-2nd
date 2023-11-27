@@ -30,8 +30,9 @@ mybatis:
     map-underscore-to-camel-case : true
     
 upload:
-  file-path: C:\dev\upload
+  file-path: C:\dev\upload\
+    
   
-download: 
-  file-path: file:///dev/upload/
-  resource-url: /file/**
+#download: 
+#  file-path: file:///dev/upload/
+#  resource-url: /file/**

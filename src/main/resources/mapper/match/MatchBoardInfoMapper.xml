@@ -9,7 +9,7 @@
 		MB_SIDO,MB_SIGUNGU,MB_TIME,MB_DATE,
 		MB_CREDAT,MB_DESC,MB_PAY,MB_TYPE)
 		VALUES(#{taNum},#{mbAddress},#{mbAddressDetail},#{mbMapX},#{mbMapY},
-		#{mbSido},#{mbSigungu},#{mbTime},'#{mbDate}',
-		DATE_FORMAT(NOW(),'%Y%m%d'),#{mbDesc},#{mbPay},#{mbType});
+		#{mbSido},#{mbSigungu},#{mbTime},#{mbDate},
+		DATE_FORMAT(NOW(),'%Y%m%d'),#{mbDesc},#{mbPay},#{mbType}); 
 	</insert>
 </mapper>
