@@ -19,14 +19,14 @@
       <div id="teamList">
         <h2>쪽지 리스트</h2>
         <div id="teamContainer">
-          <!-- 팀 목록이 여기에 동적으로 생성될 것입니다. -->
+ 
         </div>
       </div>
   <div id="verticalLine"></div>
       <div id="chatContainer">
         <div class="teamName" id="selectedTeamName">팀 이름</div>
         <div id="messageContainer">
-          <!-- 채팅 내용이 여기에 동적으로 생성될 것입니다. -->
+      
         </div>
         <i id="sendMessageBtn" class="fas fa-paper-plane"></i>
 
@@ -85,18 +85,24 @@
       { teamName: "팀 B", teamLeader: "리더 B", lastMessage: "어떤 일로 오셨나요?", dateTime: "2023-11-22 15:35", readStatus: false },
       // 추가적인 목데이터 아이템을 필요에 따라 추가
     ];
+      const myteamListData = [
+      { teamName: "팀 A", teamLeader: "리더 A", lastMessage: "안녕하세요!", dateTime: "2023-11-22 15:30", readStatus: true },
+      { teamName: "팀 B", teamLeader: "리더 B", lastMessage: "어떤 일로 오셨나요?", dateTime: "2023-11-22 15:35", readStatus: false },
+      // 추가적인 목데이터 아이템을 필요에 따라 추가
+    ];
 
     const chatData = {
       "팀 A": [
-        { sender: "보낸쪽지", message: "안녕하세요!", dateTime: "2023-11-22 15:30" },
-        { sender: "받은쪽지", message: "어떤 일로 오셨나요?", dateTime: "2023-11-22 15:35" },
+        { sender: "보낸쪽지",teamLeader: "리더 A", message: "안녕하세요!", dateTime: "2023-11-22 15:30" },
+        { sender: "받은쪽지", teamLeader: "리더 B", message: "어떤 일로 오셨나요?", dateTime: "2023-11-22 15:35" },
       ],
       "팀 B": [
-        // 추가적인 목데이터 아이템을 필요에 따라 추가
+          { sender: "보낸쪽지",teamLeader: "리더 A", message: "안녕!", dateTime: "2023-11-22 15:30" },
+        { sender: "받은쪽지", teamLeader: "리더 B", message: "무슨 일이야?", dateTime: "2023-11-22 15:35" },
       ]
     };
 
-    const teamContainer = document.getElementById('teamContainer');
+      const teamContainer = document.getElementById('teamContainer');
     const selectedTeamName = document.getElementById('selectedTeamName');
     const messageContainer = document.getElementById('messageContainer');
 
@@ -128,6 +134,7 @@
         selectedTeamName.textContent = team.teamName;
         messageContainer.innerHTML = ''; // 기존 채팅 내용 초기화
 
+        // 해당 팀의 채팅 데이터 가져오기
         if (chatData.hasOwnProperty(team.teamName)) {
           chatData[team.teamName].forEach((chat) => {
             const messageContentDiv = document.createElement('div');
@@ -146,31 +153,39 @@
       });
     });
 
-    sendMessageBtn.addEventListener('click', () => {
-      postMessageModal.show();
-    });
+sendMessageBtn.addEventListener('click', async () => {
 
-    function sendPostMessage() {
-      const messageContent = document.getElementById('post-message-textarea').value;
-      const currentTime = new Date();
-      const formattedTime = `${currentTime.getFullYear()}-${(currentTime.getMonth() + 1).toString().padStart(2, '0')}-${currentTime.getDate().toString().padStart(2, '0')} ${currentTime.getHours().toString().padStart(2, '0')}:${currentTime.getMinutes().toString().padStart(2, '0')}`;
-      const senderInfo = '보낸쪽지';
-      const dateTime = formattedTime;
-      const senderDetails = `${senderInfo} ${dateTime}`;
+  postMessageModal.show();
+});
 
-      const messageContentDiv = document.createElement('div');
-      messageContentDiv.classList.add('messageContent');
-      messageContentDiv.innerHTML = `
-        <div class="messageDetails">
-          <div class="senderInfo">${senderInfo}</div>
-          <div class="dateTime">${dateTime}</div>
-        </div>
-        ${messageContent}
-      `;
+   function sendPostMessage() {
+    const messageContent = document.getElementById('post-message-textarea').value;
+    const currentTime = new Date();
+    const formattedTime = `${currentTime.getFullYear()}-${(currentTime.getMonth() + 1).toString().padStart(2, '0')}-${currentTime.getDate().toString().padStart(2, '0')} ${currentTime.getHours().toString().padStart(2, '0')}:${currentTime.getMinutes().toString().padStart(2, '0')}`;
+    const senderInfo = '보낸쪽지';
+    const dateTime = formattedTime;
+    const senderDetails = `${senderInfo} ${dateTime}`;
 
-      messageContainer.appendChild(messageContentDiv);
-      postMessageModal.hide();
-    }
+    // Get sending and receiving team names from the modal
+    const sendTeam = document.getElementById('post-message-taName').textContent;
+    const receiveTeam = document.getElementById('post-message-oponentName').textContent;
+
+    const messageContentDiv = document.createElement('div');
+    messageContentDiv.classList.add('messageContent');
+    messageContentDiv.innerHTML = `
+      <div class="messageDetails">
+        <div class="senderInfo">${senderInfo}</div>
+        <div class="dateTime">${dateTime}</div>
+      </div>
+      <p>받는 팀 리더:이  ${sendTeam}</p>
+      ${messageContent}
+    `;
+
+    messageContainer.appendChild(messageContentDiv);
+    postMessageModal.hide();
+  }
+
+</script>
   </script>
 </body>
 

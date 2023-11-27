@@ -19,6 +19,7 @@
 		crossorigin="anonymous"></script>
 
 	<link rel="stylesheet" href="/css/user/mypage.css">
+	
 </head>
 
 <body>
@@ -104,6 +105,7 @@
                   >
                     <option>시/군/구</option>
                   </select>
+                  	<script src="/js/mock/region.js"></script>
                 </div>
               </div>
               <div class="mb-2">
@@ -159,7 +161,7 @@
             <button
               type="button"
               class="btn btn-secondary"
-              data-dismiss="modal"
+              data-dismiss="modal"  onclick="closeModalAndShowAlert()"
             >
               닫기
             </button>
@@ -170,6 +172,14 @@
         </div>
       </div>
     </div>
+    <script>
+    function closeModalAndShowAlert() {
+        // Bootstrap 모달 닫기
+        $('#teamAddModal').modal('hide');
+        
+    
+    }
+</script>
     <script>
       function openModal() {
         const teamAddModal = document.querySelector('#teamAddModal');
@@ -357,6 +367,10 @@
 				}
 
 			</script>
+				<script>
+		
+	
+	</script>
 
 			<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 			<div class="overlay" id="overlay"></div>
