@@ -30,7 +30,7 @@ mybatis:
     map-underscore-to-camel-case : true
     
 upload:
-  file-path: C:\dev\upload
+  file-path: C:\dev\upload\
     
   
 #download: 
