@@ -23,8 +23,8 @@ public class TeamInfoController {
 	private final TeamInfoService teamInfoService;
 	
 	@PostMapping("/team-add")
-	public int insertTeamInfo(TeamInfoVO team, @AuthenticationPrincipal int uiNum) {
-		team.setUiNum(uiNum);
+	public int insertTeamInfo(TeamInfoVO team) {
+		team.setUiNum(5);
 		log.info("team => {}", team);
 		return teamInfoService.insertTeamInfo(team);
 	}

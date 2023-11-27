@@ -20,11 +20,12 @@
 		INSERT INTO TEAM_INFO(
 		UI_NUM, TA_NAME, TA_BOUNDARY_SIDO,
 		TA_BOUNDARY_SIGUNGU,
-		TA_DESC,TA_TYPE, TA_GENDER
+		TA_DESC,TA_TYPE, TA_GENDER,
+		TA_FILE_PATH, TA_FILE_NAME
 		)
 		VALUES(
 		#{uiNum}, #{taName}, #{taBoundarySido},#{taBoundarySigungu},
-		#{taDesc},#{taType},#{taGender}
+		#{taDesc},#{taType},#{taGender},#{taFilePath},#{taFileName}
 		);
 	</insert>
 </mapper>

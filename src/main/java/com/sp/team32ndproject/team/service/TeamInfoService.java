@@ -30,12 +30,12 @@ public class TeamInfoService {
 
 	public int insertTeamInfo(TeamInfoVO team) {
 		
-		MultipartFile file = team.getFile();
-		String originFileName = team.getFile().getOriginalFilename();
+		MultipartFile file = team.getTaFile();
+		String originFileName = team.getTaFile().getOriginalFilename();
 		String extName = originFileName.substring(originFileName.lastIndexOf("."));
 		String fileName = UUID.randomUUID() + extName;
 		team.setTaFileName(originFileName);
-		team.setTaFilePath("/file/"+extName);
+		team.setTaFilePath("/file/"+fileName);
 		try {
 			file.transferTo(new File(uploadFilePath + fileName));
 		} catch (IllegalStateException e) {
