@@ -4,7 +4,10 @@
 <head>
 	<meta charset="EUC-KR">
 	<title>Insert title here</title>
-	<link rel="stylesheet" href="/css/team/team-members.css"> 
+	<link rel="stylesheet" href="/css/team/team-members.css">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
+		rel="stylesheet">
 </head>
 
 <body>
@@ -20,6 +23,7 @@
 			</div>
 		</div>
 		<div class="team-user-list">
+			<h4>팀원 목록</h4>
 			<table class="table">
 				<thead>
 					<tr id="team-user-list-head">
@@ -33,7 +37,7 @@
 				<tbody id="team-user-list-info">
 				</tbody>
 			</table>
-			
+
 		</div>
 		<div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
 			<nav aria-label="Page navigation">
@@ -72,7 +76,7 @@
 			tuRole: 'user',
 			uiName: '이원준',
 			uiAddress: '서울 성북구',
-			uiPhoneNum: '01063473534' 
+			uiPhoneNum: '01063473534'
 		}
 		const user2 = {
 			taNum: 1,
@@ -129,7 +133,7 @@
 		} else if (teamPoint <= 300) {
 			scoreValue.style.backgroundColor = '#fffbd5';
 			scoreValue.style.color = '#ffb800';
-		} else if (teamPoint <= 400) { 
+		} else if (teamPoint <= 400) {
 			scoreValue.style.backgroundColor = '#e6f0ff';
 			scoreValue.style.color = '#0066ff';
 		} else {

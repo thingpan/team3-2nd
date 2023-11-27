@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="EUC-KR">
+	<title>가입 신청 목록</title>
+	<link rel="stylesheet" href="/css/team/team-apply.css">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
+		rel="stylesheet">
+</head>
+
+<body>
+	<div th:replace="/page/fragment/header.html :: f-head"></div>
+	<div class="main">
+		<div class="team-profile">
+			<div class="team-photo">
+				<img src="/imgs/basketball.png" />
+			</div>
+			<div class="score-badge">
+				<span id="team-name"></span>
+				<span id="score-value"></span>
+			</div>
+		</div>
+		<div class="membership-requests">
+			<h4>팀 가입 신청 목록</h4>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">이름</th>
+						<th scope="col">주소</th>
+						<th scope="col">전화번호</th>
+						<th scope="col"></th><!-- Empty header cell for buttons -->
+						<th scope="col"></th><!-- Empty header cell for buttons -->
+					</tr>
+				</thead>
+				<tbody id="membership-requests-info">
+				</tbody>
+			</table>
+			<div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center">
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#">4</a></li>
+						<li class="page-item"><a class="page-link" href="#">5</a></li>
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<div th:replace="/page/fragment/side-bar.html :: f-side-bar"></div>
+	<script>
+		const team = {
+			taNum: 1,
+			taFilePath: '/imgs/basketball',
+			taPoint: 200,
+			taName: '농구 짱짱'
+		}
+
+		const membershipRequests = [
+			{uiName: '신청자1', tuRole: 'user', uiAddress: '서울 강남구', uiPhoneNum: '01012345678', taNum: 1, uiNum: 6},
+			{uiName: '신청자2', tuRole: 'user', uiAddress: '서울 마포구', uiPhoneNum: '01098765432', taNum: 1, uiNum: 7},
+			{uiName: '신청자3', tuRole: 'user', uiAddress: '서울 종로구', uiPhoneNum: '01098765432', taNum: 1, uiNum: 8},
+			{uiName: '신청자4', tuRole: 'user', uiAddress: '서울 강남구', uiPhoneNum: '01098765432', taNum: 1, uiNum: 9},
+			{uiName: '신청자5', tuRole: 'user', uiAddress: '서울 마포구', uiPhoneNum: '01098765432', taNum: 1, uiNum: 10},
+			{uiName: '신청자6', tuRole: 'user', uiAddress: '서울 종로구', uiPhoneNum: '01098765432', taNum: 1, uiNum: 11},
+			// 필요에 따라 더 많은 멤버십 신청을 추가하세요.
+		];
+
+		document.querySelector('#team-name').innerHTML = team.taName;
+
+		const scoreValue = document.querySelector('#score-value');
+		const teamPoint = team.taPoint;
+		scoreValue.innerHTML = `${teamPoint}점`;
+
+		// 점수에 따라 배경색과 텍스트색 변경
+		if (teamPoint <= 100) {
+			scoreValue.style.backgroundColor = '#ececec';
+			scoreValue.style.color = '#767676';
+		} else if (teamPoint <= 200) {
+			scoreValue.style.backgroundColor = '#ede0c4';
+			scoreValue.style.color = '#825e01';
+		} else if (teamPoint <= 300) {
+			scoreValue.style.backgroundColor = '#fffbd5';
+			scoreValue.style.color = '#ffb800';
+		} else if (teamPoint <= 400) {
+			scoreValue.style.backgroundColor = '#e6f0ff';
+			scoreValue.style.color = '#0066ff';
+		} else {
+			scoreValue.style.backgroundColor = '#f4e2ff';
+			scoreValue.style.color = '#8200d2';
+		}
+
+		let html = '';
+		for (let request of membershipRequests) {
+			html += '<tr>';
+			html += `<td>${request.uiName}</td>`;
+			html += `<td>${request.uiAddress}</td>`;
+			html += `<td>${request.uiPhoneNum}</td>`;
+			html += `<td><button class="btn btn-success" onclick="acceptMembership(${request.taNum},${request.uiNum})">수락</button></td>`;
+			html += `<td><button class="btn btn-danger" onclick="rejectMembership(${request.taNum},${request.uiNum})">거절</button></td>`;
+			html += '</tr>';
+		}
+		document.querySelector('#membership-requests-info').innerHTML = html;
+
+		// 가입 수락 처리를 담당하는 함수
+		function acceptMembership(teamNum, userNum) {
+			// 실제 수락 로직을 구현해야함.
+			console.log(`팀 ${teamNum}, 사용자 ${userNum}의 가입을 수락합니다.`);
+		}
+
+		// 가입 거절 처리를 담당하는 함수
+		function rejectMembership(teamNum, userNum) {
+			// 실제 거절 로직을 구현해야함.
+			console.log(`팀 ${teamNum}, 사용자 ${userNum}의 가입을 거절합니다.`);
+		}
+	</script>
+</body>
+
+</html>

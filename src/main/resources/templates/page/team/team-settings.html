@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>팀 정보 설정</title>
+	<link rel="stylesheet" href="/css/team/team-settings.css">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
+		rel="stylesheet">
+</head>
+
+<body>
+	<div th:replace="/page/fragment/header.html :: f-head"></div>
+	<div class="main">
+		<div class="container team-settings">
+			<h1>팀 정보 설정</h1>
+			<form id="teamForm">
+				<label for="profilePicture">프로필 사진</label>
+				<!-- 원 모양의 플레이스홀더 이미지 컨테이너 -->
+				<div class="circular-image-container">
+					<img id="preview" src="#" alt="프로필 사진 미리보기"
+						style="display:none; max-width: 100%; border-radius: 50%;">
+				</div>
+
+				<input type="file" id="profilePicture" accept="image/*" onchange="previewImage(this)">
+
+				<!-- 선택한 이미지를 표시하는 부분 -->
+				<img id="preview" src="#" alt="프로필 사진 미리보기" style="display:none; max-width: 20%; margin-top: 10px;">
+
+				<label for="teamName">팀 이름</label>
+				<input type="text" id="teamName" placeholder="팀 이름을 입력하세요">
+
+				<label for="teamIntro">팀 소개</label>
+				<textarea id="teamIntro" placeholder="팀에 대한 소개를 입력하세요"></textarea>
+
+				<label for="jobStatus">구인 상태</label>
+				<select id="jobStatus">
+					<option value="구함">구함</option>
+					<option value="구하지 않음">구하지 않음</option>
+				</select>
+
+				<button type="button" onclick="saveTeamInfo()">저장</button>
+			</form>
+		</div>
+	</div>
+
+	<div th:replace="/page/fragment/side-bar.html :: f-side-bar"></div>
+	<script>
+		function saveTeamInfo() {
+			// 폼에서 입력된 값을 가져온다.
+			var teamName = document.getElementById('teamName').value;
+			var teamIntro = document.getElementById('teamIntro').value;
+			var jobStatus = document.getElementById('jobStatus').value; // 구인 및 구직 상태 값을 가져옵니다.
+
+			// 여기 서버에 정보를 저장하는 로직을 추가할 수 있음
+			// Ajax 요청을 사용하여 서버에 데이터를 전송할 수 있음
+
+			// 저장 성공 시 알람 표시
+			alert('팀 정보가 저장되었습니다.\n구인 상태 : ' + jobStatus);
+			
+		}
+
+		// 선택한 이미지를 미리보기하는 함수
+		function previewImage(input) {
+			var preview = document.getElementById('preview');
+			var file = input.files[0];
+			var reader = new FileReader();
+
+			reader.onloadend = function () {
+				preview.src = reader.result;
+				preview.style.display = 'block';
+			}
+
+			if (file) {
+				reader.readAsDataURL(file);
+			} else {
+				preview.src = '';
+				preview.style.display = 'none';
+			}
+		}
+	</script>
+</body>
+
+</html>

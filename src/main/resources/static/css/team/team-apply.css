@@ -1,0 +1,276 @@
+@charset "EUC-KR";
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	list-style: none;
+	scroll-behavior: smooth;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 
+색상 설정
+사용법: color: var(--white-color);
+*/
+
+:root {
+	--white-color: #fff;
+	--black-color: #111;
+	--btn-blue-color: #0066ff;
+	--btn-red-color: #ff0000;
+	--btn-gray-color: #d3d3d3;
+	--text-gray-color: #8f8f8f;
+	--text-light-gray-color: #dddddd;
+	--first-color: #0c5df4;
+	--bg-color: #000000;
+	--sub-color: #b6cefc;
+	--white-color: #fff;
+	--big-font: 6rem;
+	--h2-font: 3rem;
+	--p-font: 1rem;
+	--nav--width: 92px;
+}
+
+body {
+	background: var(--white-color);
+	color: var(--black-color);
+}
+
+header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 100%;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: transparent;
+	padding: 30px 18%;
+	transition: ease 0.4s;
+}
+
+.logo {
+	font-size: 20px;
+	font-weight: 600;
+	letter-spacing: 1px;
+	color: var(--black-color);
+}
+
+.navbar {
+	display: flex;
+}
+
+.navbar a {
+	color: var(--black-color);
+	font-size: var(--p-font);
+	font-weight: 400;
+	padding: 10px 22px;
+	transition: ease 0.4s;
+}
+
+.navbar a:hover {
+	background: var(--white-color);
+	color: var(--black-color);
+	font-weight: 600;
+	border-radius: 4px;
+}
+
+.l-navbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: var(--nav--width);
+	height: 100vh;
+	background-color: var(--bg-color);
+	color: var(--white-color);
+	padding: 1.5rem 1.5rem 2rem;
+	transition: 0.5s;
+	z-index: 1001;
+	/* 백드롭보다 위에 나타나도록 설정 */
+}
+
+.nav {
+	height: 100%;
+	flex-direction: column;
+	justify-content: space-between;
+	overflow: hidden;
+}
+
+.nav__brand {
+	display: grid;
+	grid-template-columns: max-content max-content;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 2rem;
+}
+
+.nav__toggle {
+	font-size: 1.25rem;
+	padding: 0.75rem;
+	cursor: pointer;
+}
+
+.nav__logo {
+	color: var(--white-color);
+	font-weight: 600;
+}
+
+.nav__link {
+	display: grid;
+	grid-template-columns: max-content max-content;
+	align-items: center;
+	column-gap: 0.75rem;
+	padding: 0.75rem;
+	color: var(--white-color);
+	border-radius: 0.5rem;
+	margin-bottom: 1rem;
+	transition: 0.3s;
+	cursor: pointer;
+}
+
+.nav__link:hover {
+	background-color: var(--first-color);
+}
+
+.nav__icon {
+	font-size: 1.25rem;
+}
+
+.nav__icon:hover {
+	font-size: 1.25rem;
+}
+
+.nav_name {
+	font-size: var(--small-font-size);
+}
+
+.expander {
+	width: calc(var(--nav--width) + 10rem);
+}
+
+.body-pd {
+	padding: 2rem 0 0 16rem;
+}
+
+.active {
+	background-color: var(--first-color);
+}
+
+.collapse {
+	grid-template-columns: 20px max-content 1fr;
+}
+
+.collapse__link {
+	justify-self: flex-end;
+	transition: 0.5;
+}
+
+.collapse__menu {
+	display: none;
+	padding: 0.75rem 2.25rem;
+}
+
+.collapse__sublink {
+	color: var(--sub-color);
+	font-size: var(--small-font-size);
+}
+
+.collapse__sublink:hover {
+	color: var(--white-color);
+}
+
+.showCollapse {
+	display: block;
+}
+
+.rotate {
+	transform: rotate(180deg);
+	transition: 0.5s;
+}
+
+.backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	/* 어두운 배경의 색상 및 투명도 조절 */
+	z-index: 1000;
+	/* 사이드바보다 앞에 나타나도록 설정 */
+	display: none;
+	/* 초기에는 화면에서 감추기 */
+}
+
+.backdrop.active {
+	display: block;
+	/* 토글되었을 때 보이도록 변경 */
+}
+
+.l-navbar.expander .backdrop {
+	display: none;
+	/* 사이드바가 열린 경우에는 백드롭을 감추기 */
+}
+
+.team-profile {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 20px;
+	position: relative;
+}
+
+.team-photo img {
+	width: 200px;
+	height: 150px;
+	border-radius: 20px;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 1rem;
+}
+
+.score-badge {
+	font-weight: 600;
+	margin-bottom: 30px;
+}
+
+#score-value {
+	font-weight: 600;
+	font-size: 16px;
+	margin-left: 0.5rem;
+	padding: 6px 14px;
+	border-radius: 8px;
+}
+
+.main {
+	width: 70%;
+	margin: 0 auto;
+}
+
+.table thead th {
+	background-color: var(--btn-gray-color);
+	text-align: center;
+}
+
+.table tbody td {
+	text-align: center;
+}
+
+.table tbody td button {
+	margin-left: -45px;
+	/* 필요에 따라 여백을 조정 */
+}
+
+.table {
+	margin-top: 8px;
+	/* 테이블의 위쪽 여백을 조절합니다. */
+}
+
+.table td .btn {
+	font-size: 12px;
+	/* 버튼 텍스트 크기 조절 */
+}
