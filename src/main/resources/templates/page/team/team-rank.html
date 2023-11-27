@@ -5,7 +5,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
 		rel="stylesheet" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -18,7 +19,7 @@
 <body>
 	<div th:replace="/page/fragment/header.html :: f-head"></div>
 
-
+ <div id="main">
 	<div class="content-container">
 		<form class="search-form">
 			<h3>Rank</h3>
@@ -61,98 +62,118 @@
 			</script>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<div class="slidecontainer" style="margin-top:50px;">
-				<input type="range" min="0" max="1000" value="0" class="slider" id="myRange">
-				<p>팀 점수: <span id="value"></span></p>
+				<input type="range" min="0" max="1000" value="0" class="custom-range" id="myRange" step="100">
+				<label for="myRange" class="form-label">팀 점수: <span id="value"></span></label>
 			</div>
 
-			<button type="button" id="search-button" onclick="performSearch()">search</button>
+
+			<button type="button" id="search-button" onclick="performSearch()">검색</button>
 		</form>
 	</div>
 
 	<div class="table-container" style="margin-top:-400px;">
 		<table border="1" id="teamTable">
+
 			<thead>
 				<tr>
 					<th>순위</th>
+					<th>종목</th>
 					<th>팀</th>
+					<th>지역</th>
 					<th>포인트</th>
 				</tr>
 			</thead>
+
 			<tbody id="tBody">
 				<script>
 					const teamData = [
 						{
 							name: 'Soccer 1',
+							area: '서울',
 							points: 450,
 							sport: 'soccer',
 						},
 						{
 							name: 'KIA TIGERS',
+							area: '서울',
 							points: 480,
 							sport: 'baseball',
 						},
 						{
 							name: 'BasketBall 1',
+							area: '강원도',
 							points: 400,
 							sport: 'basketball',
 						},
 						{
 							name: 'Soccer 2',
+							area: '강원도',
 							points: 430,
 							sport: 'soccer',
 						},
 						{
 							name: 'Baseball 2',
+							area: '강원도',
 							points: 401,
 							sport: 'baseball',
 						},
 						{
 							name: 'BasketBall 2',
+							area: '경기도',
 							points: 390,
 							sport: 'basketball',
 						},
 						{
 							name: 'Soccer 3',
+							area: '경기도',
 							points: 312,
 							sport: 'soccer',
 						},
 						{
 							name: 'Baseball 3',
+							area: '경기도',
 							points: 391,
 							sport: 'baseball',
 						},
 						{
 							name: 'BasketBall 3',
+							area: '경기도',
 							points: 310,
 							sport: 'basketball',
 						},
 						{
 							name: 'Soccer 4',
+							area: '강원도',
 							points: 281,
 							sport: 'soccer',
 						},
 						{
 							name: 'Baseball 4',
+							area: '제주도',
 							points: 211,
 							sport: 'baseball',
 						},
 						{
 							name: 'BasketBall 4',
+							area: '경기도',
 							points: 280,
 							sport: 'basketball',
 						},
 						{
 							name: 'Soccer 5',
+							area: '경기도',
 							points: 450,
 							sport: 'soccer',
 						},
 						{
 							name: 'Baseball 5',
+							area: '서울',
 							points: 135,
 							sport: 'baseball',
 						},
 						{
 							name: 'BasketBall 5',
+							area: '서울',
 							points: 129,
 							sport: 'basketball',
 						},
@@ -178,9 +199,10 @@
 			tableBody.innerHTML = ''; // Clear existing data
 
 			teamData.forEach((row, index) => {
-				addRow(tableBody, index + 1, row.name, row.points, row.sport);
+				addRow(tableBody, index + 1, row.name, row.area, row.points, row.sport);
 			});
 		}
+		<!-- ... (your existing code) ... -->
 		function performSearch() {
 			const sport = document.getElementById("s").value;
 			const area = document.getElementById("s2").value;
@@ -192,7 +214,7 @@
 
 			const filteredData = teamData.filter((row) => {
 				const isSportMatch = sport === "" || row.sport === sport;
-				const isAreaMatch = area === "" || true; // Assume true as there is no area information
+				const isAreaMatch = area === "" || row.area === area;
 				const isSkillMatch = skill === "0" || (row.points >= minScore && row.points <= maxScore);
 
 				return isSportMatch && isAreaMatch && isSkillMatch;
@@ -202,25 +224,30 @@
 			tableBody.innerHTML = ''; // Clear existing data
 
 			filteredData.forEach((row, index) => {
-				addRow(tableBody, index + 1, row.name, row.points, row.sport);
+				addRow(tableBody, index + 1, row.name, row.area, row.points, row.sport);
 			});
 		}
 
-		function addRow(tableBody, rowIndex, name, points, sport) {
+
+
+		function addRow(tableBody, rowIndex, name, area, points, sport) {
 			const row = document.createElement('tr');
 			row.innerHTML = `
-                <td>${rowIndex}</td>
-                <td>${name}</td>
-                <td>${points}</td>
-            `;
+        <td>${rowIndex}</td>
+         <td>${sport}</td>
+        <td>${name}</td>
+        <td>${area}</td>
+        <td>${points}</td>
+    `;
 			tableBody.appendChild(row);
 		}
-
 		// 페이지 로드 시 초기 데이터 표시
 		displayInitialData();
 	</script>
 
 	</script>
+</div>
+
 </body>
 
 </html>

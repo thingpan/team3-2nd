@@ -1,5 +1,7 @@
 package com.sp.team32ndproject.match.vo;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
@@ -9,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MatchInfoVO {
+public class MatchBoardInfoVO {
 	private int mbNum;
 	private int taNum;
 	private int mbPay;
@@ -26,4 +28,5 @@ public class MatchInfoVO {
 	private String mbDesc;
 	private String mbType;
 	private MultipartFile file;
+	private List<MatchBoardPhotoInfoVO> matchPhotos;
 }

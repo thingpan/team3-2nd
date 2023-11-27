@@ -9,5 +9,6 @@ import com.sp.team32ndproject.team.vo.TeamInfoVO;
 @Mapper
 public interface TeamInfoMapper {
 	int insertTeamInfo(TeamInfoVO team);
+	TeamInfoVO selectTaTypeMatchBoardInfoByTaNum(int taNum);
 	List<TeamInfoVO> selectTeamInfos(TeamInfoVO team);
 }

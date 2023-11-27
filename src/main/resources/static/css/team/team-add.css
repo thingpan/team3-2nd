@@ -1,193 +1,195 @@
-@charset "EUC-KR";
+/* ��ü ���� �⺻ ��Ÿ�� */
+#main {
+	width: 70%;
+	
+}
 
-/* 
-색상 설정
-사용법: color: var(--white-color);
-*/
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    scroll-behavior: smooth;
+    font-family: 'Do Hyeon', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+#main{
+	width:70%;
+}
+#team-heading{
+	margin-right:580px;
+}
 
 #profile-container {
-	display: flex;
-    margin-left:500px;
-	align-items: center;
-	margin-top: 60px;
-
-	/* Adjust the left margin as needed */
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    margin-right: 4rem;
+    flex-direction: column; /* ���� �������� ��ġ */
 }
 
 #profile-preview {
-	width: 200px;
-	height: 150px;
-	border-radius: 20px;
-	position: relative;
-	overflow: hidden;
-	cursor: pointer;
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
 }
 
-
 #change-photo-button {
-	margin-top: 10px;
-	  margin-left:550px;
-	cursor: pointer;
+    /*margin-top: 10px;*/
+    cursor: pointer;
 }
 
 #sport-select {
-	text-align: center;
-	margin-right: 330px;
-	font-size: 18px;
-	background-color: #000;
-
-	height: 40px;
-	color: #fff;
-	width: 100px;
-	/* 크기 조절 */
-	border-radius: 10px;
-	/* 둥글게 만들기 */
+    text-align: center;
+    margin-right: 30px;
+    font-size: 18px;
+    background-color: #000;
+    height: 40px;
+    color: #fff;
+    width: 100px;
+    border-radius: 10px;
 }
 
-
 #location-buttons {
-	margin-top: 10px;
-	margin-right: 130px;
-	justify-content: center;
-	border-radius: 10px;
+    margin-top: 1.2rem;
+    justify-content: center;
+    border-radius: 10px;
 }
 
 #location-buttons button {
-	background-color: #000000f5;
-	height: 40px;
-	width: 300px;
-	/* 완료 버튼과 같은 색상 */
-	color: #fff;
-	border: none;
-	font-size: 18px;
-	border-radius: 5px;
-	padding: 10px 20px;
-	cursor: pointer;
-}
-
-#location-selects {
-	border-radius: 20px;
-	margin-right: 230px;
-	margin-top: 10px;
-	display: flex;
-	justify-content: center;
-	gap: 10px;
-
-
-}
-#team-name,
-#team-intro {
-    margin-right: 20px; /* 혹은 다른 값으로 조절 */
-}
-
-#team-name label,
-#team-intro label {
-    margin-right: 20px; /* 혹은 다른 값으로 조절 */
-}
-
-#team-name input,
-#team-intro textarea {
-    margin-right: 20x; /* 혹은 다른 값으로 조절 */
-}
-
-#team-name {
-	margin-top: 10px;
-}
-
-#team-name-input {
-	width: 400px;
-	height: 30px;
-	padding: 5px;
-}
-
-#team-intro {
-	margin-top: 10px;
-}
-
-#team-intro-input {
-	width: 400px;
-	height: 90px;
-	
-	resize: vertical;
-	padding: 5px;
-}
-
-.form1 {
-	margin-top:-250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-}
-#complete-button {
-    margin-top: 10px;
     background-color: #000000f5;
+    height: 40px;
+    width: 300px;
     color: #fff;
     border: none;
     font-size: 18px;
     border-radius: 5px;
     padding: 10px 20px;
-    margin-left:200px;
     cursor: pointer;
 }
 
-#change-photo-button {
-	margin-top: 10px;
-	background-color: #000000f5;
-	color: #fff;
-	border: none;
-	font-size: 18px;
-	border-radius: 5px;
-	padding: 10px 20px;
-	cursor: pointer;
-	margin-right: 1000px;
+#location-selects {
+    text-align: center;
+    border-radius: 20px;
+    /*margin-right: 30px;*/
+    margin-top: 10px;
+    margin-bottom: 10px; /* �ϴ� ���� �߰� */
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
-#team-heading {
-	margin-top: 150px;
-	text-align: left;
-	/* 왼쪽 정렬 */
+#team-section {
+    max-width: 800px; /* �� ���� �ִ� �ʺ� ���� */
+    margin: 0 auto; /* ��� ���� */
+    padding: 20px; /* ���� ���� �߰� */
+    display: flex;
 }
 
+#team-name,
+#team-intro {
+    margin-top: 10px;
+    font-weight: 600;
+    margin-right: 20px;
+}
 
+#team-name label,
+#team-intro label {
+    margin-right: 20px;
+    margin-bottom: 5px;
+    display: block;
+}
 
-#team-name input{
-	width: 400px;
-	height: 40px;
-	padding: 5px;
+#team-name input,
+#team-intro textarea {
+    margin-right: 20px;
+    width: 400px;
+    padding: 5px;
+}
+
+#team-name {
+    margin-top: 10px;
+}
+
+#team-name-input {
+    width: 400px;
+    height: 30px;
+    padding: 5px;
+}
+
+#team-intro {
+    margin-top: 10px;
 }
 
 #team-intro-input {
-	width: 400px;
-	height: 110px;
-	padding: 5px;
+    width: 400px;
+    height: 90px;
+    resize: vertical;
+    padding: 5px;
 }
-#sido {
-	text-align: center;
-	color: #000;
-	border: none;
-	/* 기본적인 테두리 제거 */
-	border-bottom: 1px solid #000;
-	/* 밑에 선 추가 */
-	
-	height: 4cap;
-	width: 100px;
-	/* 다른 스타일 속성 추가 가능 */
+
+.form1 {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    position: relative;
+}
+
+#complete-button {
+    position: absolute;
+    margin-top: 1rem;
+    margin-left: 20rem;
+    background-color: #000000f5;
+    color: #fff;
+    border: none;
+    flex-direction: column; /* ���� �������� ��ġ */
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 6px 25px;
+    cursor: pointer;
+    align-items: end;
+}
+
+#change-photo-button {
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: #000000f5;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    border-radius: 10px;
+    padding: 8px 25px;
+}
+
+#team-name input {
+    width: 400px;
+    height: 40px;
+    padding: 5px;
+}
+
+#team-intro-input {
+    width: 400px;
+    height: 110px;
+    padding: 5px;
+}
+
+#sido, #sigungu,
+#district-select {
+    border-radius: 8px;
+    text-align: center;
+    height: 40px;
+    width: 140px;
 }
 
 #district-select {
-	background-color: #fff;
-	text-align: center;
-	color: #000;
-	border: none;
-	/* 기본적인 테두리 제거 */
-	border-bottom: 1px solid #000;
-	/* 밑에 선 추가 */
-	margin-right: 160px;
-	height: 40px;
-	;
-	width: 130p
-		/* 다른 스타일 속성 추가 가능 */
+    background-color: #fff;
+    margin-right: 30px;
 }
 
 .modal {
@@ -202,34 +204,20 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* 모달 내용 스타일 */
 .modal-content {
     background-color: #fefefe;
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* 너비 조절 */
-    max-width: 300px; /* 최대 너비 설정 */
-    max-height: 80%; /* 최대 높이 설정 */
-    overflow: auto; /* 스크롤이 필요한 경우 스크롤 허용 */
+    width: 80%;
+    max-width: 300px;
+    max-height: 80%;
+    overflow: auto;
 }
-
 
 .close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-
-#location-selects {
-	text-align: center;
-
-}
-
-
-#complete-button {
-	margin-left: 300px;
-	/* 중앙 정렬을 위해 마진 제거 */
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }

@@ -3,325 +3,544 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>마이페이지</title>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-		rel="stylesheet" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="/css/user/mypage.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
 
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+		crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="/css/user/mypage.css">
 </head>
 
 <body>
-	<div th:replace="/page/fragment/header.html :: f-head"></div>
-	<div class="profile-container">
-		<img id="profile-preview" alt="Profile Preview" src="/imgs/profile.jpg" onclick="openProfilePopup()">
-	</div>
 
-	<div class="action-buttons">
+	<div th:replace="/page/fragment/header.html :: f-head"></div>
+
+	<div id="main">
+
+
+		<h2 id="username"></h2>
+		<p style="margin-bottom:30px"></p>
 		<div class="first">
-			<h4>사용자</h4>
-		</div>
-		<div class="second">
+
+
 			<button id="logout-button">로그아웃</button>
 		</div>
-	</div>
-
-	<div class="action-buttonss">
-		<button id="create-team-button">팀 만들기</button>
-		<button id="edit-button">정보 수정</button>
-	</div>
 
 
-	<hr style="margin-top:20px ;">
-	<div class="team-section">
-		<h3>소속팀</h3>
-		<div class="team-buttons">
-			<button type="button" id="basketball" value="농구"><img src='/imgs/basketball.png'></button>
-			<button type="button" id="baseball" value="야구"><img src='/imgs/baseball.png'></button>
-			<button type="button" id="soccer" value="축구"><img src='/imgs/soccer.p ng'></button>
+		<div class="action-buttonss">
+			<button id="create-team-btn" onclick="openModal()" style="margin-left: 30px">팀 만들기</button>
+
+			<button id="edit-button">정보 수정</button>
 		</div>
-	</div>
+		<div
+      class="modal fade"
+      id="teamAddModal"
+      tabindex="-1"
+      aria-labelledby=""
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content" style="align-items: center">
+          <div class="modal-header">
+            <div class="modal-title-text" id="teamAddModalLabel">
+              팀 생성하기
+            </div>
+          </div>
+          <div class="modal-body" style="width: 90%">
+            <form>
+              <!-- 프로필 섹션 -->
+              <div class="profile-section">
+                <div class="modal-title-text">팀 사진</div>
+                <img src="" alt="팀 이미지" class="profile-image" />
+             
+                <div class="file-upload-btn">
+                  <input
+                    type="file"
+                    id="team-file-input"
+                    onchange="uploadTeamImage()"
+                      style="display: none;"
+                  />
+                  <label for="team-file-input" class="btn btn-dark">
+                    팀 사진 첨부
+                  </label>
+                </div>
+              </div>
+
+              <!-- 팀 정보 섹션 -->
+              <div class="mb-2">
+                <div class="modal-title-text">
+                  팀 이름
+                  <p style="color: red">&nbsp;*</p>
+                </div>
+                <input type="text" class="form-control" id="recipient-name" />
+              </div>
+              <div class="mb-2">
+                <div class="modal-title-text">
+                  지역
+                  <p style="color: red">&nbsp;*</p>
+                </div>
+                <div class="region-select-section">
+                  <select
+                    id="sido"
+                    class="filter-select"
+                    onchange="makeSigungu()"
+                  >
+                    <option>시/도</option>
+                  </select>
+                  <select
+                    id="sigungu"
+                    class="filter-select"
+                    onchange="updateSchedule()"
+                  >
+                    <option>시/군/구</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-2">
+                <div class="modal-title-text">
+                  종목
+                  <p style="color: red">&nbsp;*</p>
+                </div>
+              </div>
+
+              <div class="mb-2 sports-section">
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  id="btn-check-outlined1"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-dark" for="btn-check-outlined1">
+                  축구
+                </label>
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  id="btn-check-outlined2"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-dark" for="btn-check-outlined2">
+                  야구
+                </label>
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  id="btn-check-outlined3"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-dark" for="btn-check-outlined3">
+                  농구
+                </label>
+              </div>
+              <div class="mb-2">
+                <div class="modal-title-text">
+                  팀 소개
+                </div>
+                <textarea
+                  style="height: 250px"
+                  class="form-control"
+                  id="message-text"
+                  placeholder="ex) 20-30대 직장인들이 함께하는 Team3 입니다. 함께 해주실 분을 찾고 있습니다!"
+                ></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              닫기
+            </button>
+            <button type="button" class="btn btn-dark" onclick="showAlert()">
+              등록
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function openModal() {
+        const teamAddModal = document.querySelector('#teamAddModal');
+        $(teamAddModal).modal('show');
+      }
+
+      document.querySelectorAll('.btn-check').forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+          document
+            .querySelectorAll('.btn-check')
+            .forEach(function (otherCheckbox) {
+              if (otherCheckbox !== checkbox) {
+                otherCheckbox.checked = false;
+              }
+            });
+        });
+      });
+
+      // 파일 업로드 함수 - 팀 사진
+      function uploadTeamImage() {
+        const fileInput = document.getElementById('team-file-input');
+        const teamImage = document.querySelector('.profile-image');
+
+        const file = fileInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            teamImage.src = e.target.result;
+          };
+
+          reader.readAsDataURL(file);
+        }
+      }
+
+      function showAlert() {
+        alert('팀 생성이 완료되었습니다.');
+      }
+    </script>
+    <script src="/js/region.js"></script>
 
 
-	<!-- 추가된 팀 목록을 나타낼 엘리먼트 -->
-	<div class="team-list"></div>
-
-	<div class="edit-profile-form" style="display: none;">
-
-		<h3>내 정보</h3>
-		<p style="margin-bottom: 50px;"></p>
-		<label for="name">이름</label><br>
-		<h4 id="name"></h4><br>
-		<p style="margin-bottom: 3px;"></p>
-
-
-		<label for="email">이메일</label><br>
-		<h4 id="email"></h4><br>
-		<p style="margin-bottom: 30px;"></p>
-		<label for="password">비밀번호</label><br>
-		<input type="password" id="password" name="password" placeholder="비밀번호" class="in-line"><br>
-		<p style="margin-bottom: 30px;"></p>
-		<p style="margin-bottom: 30px;"></p>
-		<label for="gender">성별</label><br>
-		<div class="in-line">
-			<input type="radio" id="male" name="gender" value="남자">
-			<label for="male">남자</label>
-			<input type="radio" id="female" name="gender" value="여자">
-			<label for="female">여자</label>
+		<hr style="margin-top:20px ;">
+		<div id="box2">
+			<div class="team-section">
+				<h3>소속팀</h3>
+				<div class="team-buttons">
+					<img src='/imgs/basketball.png' id="basketball" value="농구">
+					<img src='/imgs/baseball.png' id="baseball" value="야구">
+					<img src='/imgs/soccer.png' id="soccer" value="축구">
+				</div>
+			</div>
+			<div class="team-list"></div>
 		</div>
-		<label for="phone">전화번호</label><br>
-		<input type="tel" id="phone" name="phone" placeholder="01012345678" class="in-line"><br>
-		<p style="margin-bottom: 30px;"></p>
-		<label for="year">생년월일</label><br>
-		<div class="info" id="info__birth">
-			<select class="box" id="birth-year">
-				<option disabled selected>년도</option>
-			</select>
-			<select class="box" id="birth-month">
-				<option disabled selected>월</option>
-			</select>
-			<select class="box" id="birth-day">
-				<option disabled selected>일</option>
-			</select>
+
+		<div class="edit-profile-form" style="display: none;">
+			<div class="form-box">
+				<h3>내 정보</h3>
+
+				<p style="margin-bottom: 50px;"></p>
+				<label for="name">이름</label>
+				<h6 id="name"></h6>
+				<hr>
+				</hr>
+
+				<label for="email">이메일</label>
+				<h6 id="email"></h6>
+				<button id="change-email-button" onclick="openChangeEmailPopup()">이메일 변경</button>
+				<hr>
+				</hr>
+
+				<label for="password">비밀번호</label>
+				<input type="password" id="password" name="password" placeholder="비밀번호">
+				<button id="change-password-button" onclick="openChangePasswordPopup()">비밀번호 변경</button>
+
+				<hr>
+				</hr>
+				<label for="gender">성별</label>
+				<div id="sex">
+					<input type="radio" id="male" name="gender" value="남자">
+					<label for="male">남자</label>
+					<input type="radio" id="female" name="gender" value="여자">
+					<label for="female">여자</label>
+				</div>
+				<hr>
+				</hr>
+				<label for="phone">전화번호</label>
+				<input type="text" id="phone" placeholder="01012345678">
+				<hr>
+				</hr>
+
+				<label for="year">생년월일</label>
+				<input type="text" id="date" name="date">
+				<hr>
+				</hr>
+				<label for="address">주소</label>
+
+				<input type="text" id="address" name="address" value="" placeholder="주소">
+				<button type="button" id="search-address" value="JOIN" onclick="openAddressSearchModal()">검색</button>
+				<hr>
+				<button type="button" id="save-profile">완료</button>
+			</div>
 		</div>
 
-		<p style="margin-bottom: 30px;"></p>
-		<label for="address">주소</label><br>
-		<div class="in-line">
-			<input type="text" id="address" name="address" value="" placeholder="주소">
-			<button type="button" id="search-address" value="JOIN" onclick="openAddressSearchModal()">검색</button>
-
-
-			<div id="search-results"></div>
-			<button type="button" id="save-profile">완료</button>
+		<div id="change-email-popup"
+			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
+			<h3>이메일 변경</h3>
+			<label for="new-email">새 이메일</label>
+			<input type="email" id="new-email" name="new-email" placeholder="새 이메일 입력">
+			<button type="button" id="confirm-email-change">확인</button>
+			<button type="button" id="cancel-email-change">취소</button>
 		</div>
 
-		<script>
+		<!-- 비밀번호 변경 팝업 -->
+		<div id="change-password-popup"
+			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
+			<h3>비밀번호 변경</h3>
 
-			const profileData1 = {
-				name: '이왕균',
-				email: 'diskldffm@naver.com',
-				password: '********',
-			};
+			<input type="password" id="current-password" name="current-password" placeholder="현재 비밀번호 입력"> <label
+				for="current-password">현재 비밀번호</label><br>
+			<input type="password" id="new-password" name="new-password" placeholder="새 비밀번호 입력"> <label
+				for="new-password">새 비밀번호</label> <br>
+			<input type="password" id="confirm-new-password" name="confirm-new-password" placeholder="새 비밀번호 확인"> <label
+				for="confirm-new-password">새 비밀번호 확인</label><br>
+			<button type="button" id="confirm-password-change">확인</button>
+			<button type="button" id="cancel-password-change">취소</button>
+		</div>
+		<div id="change-password-popup" style="display: none;">
 
-			document.querySelector('h4#name').textContent = profileData1.name;
-			document.querySelector('h4#email').textContent = profileData1.email;
+			<script>
 
-			document.querySelector('input#password').value = profileData1.password.replace(/./g, '*');
+				function openChangePasswordPopup() {
 
-			const birthYearEl = document.querySelector('#birth-year')
-			// option 목록 생성 여부 확인
-			isYearOptionExisted = false;
-			birthYearEl.addEventListener('focus', function () {
+					document.getElementById('change-password-popup').style.display = 'block';
 
-				if (!isYearOptionExisted) {
-					isYearOptionExisted = true
-					for (var i = 1940; i <= 2023; i++) {
-						// option element 생성
-						const YearOption = document.createElement('option')
-						YearOption.setAttribute('value', i)
-						YearOption.innerText = i
-						// birthYearEl의 자식 요소로 추가
-						this.appendChild(YearOption);
+				}
+
+
+				document.getElementById('cancel-password-change').addEventListener('click', function () {
+
+					document.getElementById('change-password-popup').style.display = 'none';
+				});
+
+				function popup() {
+					window.open("/page/team/team-add.html", "popup01", "width=700, height=500");
+				}
+
+				const profileData1 = {
+					name: '이왕균',
+					email: 'diskldffm@naver.com',
+					birthday: '1999.02.12',
+					phone: '010-2222-3344',
+					password: '********',
+				};
+				const userNameElement = document.getElementById('username');
+				userNameElement.textContent = ` ${profileData1.name}님`;
+				const birthdateInput = document.getElementById('date');
+				const phoneInput = document.getElementById('phone');
+
+				// Display user's birthdate and phone number in the form
+				birthdateInput.value = profileData1.birthday;
+				phoneInput.value = profileData1.phone;
+				document.querySelector('h6#name').textContent = profileData1.name;
+				document.querySelector('h6#email').textContent = profileData1.email;
+				document.querySelector('#phone').textContent = profileData1.phone;
+				document.querySelector('input#password').value = profileData1.password.replace(/./g, '*');
+
+
+
+				function profile() {
+					var image = document.getElementById('image');
+					var source = image.src;
+					window.open(source);
+				}
+
+				function openAddressSearchModal() {
+					new daum.Postcode({
+						oncomplete: function (data) {
+							const selectedAddress = data.address;
+							const searchResults = document.getElementById('search-results')
+							const addressInput = document.getElementById('address');
+							addressInput.value = selectedAddress;
+						}
+					}).open();
+				}
+
+			</script>
+
+			<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+			<div class="overlay" id="overlay"></div>
+			<input type="file" id="profile-image-upload" style="display: none" accept="image/*"
+				onchange="previewProfileImage(event)">
+
+
+			<div id="overlay"></div>
+
+
+			<script>
+				function openChangeEmailPopup() {
+
+					document.getElementById('change-email-popup').style.display = 'block';
+
+
+				}
+
+
+				document.getElementById('cancel-email-change').addEventListener('click', function () {
+
+					document.getElementById('change-email-popup').style.display = 'none';
+				});
+
+
+				document.getElementById('confirm-email-change').addEventListener('click', function () {
+
+					document.getElementById('change-email-popup').style.display = 'none';
+
+				});
+
+				
+
+				function closeProfilePopup() {
+					// 모달 창 닫기
+					document.getElementById('overlay').style.display = 'none';
+					document.getElementById('profileModal').style.display = 'none';
+				}
+
+				const changeEmailPopup = document.getElementById('change-email-popup');
+				const confirmEmailChangeButton = document.getElementById('confirm-email-change');
+				const cancelEmailChangeButton = document.getElementById('cancel-email-change');
+
+				confirmEmailChangeButton.addEventListener('click', function () {
+					const newEmailInput = document.getElementById('new-email');
+					const newEmail = newEmailInput.value.trim();
+
+
+					changeEmailPopup.style.display = 'none';
+					// 이메일 변경 완료 메시지 등을 추가할 수 있습니다.
+				});
+
+				cancelEmailChangeButton.addEventListener('click', function () {
+					// 팝업을 닫을 수 있도록 처리
+					changeEmailPopup.style.display = 'none';
+				});
+
+				// 비밀번호 변경 관련 스크립트
+				const changePasswordPopup = document.getElementById('change-password-popup');
+				const confirmPasswordChangeButton = document.getElementById('confirm-password-change');
+				const cancelPasswordChangeButton = document.getElementById('cancel-password-change');
+
+				confirmPasswordChangeButton.addEventListener('click', function () {
+					const currentPasswordInput = document.getElementById('current-password');
+					const newPasswordInput = document.getElementById('new-password');
+					const confirmNewPasswordInput = document.getElementById('confirm-new-password');
+
+					const currentPassword = currentPasswordInput.value.trim();
+					const newPassword = newPasswordInput.value.trim();
+					const confirmNewPassword = confirmNewPasswordInput.value.trim();
+
+					if (newPassword === confirmNewPassword) {
+
+						changePasswordPopup.style.display = 'none';
+
+					} else {
+
+						alert('새 비밀번호가 일치하지 않습니다. 다시 확인해주세요.');
+					}
+				});
+
+				cancelPasswordChangeButton.addEventListener('click', function () {
+					// 팝업을 닫을 수 있도록 처리
+					changePasswordPopup.style.display = 'none';
+				});
+
+			</script>
+
+
+
+
+
+
+
+			<script>
+				const basketballButton = document.getElementById('basketball');
+				const baseballButton = document.getElementById('baseball');
+				const soccerButton = document.getElementById('soccer');
+				const teamList = document.querySelector('.team-list');
+				const editButton = document.getElementById('edit-button');
+				const editProfileForm = document.querySelector('.edit-profile-form');
+				const saveButton = document.getElementById('save-profile');
+
+				const profileData = [
+					{id: 1, image: '/imgs/basketball.png', name: '이름 1', data: "농구"},
+					{id: 2, image: '/imgs/baseball.png', name: '이름 2', data: "야구"},
+					{id: 3, image: '/imgs/soccer.png', name: '이름 3', data: "축구"},
+					{id: 4, image: '/imgs/basketball.png', name: '이름 4', data: "농구"}
+				];
+
+				// 초기화 함수
+				function initializeTeamList(selectedSport) {
+					teamList.innerHTML = '';
+
+					if (selectedSport === '') {
+						profileData.forEach(data => {
+							const team = createTeamElement(data);
+							teamList.appendChild(team);
+						});
+					} else {
+						const filteredData = profileData.filter(data => data.data === selectedSport);
+						filteredData.forEach(data => {
+							const team = createTeamElement(data);
+							teamList.appendChild(team);
+						});
 					}
 				}
-			});
-			let isMonthOptionExisted = false;
-			const birthMonthEl = document.querySelector('#birth-month');
-			birthMonthEl.addEventListener('focus', function () {
-				if (!isMonthOptionExisted) {
-					isMonthOptionExisted = true;
-					for (let i = 1; i <= 12; i++) {
-						const monthOption = document.createElement('option');
-						monthOption.setAttribute('value', i);
-						monthOption.innerText = i;
-						this.appendChild(monthOption);
-					}
+			
+
+
+				// 팀 엘리먼트 생성 함수
+				function createTeamElement(data) {
+					const team = document.createElement('div');
+					team.classList.add('team');
+
+					const imageLink = document.createElement('a');
+					imageLink.href = 'page.html?id=' + data.id;
+
+					const image = document.createElement('img');
+					image.src = data.image;
+					imageLink.appendChild(image);
+
+					const h3 = document.createElement('h3');
+					h3.textContent = data.name;
+
+					team.appendChild(imageLink);
+					team.appendChild(h3);
+
+					return team;
 				}
-			});
 
-			// 일 목록 생성 여부 확인
-			let isDayOptionExisted = false;
-			const birthDayEl = document.querySelector('#birth-day');
-			birthDayEl.addEventListener('focus', function () {
-				if (!isDayOptionExisted) {
-					isDayOptionExisted = true;
-					for (let i = 1; i <= 31; i++) {
-						const dayOption = document.createElement('option');
-						dayOption.setAttribute('value', i);
-						dayOption.innerText = i;
-						this.appendChild(dayOption);
-					}
-				}
-			})
+				// 버튼 클릭 시 이벤트 리스너
+				basketballButton.addEventListener('click', function () {
+					initializeTeamList('농구');
+				});
 
-			function profile() {
-				var image = document.getElementById('image');
-				var source = image.src;
-				window.open(source);
-			}
+				baseballButton.addEventListener('click', function () {
+					initializeTeamList('야구');
+				});
 
-			function openAddressSearchModal() {
-				new daum.Postcode({
-					oncomplete: function (data) {
-						const selectedAddress = data.address;
-						const searchResults = document.getElementById('search-results')
+				soccerButton.addEventListener('click', function () {
+					initializeTeamList('축구');
+				});
 
-						const addressInput = document.getElementById('address');
-						addressInput.value = selectedAddress;
-					}
-				}).open();
-			}
-		</script>
+				// 정보 수정 버튼 클릭 시 이벤트 리스너
+				editButton.addEventListener('click', function () {
+					editProfileForm.style.display = 'block';
+				});
 
-		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-		<div class="overlay" id="overlay"></div>
-		<input type="file" id="profile-image-upload" style="display: none" accept="image/*"
-			onchange="previewProfileImage(event)">
+				// 완료 버튼 클릭 시 이벤트 리스너
+				saveButton.addEventListener('click', function () {
+					editProfileForm.style.display = 'none';
+				});
 
-		<div id="overlay"></div>
-		<div class="modal" id="profileModal">
-			<h2>프로필 변경</h2>
-			<!-- Remove the input for newProfile URL -->
-			<!-- Add the label and input for file selection -->
-			<label for="profile-image-upload">새로운 프로필 이미지 업로드:</label>
-			<input type="file" id="profile-image-upload" accept="image/*" onchange="previewProfileImage(event)">
-			<button onclick="changeProfile()">변경</button>
-			<button onclick="closeProfilePopup()">닫기</button>
-		</div>
-
-		<script>
-			function openProfilePopup() {
-				// 모달 창 열기
-				document.getElementById('overlay').style.display = 'block';
-				document.getElementById('profileModal').style.display = 'block';
+				// 페이지 로드 시 초기화 함수 호출
+				initializeTeamList('');
 
 
+			</script>
 
-			}
-			function previewProfileImage(event) {
-				const input = event.target;
-				const profileImage = document.getElementById('profile-preview');
-				const file = input.files[0];
-
-				if (file) {
-					const reader = new FileReader();
-
-					reader.onload = function (e) {
-						profileImage.src = e.target.result;
-					};
-
-					reader.readAsDataURL(file);
-				}
-			}
-
-
-			function changeProfile() {
-
-				// Close the modal
-				closeProfilePopup();
-			}
-
-			function closeProfilePopup() {
-				// 모달 창 닫기
-				document.getElementById('overlay').style.display = 'none';
-				document.getElementById('profileModal').style.display = 'none';
-			}
-		</script>
-
-
-
-
-		</script>
-
-
-		</script>
-		<script>
-			const basketballButton = document.getElementById('basketball');
-			const baseballButton = document.getElementById('baseball');
-			const soccerButton = document.getElementById('soccer');
-			const teamList = document.querySelector('.team-list');
-			const editButton = document.getElementById('edit-button');
-			const editProfileForm = document.querySelector('.edit-profile-form');
-			const saveButton = document.getElementById('save-profile');
-
-			const profileData = [
-				{id: 1, image: '/imgs/basketball.png', name: '이름 1', data: "농구"},
-				{id: 2, image: '/imgs/baseball.png', name: '이름 2', data: "야구"},
-				{id: 3, image: '/imgs/soccer.png', name: '이름 3', data: "축구"},
-				{id: 4, image: '/imgs/basketball.png', name: '이름 4', data: "농구"}
-			];
-
-			// 초기화 함수
-			function initializeTeamList(selectedSport) {
-				teamList.innerHTML = '';
-
-				if (selectedSport === '') {
-					profileData.forEach(data => {
-						const team = createTeamElement(data);
-						teamList.appendChild(team);
-					});
-				} else {
-					const filteredData = profileData.filter(data => data.data === selectedSport);
-					filteredData.forEach(data => {
-						const team = createTeamElement(data);
-						teamList.appendChild(team);
-					});
-				}
-			}
-
-			// 팀 엘리먼트 생성 함수
-			function createTeamElement(data) {
-				const team = document.createElement('div');
-				team.classList.add('team');
-
-				const imageLink = document.createElement('a');
-				imageLink.href = 'page.html?id=' + data.id;
-
-				const image = document.createElement('img');
-				image.src = data.image;
-				imageLink.appendChild(image);
-
-				const h3 = document.createElement('h3');
-				h3.textContent = data.name;
-
-				team.appendChild(imageLink);
-				team.appendChild(h3);
-
-				return team;
-			}
-
-			// 버튼 클릭 시 이벤트 리스너
-			basketballButton.addEventListener('click', function () {
-				initializeTeamList('농구');
-			});
-
-			baseballButton.addEventListener('click', function () {
-				initializeTeamList('야구');
-			});
-
-			soccerButton.addEventListener('click', function () {
-				initializeTeamList('축구');
-			});
-
-			// 정보 수정 버튼 클릭 시 이벤트 리스너
-			editButton.addEventListener('click', function () {
-				editProfileForm.style.display = 'block';
-			});
-
-			// 완료 버튼 클릭 시 이벤트 리스너
-			saveButton.addEventListener('click', function () {
-				editProfileForm.style.display = 'none';
-			});
-
-			// 페이지 로드 시 초기화 함수 호출
-			initializeTeamList('');
-
-
-		</script>
+	
 
 
 </body>
+
 
 </html>

@@ -18,6 +18,7 @@ public class SecurityBeanConfig {
 	@Autowired
 	private UserInfoService userInfoService;
 	
+	
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() { //static 안에 있는 css등등 필요한 애들은 webServer딴에서 이그노어 해줘야 해서 일케 함
 		return web -> {
