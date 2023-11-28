@@ -22,14 +22,14 @@
 
   #teamList {
     flex: 1;
-    max-width: 600px;
+    max-width: 400px;
     padding: 20px;
     box-sizing: border-box;
   }
 
   #chatContainer {
     flex: 1;
-    margin-left: 20px;
+    margin-left: 50px;
     padding: 20px;
     border: 2px solid #ddd;
     border-radius: 10px;
@@ -38,9 +38,10 @@
     position: relative;
   }
 
-  #main {
+  .main {
     width: 70%;
     margin-left: 300px;
+    margin: 0 auto;
   }
 
   .teamContainer {

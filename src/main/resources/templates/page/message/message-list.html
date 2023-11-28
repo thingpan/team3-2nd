@@ -8,9 +8,8 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyBtvYOtU1z1jNQZgD5B8I5I6RWEJlT6T" crossorigin="anonymous">
-    	<link rel="stylesheet" href="/css/message/message-list.css"> 
+  <link rel="stylesheet" href="/css/message/message-list.css">
 </head>
-
 
 <body>
   <div th:replace="/page/fragment/header.html :: f-head"></div>
@@ -18,19 +17,15 @@
     <div id="box">
       <div id="teamList">
         <h2>쪽지 리스트</h2>
-        <div id="teamContainer">
- 
-        </div>
+        <div id="teamContainer"></div>
       </div>
-  <div id="verticalLine"></div>
-      <div id="chatContainer">
+      <div id="verticalLine"></div>
+      <div id="chatContainer" style="display: none;">
         <div class="teamName" id="selectedTeamName">팀 이름</div>
-        <div id="messageContainer">
-      
-        </div>
+        <div id="messageContainer"></div>
         <i id="sendMessageBtn" class="fas fa-paper-plane"></i>
 
- <div class="modal fade" tabindex="-1" id="post-message-modal">
+        <div class="modal fade" tabindex="-1" id="post-message-modal">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
@@ -45,7 +40,7 @@
                 </div>
                 <hr>
                 <div>
-                  <span>받는 팀 : </span><span id="post-message-oponentName"></span>
+                  <span>받는 팀 : </span><span id="post-message-opponentName"></span>
                 </div>
                 <hr>
                 <div>
@@ -85,24 +80,19 @@
       { teamName: "팀 B", teamLeader: "리더 B", lastMessage: "어떤 일로 오셨나요?", dateTime: "2023-11-22 15:35", readStatus: false },
       // 추가적인 목데이터 아이템을 필요에 따라 추가
     ];
-      const myteamListData = [
-      { teamName: "팀 A", teamLeader: "리더 A", lastMessage: "안녕하세요!", dateTime: "2023-11-22 15:30", readStatus: true },
-      { teamName: "팀 B", teamLeader: "리더 B", lastMessage: "어떤 일로 오셨나요?", dateTime: "2023-11-22 15:35", readStatus: false },
-      // 추가적인 목데이터 아이템을 필요에 따라 추가
-    ];
 
     const chatData = {
       "팀 A": [
-        { sender: "보낸쪽지",teamLeader: "리더 A", message: "안녕하세요!", dateTime: "2023-11-22 15:30" },
+        { sender: "보낸쪽지", teamLeader: "리더 A", message: "안녕하세요!", dateTime: "2023-11-22 15:30" },
         { sender: "받은쪽지", teamLeader: "리더 B", message: "어떤 일로 오셨나요?", dateTime: "2023-11-22 15:35" },
       ],
       "팀 B": [
-          { sender: "보낸쪽지",teamLeader: "리더 A", message: "안녕!", dateTime: "2023-11-22 15:30" },
+        { sender: "보낸쪽지", teamLeader: "리더 A", message: "안녕!", dateTime: "2023-11-22 15:30" },
         { sender: "받은쪽지", teamLeader: "리더 B", message: "무슨 일이야?", dateTime: "2023-11-22 15:35" },
       ]
     };
 
-      const teamContainer = document.getElementById('teamContainer');
+    const teamContainer = document.getElementById('teamContainer');
     const selectedTeamName = document.getElementById('selectedTeamName');
     const messageContainer = document.getElementById('messageContainer');
 
@@ -150,42 +140,42 @@
             messageContainer.appendChild(messageContentDiv);
           });
         }
+
+        // 오른쪽 박스 보이기
+        document.getElementById('chatContainer').style.display = 'block';
       });
     });
 
-sendMessageBtn.addEventListener('click', async () => {
+    sendMessageBtn.addEventListener('click', async () => {
+      postMessageModal.show();
+    });
 
-  postMessageModal.show();
-});
+    function sendPostMessage() {
+      const messageContent = document.getElementById('post-message-textarea').value;
+      const currentTime = new Date();
+      const formattedTime = `${currentTime.getFullYear()}-${(currentTime.getMonth() + 1).toString().padStart(2, '0')}-${currentTime.getDate().toString().padStart(2, '0')} ${currentTime.getHours().toString().padStart(2, '0')}:${currentTime.getMinutes().toString().padStart(2, '0')}`;
+      const senderInfo = '보낸쪽지';
+      const dateTime = formattedTime;
+      const senderDetails = `${senderInfo} ${dateTime}`;
 
-   function sendPostMessage() {
-    const messageContent = document.getElementById('post-message-textarea').value;
-    const currentTime = new Date();
-    const formattedTime = `${currentTime.getFullYear()}-${(currentTime.getMonth() + 1).toString().padStart(2, '0')}-${currentTime.getDate().toString().padStart(2, '0')} ${currentTime.getHours().toString().padStart(2, '0')}:${currentTime.getMinutes().toString().padStart(2, '0')}`;
-    const senderInfo = '보낸쪽지';
-    const dateTime = formattedTime;
-    const senderDetails = `${senderInfo} ${dateTime}`;
+      // Get sending and receiving team names from the modal
+      const sendTeam = document.getElementById('post-message-taName').textContent;
+      const receiveTeam = document.getElementById('post-message-opponentName').textContent;
 
-    // Get sending and receiving team names from the modal
-    const sendTeam = document.getElementById('post-message-taName').textContent;
-    const receiveTeam = document.getElementById('post-message-oponentName').textContent;
+      const messageContentDiv = document.createElement('div');
+      messageContentDiv.classList.add('messageContent');
+      messageContentDiv.innerHTML = `
+        <div class="messageDetails">
+          <div class="senderInfo">${senderInfo}</div>
+          <div class="dateTime">${dateTime}</div>
+        </div>
+        <p>받는 팀 리더: 이 ${sendTeam}</p>
+        ${messageContent}
+      `;
 
-    const messageContentDiv = document.createElement('div');
-    messageContentDiv.classList.add('messageContent');
-    messageContentDiv.innerHTML = `
-      <div class="messageDetails">
-        <div class="senderInfo">${senderInfo}</div>
-        <div class="dateTime">${dateTime}</div>
-      </div>
-      <p>받는 팀 리더:이  ${sendTeam}</p>
-      ${messageContent}
-    `;
-
-    messageContainer.appendChild(messageContentDiv);
-    postMessageModal.hide();
-  }
-
-</script>
+      messageContainer.appendChild(messageContentDiv);
+      postMessageModal.hide();
+    }
   </script>
 </body>
 
