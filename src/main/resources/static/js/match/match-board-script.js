@@ -130,7 +130,7 @@ function generateMockData() {
 }
 
 function generateRandomGender() {
-    const genders = ['남자', '여자', '모두', '학생'];
+    const genders = ['남자', '여자', '모두'];
     const randomIndex = Math.floor(Math.random() * genders.length);
     return genders[randomIndex];
 }
@@ -149,8 +149,20 @@ function generateRandomCapacity(sportIcon) {
 // 무작위로 생성된 경기 일정 데이터 가져오기
 const scheduleData = generateMockData();
 
-// 현재 날짜의 경기 일정을 표시하는 함수
-function showSchedule(date) {
+async function showSchedule(date) {
+    // 서버에서 matchBoard 데이터 가져오기중
+    const res = await fetch('/match-board/2');
+    const matchBoards = await res.json();
+
+    // 특정 mbNum에 대한 matchBoard 데이터 찾기 (예: 맨 처음 데이터 사용)
+    const selectedMatchBoard = matchBoards[0];
+
+    // matchBoard 데이터에서 mbTime과 mbAddress 추출
+    const apiScheduleItem = {
+        mbTime: selectedMatchBoard.mbTime,
+        mbAddress: selectedMatchBoard.mbAddress,
+    };
+
     const scheduleTable = document.querySelector('#schedule');
     scheduleTable.innerHTML = '';
 
@@ -158,16 +170,15 @@ function showSchedule(date) {
         if (scheduleItem.date.toDateString() === date.toDateString()) {
             const row = scheduleTable.insertRow();
 
-            // 시간과 스포츠 아이콘 열
+            // 시간과 스포츠 아이콘
             const timeAndSportIconCell = row.insertCell(0);
-            timeAndSportIconCell.innerHTML = `${scheduleItem.time}${scheduleItem.sportIcon}`;
+            timeAndSportIconCell.innerHTML = `${apiScheduleItem.mbTime}${scheduleItem.sportIcon}`;
 
             function getGenderLabelAndText(gender) {
                 const colors = {
                     남자: '#0066FF',
                     여자: '#FF7474',
-                    모두: '#80FF00',
-                    학생: '#FFE500',
+                    모두: '#80FF00'
                 };
                 const color = colors[gender];
 
@@ -180,7 +191,7 @@ function showSchedule(date) {
             // 장소와 성별 표시
             const locationCell = row.insertCell(1);
             locationCell.innerHTML = `
-  ${scheduleItem.location}<br>
+  ${apiScheduleItem.mbAddress}<br>
   <span style="color: gray;">${getGenderLabelAndText(
                 scheduleItem.gender
             )}</span>
@@ -237,3 +248,10 @@ calendarDays.forEach((dayElement) => {
         showSchedule(selectedDate);
     });
 });
+
+
+// 페이지 로드 시 오늘 날짜의 테이블 자동 표시
+showSchedule(currentDate);
+
+// 초기 캘린더 업데이트
+updateCalendar(currentDate);

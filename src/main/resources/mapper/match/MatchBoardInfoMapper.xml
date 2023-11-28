@@ -12,4 +12,7 @@
 		#{mbSido},#{mbSigungu},#{mbTime},#{mbDate},
 		DATE_FORMAT(NOW(),'%Y%m%d'),#{mbDesc},#{mbPay},#{mbType}); 
 	</insert>
+	<select id="selectMatchInfo" parameterType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
+		SELECT * FROM MATCH_BOARD_INFO
+	</select>
 </mapper>
