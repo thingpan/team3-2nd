@@ -41,7 +41,7 @@
 		<div class="action-buttonss">
 			<button id="create-team-btn" onclick="openModal()" style="margin-left: 30px">팀 만들기</button>
 
-			<button id="edit-button">정보 수정</button>
+			<button id="edit-button" onclick="openCurrentPasswordModal()">정보 수정</button>
 		</div>
 		<div class="modal fade" id="teamAddModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
@@ -120,8 +120,8 @@
 									<label for="male">남자</label>
 									<input type="radio" id="female" name="gender" value="여자" />
 									<label for="female">여자</label>
-									<input type="radio" id="all" name="gender" value="혼성" /> 
-									<label for="all">혼성</label> 
+									<input type="radio" id="all" name="gender" value="혼성" />
+									<label for="all">혼성</label>
 								</div>
 							</div>
 							<div class="mb-2">
@@ -145,31 +145,49 @@
 				</div>
 			</div>
 		</div>
+		<div id="current-password-modal" class="modal" style="display: none;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">현재 비밀번호 확인</h4>
+					</div>
+					<div class="modal-body">
+						<label for="current-password-input">현재 비밀번호를 입력하세요:</label>
+						<input type="password" id="current-password-input" class="form-control">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal"
+							onclick="cancelCurrentPassword()">취소</button>
+						<button type="button" class="btn btn-primary" onclick="checkCurrentPassword()">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<script>
-			function closeModalAndShowAlert() {
-				// Bootstrap 모달 닫기
-				$('#teamAddModal').modal('hide');
-
-
-			}
-		</script>
-		<script>
-			function openModal() {
-				const teamAddModal = document.querySelector('#teamAddModal');
-				$(teamAddModal).modal('show');
+			function openCurrentPasswordModal() {
+				$('#current-password-modal').modal('show');
 			}
 
-			document.querySelectorAll('.btn-check').forEach(function (checkbox) {
-				checkbox.addEventListener('change', function () {
-					document
-						.querySelectorAll('.btn-check')
-						.forEach(function (otherCheckbox) {
-							if (otherCheckbox !== checkbox) {
-								otherCheckbox.checked = false;
-							}
-						});
-				});
-			});
+			function cancelCurrentPassword() {
+				$('#current-password-modal').modal('hide');
+				document.getElementById('current-password-input').value = '';
+
+				// Hide the user information section
+				document.querySelector('.edit-profile-form').style.display = 'none';
+			}
+
+			function checkCurrentPassword() {
+				const enteredPassword = document.getElementById('current-password-input').value;
+				const userPassword = 'user123'; // Replace with the actual user's password
+
+				if (enteredPassword === userPassword) {
+					$('#current-password-modal').modal('hide');
+					// Display the profile editing form
+					document.querySelector('.edit-profile-form').style.display = 'block';
+				} else {
+					alert('비밀번호가 틀렸습니다. 다시 입력해주세요.');
+				}
+			}
 
 			// 파일 업로드 함수 - 팀 사진
 			function uploadTeamImage() {
@@ -187,18 +205,10 @@
 					reader.readAsDataURL(file);
 				}
 			}
-			
-			//타입 벨류 가져오기 실패
-			//function getTaType(){
-			//	let types = document.querySelectorAll('input[class=btn-check]');
-			//	for(let i=0; i<types.length; i++){
-			//		if(types[i].checked == true){
-			//			return types[i].value;
-			//		}
-			//	}
-			//}
 
-			    async function showAlert() {
+
+
+			async function showAlert() {
 				const teamImgFile = document.querySelector('#team-file-input');
 				const formData = new FormData();
 				if (teamImgFile.files.length) {
@@ -211,17 +221,17 @@
 				const taType = '축구';
 				const taGender = document.querySelector('input[name="gender"]:checked').value;
 				const taDesc = document.querySelector('#message-text').value;
-				formData.append('taName',taName);
-				formData.append('taBoundarySido',taBoundarySido);
-				formData.append('taBoundarySigungu',taBoundarySigungu);
-				formData.append('taType',taType);
-				formData.append('taGender',taGender);
-				formData.append('taDesc',taDesc); 
-				const res = await fetch('/team-add',{ 
-				method : 'POST',
-				body : formData
-			});
-			
+				formData.append('taName', taName);
+				formData.append('taBoundarySido', taBoundarySido);
+				formData.append('taBoundarySigungu', taBoundarySigungu);
+				formData.append('taType', taType);
+				formData.append('taGender', taGender);
+				formData.append('taDesc', taDesc);
+				const res = await fetch('/team-add', {
+					method: 'POST',
+					body: formData
+				});
+
 			}
 		</script>
 		<script src="/js/region.js"></script>
