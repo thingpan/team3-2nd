@@ -16,7 +16,7 @@
   <div id="main">
     <div id="box">
       <div id="teamList">
-        <h2>쪽지 리스트</h2>
+        <h2 style="margin-left:130px;">쪽지 리스트</h2>
         <div id="teamContainer"></div>
       </div>
       <div id="verticalLine"></div>
@@ -112,7 +112,7 @@
       iconContainer.classList.add('iconContainer');
       iconContainer.innerHTML = `
         <div class="dateTime">${team.dateTime}</div>
-        <i class="fas ${team.readStatus ? 'fa-eye' : 'fa-eye-slash'} statusIcon" title="${team.readStatus ? '열람됨' : '열람되지 않음'}"></i>
+
       `;
 
       teamDetails.appendChild(teamInfo);
