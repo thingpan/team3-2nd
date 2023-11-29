@@ -3,9 +3,9 @@
 <mapper
 	namespace="com.sp.team32ndproject.user.mapper.UserInfoMapper">
 	<sql id="userInfoCols">
-		UI_NAME, UI_ID, UI_PWD, UI_PHONE_NUM,
+		UI_NUM ,UI_NAME, UI_ID, UI_PWD, UI_PHONE_NUM,
 		UI_BIRTH, UI_EMAIL, UI_ADDRESS,
-		UI_CREDAT, UI_CRETIM
+		UI_CREDAT, UI_CRETIM 
 	</sql>
 	<select id="selectUserInfoByUiId"
 		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">
