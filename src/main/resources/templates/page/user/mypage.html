@@ -164,6 +164,15 @@
 			</div>
 		</div>
 		<script>
+				function closeModalAndShowAlert() {
+				// Bootstrap 모달 닫기
+				$('#teamAddModal').modal('hide');
+
+
+			}
+		</script>
+		<script>
+			
 			function openCurrentPasswordModal() {
 				$('#current-password-modal').modal('show');
 			}
@@ -188,6 +197,23 @@
 					alert('비밀번호가 틀렸습니다. 다시 입력해주세요.');
 				}
 			}
+			//여기까지
+					function openModal() {
+				const teamAddModal = document.querySelector('#teamAddModal');
+				$(teamAddModal).modal('show');
+			}
+
+			document.querySelectorAll('.btn-check').forEach(function (checkbox) {
+				checkbox.addEventListener('change', function () {
+					document
+						.querySelectorAll('.btn-check')
+						.forEach(function (otherCheckbox) {
+							if (otherCheckbox !== checkbox) {
+								otherCheckbox.checked = false;
+							}
+						});
+				});
+			});
 
 			// 파일 업로드 함수 - 팀 사진
 			function uploadTeamImage() {
