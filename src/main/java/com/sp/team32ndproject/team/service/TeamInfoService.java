@@ -15,6 +15,7 @@ import com.sp.team32ndproject.team.mapper.TeamInfoMapper;
 import com.sp.team32ndproject.team.vo.TeamInfoVO;
 import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
 import com.sp.team32ndproject.user.mapper.UserInfoMapper;
+import com.sp.team32ndproject.user.vo.UserInfoVO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class TeamInfoService {
 	@Value("${upload.file-path}")
 	private String uploadFilePath;
 
-	public int insertTeamInfo(TeamInfoVO team) {
+	public int insertTeamInfo(TeamInfoVO team, UserInfoVO user) {
 		MultipartFile file = team.getTaFile();
 		String originFileName = team.getTaFile().getOriginalFilename();
 		String extName = originFileName.substring(originFileName.lastIndexOf("."));
@@ -46,9 +47,9 @@ public class TeamInfoService {
 		if(1 == teamInfoMapper.insertTeamInfo(team)) {
 			TeamUserInfoVO teamUser = new TeamUserInfoVO();
 			teamUser.setTaNum(team.getTaNum());
-			teamUser.setUiNum(team.getUiNum());
 			teamUser.setTuRole("ADMIN");
-			return teamUserInfoService.insertUserInfo(teamUser);
+			//return teamUserInfoService.insertTeamUserInfo(teamUser, user); 
+			return 0;
 		}
 		return 0;
 	}

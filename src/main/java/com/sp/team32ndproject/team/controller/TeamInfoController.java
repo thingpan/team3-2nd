@@ -22,15 +22,15 @@ import lombok.extern.slf4j.Slf4j;
 public class TeamInfoController {
 
 	private final TeamInfoService teamInfoService;
-
+	
+	//팀추가
 	@PostMapping("/team-add")
 	public int insertTeamInfo(TeamInfoVO team, @AuthenticationPrincipal UserInfoVO user) {
 		log.info("user => {}", user);
 		log.info("team => {}", team);
-		team.setUiNum(user.getUiNum());
-		return teamInfoService.insertTeamInfo(team);
+		return teamInfoService.insertTeamInfo(team, user);
 	}
-
+	// 팀 목록
 	@GetMapping("/team-infos")
 	public List<TeamInfoVO> selectTeamInfos(TeamInfoVO team) {
 		return teamInfoService.selectTeamInfos(team);

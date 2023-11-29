@@ -6,5 +6,5 @@ import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
 
 @Mapper
 public interface TeamUserInfoMapper {
-	int insertUserInfo(TeamUserInfoVO teamUser);
+	int insertTeamUserInfo(TeamUserInfoVO teamUser);
 }
