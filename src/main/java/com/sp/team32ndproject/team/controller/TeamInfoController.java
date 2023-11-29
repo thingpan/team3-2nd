@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sp.team32ndproject.team.service.TeamInfoService;
 import com.sp.team32ndproject.team.vo.TeamInfoVO;
+import com.sp.team32ndproject.user.vo.UserInfoVO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,18 +20,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class TeamInfoController {
-	
+
 	private final TeamInfoService teamInfoService;
-	
+
 	@PostMapping("/team-add")
-	public int insertTeamInfo(TeamInfoVO team) {
-		team.setUiNum(5);
+	public int insertTeamInfo(TeamInfoVO team, @AuthenticationPrincipal UserInfoVO user) {
+		log.info("user => {}", user);
 		log.info("team => {}", team);
-		return teamInfoService.insertTeamInfo(team);
+//		return teamInfoService.insertTeamInfo(team);
+		return 0;
 	}
-	
+
 	@GetMapping("/team-infos")
-	public List<TeamInfoVO>  selectTeamInfos(TeamInfoVO team) {
+	public List<TeamInfoVO> selectTeamInfos(TeamInfoVO team) {
 		return teamInfoService.selectTeamInfos(team);
 	}
 }
