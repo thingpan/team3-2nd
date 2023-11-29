@@ -7,20 +7,217 @@
 	<title>Document</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
 		rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="/css/team/team-rank.css">
-	<script src="/js/mock/region.js"></script>
-
+	<script src="/js/mock/teamData.js"></script>
 </head>
+<style>
+	#main {
+		width: 70%;
+		margin: 0 outo;
+	
+
+	}
+
+
+
+	.slider {
+		-webkit-appearance: none;
+
+		width: 70%;
+
+		height: 5px;
+
+		border-radius: 1px;
+
+		background: #ccc;
+
+		outline: none;
+
+
+
+
+	}
+
+	.slider::-webkit-slider-thumb {
+		-webkit-appearance: none;
+
+		appearance: none;
+
+		width: 10px;
+
+		height: 10px;
+
+		border-radius: 50%;
+
+		background: #00f;
+
+		cursor: pointer;
+		/*  웹킷 브라우저( Chrome, Safari )에서 사용되는 슬라이더 핸들(드래그할 부분)의 스타일 */
+	}
+
+	.content-container {
+		display: flex;
+		
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: nowrap;
+		/* Prevents wrapping to the next line */
+		width: 800px;
+		
+		/* Set a fixed width as needed */
+		margin: 0 auto;
+		/* Center the container */
+		margin-right: 500px;
+		margin-top: 200px;
+	}
+
+	.slidecontainer {
+		flex: 1;
+		/* Allow the slidecontainer to take up remaining space */
+		margin-left: 20px;
+	}
+
+
+
+
+
+	select {
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		appearance: none;
+
+		font-family: "Noto Sans KR", sans-serif;
+		font-size: 1rem;
+		font-weight: 400;
+		line-height: 1.5;
+
+		color: #aaa;
+		background-color: #111;
+
+		padding: .6em 1.4em .5em .8em;
+		margin: 0;
+
+		border: 1px solid #aaa;
+		border-radius: .5em;
+		box-shadow: 0 1px 0 1px rgba(0, 0, 0, .04);
+	}
+
+
+
+	select:focus {
+		border-color: #fff;
+		box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+		box-shadow: 0 0 0 3px -moz-mac-focusring;
+		color: #fff;
+		outline: none;
+	}
+
+
+
+	label {
+		font-family: "Noto Sans KR", sans-serif;
+		font-size: 1rem;
+		font-weight: 600;
+		line-height: 1.3;
+
+		color: #444;
+
+		margin-right: 0.5em;
+	}
+
+	form {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		color: #111;
+	}
+
+
+
+
+
+	.table-container {
+		width: 200%;
+
+		overflow: auto;
+		text-align: center;
+		/* 스크롤이 필요한 경우 스크롤바를 표시 */
+	}
+
+	table {
+		border: 1px #a39485 solid;
+		font-size: 1em;
+		/* 테이블 폰트 크기 조정 */
+		padding: 0.8em;
+
+		box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+		width: 50%;
+		/* 테이블 너비 확장 */
+		border-collapse: collapse;
+		margin-left: 300px;
+		/* 요소를 중앙으로 정렬 */
+	}
+
+
+
+	table tbody th,
+	table tbody td {
+		border: none;
+	}
+
+	thead {
+		font-weight: bold;
+		color: #fff;
+		background: #8f8f8f;
+
+	}
+
+	td,
+	th {
+		padding: 1em .5em;
+		vertical-align: middle;
+		text-align: center;
+		/*테이블의 데이터 행에 대한 스타일*/
+	}
+
+
+
+	a {
+		color: #73685d;
+
+	}
+
+ .search-form {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+	#search-button {
+		padding: 10px 15px;
+		background-color: #000000f5;
+		margin-left: 10px;
+		color: #fff;
+		width: 130px;
+		height: 40px;
+		border: none;
+		font-size: 15px;
+		cursor: pointer;
+		text-align: center;
+		border-radius: 5px;
+	}
+</style>
+
+
 
 <body>
 	<div th:replace="/page/fragment/header.html :: f-head"></div>
 
- <div id="main">
-	<div class="content-container">
-		<form class="search-form">
+	<div id="main">
+		<div class="content-container">
 			<h3>Rank</h3>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<select id="s" name="s">
@@ -32,8 +229,8 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<select id="s2" name="s2">
 				<option value="">지역 v</option>
-
 			</select>
+			<script src="/js/mock/teamData.js"></script>
 			<script type="module">
 				// 시/도 옵션 추가
 				const sidoSelect = document.querySelector('#s2');
@@ -60,38 +257,38 @@
 				}
 			</script>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<div class="slidecontainer" >
-				<input type="range" min="0" max="1000" value="0" class="custom-range" id="myRange" step="100">
-				<label for="myRange" class="form-label">팀 점수: <span id="value"></span></label>
-			</div>
+
+			<input type="range" min="0" max="1000" value="0" class="custom-range" id="myRange" step="100">
+			<label for="myRange" class="form-label">팀 점수: <span id="value"></span></label>
+
 
 
 			<button type="button" id="search-button" onclick="performSearch()">검색</button>
-		</form>
+
+		</div>
+
+		<div class="table-container">
+			<table border="1" id="teamTable">
+
+				<thead>
+					<tr>
+						<th>순위</th>
+						<th>종목</th>
+						<th>팀</th>
+						<th>지역</th>
+						<th>포인트</th>
+					</tr>
+				</thead>
+
+				<tbody id="tBody">
+
+					<script src="/js/mock/team-rank.js"></script>
+
+				</tbody>
+			</table>
+		</div>
+
 	</div>
-
-	<div class="table-container" >
-		<table border="1" id="teamTable">
-
-			<thead>
-				<tr>
-					<th>순위</th>
-					<th>종목</th>
-					<th>팀</th>
-					<th>지역</th>
-					<th>포인트</th>
-				</tr>
-			</thead>
-
-			<tbody id="tBody">
-			
-						<script src="/js/mock/team-rank.js"></script>
-		
-			</tbody>
-		</table>
-	</div>
-
-
 	<script>
 		var slider = document.getElementById("myRange");
 		var output = document.getElementById("value");
@@ -110,31 +307,31 @@
 				addRow(tableBody, index + 1, row.name, row.area, row.points, row.sport);
 			});
 		}
-	
 
 
-    function performSearch() {
-        const sport = document.getElementById("s").value;
-        const area = document.getElementById("s2").value;
-        const skill = parseInt(document.getElementById("myRange").value);
 
-        const upperBound = skill + 100;
+		function performSearch() {
+			const sport = document.getElementById("s").value;
+			const area = document.getElementById("s2").value;
+			const skill = parseInt(document.getElementById("myRange").value);
 
-        const filteredData = teamData.filter((row) => {
-            const isSportMatch = sport === "" || row.sport === sport;
-            const isAreaMatch = area === "" || row.area === area;
-            const isSkillMatch = skill === 0 || (row.points >= skill && row.points <= upperBound);
+			const upperBound = skill + 100;
 
-            return isSportMatch && isAreaMatch && isSkillMatch;
-        });
+			const filteredData = teamData.filter((row) => {
+				const isSportMatch = sport === "" || row.sport === sport;
+				const isAreaMatch = area === "" || row.area === area;
+				const isSkillMatch = skill === 0 || (row.points >= skill && row.points <= upperBound);
 
-        const tableBody = document.getElementById("tBody");
-        tableBody.innerHTML = ''; // Clear existing data
+				return isSportMatch && isAreaMatch && isSkillMatch;
+			});
 
-        filteredData.forEach((row, index) => {
-            addRow(tableBody, index + 1, row.name, row.area, row.points, row.sport);
-        });
-    }
+			const tableBody = document.getElementById("tBody");
+			tableBody.innerHTML = ''; // Clear existing data
+
+			filteredData.forEach((row, index) => {
+				addRow(tableBody, index + 1, row.name, row.area, row.points, row.sport);
+			});
+		}
 
 
 
@@ -156,7 +353,7 @@
 	</script>
 
 	</script>
-</div>
+	</div>
 
 </body>
 
