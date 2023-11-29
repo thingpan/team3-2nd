@@ -8,23 +8,26 @@
 	</select>
 
 
-	<select id="selectTaTypeMatchBoardInfoByTaNum" 
+	<select id="selectTaTypeMatchBoardInfoByTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT TA_TYPE FROM TEAM_INFO
 		WHERE TA_NUM = #{taNum};
 
 	</select>
 
-	<insert id="insertTeamInfo"
+	<insert id="insertTeamInfo" useGeneratedKeys="true"
+		keyColumn="TA_NUM" keyProperty="taNum"
 		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		INSERT INTO TEAM_INFO(
 		UI_NUM, TA_NAME, TA_BOUNDARY_SIDO,
 		TA_BOUNDARY_SIGUNGU,
 		TA_DESC,TA_TYPE, TA_GENDER,
-		TA_FILE_PATH, TA_FILE_NAME
+		TA_FILE_PATH,
+		TA_FILE_NAME
 		)
 		VALUES(
-		#{uiNum}, #{taName}, #{taBoundarySido},#{taBoundarySigungu},
+		#{uiNum}, #{taName},
+		#{taBoundarySido},#{taBoundarySigungu},
 		#{taDesc},#{taType},#{taGender},#{taFilePath},#{taFileName}
 		);
 	</insert>

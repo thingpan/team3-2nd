@@ -27,8 +27,8 @@ public class TeamInfoController {
 	public int insertTeamInfo(TeamInfoVO team, @AuthenticationPrincipal UserInfoVO user) {
 		log.info("user => {}", user);
 		log.info("team => {}", team);
-//		return teamInfoService.insertTeamInfo(team);
-		return 0;
+		team.setUiNum(user.getUiNum());
+		return teamInfoService.insertTeamInfo(team);
 	}
 
 	@GetMapping("/team-infos")
