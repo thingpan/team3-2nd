@@ -4,7 +4,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.sp.team32ndproject.match.vo.MatchBoardInfoVO;
 
+import java.util.List;
+
 @Mapper 
 public interface MatchBoardInfoMapper {
 	int insertMatchInfo(MatchBoardInfoVO match);
+	List<MatchBoardInfoVO> selectMatchInfo(int mbNum);
 }

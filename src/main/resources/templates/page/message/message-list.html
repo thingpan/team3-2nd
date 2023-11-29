@@ -8,9 +8,8 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyBtvYOtU1z1jNQZgD5B8I5I6RWEJlT6T" crossorigin="anonymous">
-    	<link rel="stylesheet" href="/css/message/message-list.css"> 
+  <link rel="stylesheet" href="/css/message/message-list.css">
 </head>
-
 
 <body>
   <div th:replace="/page/fragment/header.html :: f-head"></div>
@@ -18,19 +17,15 @@
     <div id="box">
       <div id="teamList">
         <h2>쪽지 리스트</h2>
-        <div id="teamContainer">
-          <!-- 팀 목록이 여기에 동적으로 생성될 것입니다. -->
-        </div>
+        <div id="teamContainer"></div>
       </div>
-  <div id="verticalLine"></div>
-      <div id="chatContainer">
+      <div id="verticalLine"></div>
+      <div id="chatContainer" style="display: none;">
         <div class="teamName" id="selectedTeamName">팀 이름</div>
-        <div id="messageContainer">
-          <!-- 채팅 내용이 여기에 동적으로 생성될 것입니다. -->
-        </div>
+        <div id="messageContainer"></div>
         <i id="sendMessageBtn" class="fas fa-paper-plane"></i>
 
- <div class="modal fade" tabindex="-1" id="post-message-modal">
+        <div class="modal fade" tabindex="-1" id="post-message-modal">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
@@ -45,7 +40,7 @@
                 </div>
                 <hr>
                 <div>
-                  <span>받는 팀 : </span><span id="post-message-oponentName"></span>
+                  <span>받는 팀 : </span><span id="post-message-opponentName"></span>
                 </div>
                 <hr>
                 <div>
@@ -88,11 +83,12 @@
 
     const chatData = {
       "팀 A": [
-        { sender: "보낸쪽지", message: "안녕하세요!", dateTime: "2023-11-22 15:30" },
-        { sender: "받은쪽지", message: "어떤 일로 오셨나요?", dateTime: "2023-11-22 15:35" },
+        { sender: "보낸쪽지", teamLeader: "리더 A", message: "안녕하세요!", dateTime: "2023-11-22 15:30" },
+        { sender: "받은쪽지", teamLeader: "리더 B", message: "어떤 일로 오셨나요?", dateTime: "2023-11-22 15:35" },
       ],
       "팀 B": [
-        // 추가적인 목데이터 아이템을 필요에 따라 추가
+        { sender: "보낸쪽지", teamLeader: "리더 A", message: "안녕!", dateTime: "2023-11-22 15:30" },
+        { sender: "받은쪽지", teamLeader: "리더 B", message: "무슨 일이야?", dateTime: "2023-11-22 15:35" },
       ]
     };
 
@@ -128,6 +124,7 @@
         selectedTeamName.textContent = team.teamName;
         messageContainer.innerHTML = ''; // 기존 채팅 내용 초기화
 
+        // 해당 팀의 채팅 데이터 가져오기
         if (chatData.hasOwnProperty(team.teamName)) {
           chatData[team.teamName].forEach((chat) => {
             const messageContentDiv = document.createElement('div');
@@ -143,10 +140,13 @@
             messageContainer.appendChild(messageContentDiv);
           });
         }
+
+        // 오른쪽 박스 보이기
+        document.getElementById('chatContainer').style.display = 'block';
       });
     });
 
-    sendMessageBtn.addEventListener('click', () => {
+    sendMessageBtn.addEventListener('click', async () => {
       postMessageModal.show();
     });
 
@@ -158,6 +158,10 @@
       const dateTime = formattedTime;
       const senderDetails = `${senderInfo} ${dateTime}`;
 
+      // Get sending and receiving team names from the modal
+      const sendTeam = document.getElementById('post-message-taName').textContent;
+      const receiveTeam = document.getElementById('post-message-opponentName').textContent;
+
       const messageContentDiv = document.createElement('div');
       messageContentDiv.classList.add('messageContent');
       messageContentDiv.innerHTML = `
@@ -165,6 +169,7 @@
           <div class="senderInfo">${senderInfo}</div>
           <div class="dateTime">${dateTime}</div>
         </div>
+        <p>받는 팀 리더: 이 ${sendTeam}</p>
         ${messageContent}
       `;
 

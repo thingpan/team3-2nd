@@ -11,7 +11,6 @@
 		rel="stylesheet" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="/css/team/team-rank.css">
-	<script src="/js/mock/teamData.js"></script>
 	<script src="/js/mock/region.js"></script>
 
 </head>
@@ -85,100 +84,9 @@
 			</thead>
 
 			<tbody id="tBody">
-				<script>
-					const teamData = [
-						{
-							name: 'Soccer 1',
-							area: '서울',
-							points: 450,
-							sport: 'soccer',
-						},
-						{
-							name: 'KIA TIGERS',
-							area: '서울',
-							points: 480,
-							sport: 'baseball',
-						},
-						{
-							name: 'BasketBall 1',
-							area: '강원도',
-							points: 400,
-							sport: 'basketball',
-						},
-						{
-							name: 'Soccer 2',
-							area: '강원도',
-							points: 430,
-							sport: 'soccer',
-						},
-						{
-							name: 'Baseball 2',
-							area: '강원도',
-							points: 401,
-							sport: 'baseball',
-						},
-						{
-							name: 'BasketBall 2',
-							area: '경기도',
-							points: 390,
-							sport: 'basketball',
-						},
-						{
-							name: 'Soccer 3',
-							area: '경기도',
-							points: 312,
-							sport: 'soccer',
-						},
-						{
-							name: 'Baseball 3',
-							area: '경기도',
-							points: 391,
-							sport: 'baseball',
-						},
-						{
-							name: 'BasketBall 3',
-							area: '경기도',
-							points: 310,
-							sport: 'basketball',
-						},
-						{
-							name: 'Soccer 4',
-							area: '강원도',
-							points: 281,
-							sport: 'soccer',
-						},
-						{
-							name: 'Baseball 4',
-							area: '제주도',
-							points: 211,
-							sport: 'baseball',
-						},
-						{
-							name: 'BasketBall 4',
-							area: '경기도',
-							points: 280,
-							sport: 'basketball',
-						},
-						{
-							name: 'Soccer 5',
-							area: '경기도',
-							points: 450,
-							sport: 'soccer',
-						},
-						{
-							name: 'Baseball 5',
-							area: '서울',
-							points: 135,
-							sport: 'baseball',
-						},
-						{
-							name: 'BasketBall 5',
-							area: '서울',
-							points: 129,
-							sport: 'basketball',
-						},
-					];
-				</script>
+			
+						<script src="/js/mock/team-rank.js"></script>
+		
 			</tbody>
 		</table>
 	</div>
@@ -202,31 +110,33 @@
 				addRow(tableBody, index + 1, row.name, row.area, row.points, row.sport);
 			});
 		}
-		<!-- ... (your existing code) ... -->
-		function performSearch() {
-			const sport = document.getElementById("s").value;
-			const area = document.getElementById("s2").value;
-			const skill = document.getElementById("myRange").value;
+	
 
-			// 슬라이드바 값 기반으로 점수 범위 계산
-			const minScore = parseInt(skill) - 50;
-			const maxScore = parseInt(skill) + 50;
 
-			const filteredData = teamData.filter((row) => {
-				const isSportMatch = sport === "" || row.sport === sport;
-				const isAreaMatch = area === "" || row.area === area;
-				const isSkillMatch = skill === "0" || (row.points >= minScore && row.points <= maxScore);
+    function performSearch() {
+        const sport = document.getElementById("s").value;
+        const area = document.getElementById("s2").value;
+        const skill = parseInt(document.getElementById("myRange").value);
 
-				return isSportMatch && isAreaMatch && isSkillMatch;
-			});
+        const upperBound = skill + 100;
 
-			const tableBody = document.getElementById("tBody");
-			tableBody.innerHTML = ''; // Clear existing data
+        const filteredData = teamData.filter((row) => {
+            const isSportMatch = sport === "" || row.sport === sport;
+            const isAreaMatch = area === "" || row.area === area;
+            const isSkillMatch = skill === 0 || (row.points >= skill && row.points <= upperBound);
 
-			filteredData.forEach((row, index) => {
-				addRow(tableBody, index + 1, row.name, row.area, row.points, row.sport);
-			});
-		}
+            return isSportMatch && isAreaMatch && isSkillMatch;
+        });
+
+        const tableBody = document.getElementById("tBody");
+        tableBody.innerHTML = ''; // Clear existing data
+
+        filteredData.forEach((row, index) => {
+            addRow(tableBody, index + 1, row.name, row.area, row.points, row.sport);
+        });
+    }
+
+
 
 
 

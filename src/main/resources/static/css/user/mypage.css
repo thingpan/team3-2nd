@@ -20,6 +20,11 @@
 #username {
 	margin-left: 560px;
 }
+#gender1{
+	display: flex;
+  flex-direction: row;
+}
+
 
 #date,
 #gender,

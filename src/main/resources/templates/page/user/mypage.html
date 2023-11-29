@@ -19,6 +19,7 @@
 		crossorigin="anonymous"></script>
 
 	<link rel="stylesheet" href="/css/user/mypage.css">
+
 </head>
 
 <body>
@@ -40,176 +41,200 @@
 		<div class="action-buttonss">
 			<button id="create-team-btn" onclick="openModal()" style="margin-left: 30px">팀 만들기</button>
 
-			<button id="edit-button">정보 수정</button>
+			<button id="edit-button" onclick="openCurrentPasswordModal()">정보 수정</button>
 		</div>
-		<div
-      class="modal fade"
-      id="teamAddModal"
-      tabindex="-1"
-      aria-labelledby=""
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-        <div class="modal-content" style="align-items: center">
-          <div class="modal-header">
-            <div class="modal-title-text" id="teamAddModalLabel">
-              팀 생성하기
-            </div>
-          </div>
-          <div class="modal-body" style="width: 90%">
-            <form>
-              <!-- 프로필 섹션 -->
-              <div class="profile-section">
-                <div class="modal-title-text">팀 사진</div>
-                <img src="" alt="팀 이미지" class="profile-image" />
-             
-                <div class="file-upload-btn">
-                  <input
-                    type="file"
-                    id="team-file-input"
-                    onchange="uploadTeamImage()"
-                      style="display: none;"
-                  />
-                  <label for="team-file-input" class="btn btn-dark">
-                    팀 사진 첨부
-                  </label>
-                </div>
-              </div>
+		<div class="modal fade" id="teamAddModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+				<div class="modal-content" style="align-items: center">
+					<div class="modal-header">
+						<div class="modal-title-text" id="teamAddModalLabel">
+							팀 생성하기
+						</div>
+					</div>
+					<div class="modal-body" style="width: 90%">
+						<form>
+							<!-- 프로필 섹션 -->
+							<div class="profile-section">
+								<div class="modal-title-text">팀 사진</div>
+								<img class="profile-image" / id="profile-image">
 
-              <!-- 팀 정보 섹션 -->
-              <div class="mb-2">
-                <div class="modal-title-text">
-                  팀 이름
-                  <p style="color: red">&nbsp;*</p>
-                </div>
-                <input type="text" class="form-control" id="recipient-name" />
-              </div>
-              <div class="mb-2">
-                <div class="modal-title-text">
-                  지역
-                  <p style="color: red">&nbsp;*</p>
-                </div>
-                <div class="region-select-section">
-                  <select
-                    id="sido"
-                    class="filter-select"
-                    onchange="makeSigungu()"
-                  >
-                    <option>시/도</option>
-                  </select>
-                  <select
-                    id="sigungu"
-                    class="filter-select"
-                    onchange="updateSchedule()"
-                  >
-                    <option>시/군/구</option>
-                  </select>
-                </div>
-              </div>
-              <div class="mb-2">
-                <div class="modal-title-text">
-                  종목
-                  <p style="color: red">&nbsp;*</p>
-                </div>
-              </div>
+								<div class="file-upload-btn">
+									<input type="file" id="team-file-input" onchange="uploadTeamImage()"
+										style="display: none;" />
+									<label for="team-file-input" class="btn btn-dark">
+										팀 사진 첨부
+									</label>
+								</div>
+							</div>
 
-              <div class="mb-2 sports-section">
-                <input
-                  type="checkbox"
-                  class="btn-check"
-                  id="btn-check-outlined1"
-                  autocomplete="off"
-                />
-                <label class="btn btn-outline-dark" for="btn-check-outlined1">
-                  축구
-                </label>
-                <input
-                  type="checkbox"
-                  class="btn-check"
-                  id="btn-check-outlined2"
-                  autocomplete="off"
-                />
-                <label class="btn btn-outline-dark" for="btn-check-outlined2">
-                  야구
-                </label>
-                <input
-                  type="checkbox"
-                  class="btn-check"
-                  id="btn-check-outlined3"
-                  autocomplete="off"
-                />
-                <label class="btn btn-outline-dark" for="btn-check-outlined3">
-                  농구
-                </label>
-              </div>
-              <div class="mb-2">
-                <div class="modal-title-text">
-                  팀 소개
-                </div>
-                <textarea
-                  style="height: 250px"
-                  class="form-control"
-                  id="message-text"
-                  placeholder="ex) 20-30대 직장인들이 함께하는 Team3 입니다. 함께 해주실 분을 찾고 있습니다!"
-                ></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              닫기
-            </button>
-            <button type="button" class="btn btn-dark" onclick="showAlert()">
-              등록
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script>
-      function openModal() {
-        const teamAddModal = document.querySelector('#teamAddModal');
-        $(teamAddModal).modal('show');
-      }
+							<!-- 팀 정보 섹션 -->
+							<div class="mb-2">
+								<div class="modal-title-text">
+									팀 이름
+									<p style="color: red">&nbsp;*</p>
+								</div>
+								<input type="text" class="form-control" id="recipient-name" />
+							</div>
+							<div class="mb-2">
+								<div class="modal-title-text">
+									지역
+									<p style="color: red">&nbsp;*</p>
+								</div>
+								<div class="region-select-section">
+									<select id="sido" class="filter-select" onchange="makeSigungu()">
+										<option>시/도</option>
+									</select>
+									<select id="sigungu" class="filter-select" onchange="updateSchedule()">
+										<option>시/군/구</option>
+									</select>
+									<script src="/js/mock/region.js"></script>
+								</div>
+							</div>
+							<div class="mb-2">
+								<div class="modal-title-text">
+									종목
+									<p style="color: red">&nbsp;*</p>
+								</div>
+							</div>
 
-      document.querySelectorAll('.btn-check').forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-          document
-            .querySelectorAll('.btn-check')
-            .forEach(function (otherCheckbox) {
-              if (otherCheckbox !== checkbox) {
-                otherCheckbox.checked = false;
-              }
-            });
-        });
-      });
+							<div class="mb-2 sports-section">
+								<input type="checkbox" class="btn-check" id="btn-check-outlined1" autocomplete="off" />
+								<label class="btn btn-outline-dark" for="btn-check-outlined1">
+									축구
+								</label>
+								<input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off" />
+								<label class="btn btn-outline-dark" for="btn-check-outlined2">
+									야구
+								</label>
+								<input type="checkbox" class="btn-check" id="btn-check-outlined3" autocomplete="off" />
+								<label class="btn btn-outline-dark" for="btn-check-outlined3">
+									농구
+								</label>
+							</div>
+							<div class="mb-3">
+								<div class="modal-title-text">
+									성별선택
+								</div>
+								<div id="gender1">
+									<input type="radio" id="male" name="gender" value="남자" />
+									<label for="male">남자</label>
+									<input type="radio" id="female" name="gender" value="여자" />
+									<label for="female">여자</label>
+									<input type="radio" id="all" name="gender" value="혼성" />
+									<label for="all">혼성</label>
+								</div>
+							</div>
+							<div class="mb-2">
+								<div class="modal-title-text">
+									팀 소개
+								</div>
+								<textarea style="height: 250px" class="form-control" id="message-text"
+									placeholder="ex) 20-30대 직장인들이 함께하는 Team3 입니다. 함께 해주실 분을 찾고 있습니다!"></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal"
+							onclick="closeModalAndShowAlert()">
+							닫기
+						</button>
+						<button type="button" class="btn btn-dark" onclick="showAlert()">
+							등록
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="current-password-modal" class="modal" style="display: none;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">현재 비밀번호 확인</h4>
+					</div>
+					<div class="modal-body">
+						<label for="current-password-input">현재 비밀번호를 입력하세요:</label>
+						<input type="password" id="current-password-input" class="form-control">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal"
+							onclick="cancelCurrentPassword()">취소</button>
+						<button type="button" class="btn btn-primary" onclick="checkCurrentPassword()">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			function openCurrentPasswordModal() {
+				$('#current-password-modal').modal('show');
+			}
 
-      // 파일 업로드 함수 - 팀 사진
-      function uploadTeamImage() {
-        const fileInput = document.getElementById('team-file-input');
-        const teamImage = document.querySelector('.profile-image');
+			function cancelCurrentPassword() {
+				$('#current-password-modal').modal('hide');
+				document.getElementById('current-password-input').value = '';
 
-        const file = fileInput.files[0];
-        if (file) {
-          const reader = new FileReader();
+				// Hide the user information section
+				document.querySelector('.edit-profile-form').style.display = 'none';
+			}
 
-          reader.onload = function (e) {
-            teamImage.src = e.target.result;
-          };
+			function checkCurrentPassword() {
+				const enteredPassword = document.getElementById('current-password-input').value;
+				const userPassword = 'user123'; // Replace with the actual user's password
 
-          reader.readAsDataURL(file);
-        }
-      }
+				if (enteredPassword === userPassword) {
+					$('#current-password-modal').modal('hide');
+					// Display the profile editing form
+					document.querySelector('.edit-profile-form').style.display = 'block';
+				} else {
+					alert('비밀번호가 틀렸습니다. 다시 입력해주세요.');
+				}
+			}
 
-      function showAlert() {
-        alert('팀 생성이 완료되었습니다.');
-      }
-    </script>
-    <script src="/js/region.js"></script>
+			// 파일 업로드 함수 - 팀 사진
+			function uploadTeamImage() {
+				const fileInput = document.getElementById('team-file-input');
+				const teamImage = document.querySelector('.profile-image');
+
+				const file = fileInput.files[0];
+				if (file) {
+					const reader = new FileReader();
+
+					reader.onload = function (e) {
+						teamImage.src = e.target.result;
+					};
+
+					reader.readAsDataURL(file);
+				}
+			}
+
+
+
+			async function showAlert() {
+				const teamImgFile = document.querySelector('#team-file-input');
+				const formData = new FormData();
+				if (teamImgFile.files.length) {
+					const file = teamImgFile.files[0];
+					formData.append('taFile', file);
+				}
+				const taName = document.querySelector('#recipient-name').value;
+				const taBoundarySido = document.querySelector('#sido').value;
+				const taBoundarySigungu = document.querySelector('#sigungu').value;
+				const taType = '축구';
+				const taGender = document.querySelector('input[name="gender"]:checked').value;
+				const taDesc = document.querySelector('#message-text').value;
+				formData.append('taName', taName);
+				formData.append('taBoundarySido', taBoundarySido);
+				formData.append('taBoundarySigungu', taBoundarySigungu);
+				formData.append('taType', taType);
+				formData.append('taGender', taGender);
+				formData.append('taDesc', taDesc);
+				const res = await fetch('/team-add', {
+					method: 'POST',
+					body: formData
+				});
+
+			}
+		</script>
+		<script src="/js/region.js"></script>
 
 
 		<hr style="margin-top:20px ;">
@@ -357,6 +382,10 @@
 				}
 
 			</script>
+			<script>
+
+
+			</script>
 
 			<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 			<div class="overlay" id="overlay"></div>
@@ -388,7 +417,7 @@
 
 				});
 
-				
+
 
 				function closeProfilePopup() {
 					// 모달 창 닫기
@@ -484,7 +513,7 @@
 						});
 					}
 				}
-			
+
 
 
 				// 팀 엘리먼트 생성 함수
@@ -537,7 +566,7 @@
 
 			</script>
 
-	
+
 
 
 </body>
