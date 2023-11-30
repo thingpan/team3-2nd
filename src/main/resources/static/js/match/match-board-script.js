@@ -93,9 +93,6 @@ function generateMockData() {
 
     // 30일 동안의 무작위 일정 생성
     const currentDate = new Date();
-    // for (let i = 0; i < 30; i++) {
-    //     const randomDate = new Date(currentDate);
-    //     randomDate.setDate(currentDate.getDate() + i);
     for (let i = -15; i <= 15; i++) {
         const randomDate = new Date(currentDate);
         randomDate.setDate(currentDate.getDate() + i);
@@ -152,6 +149,13 @@ function generateRandomCapacity(sportIcon) {
 // 무작위로 생성된 경기 일정 데이터 가져오기
 const scheduleData = generateMockData();
 
+// 스포츠 종목별 아이콘 매핑
+const sportIconsMap = {
+    '축구': '⚽',
+    '농구': '🏀',
+    '야구': '⚾️'
+};
+
 window.addEventListener('load', async function () {
     const res = await fetch(`/match-board/1`);
     const matchBoardInfos = await res.json();
@@ -164,15 +168,9 @@ window.addEventListener('load', async function () {
 });
 
 async function showSchedule(date) {
-    // 서버에서 matchBoard 데이터 가져오기중
+    // 서버에서 matchBoard 데이터 가져오기 중
     const res = await fetch(`/match-board/1`);
     const matchBoards = await res.json();
-
-    const selectedSido = '서울';
-
-    // const filteredMatchBoards = matchBoards.filter(matchBoard => {
-    //     return matchBoard.mbSido === selectedSido;
-    // });
 
     const filteredMatchBoards = matchBoards.filter(matchBoard => {
         const boardDate = new Date(matchBoard.mbDate);
@@ -199,17 +197,23 @@ async function showSchedule(date) {
                 mbAddress: matchBoard.mbAddress,
                 mbAddressDetail: matchBoard.mbAddressDetail,
                 mbSido: matchBoard.mbSido,
-                mbDate: new Date(matchBoard.mbDate)
+                mbDate: new Date(matchBoard.mbDate),
+                mbType: matchBoard.mbType,
             };
 
             scheduleData.forEach((scheduleItem) => {
-                // if (apiScheduleItem.mbDate && apiScheduleItem.mbDate.toDateString() === date.toDateString()) {
                 if (scheduleItem.date.toDateString() === date.toDateString()) {
                     const row = scheduleTable.insertRow();
 
                     // 시간과 스포츠 아이콘
                     const timeAndSportIconCell = row.insertCell(0);
-                    timeAndSportIconCell.innerHTML = `${apiScheduleItem.mbTime}${scheduleItem.sportIcon}`;
+                    const sportIcon = getSportIconByType(apiScheduleItem.mbType);
+                    timeAndSportIconCell.innerHTML = `${apiScheduleItem.mbTime}${sportIcon}`;
+
+
+                    function getSportIconByType() {
+                        return sportIconsMap[apiScheduleItem.mbType];
+                    }
 
                     function getGenderLabelAndText(gender) {
                         const colors = {
@@ -300,7 +304,7 @@ async function showSchedule(date) {
         const selectedSigungu = document.getElementById('sigungu').value;
         const selectedPoint = document.getElementById('point').value;
 
-        // 여기에 서버에서 데이터를 가져와서 필터링하고, updateScheduleTable 함수를 호출하여 테이블을 업데이트하는 로직을 작성합니다.
+        // 여기에 서버에서 데이터를 가져와서 필터링하고, updateScheduleTable 함수를 호출하여 테이블을 업데이트하는 로직 작성
         fetch(`/match-board/${selectedSido}/${selectedSigungu}/${selectedSport}/${selectedPoint}`)
             .then(response => response.json())
             .then(data => updateScheduleTable(data));
