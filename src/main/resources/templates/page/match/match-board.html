@@ -53,14 +53,16 @@
         <select id="point" class="filter-select">
             <option value="all">포인트</option>
         </select>
+        <!--        <button onclick="updateSchedule()">적용</button> -->
     </div>
+    <div class="schedule-none"></div>
     <table class="schedule-table">
         <tbody id="schedule"></tbody>
     </table>
     <ul class="pagination" id="pagination"></ul>
 </section>
 <div class="write-section">
-    <button id="write-button">글쓰기</button>
+    <button onclick="location.href='/page/match/match-add'" id="write-button">글쓰기</button>
 </div>
 <script type="module" src="/js/match/match-board-script.js"></script>
 <script src="/js/mock/region.js"></script>

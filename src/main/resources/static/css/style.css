@@ -78,8 +78,8 @@ img {
 }
 
 .team-table {
-  width: 90%;
-  margin: 1rem auto;
+  width: 80%;
+  margin: 0 auto;
   border-collapse: collapse;
   position: relative;
 }
@@ -89,13 +89,12 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  /*margin-bottom: 1rem;*/
 }
 
 .caption-content {
-  margin-top: 3rem;
-  width: 90%;
-  margin-left: 3.5rem;
+  margin: 2rem auto;
+  width: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,13 +132,20 @@ img {
   cursor: pointer;
 }
 
+.bottom-caption {
+  width: 75%;
+  text-align: right; /* 우측 정렬 */
+  margin: 0 auto;
+}
+
 .bottom-caption a {
-  top: 21rem;
-  margin-right: 4rem;
+  top: 22rem;
+  margin-right: 8rem;
 }
 
 .team-table-wrapper {
   position: relative;
+
 }
 
 
@@ -217,9 +223,9 @@ img {
 }
 
 .schedule-caption {
+  width: 70%;
   text-align: right; /* 우측 정렬 */
-  margin-bottom: 2rem;
-  margin-right: 13rem;
+  margin: 0 auto 1rem;
 }
 
 .schedule-view-more {
