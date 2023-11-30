@@ -28,25 +28,12 @@
     
 }
 
-.form-box {
-	Position : fixed;
-	width: 1300%;
-	margin-right: 510px;
-	padding: 20px;
-	border: 2px solid #ddd;
-	border-radius: 10px;
-	margin-left:-600px;
-	background-color: #fff;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+
 
 #username {
-	margin-left: 560px;
+	margin-left:42%;
 }
-#gender1{
-	display: flex;
-  flex-direction: row;
-}
+
 
 
 #date,
@@ -110,7 +97,6 @@
 
 #box2 {
 	width: 100%;
-
 	padding: 20px;
 	border: 2px solid #ddd;
 	border-radius: 10px;
@@ -118,11 +104,6 @@
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
 
 #change-email-button
 {
@@ -173,7 +154,7 @@
 .team-list {
 	display: flex;
 	flex-wrap: wrap;
-	margin-right: 100px;
+	margin-right: 30%;
 	/* Add this line */
 	justify-content: flex-start;
 	/* Add this line */
@@ -192,17 +173,18 @@
 	margin-top: 10px;
 }
 
+
+
+
 .edit-profile-form {
-	text-align: center;
-}
-
-/* Reset alignment for specific elements */
-
-
-/* Adjustments for the entire form */
-.edit-profile-form {
-	max-width: 400px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	margin: 0 auto;
+	display: none;
+	text-align: left;
+border: 2px solid #ddd;
+	border-radius: 10px;
+	background-color: #fff;
+	margin-top: 20px;
 }
 
 .action-buttonss {
@@ -279,16 +261,7 @@
 	margin-top: 10px;
 }
 
-.edit-profile-form {
-	display: none;
-	text-align: left;
-	/* 텍스트를 왼쪽 정렬 */
-	width: 100px;
-	/* 폼의 너비를 조절, 필요에 따라 조절 가능 */
 
-	/* 오른쪽 여백을 최대로 설정하여 왼쪽으로 정렬 */
-	margin-top: 20px;
-}
 
 .action-buttons {
 	text-align: center;
@@ -302,10 +275,9 @@
 #save-profile {
 	padding: 10px 15px;
 	font-size: 7px;
-	width: 80px;
+	width: 10%;
 	border-radius: 5px;
-	margin-left: 1137px;
-	margin-top: 30px;
+	margin-left: 90%;
 		display: inline-block;
 	padding: 10px 15px;
 	background-color: #000000f5;
@@ -567,7 +539,7 @@ input[type=button]:hover {
 
 	background-color: #000000f5;
 	color: #fff;
-	margin-left:520px;
+	margin-left:130%;
 	width: 100px;
 	height: 35px;
 	border: none;
@@ -604,9 +576,7 @@ input[type=button]:hover {
 	border-radius: 5px;
 	cursor: pointer;
 }
-.sub{
-	margin-left:400px;
-}
+
 </style>
 <body>
 
@@ -864,7 +834,7 @@ input[type=button]:hover {
 		</div>
 
 		<div class="edit-profile-form" style="display: none;">
-			<div class="form-box">
+		
 				<h3>내 정보</h3>
 
 				<p style="margin-bottom: 50px;"></p>
@@ -910,7 +880,7 @@ input[type=button]:hover {
 				<hr>
 				<button type="button" id="save-profile">완료</button>
 			</div>
-		</div>
+	
 
 		<div id="change-email-popup"
 			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
