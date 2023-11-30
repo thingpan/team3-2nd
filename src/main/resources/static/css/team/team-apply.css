@@ -215,147 +215,62 @@ header {
 	/* 사이드바가 열린 경우에는 백드롭을 감추기 */
 }
 
-#verticalLine {
-	width: 2px;
-	background-color: #ddd;
-	height: 100%;
-	position: absolute;
-	left: 50%;
-	top: 0;
-}
-
-#box {
+.team-profile {
 	display: flex;
-	width: 60%;
-	margin: auto;
-	height: 1000px;
-	padding: 20px;
-	border: 2px solid #ddd;
-	border-radius: 10px;
-	background-color: #fff;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 20px;
 	position: relative;
-	border-bottom: 1px solid #ddd;
 }
 
-#teamList {
-	flex: 1;
-
-
-	max-width: 430px;
-	padding: 10px;
-	box-sizing: border-box;
+.team-photo img {
+	width: 200px;
+	height: 150px;
+	border-radius: 20px;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 1rem;
 }
 
-#chatContainer {
+.score-badge {
+	font-weight: 600;
+	margin-bottom: 30px;
+}
 
-	margin-left: 130px;
-	padding: 20px;
-	border: 2px solid #ddd;
-	width: 350px;
-	border-radius: 10px;
-	background-color: #fff;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	position: relative;
+#score-value {
+	font-weight: 600;
+	font-size: 16px;
+	margin-left: 0.5rem;
+	padding: 6px 14px;
+	border-radius: 8px;
 }
 
 .main {
 	width: 70%;
-	margin-left: 300px;
-	margin: auto;
+	margin: 0 auto;
 }
 
-.teamContainer {
-	margin-bottom: 20px;
-	padding: 15px;
-
-	background-color: #f9f9f9;
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	position: relative;
-}
-
-.teamDetails {
-	margin-bottom: 10px;
-	padding: 15px;
-	background-color: #f9f9f9;
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	cursor: pointer;
-}
-
-.teamInfo {
-	margin-bottom: 10px;
-}
-
-.teamName {
-	font-size: 18px;
-	font-weight: bold;
-}
-
-.teamLeader {
-	font-size: 14px;
-	color: #777;
-}
-
-.lastMessage {
-	font-size: 14px;
-}
-
-
-
-
-#messageContainer {
-	margin-bottom: 10px;
-	position: relative;
-}
-
-.messageContent {
-	position: relative;
-	padding: 10px;
-	background-color: #f9f9f9;
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	word-wrap: break-word;
-	margin-bottom: 10px;
-}
-
-.messageDetails {
-	display: flex;
-	justify-content: space-between;
-}
-
-.senderInfo {
-	font-size: 10px;
-	color: #777;
-	margin-bottom: 5px;
-}
-
-.dateTime {
-	font-size: 10px;
-	color: #999;
-	margin-left: auto;
-}
-
-.teamName {
+.table thead th {
+	background-color: var(--btn-gray-color);
 	text-align: center;
-	font-size: 18px;
-	font-weight: bold;
-	margin-bottom: 20px;
 }
 
-#sendMessageBtn {
-	cursor: pointer;
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	font-size: 20px;
-	color: #007bff;
+.table tbody td {
+	text-align: center;
 }
 
+.table tbody td button {
+	margin-left: -45px;
+	/* 필요에 따라 여백을 조정 */
+}
 
+.table {
+	margin-top: 8px;
+	/* 테이블의 위쪽 여백을 조절합니다. */
+}
 
-.teamContainer:hover,
-.teamDetails:hover {
-	background-color: #e8e8e8;
+.table td .btn {
+	font-size: 12px;
+	/* 버튼 텍스트 크기 조절 */
 }
