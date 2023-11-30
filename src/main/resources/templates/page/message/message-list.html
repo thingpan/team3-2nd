@@ -2,134 +2,136 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyBtvYOtU1z1jNQZgD5B8I5I6RWEJlT6T" crossorigin="anonymous">
-  <link rel="stylesheet" href="/css/message/message-list.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyBtvYOtU1z1jNQZgD5B8I5I6RWEJlT6T" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/message/message-list.css">
 </head>
 
 <body>
-  <div th:replace="/page/fragment/header.html :: f-head"></div>
-  <div id="main">
-    <div id="box">
-      <div id="teamList">
-        <h2 style="margin-left:130px;">쪽지 리스트</h2>
-        <div id="teamContainer"></div>
-      </div>
-      <div id="verticalLine"></div>
-      <div id="chatContainer" style="display: none;">
-        <div class="teamName" id="selectedTeamName">팀 이름</div>
-        <div id="messageContainer"></div>
-        <i id="sendMessageBtn" class="fas fa-paper-plane"></i>
+	<div th:replace="/page/fragment/header.html :: f-head"></div>
+	<div id="main">
+		<div id="box">
+			<div id="teamList">
+				<h2 style="margin-left:130px;">쪽지 리스트</h2>
+				<div id="teamContainer"></div>
+			</div>
+			<div id="verticalLine"></div>
+			<div id="chatContainer" style="display: none;">
+				<div class="teamName" id="selectedTeamName">팀 이름</div>
+				<div id="messageContainer"></div>
+				<i id="sendMessageBtn" class="fas fa-paper-plane"></i>
 
-        <div class="modal fade" tabindex="-1" id="post-message-modal">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">쪽지보내기</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div>
-                  <span>보내는 팀 : </span><span id="post-message-taName"></span>
-                </div>
-                <hr>
-                <div>
-                  <span>받는 팀 : </span><span id="post-message-opponentName"></span>
-                </div>
-                <hr>
-                <div>
-                  <p>보낼 내용</p>
-                  <textarea class="form-control" id="post-message-textarea" cols="30" rows="15"></textarea>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-dark" onclick="sendPostMessage()">보내기</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Bootstrap JS (Popper.js 포함) -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
-    integrity="sha384-8Vi7xK5KpBAYs8vMwH2F2NSI83LSbA11Tof7Y9Fb9AY2IdKd5DtF4FsgdE5t6e9o"
-    crossorigin="anonymous"></script>
-  <!-- Bootstrap JS -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyBtvYOtU1z1jNQZgD5B8I5I6RWEJlT"
-    crossorigin="anonymous"></script>
+				<div class="modal fade" tabindex="-1" id="post-message-modal">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">쪽지보내기</h5>
+								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div>
+									<span>보내는 팀 : </span><span id="post-message-taName"></span>
+								</div>
+								<hr>
+								<div>
+									<span>받는 팀 : </span><span id="post-message-opponentName"></span>
+								</div>
+								<hr>
+								<div>
+									<p>보낼 내용</p>
+									<textarea class="form-control" id="post-message-textarea" cols="30"
+										rows="15"></textarea>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-dark" onclick="sendPostMessage()">보내기</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="/page/fragment/side-bar.html :: f-side-bar"></div>
+	<!-- Bootstrap JS (Popper.js 포함) -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+		integrity="sha384-8Vi7xK5KpBAYs8vMwH2F2NSI83LSbA11Tof7Y9Fb9AY2IdKd5DtF4FsgdE5t6e9o"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyBtvYOtU1z1jNQZgD5B8I5I6RWEJlT"
+		crossorigin="anonymous"></script>
 
-  <script>
-    const sendMessageBtn = document.getElementById('sendMessageBtn');
-    const postMessageModal = new bootstrap.Modal(document.getElementById('post-message-modal'), {
-      keyboard: false
-    });
+	<script>
+		const sendMessageBtn = document.getElementById('sendMessageBtn');
+		const postMessageModal = new bootstrap.Modal(document.getElementById('post-message-modal'), {
+			keyboard: false
+		});
 
-    const teamListData = [
-      { teamName: "팀 A", teamLeader: "리더 A", lastMessage: "안녕하세요!", dateTime: "2023-11-22 15:30", readStatus: true },
-      { teamName: "팀 B", teamLeader: "리더 B", lastMessage: "어떤 일로 오셨나요?", dateTime: "2023-11-22 15:35", readStatus: false },
-      // 추가적인 목데이터 아이템을 필요에 따라 추가
-    ];
+		const teamListData = [
+			{teamName: "팀 A", teamLeader: "리더 A", lastMessage: "안녕하세요!", dateTime: "2023-11-22 15:30", readStatus: true},
+			{teamName: "팀 B", teamLeader: "리더 B", lastMessage: "어떤 일로 오셨나요?", dateTime: "2023-11-22 15:35", readStatus: false},
+			// 추가적인 목데이터 아이템을 필요에 따라 추가
+		];
 
-    const chatData = {
-      "팀 A": [
-        { sender: "보낸쪽지", teamLeader: "리더 A", message: "안녕하세요!", dateTime: "2023-11-22 15:30" },
-        { sender: "받은쪽지", teamLeader: "리더 B", message: "어떤 일로 오셨나요?", dateTime: "2023-11-22 15:35" },
-      ],
-      "팀 B": [
-        { sender: "보낸쪽지", teamLeader: "리더 A", message: "안녕!", dateTime: "2023-11-22 15:30" },
-        { sender: "받은쪽지", teamLeader: "리더 B", message: "무슨 일이야?", dateTime: "2023-11-22 15:35" },
-      ]
-    };
+		const chatData = {
+			"팀 A": [
+				{sender: "보낸쪽지", teamLeader: "리더 A", message: "안녕하세요!", dateTime: "2023-11-22 15:30"},
+				{sender: "받은쪽지", teamLeader: "리더 B", message: "어떤 일로 오셨나요?", dateTime: "2023-11-22 15:35"},
+			],
+			"팀 B": [
+				{sender: "보낸쪽지", teamLeader: "리더 A", message: "안녕!", dateTime: "2023-11-22 15:30"},
+				{sender: "받은쪽지", teamLeader: "리더 B", message: "무슨 일이야?", dateTime: "2023-11-22 15:35"},
+			]
+		};
 
-    const teamContainer = document.getElementById('teamContainer');
-    const selectedTeamName = document.getElementById('selectedTeamName');
-    const messageContainer = document.getElementById('messageContainer');
+		const teamContainer = document.getElementById('teamContainer');
+		const selectedTeamName = document.getElementById('selectedTeamName');
+		const messageContainer = document.getElementById('messageContainer');
 
-    teamListData.forEach((team, index) => {
-      const teamDetails = document.createElement('div');
-      teamDetails.classList.add('teamDetails');
+		teamListData.forEach((team, index) => {
+			const teamDetails = document.createElement('div');
+			teamDetails.classList.add('teamDetails');
 
-      const teamInfo = document.createElement('div');
-      teamInfo.classList.add('teamInfo');
-      teamInfo.innerHTML = `
+			const teamInfo = document.createElement('div');
+			teamInfo.classList.add('teamInfo');
+			teamInfo.innerHTML = `
         <div class="teamName">${team.teamName}</div>
         <div class="teamLeader">팀 리더: ${team.teamLeader}</div>
         <div class="lastMessage">${team.lastMessage}</div>
       `;
 
-      const iconContainer = document.createElement('div');
-      iconContainer.classList.add('iconContainer');
-      iconContainer.innerHTML = `
+			const iconContainer = document.createElement('div');
+			iconContainer.classList.add('iconContainer');
+			iconContainer.innerHTML = `
         <div class="dateTime">${team.dateTime}</div>
 
       `;
 
-      teamDetails.appendChild(teamInfo);
-      teamDetails.appendChild(iconContainer);
-      teamContainer.appendChild(teamDetails);
+			teamDetails.appendChild(teamInfo);
+			teamDetails.appendChild(iconContainer);
+			teamContainer.appendChild(teamDetails);
 
-      // 팀 클릭 시 상세 내용 표시
-      teamDetails.addEventListener('click', () => {
-        selectedTeamName.textContent = team.teamName;
-        messageContainer.innerHTML = ''; // 기존 채팅 내용 초기화
+			// 팀 클릭 시 상세 내용 표시
+			teamDetails.addEventListener('click', () => {
+				selectedTeamName.textContent = team.teamName;
+				messageContainer.innerHTML = ''; // 기존 채팅 내용 초기화
 
-        // 해당 팀의 채팅 데이터 가져오기
-        if (chatData.hasOwnProperty(team.teamName)) {
-          chatData[team.teamName].forEach((chat) => {
-            const messageContentDiv = document.createElement('div');
-            messageContentDiv.classList.add('messageContent');
-            messageContentDiv.innerHTML = `
+				// 해당 팀의 채팅 데이터 가져오기
+				if (chatData.hasOwnProperty(team.teamName)) {
+					chatData[team.teamName].forEach((chat) => {
+						const messageContentDiv = document.createElement('div');
+						messageContentDiv.classList.add('messageContent');
+						messageContentDiv.innerHTML = `
               <div class="messageDetails">
                 <div class="senderInfo">${chat.sender}</div>
                 <div class="dateTime">${chat.dateTime}</div>
@@ -137,34 +139,34 @@
               ${chat.message}
             `;
 
-            messageContainer.appendChild(messageContentDiv);
-          });
-        }
+						messageContainer.appendChild(messageContentDiv);
+					});
+				}
 
-        // 오른쪽 박스 보이기
-        document.getElementById('chatContainer').style.display = 'block';
-      });
-    });
+				// 오른쪽 박스 보이기
+				document.getElementById('chatContainer').style.display = 'block';
+			});
+		});
 
-    sendMessageBtn.addEventListener('click', async () => {
-      postMessageModal.show();
-    });
+		sendMessageBtn.addEventListener('click', async () => {
+			postMessageModal.show();
+		});
 
-    function sendPostMessage() {
-      const messageContent = document.getElementById('post-message-textarea').value;
-      const currentTime = new Date();
-      const formattedTime = `${currentTime.getFullYear()}-${(currentTime.getMonth() + 1).toString().padStart(2, '0')}-${currentTime.getDate().toString().padStart(2, '0')} ${currentTime.getHours().toString().padStart(2, '0')}:${currentTime.getMinutes().toString().padStart(2, '0')}`;
-      const senderInfo = '보낸쪽지';
-      const dateTime = formattedTime;
-      const senderDetails = `${senderInfo} ${dateTime}`;
+		function sendPostMessage() {
+			const messageContent = document.getElementById('post-message-textarea').value;
+			const currentTime = new Date();
+			const formattedTime = `${currentTime.getFullYear()}-${(currentTime.getMonth() + 1).toString().padStart(2, '0')}-${currentTime.getDate().toString().padStart(2, '0')} ${currentTime.getHours().toString().padStart(2, '0')}:${currentTime.getMinutes().toString().padStart(2, '0')}`;
+			const senderInfo = '보낸쪽지';
+			const dateTime = formattedTime;
+			const senderDetails = `${senderInfo} ${dateTime}`;
 
-      // Get sending and receiving team names from the modal
-      const sendTeam = document.getElementById('post-message-taName').textContent;
-      const receiveTeam = document.getElementById('post-message-opponentName').textContent;
+			// Get sending and receiving team names from the modal
+			const sendTeam = document.getElementById('post-message-taName').textContent;
+			const receiveTeam = document.getElementById('post-message-opponentName').textContent;
 
-      const messageContentDiv = document.createElement('div');
-      messageContentDiv.classList.add('messageContent');
-      messageContentDiv.innerHTML = `
+			const messageContentDiv = document.createElement('div');
+			messageContentDiv.classList.add('messageContent');
+			messageContentDiv.innerHTML = `
         <div class="messageDetails">
           <div class="senderInfo">${senderInfo}</div>
           <div class="dateTime">${dateTime}</div>
@@ -173,10 +175,10 @@
         ${messageContent}
       `;
 
-      messageContainer.appendChild(messageContentDiv);
-      postMessageModal.hide();
-    }
-  </script>
+			messageContainer.appendChild(messageContentDiv);
+			postMessageModal.hide();
+		}
+	</script>
 </body>
 
 </html>
