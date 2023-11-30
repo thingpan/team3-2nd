@@ -254,6 +254,9 @@ header {
         padding: 10px;
         box-sizing: border-box;
         overflow-y: scroll;
+          flex: 1;
+    order: 0; /* 왼쪽에 위치하도록 0으로 설정 */
+    padding: 20px; /* 필요에 따라 패딩 추가 */
     }
 
 #chatContainer {
@@ -365,6 +368,9 @@ header {
 .teamDetails:hover {
 	background-color: #e8e8e8;
 }
+#name{
+	width:15%;
+}
 
 </style>
 <body>
@@ -372,7 +378,7 @@ header {
 	<div id="main">
 		<div id="box">
 			
-			<h2 id="name">쪽지 리스트</h2>
+		
 			<div id="teamList">
 			
 				<div id="teamContainer"></div>

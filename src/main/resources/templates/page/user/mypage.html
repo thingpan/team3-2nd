@@ -28,12 +28,50 @@
 
 	}
 
+   #user-info-form {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    /* Style for labels and input fields */
+    label {
+        display: inline-block;
+        width: 80px; /* Adjust the width as needed */
+        text-align: right;
+        margin-right: 10px;
+    }
+     #name,
+    #email,
+    #password,
+    #change-password-button,
+    #sex,
+  #gender,
+	#phone,
+	#info__birth
+    #date,
+    #address,
+    #search-address {
+        display: inline-block;
+        margin-right: 10px; /* Adjust the margin as needed */
+    }
+
+    #change-password-button,
+    #search-address {
+        margin-left: 0; /* Resetting the margin for specific elements */
+    }
+
+    /* Optional: Adjust the max-width for better responsiveness */
+  
+
+
+    button {
+        margin-left: 85px; /* Adjust the margin as needed */
+    }
 
 
 
-
-
-	#date,
+	
+	#sex
 	#gender,
 	#phone,
 	#info__birth {
@@ -44,13 +82,7 @@
 
 	}
 
-	#address {
-		display: inline-block;
-		width: 280px;
-		margin: 0 auto;
-		border: 0 solid white;
-		margin-left: 100px;
-	}
+
 
 
 	#password {
@@ -412,6 +444,10 @@
 	.modal-title-text {
 		font-size: 1.25rem;
 		font-weight: 700;
+	}
+	#my{
+		margin-left:2%;
+		margin-top:1%;
 	}
 
 	select {
@@ -824,7 +860,7 @@
 
 		<div class="edit-profile-form" style="display: none;">
 
-			<h3>내 정보</h3>
+			<h3 id="my">내 정보</h3>
 			
 
 			<p style="margin-bottom: 50px;"></p>
