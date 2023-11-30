@@ -23,6 +23,10 @@ public class UserInfoController {
 		return userInfoService.insertUserInfo(user);
 	}
 	
+	@PostMapping("/check-id")
+	public int loadUserByUsername(@RequestBody UserInfoVO user){
+		return userInfoService.doCheckUiId(user.getUiId());
+	}
 
 	
 }
