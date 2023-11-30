@@ -191,6 +191,7 @@
                         type="button"
                         class="btn btn-primary"
                         id="confirmMembershipBtn"
+                        onclick="doSendObj()"
                 >
                     확인
                 </button>
@@ -223,6 +224,22 @@
 </div>
 <!-- IONICONS -->
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+<script>
+	async function doSendObj(){
+		const obj = {
+			//나중에 url에서 taNum 받아와야함!!
+			taNum: 2 
+		} 
+		const res = await fetch('/team-sign-user-add',{
+			method: 'POST',
+			body: JSON.stringify(obj),
+			headers: {
+					'Content-Type': 'application/json;charset=UTF-8'
+				}
+		})
+	}
+</script>
 
 <script src="/js/team/record-script.js"></script>
 </body>

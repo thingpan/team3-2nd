@@ -37,6 +37,7 @@ public class TeamInfoService {
 		String fileName = UUID.randomUUID() + extName;
 		team.setTaFileName(originFileName);
 		team.setTaFilePath("/file/"+fileName);
+		team.setUiNum(user.getUiNum());
 		try {
 			file.transferTo(new File(uploadFilePath + fileName));
 		} catch (IllegalStateException e) {
@@ -44,12 +45,12 @@ public class TeamInfoService {
 		} catch (IOException e) {
 			log.error("file upload error=>{}", e);
 		}
-		if(1 == teamInfoMapper.insertTeamInfo(team)) {
-			TeamUserInfoVO teamUser = new TeamUserInfoVO();
-			teamUser.setTaNum(team.getTaNum());
-			teamUser.setTuRole("ADMIN");
-			//return teamUserInfoService.insertTeamUserInfo(teamUser, user); 
-			return 0;
+		if(1 == teamInfoMapper.insertTeamInfo(team)) { 
+			TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
+			teamUserInfoVO.setTaNum(team.getTaNum());
+			teamUserInfoVO.setUiNum(user.getUiNum());
+			teamUserInfoVO.setTuRole("ADMIN");
+			return teamUserInfoService.insertTeamUserInfo(teamUserInfoVO); 
 		}
 		return 0;
 	}

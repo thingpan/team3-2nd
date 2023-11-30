@@ -2,16 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.sp.team32ndproject.team.mapper.TeamSignUserInfoMapper">
-	<insert id="insertTeamSignUserInfo" parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
-		INSERT INTO USER_INFO(
-		UI_NAME, UI_ID, UI_PWD, UI_PHONE_NUM,
-		UI_BIRTH, UI_EMAIL, UI_ADDRESS, 
-		UI_CREDAT, UI_CRETIM
-		)
-		VALUES(
-		#{uiName}, #{uiId}, #{uiPwd}, #{uiPhoneNum},
-		#{uiBirth}, #{uiEmail},#{uiAddress},
-		DATE_FORMAT(NOW(),'%Y%m%d'),DATE_FORMAT(NOW(),'%H%i%s')
-		);
+	<insert id="insertTeamSignUserInfo"
+		parameterType="com.sp.team32ndproject.team.vo.TeamSignUserInfoVO">
+		INSERT INTO TEAM_SIGN_USER_INFO(TA_NUM, UI_NUM,TSU_STATUS)
+		VALUES(#{taNum},#{uiNum},#{tsuStatus})
 	</insert>
 </mapper>
