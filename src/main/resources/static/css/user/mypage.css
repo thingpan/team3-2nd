@@ -2,11 +2,11 @@
 
 #main {
 	width: 70%;
-	margin-top: 100px;
-	margin-left: 280px;
+    margin:0 auto;
 }
 
 .form-box {
+	border: none;
 	width: 1300%;
 	margin-right: 510px;
 	padding: 20px;

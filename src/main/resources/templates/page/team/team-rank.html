@@ -55,19 +55,11 @@
 		/* Set a fixed width as needed */
 		margin: 0 auto;
 		/* Center the container */
-		margin-left:300px;
+		margin-left:270px;
 		margin-top: 200px;
 	}
 
-	.slidecontainer {
-		flex: 1;
-		/* Allow the slidecontainer to take up remaining space */
-		margin-left: 20px;
-	}
-
-
-
-
+	
 
 	select {
 		-moz-appearance: none;
@@ -90,44 +82,19 @@
 		box-shadow: 0 1px 0 1px rgba(0, 0, 0, .04);
 	}
 
-
-
-	label {
-		font-family: "Noto Sans KR", sans-serif;
-		font-size: 1rem;
-		font-weight: 600;
-		line-height: 1.3;
-
-		color: #444;
-
-		margin-right: 0.5em;
-	}
-
-	form {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		color: #111;
-	}
-
-	
-
 	table {
 		border: 1px #a39485 solid;
 		font-size: 1em;
 		padding: 0.8em;
 		box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 		width: 100%;
-		margin-left: 300px;
+		text-align: center;
+		margin-left: 270px;
 	}
 
 
 
-	table tbody th,
-	table tbody td {
-		border: none;
-	}
+	
 
 	thead {
 		font-weight: bold;
@@ -139,8 +106,8 @@
 	td,
 	th {
 		padding: 1em .5em;
-		vertical-align: middle;
-		text-align: center;
+		
+	
 		/*테이블의 데이터 행에 대한 스타일*/
 	}
 
@@ -159,7 +126,7 @@
 		margin-left: 70px;
 		margin-bottom:30px;
 		color: #fff;
-		width: 130px;
+		width: 100px;
 		height: 40px;
 		border: none;
 		font-size: 15px;
@@ -220,15 +187,19 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 			<input type="range" min="0" max="1000" value="0" class="custom-range" id="myRange" step="100">
-			<class="form-label">팀 점수:<span id="value"></span>
+			<class="form-label">팀 점수:<span id="value">
+				
+			</span>
+			</class>
 
 
 
 			<button type="button" id="search-button" onclick="performSearch()">검색</button>
 
 		</div>
+		
 
-		<div class="table-container">
+		
 			<table border="1" id="teamTable">
 
 				<thead>
@@ -247,7 +218,7 @@
 
 				</tbody>
 			</table>
-		</div>
+	
 
 	</div>
 	<script>
