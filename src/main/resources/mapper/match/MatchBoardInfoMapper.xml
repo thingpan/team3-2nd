@@ -3,16 +3,24 @@
 <mapper
 	namespace="com.sp.team32ndproject.match.mapper.MatchBoardInfoMapper">
 	<insert id="insertMatchInfo" useGeneratedKeys="true"
-		keyColumn="MB_NUM" keyProperty="mbNum" parameterType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
+		keyColumn="MB_NUM" keyProperty="mbNum"
+		parameterType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
 		INSERT
 		MATCH_BOARD_INFO(TA_NUM,MB_ADDRESS,MB_ADDRESS_DETAIL,MB_MAP_X,MB_MAP_Y,
 		MB_SIDO,MB_SIGUNGU,MB_TIME,MB_DATE,
 		MB_CREDAT,MB_DESC,MB_PAY,MB_TYPE)
 		VALUES(#{taNum},#{mbAddress},#{mbAddressDetail},#{mbMapX},#{mbMapY},
 		#{mbSido},#{mbSigungu},#{mbTime},#{mbDate},
-		DATE_FORMAT(NOW(),'%Y%m%d'),#{mbDesc},#{mbPay},#{mbType}); 
+		DATE_FORMAT(NOW(),'%Y%m%d'),#{mbDesc},#{mbPay},#{mbType});
 	</insert>
-	<select id="selectMatchInfo" parameterType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
+	<select id="selectMatchInfos"
+		parameterType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
 		SELECT * FROM MATCH_BOARD_INFO
+	</select>
+	<select id="selectMatchInfo"
+		parameterType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
+		SELECT * FROM MATCH_BOARD_INFO
+		WHERE MB_NUM = #{mbNum}
+
 	</select>
 </mapper>

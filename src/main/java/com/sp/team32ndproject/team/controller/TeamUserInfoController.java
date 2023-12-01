@@ -1,6 +1,7 @@
 package com.sp.team32ndproject.team.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +21,7 @@ public class TeamUserInfoController {
 	public int insertTeamUserInfo(TeamInfoVO team, @AuthenticationPrincipal UserInfoVO user) {
 		return teamUserInfoService.insertTeamUserInfo(team, user); 
 	}
+	
+	
 	
 }

@@ -31,7 +31,7 @@ public class MatchBoardInfoService {
 		return result;
 	}
 
-	public List<MatchBoardInfoVO> selectMatchInfo(int mbNum) {
-		return matchBoardInfoMapper.selectMatchInfo(mbNum);
+	public List<MatchBoardInfoVO> selectMatchInfos(int mbNum) {
+		return matchBoardInfoMapper.selectMatchInfos(mbNum);
 	}
 }

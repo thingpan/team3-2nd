@@ -34,7 +34,7 @@ public class MatchInfoController {
 
 	@GetMapping("/match-board/{mbNum}")
 	@ResponseBody
-	public List<MatchBoardInfoVO> selectMatchBoardInfo(@PathVariable int mbNum) {
-		return matchInfoService.selectMatchInfo(mbNum);
+	public List<MatchBoardInfoVO> selectMatchInfos(@PathVariable int mbNum) {
+		return matchInfoService.selectMatchInfos(mbNum);
 	}
 }
