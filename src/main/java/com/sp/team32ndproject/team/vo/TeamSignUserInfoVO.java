@@ -8,5 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class TeamSignUserInfoVO {
-
+	private int tsuNum;
+	private int taNum;
+	private int uiNum;
+	private String tsuStatus;
 }

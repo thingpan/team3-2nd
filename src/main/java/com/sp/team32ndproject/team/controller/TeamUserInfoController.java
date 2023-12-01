@@ -18,7 +18,7 @@ public class TeamUserInfoController {
 	
 	@PostMapping("/team-user-add")
 	public int insertTeamUserInfo(TeamInfoVO team, @AuthenticationPrincipal UserInfoVO user) {
-		return teamUserInfoService.insertTeamUserInfo(team, user);
+		return teamUserInfoService.insertTeamUserInfo(team, user); 
 	}
 	
 }

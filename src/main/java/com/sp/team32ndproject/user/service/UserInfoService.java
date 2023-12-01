@@ -30,5 +30,18 @@ public class UserInfoService implements UserDetailsService{
 		user.setUiPwd(passwordEncoder.encode(user.getPassword()));
 		return userInfoMapper.insertUserInfo(user);
 	}
+	
+	public int doCheckUiId(String uiId) {
+		UserInfoVO user = userInfoMapper.selectUserInfoByUiId(uiId);
+		int result;
+		if(user == null) {
+			//아이디 중복 없으
+			result = 1;
+			return result;
+		}else {
+			result = 0;
+			return result;
+		}
+	}
 
 }
