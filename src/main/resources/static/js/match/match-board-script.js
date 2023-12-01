@@ -232,7 +232,7 @@ async function showSchedule(date) {
                     // 장소와 성별 표시
                     const locationCell = row.insertCell(1);
                     locationCell.innerHTML = `[${apiScheduleItem.mbSido}]
-                    <a class="match-board-title" style="color: #111; font-weight: 400; text-decoration: none" href="/page/match/match-view?mbNun=${apiScheduleItem.mbNum}">${apiScheduleItem.mbAddressDetail}</a> <br>
+                    <a class="match-board-title" style="color: #111; font-weight: 400; text-decoration: none" href="/page/match/match-view?mbNum=${apiScheduleItem.mbNum}">${apiScheduleItem.mbAddressDetail}</a> <br>
                     <span style="color: gray;">${getGenderLabelAndText(scheduleItem.gender)}</span>
                     <span style="color: gray;">${scheduleItem.capacity}</span>
                 `;
