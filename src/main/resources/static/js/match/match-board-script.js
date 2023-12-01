@@ -27,7 +27,7 @@ function updateCalendar(date) {
     calendar.innerHTML = '';
 
     // 주간 캘린더(7일) 표시
-    for (let i = -3; i <= 3; i++) {
+    for (let i = 0; i <= 6; i++) {
         const day = new Date(date); // 현재 날짜에서부터 i일 전/후의 날짜를 계산
         day.setDate(date.getDate() + i);
 
@@ -72,13 +72,13 @@ let currentDate = new Date();
 updateCalendar(currentDate);
 
 calendarPrevBtn.addEventListener('click', () => {
-    currentDate.setDate(currentDate.getDate() - 1);
+    currentDate.setDate(currentDate.getDate() - 7);
     updateCalendar(currentDate);
     showSchedule(currentDate); // 날짜 변경 후 일정 업데이트
 });
 
 calendarNextBtn.addEventListener('click', () => {
-    currentDate.setDate(currentDate.getDate() + 1);
+    currentDate.setDate(currentDate.getDate() + 7);
     updateCalendar(currentDate);
     showSchedule(currentDate); // 날짜 변경 후 일정 업데이트
 });
@@ -86,7 +86,7 @@ calendarNextBtn.addEventListener('click', () => {
 const sportsIcons = ['⚽', '🏀', '⚾️'];
 
 // 상태 뱃지 목록
-const statusBadges = ['마감', '신청가능', '마감임박'];
+const statusBadges = ['마감', '신청가능'];
 
 function generateMockData() {
     const mockData = [];
@@ -249,11 +249,6 @@ async function showSchedule(date) {
                             statusBadge.style.color = '#8F8F8F';
                             statusBadge.style.padding = '14px 50px';
                             break;
-                        case '마감임박':
-                            statusBadge.style.backgroundColor = '#FF0000';
-                            statusBadge.style.color = '#FFFFFF';
-                            statusBadge.style.padding = '14px 37px';
-                            break;
                         case '신청가능':
                             statusBadge.style.backgroundColor = '#0066FF';
                             statusBadge.style.color = '#FFFFFF';
@@ -296,19 +291,6 @@ async function showSchedule(date) {
             }
         });
     });
-
-
-    function updateSchedule() {
-        const selectedSport = document.getElementById('sports').value;
-        const selectedSido = document.getElementById('sido').value;
-        const selectedSigungu = document.getElementById('sigungu').value;
-        const selectedPoint = document.getElementById('point').value;
-
-        // 여기에 서버에서 데이터를 가져와서 필터링하고, updateScheduleTable 함수를 호출하여 테이블을 업데이트하는 로직 작성
-        fetch(`/match-board/${selectedSido}/${selectedSigungu}/${selectedSport}/${selectedPoint}`)
-            .then(response => response.json())
-            .then(data => updateScheduleTable(data));
-    }
 
 // 페이지 로드 시 오늘 날짜의 테이블 자동 표시
     showSchedule(currentDate);
