@@ -1,67 +1,13 @@
 let oponentTaName;
 let myTaName;
-window.addEventListener('load', function () {
-
-    const matchBoardInfo = {
-        mbNum: 1,
-        taNum: 1,
-        taType: "basketball",
-        taName: "농구 짱짱",
-        riPoint: 235,
-        mbAddress: "서울 성북구 하월곡동 산 2-1",
-        mbMapX: "127.04078274791296",
-        mbMapY: "37.60867019706736",
-        mbDate: "2023-11-05",
-        mbTime: "17:35",
-        mbDesc: "유니폼 남색입니다.",
-        mbPay: 30000
-    }
-
-    const team2 = {
-        taNum: 2,
-        taType: "축구",
-        tuRole: "1",
-        taName: "축구 2팀"
-    }
-    const team3 = {
-        taNum: 3,
-        taType: "bassball",
-        tuRole: "1",
-        taName: "야구 1팀"
-    }
-    const team4 = {
-        taNum: 4,
-        taType: "bassball",
-        tuRole: "1",
-        taName: "야구 2팀"
-    }
-    const team5 = {
-        taNum: 5,
-        taType: "basketball",
-        tuRole: "1",
-        taName: "농구 1팀"
-    }
-    const team6 = {
-        taNum: 6,
-        taType: "basketball",
-        tuRole: "1",
-        taName: "농구 2팀"
-    }
-    const team7 = {
-        taNum: 6,
-        taType: "basketball",
-        tuRole: "1",
-        taName: "농구 2팀"
-    }
-    const team8 = {
-        taNum: 6,
-        taType: "basketball",
-        tuRole: "1",
-        taName: "농구 2팀"
-    }
-
-    const teamList = [team2, team3, team4, team5, team6];
-
+const urlParams = new URL(location.href).searchParams;
+const mbNum = urlParams.get('mbNum'); 
+window.addEventListener('load', async function () {
+	alert(mbNum);
+	const res = await fetch(`/match-info/${mbNum}`);
+	const matchInfo = await res.json();
+	console.log(matchInfo);
+	
     oponentTaName = matchBoardInfo.taName;
 
 
