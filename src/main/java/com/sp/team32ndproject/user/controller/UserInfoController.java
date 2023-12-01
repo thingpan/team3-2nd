@@ -24,7 +24,7 @@ public class UserInfoController {
 	}
 	
 	@PostMapping("/check-id")
-	public int loadUserByUsername(@RequestBody UserInfoVO user){
+	public UserInfoVO loadUserByUsername(@RequestBody UserInfoVO user){
 		return userInfoService.doCheckUiId(user.getUiId());
 	}
 
