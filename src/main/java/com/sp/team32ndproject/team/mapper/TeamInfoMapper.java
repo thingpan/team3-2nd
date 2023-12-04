@@ -11,4 +11,5 @@ public interface TeamInfoMapper {
 	int insertTeamInfo(TeamInfoVO team);
 	TeamInfoVO selectTaTypeMatchBoardInfoByTaNum(int taNum);
 	List<TeamInfoVO> selectTeamInfos(TeamInfoVO team);
+	List<TeamInfoVO> selectTeamRank(TeamInfoVO team);
 }

@@ -58,4 +58,7 @@ public class TeamInfoService {
 	public List<TeamInfoVO> selectTeamInfos(TeamInfoVO team) {
 		return teamInfoMapper.selectTeamInfos(team);
 	}
+	public List<TeamInfoVO> selectTeamRank(TeamInfoVO team) {
+		return teamInfoMapper.selectTeamInfos(team);
+	}
 }

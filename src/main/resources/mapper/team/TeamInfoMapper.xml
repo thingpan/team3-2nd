@@ -14,6 +14,44 @@
 		WHERE TA_NUM = #{taNum};
 
 	</select>
+	<select id="selectTeamRank"
+		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+
+		SELECT
+		TA_TYPE,
+		TA_NAME,
+		TA_BOUNDARY_SIDO,
+		TA_BOUNDARY_SIGUNGU,
+		TA_POINT
+		FROM TEAM_INFO
+		WHERE
+		<if test="taType != null and taType != ''">
+			TA_TYPE = #{taType}
+		</if>
+		<if test="taBoundarySido != null and taBoundarySido != ''">
+			<if test="taType != null and taType != ''">
+				AND
+			</if>
+			TA_BOUNDARY_SIDO = #{taBoundarySido}
+		</if>
+		<if test="taBoundarySigungu != null and taBoundarySigungu != ''">
+			<if
+				test="taType != null and taType != '' or taBoundarySido != null and taBoundarySido != ''">
+				AND
+			</if>
+			TA_BOUNDARY_SIGUNGU = #{taBoundarySigungu}
+		</if>
+		<if test="minPoint != null and maxPoint != null">
+			<if
+				test="taType != null and taType != '' or taBoundarySido != null and taBoundarySido != '' or taBoundarySigungu != null and taBoundarySigungu != ''">
+				AND
+			</if>
+		</if>
+		ORDER BY TA_POINT DESC
+		LIMIT 20;
+	</select>
+
+
 
 	<insert id="insertTeamInfo" useGeneratedKeys="true"
 		keyColumn="TA_NUM" keyProperty="taNum"
