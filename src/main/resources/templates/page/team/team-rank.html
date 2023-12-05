@@ -17,10 +17,9 @@
 
 <body>
 	<div th:replace="/page/fragment/header.html :: f-head"></div>
-
 	<div id="main">
+		<h3>팀 랭크</h3><br>
 		<div class="content-container">
-			<h3>Rank</h3>
 			<select id="s" name="s">
 				<option value="">종목</option>
 				<option value="야구">야구</option>
@@ -66,7 +65,7 @@
 		</div>
 
 
-		<table border="1">
+		<table id="teamTable">
 
 			<thead>
 				<tr>
@@ -135,14 +134,14 @@
 
 				const result = isSportMatch && isAreaMatch && isSkillMatch;
 
-			
+
 				console.log('Row:', row, 'Result:', result);
 
 				return result;
 			});
 
 
-	
+
 			console.log('After filtering:', filteredData);
 
 			const tableBody = document.getElementById("tBody");

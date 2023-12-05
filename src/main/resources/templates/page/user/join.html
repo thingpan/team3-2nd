@@ -4,14 +4,15 @@
 <head>
 	<meta charset="UTF-8">
 	<title>join</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
 	<style>
 		body {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			height: 100%;
-			scale: 130%;
+			scale: 150%;
 			overflow-y: scroll;
 			overflow-x: hidden;
 		}
@@ -19,7 +20,7 @@
 		h3 {
 			font-size: 15px;
 			text-align: right;
-			margin-top: 80px;
+			margin-top: 150px;
 			margin-right: 75px;
 		}
 
@@ -38,7 +39,7 @@
 		}
 
 		select {
-			font-size: 10px;
+			font-size: 8px;
 			width: 45px;
 		}
 
@@ -50,6 +51,12 @@
 			color: red;
 			margin-top: 3px;
 			font-size: 8px;
+		}
+
+		.filter-select {
+			padding: 2px;
+			border: 1px solid black;
+			border-radius: 5px;
 		}
 	</style>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -86,11 +93,10 @@
 			<div id="errorEmail" class="error-message"></div>
 
 			<label for="uiYear" style="font-size: 8px;">생년월일</label><br>
-
-			<select id="uiYear">
-				<option value="" selected>년도</option>
-			</select>
 		</div>
+		<select id="uiYear" class="filter-select">
+			<option value="" selected>년도</option>
+		</select>
 		<script>
 			const currentYear = new Date().getFullYear();
 			const selectYear = document.getElementById("uiYear");
@@ -103,7 +109,7 @@
 			}
 		</script>
 
-		<select id="uiMonth">
+		<select id="uiMonth" class="filter-select">
 			<option value="" selected>월</option>
 		</select>
 		<script>
@@ -118,7 +124,7 @@
 			}
 		</script>
 
-		<select id="uiDay">
+		<select id="uiDay" class="filter-select">
 			<option value="" selected>일</option>
 		</select>
 
