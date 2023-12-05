@@ -24,7 +24,7 @@
 		TA_BOUNDARY_SIGUNGU,
 		TA_POINT
 		FROM TEAM_INFO
-		WHERE
+		<where>
 		<if test="taType != null and taType != ''">
 			TA_TYPE = #{taType}
 		</if>
@@ -47,6 +47,7 @@
 				AND
 			</if>
 		</if>
+		</where>
 		ORDER BY TA_POINT DESC
 		LIMIT 20;
 	</select>

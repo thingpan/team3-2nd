@@ -94,15 +94,18 @@
 							</div>
 
 							<div class="mb-2 sports-section">
-								<input type="checkbox" class="btn-check" id="btn-check-outlined1" autocomplete="off" />
+								<input type="checkbox" class="btn-check" id="btn-check-outlined1" autocomplete="off"
+									value="축구" />
 								<label class="btn btn-outline-dark" for="btn-check-outlined1">
 									축구
 								</label>
-								<input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off" />
+								<input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off"
+									value="야구" />
 								<label class="btn btn-outline-dark" for="btn-check-outlined2">
 									야구
 								</label>
-								<input type="checkbox" class="btn-check" id="btn-check-outlined3" autocomplete="off" />
+								<input type="checkbox" class="btn-check" id="btn-check-outlined3" autocomplete="off"
+									value="농구" />
 								<label class="btn btn-outline-dark" for="btn-check-outlined3">
 									농구
 								</label>
@@ -229,6 +232,7 @@
 
 
 
+
 			async function showAlert() {
 				const teamImgFile = document.querySelector('#team-file-input');
 				const formData = new FormData();
@@ -239,7 +243,7 @@
 				const taName = document.querySelector('#recipient-name').value;
 				const taBoundarySido = document.querySelector('#sido').value;
 				const taBoundarySigungu = document.querySelector('#sigungu').value;
-				const taType = '축구';
+				const taType = document.querySelectorAll('.btn-check:checked');
 				const taGender = document.querySelector('input[name="gender"]:checked').value;
 				const taDesc = document.querySelector('#message-text').value;
 				formData.append('taName', taName);
@@ -255,7 +259,7 @@
 
 			}
 		</script>
-		<script src="/js/region.js"></script>
+		<script src="/js/mock/region.js"></script>
 
 
 		<hr style="margin-top:20px ;">
@@ -351,6 +355,28 @@
 		<div id="change-password-popup" style="display: none;">
 
 			<script>
+				window.addEventListener('load', async function () {
+						const userRes = await fetch('/join'); 
+
+						console.log('userData:', userData);
+
+						let html = '';
+						let i = 1;
+						for (const user of userData) {
+							html += '<tr>';
+							html += `<td>${i}</td>`;
+							html += `<td>${user.uiId}</td>`;
+							html += `<td>${user.uiName}</td>`;
+							html += `<td>${user.uiBirth}</td>`;
+							html += `<td>${user.uiAddress}</td>`;
+							html += `<td>${user.uiPhoneNum}</td>`;
+							html += `<td>${user.uiEmail}</td>`;
+							html += '</tr>';
+							i++;
+						}
+						document.querySelector('#tBody').innerHTML = html;
+					
+				});
 
 				function openChangePasswordPopup() {
 
@@ -368,25 +394,19 @@
 					window.open("/page/team/team-add.html", "popup01", "width=700, height=500");
 				}
 
-				const profileData1 = {
-					name: '이왕균',
-					email: 'diskldffm@naver.com',
-					birthday: '1999.02.12',
-					phone: '010-2222-3344',
-					password: '********',
-				};
+
 				const userNameElement = document.getElementById('username');
 				userNameElement.textContent = ` ${profileData1.name}님`;
 				const birthdateInput = document.getElementById('date');
 				const phoneInput = document.getElementById('phone');
 
 				// Display user's birthdate and phone number in the form
-				birthdateInput.value = profileData1.birthday;
-				phoneInput.value = profileData1.phone;
-				document.querySelector('h6#name').textContent = profileData1.name;
-				document.querySelector('h6#email').textContent = profileData1.email;
-				document.querySelector('#phone').textContent = profileData1.phone;
-				document.querySelector('input#password').value = profileData1.password.replace(/./g, '*');
+				birthdateInput.value =  userData.birthday;
+				phoneInput.value =  userData.phone;
+				document.querySelector('h6#name').textContent = userData.name;
+				document.querySelector('h6#email').textContent =  userData.email;
+				document.querySelector('#phone').textContent =  userData1.phone;
+				document.querySelector('input#password').value =  userData.password.replace(/./g, '*');
 
 
 
@@ -591,6 +611,7 @@
 
 
 			</script>
+
 
 
 

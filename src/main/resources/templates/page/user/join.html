@@ -85,7 +85,7 @@
 			<div id="errorUiName" class="error-message"></div>
 
 			<label for="uiMobile" style="font-size: 8px;">전화번호</label><br>
-			<input type="text" id="uiMobile" style="font-size: 8px;" placeholder="전화번호"><br>
+			<input type="tel" id="uiMobile" style="font-size: 8px;" placeholder="전화번호"  pattern="[0-9]*"><br>
 			<div id="errorUiMobile" class="error-message"></div>
 
 			<label for="uiId" style="font-size: 8px;">이메일</label><br>
@@ -139,6 +139,7 @@
 				selectDay.appendChild(option);
 			}
 		</script>
+				<div id="errorYear" class="error-message"></div>
 		<br>
 
 		<label for="uiGender" style="font-size: 8px;">성별</label><br>
@@ -153,13 +154,15 @@
 		<input type="text" id="uiAddress" style="font-size: 8px;" placeholder="주소" readonly>
 		<button type="button" class="btn btn-dark" id="searchButton" style="font-size: 7px;"
 			onclick="searchAddress()">검색
-		</button>
+		</button>				
 		<br>
 		<input type="text" id="uiAddress2" style="font-size: 8px;" placeholder="상세주소"><br><br>
+		<div id="errorAddress" class="error-message"></div>
 		<button type="button" class="btn btn-dark" id="joinButton" style="width: 184px;" onclick="join()">회원가입</button>
 	</div>
 
 	<script>
+		 let isIdChecked = false;
 		async function checkId() {
 			const uiId = document.querySelector('#uiId').value;
 
@@ -255,6 +258,19 @@
 			} else {
 				document.getElementById('errorEmail').innerHTML = "";
 			}
+			if (!document.querySelector('#uiYear').value) {
+				document.getElementById('errorYear').innerHTML = "<span style='color: red;'>생년월일를 선택해주세요.</span>";
+				return;
+			} else {
+				document.getElementById('errorYear').innerHTML = "";
+			}
+
+			if (!document.querySelector('#uiAddress').value) {
+				document.getElementById('errorAddress').innerHTML = "<span style='color: red;'>주소를 입력해주세요.</span>";
+				return;
+			} else {
+				document.getElementById('errorAddress').innerHTML = "";
+			}
 
 			const uiGender = document.querySelector('input[name="uiGender"]:checked').value;
 
@@ -281,7 +297,7 @@
 				alert(`로그인 해주세요`);
 				location.href = '/page/user/login';
 			}
-			//회원 가입 실패 경우 넣어야함
+			
 		}
 
 		function searchAddress() {
