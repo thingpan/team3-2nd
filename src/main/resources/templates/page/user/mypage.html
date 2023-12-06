@@ -93,7 +93,7 @@
 								</div>
 							</div>
 
-							<div class="mb-2 sports-section">
+							<div class="mb-2 sports-section" id="checked">
 								<input type="checkbox" class="btn-check" id="btn-check-outlined1" autocomplete="off"
 									value="축구" />
 								<label class="btn btn-outline-dark" for="btn-check-outlined1">
@@ -243,7 +243,7 @@
 				const taName = document.querySelector('#recipient-name').value;
 				const taBoundarySido = document.querySelector('#sido').value;
 				const taBoundarySigungu = document.querySelector('#sigungu').value;
-				const taType = document.querySelectorAll('.btn-check:checked');
+				const taType = document.querySelector('input[type="checkbox"]:checked').value;
 				const taGender = document.querySelector('input[name="gender"]:checked').value;
 				const taDesc = document.querySelector('#message-text').value;
 				formData.append('taName', taName);
@@ -356,9 +356,8 @@
 
 			<script>
 				window.addEventListener('load', async function () {
-						const userRes = await fetch('/join'); 
+						const userRes = await fetch('/user-infos'); 
 
-						console.log('userData:', userData);
 
 						let html = '';
 						let i = 1;
