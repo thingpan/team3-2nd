@@ -61,7 +61,7 @@
 			<input type="range" min="0" max="1000" value="0" class="custom-range w-50 p-3" id="myRange" step="100">
 			<p class="form-label">팀 점수:<span id="value"></span></p>
 
-			<button type="button" id="search-button" onclick="performSearch()">검색</button>
+			<button type="button" id="search-button" onclick="performSearch()" class="btn btn-dark">검색</button>
 		</div>
 
 
@@ -175,6 +175,16 @@
 				i++;
 			}
 			document.querySelector('#tBody').innerHTML = html;
+		});
+
+		window.addEventListener('scroll', () => {
+			if (window.scrollY > 50) {
+				header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
+				header.style.transform = 'translateY(-100%)';
+			} else {
+				header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
+				header.style.transform = 'translateY(0)';
+			}
 		});
 	</script>
 
