@@ -2,6 +2,7 @@ package com.sp.team32ndproject.user.service;
 
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,7 +40,11 @@ public class UserInfoService implements UserDetailsService{
 	public UserInfoVO selectUserInfoByUiId(String uiId) {
 		return userInfoMapper.selectUserInfoByUiId(uiId);
 	}
-	
+	public UserInfoVO selectTaTypeMatchBoardInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
+		// TODO Auto-generated method stub
+		return  userInfoMapper.selectTaTypeMatchBoardInfoByUiNum(user);
+	}
+
 
 	
 }

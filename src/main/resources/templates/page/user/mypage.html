@@ -28,7 +28,7 @@
 
 	<div id="main">
 		<div id="sub">
-			<h2 id="name"></h2>
+			<input type="text" id="name"  >
 			<div class="first">
 			</div>
 			<div class="action-buttonss">
@@ -286,13 +286,14 @@
 			<hr>
 			</hr>
 			<label for="name">이름</label>
-			<input type="text" id="name1" name="name">
+			<input type="text" id="user-name">
 			<hr>
 			</hr>
 
 			<label for="email">이메일</label>
-			<h6 id="email"></h6>
-			<button id="change-email-button" class="btn btn-dark" onclick="openChangeEmailPopup()">이메일 변경</button>
+			<input type="text" id="email">
+			<button id="change-email-button" class="btn btn-dark" value="uiEmail" onclick="openChangeEmailPopup()">이메일
+				변경</button>
 			<hr>
 			</hr>
 
@@ -305,7 +306,7 @@
 			<hr>
 			</hr>
 			<label for="phone">전화번호</label>
-			<input type="text" id="phone1">
+			<input type="text" id="phone">
 			<hr>
 			</hr>
 
@@ -315,7 +316,7 @@
 			</hr>
 			<label for="address">주소</label>
 
-			<input type="text" id="address" name="address" value="" placeholder="주소">
+			<input type="text" id="address" name="address" value="uiAddress" placeholder="주소">
 			<button type="button" id="search-address" value="JOIN" onclick="openAddressSearchModal()"
 				class="btn btn-dark">검색</button>
 			<hr>
@@ -366,13 +367,14 @@
 					html += `<td>${user.uiEmail}</td>`;
 					html += '</tr>';
 
-
-					document.querySelector('input#address').value = user.uiAddress;
-					document.querySelector('input#date').value = user.uiBirth;
-					document.querySelector('#name').value = user.uiName;
+					document.querySelector('h2#name').value = user.uiName;
+					document.querySelector('#address').value = user.uiAddress;
+					document.querySelector('#date').value = user.uiBirth;
 					document.querySelector('#email').value = user.uiEmail;
 					document.querySelector('#phone').value = user.uiPhoneNum;
-					document.querySelector('input#password').value = user.password.replace(/./g, '*');
+					document.querySelector('input#password').value = user.uiPwd.replace(/./g, '*');
+					document.querySelector('#user-name').value = user.uiName;
+					
 
 				});
 
@@ -523,12 +525,7 @@
 				const editProfileForm = document.querySelector('.edit-profile-form');
 				const saveButton = document.getElementById('save-profile');
 
-				const profileData = [
-					{id: 1, image: '/imgs/basketball.png', name: '이름 1', data: "농구"},
-					{id: 2, image: '/imgs/baseball.png', name: '이름 2', data: "야구"},
-					{id: 3, image: '/imgs/soccer.png', name: '이름 3', data: "축구"},
-					{id: 4, image: '/imgs/basketball.png', name: '이름 4', data: "농구"}
-				];
+			
 
 				// 초기화 함수
 				function initializeTeamList(selectedSport) {

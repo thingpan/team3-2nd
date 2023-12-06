@@ -64,10 +64,6 @@ public class TeamInfoService {
 	}
 	
 
-	public UserInfoVO selectTaTypeMatchBoardInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
-		// TODO Auto-generated method stub
-		return  teamInfoMapper.selectTaTypeMatchBoardInfoByUiNum(user);
-	}
 
 	
 }

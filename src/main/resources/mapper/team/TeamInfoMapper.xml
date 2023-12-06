@@ -14,11 +14,7 @@
 		WHERE TA_NUM = #{taNum};
 
 	</select>
-	<select id="selectTaTypeMatchBoardInfoByUiNum"
-		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">
-		SELECT * FROM USER_INFO
-		WHERE UI_NUM = #{uiNum}
-	</select>
+
 
 	<select id="selectTeamRank"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
@@ -57,7 +53,11 @@
 		ORDER BY TA_POINT DESC
 		LIMIT 20;
 	</select>
-
+	<select id="selectTeamUserInfos"
+		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
+		SELECT  FROM TEAM_INFO
+		WHERE TA_NUM = #{taNum};
+	</select>
 
 
 	<insert id="insertTeamInfo" useGeneratedKeys="true"

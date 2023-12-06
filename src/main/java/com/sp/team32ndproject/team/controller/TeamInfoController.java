@@ -43,8 +43,5 @@ public class TeamInfoController {
 		teamInfos.sort(Comparator.comparingInt(TeamInfoVO::getTaPoint).reversed());
 		return teamInfos;
 	}
-	@GetMapping("/user-infos")
-	public UserInfoVO selectTaTypeMatchBoardInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
-		return teamInfoService.selectTaTypeMatchBoardInfoByUiNum(user);
-	}
+
 }

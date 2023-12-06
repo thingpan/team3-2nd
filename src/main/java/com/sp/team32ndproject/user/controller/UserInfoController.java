@@ -1,5 +1,6 @@
 package com.sp.team32ndproject.user.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,9 @@ public class UserInfoController {
 		return userInfoService.doCheckUiId(user.getUiId());
 	}
 	
-
+	@GetMapping("/user-infos")
+	public UserInfoVO selectTaTypeMatchBoardInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
+		return UserInfoService.selectTaTypeMatchBoardInfoByUiNum(user);
+	}
 	
 }
