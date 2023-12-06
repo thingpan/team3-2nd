@@ -4,7 +4,26 @@
 	namespace="com.sp.team32ndproject.team.mapper.TeamSignUserInfoMapper">
 	<insert id="insertTeamSignUserInfo"
 		parameterType="com.sp.team32ndproject.team.vo.TeamSignUserInfoVO">
-		INSERT INTO TEAM_SIGN_USER_INFO(TA_NUM, UI_NUM,TSU_STATUS)
+		INSERT INTO TEAM_SIGN_USER_INFO(TA_NUM,
+		UI_NUM,TSU_STATUS)
 		VALUES(#{taNum},#{uiNum},#{tsuStatus})
 	</insert>
+	<select id="selectTeamSignUserInfosWithHelper"
+		resultType="com.sp.team32ndproject.team.vo.TeamSignUserInfoVO">
+		SELECT TSU.TSU_NUM, TSU.TA_NUM, TSU.UI_NUM, TSU.TSU_STATUS,
+		UI.UI_NUM, UI.UI_NAME, UI.UI_ADDRESS, UI.UI_PHONE_NUM
+		FROM
+		TEAM_SIGN_USER_INFO TSU
+		INNER JOIN USER_INFO UI ON TSU.UI_NUM =
+		UI.UI_NUM
+		WHERE TSU.TA_NUM = #{taNum}
+		AND TSU.TSU_STATUS = 0
+		ORDER BY
+		TSU_NUM DESC
+	</select>
+	<select id="selectTeamSignUserInfoByUiNum"
+		resultType="com.sp.team32ndproject.team.vo.TeamSignUserInfoVO">
+		SELECT * FROM TEAM_SIGN_USER_INFO
+		WHERE UI_NUM = #{uiNum}
+	</select>
 </mapper>
