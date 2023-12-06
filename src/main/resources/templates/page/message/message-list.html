@@ -249,7 +249,7 @@
 
 
 	#teamList {
-		margin-left:7%;
+		margin-left: 7%;
 		box-sizing: border-box;
 		overflow-y: scroll;
 		padding: 20px;
@@ -543,6 +543,16 @@
 			messageContainer.appendChild(messageContentDiv);
 			postMessageModal.hide();
 		}
+
+		window.addEventListener('scroll', () => {
+			if (window.scrollY > 50) {
+				header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
+				header.style.transform = 'translateY(-100%)';
+			} else {
+				header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
+				header.style.transform = 'translateY(0)';
+			}
+		});
 	</script>
 </body>
 
