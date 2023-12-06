@@ -12,4 +12,11 @@ public class TeamUserInfoVO {
 	private int uiNum;
 	private int taNum;
 	private String tuRole;
+	private String uiName;
+	private String uiAddress;
+	private String uiPhoneNum;
+	private int page;
+	private int start;
+	private int end;
+	private int pageSize; 
 }

@@ -5,8 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.pagehelper.PageInfo;
+import com.sp.team32ndproject.team.mapper.TeamUserInfoMapper;
 import com.sp.team32ndproject.team.service.TeamUserInfoService;
 import com.sp.team32ndproject.team.vo.TeamInfoVO;
+import com.sp.team32ndproject.team.vo.TeamSignUserInfoVO;
+import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
 import com.sp.team32ndproject.user.vo.UserInfoVO;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +24,11 @@ public class TeamUserInfoController {
 	@PostMapping("/team-user-add")
 	public int insertTeamUserInfo(TeamInfoVO team, @AuthenticationPrincipal UserInfoVO user) {
 		return teamUserInfoService.insertTeamUserInfo(team, user); 
+	}
+	
+	@GetMapping("/team-users/helper")
+	public PageInfo<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO){
+		return teamUserInfoService.selectTeamUserInfosWithHelper(teamUserInfoVO);
 	}
 	
 	
