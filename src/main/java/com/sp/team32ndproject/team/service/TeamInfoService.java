@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -61,4 +62,12 @@ public class TeamInfoService {
 	public List<TeamInfoVO> selectTeamRank(TeamInfoVO team) {
 		return teamInfoMapper.selectTeamInfos(team);
 	}
+	
+
+	public UserInfoVO selectTaTypeMatchBoardInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
+		// TODO Auto-generated method stub
+		return  teamInfoMapper.selectTaTypeMatchBoardInfoByUiNum(user);
+	}
+
+	
 }

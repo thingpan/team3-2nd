@@ -14,6 +14,12 @@
 		WHERE TA_NUM = #{taNum};
 
 	</select>
+	<select id="selectTaTypeMatchBoardInfoByUiNum"
+		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">
+		SELECT * FROM USER_INFO
+		WHERE UI_NUM = #{uiNum}
+	</select>
+
 	<select id="selectTeamRank"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 
@@ -25,28 +31,28 @@
 		TA_POINT
 		FROM TEAM_INFO
 		<where>
-		<if test="taType != null and taType != ''">
-			TA_TYPE = #{taType}
-		</if>
-		<if test="taBoundarySido != null and taBoundarySido != ''">
 			<if test="taType != null and taType != ''">
-				AND
+				TA_TYPE = #{taType}
 			</if>
-			TA_BOUNDARY_SIDO = #{taBoundarySido}
-		</if>
-		<if test="taBoundarySigungu != null and taBoundarySigungu != ''">
-			<if
-				test="taType != null and taType != '' or taBoundarySido != null and taBoundarySido != ''">
-				AND
+			<if test="taBoundarySido != null and taBoundarySido != ''">
+				<if test="taType != null and taType != ''">
+					AND
+				</if>
+				TA_BOUNDARY_SIDO = #{taBoundarySido}
 			</if>
-			TA_BOUNDARY_SIGUNGU = #{taBoundarySigungu}
-		</if>
-		<if test="minPoint != null and maxPoint != null">
-			<if
-				test="taType != null and taType != '' or taBoundarySido != null and taBoundarySido != '' or taBoundarySigungu != null and taBoundarySigungu != ''">
-				AND
+			<if test="taBoundarySigungu != null and taBoundarySigungu != ''">
+				<if
+					test="taType != null and taType != '' or taBoundarySido != null and taBoundarySido != ''">
+					AND
+				</if>
+				TA_BOUNDARY_SIGUNGU = #{taBoundarySigungu}
 			</if>
-		</if>
+			<if test="minPoint != null and maxPoint != null">
+				<if
+					test="taType != null and taType != '' or taBoundarySido != null and taBoundarySido != '' or taBoundarySigungu != null and taBoundarySigungu != ''">
+					AND
+				</if>
+			</if>
 		</where>
 		ORDER BY TA_POINT DESC
 		LIMIT 20;

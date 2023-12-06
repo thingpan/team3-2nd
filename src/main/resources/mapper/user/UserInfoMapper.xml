@@ -11,7 +11,7 @@
 		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">
 		SELECT
 		<include refid="userInfoCols" />
-		FROM USER_INFO 
+		FROM USER_INFO  
 		WHERE UI_ID= #{uiId}
 	</select>
 

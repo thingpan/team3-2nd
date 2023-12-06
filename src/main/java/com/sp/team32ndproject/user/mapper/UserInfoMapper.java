@@ -8,4 +8,6 @@ import com.sp.team32ndproject.user.vo.UserInfoVO;
 public interface UserInfoMapper {
 	UserInfoVO selectUserInfoByUiId(String uiId); 
 	int insertUserInfo(UserInfoVO user);
+
+
 }

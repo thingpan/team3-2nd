@@ -27,9 +27,8 @@
 	<div th:replace="/page/fragment/header.html :: f-head"></div>
 
 	<div id="main">
-
 		<div id="sub">
-			<h2 id="username"></h2>
+			<h2 id="name"></h2>
 			<div class="first">
 			</div>
 			<div class="action-buttonss">
@@ -169,6 +168,7 @@
 
 			}
 		</script>
+
 		<script>
 
 			function openCurrentPasswordModal() {
@@ -185,7 +185,7 @@
 
 			function checkCurrentPassword() {
 				const enteredPassword = document.getElementById('current-password-input').value;
-				const userPassword = 'user123'; // Replace with the actual user's password
+				const userPassword = '';
 
 				if (enteredPassword === userPassword) {
 					$('#current-password-modal').modal('hide');
@@ -258,7 +258,9 @@
 				});
 
 			}
+
 		</script>
+
 		<script src="/js/mock/region.js"></script>
 
 
@@ -284,7 +286,7 @@
 			<hr>
 			</hr>
 			<label for="name">이름</label>
-			<h6 id="name"></h6>
+			<input type="text" id="name1" name="name">
 			<hr>
 			</hr>
 
@@ -299,19 +301,11 @@
 			<button id="change-password-button" class="btn btn-dark" onclick="openChangePasswordPopup()">비밀번호
 				변경</button>
 
-			<hr>
-			</hr>
-			<label for="gender">성별</label>
-			<div id="sex">
-				<input type="radio" id="male" name="gender" value="남자">
-				남자
-				<input type="radio" id="female" name="gender" value="여자">
-				여자
-			</div>
+
 			<hr>
 			</hr>
 			<label for="phone">전화번호</label>
-			<input type="text" id="phone" placeholder="01012345678">
+			<input type="text" id="phone1">
 			<hr>
 			</hr>
 
@@ -355,27 +349,37 @@
 		<div id="change-password-popup" style="display: none;">
 
 			<script>
+
+
 				window.addEventListener('load', async function () {
-						const userRes = await fetch('/user-infos'); 
+					const userRes = await fetch('/user-infos');
+					const user = await userRes.json();
+
+					let html = '';
+
+					html += '<tr>';
+					html += `<td>${user.uiPwd}</td>`;
+					html += `<td>${user.uiName}</td>`;
+					html += `<td>${user.uiBirth}</td>`;
+					html += `<td>${user.uiAddress}</td>`;
+					html += `<td>${user.uiPhoneNum}</td>`;
+					html += `<td>${user.uiEmail}</td>`;
+					html += '</tr>';
 
 
-						let html = '';
-						let i = 1;
-						for (const user of userData) {
-							html += '<tr>';
-							html += `<td>${i}</td>`;
-							html += `<td>${user.uiId}</td>`;
-							html += `<td>${user.uiName}</td>`;
-							html += `<td>${user.uiBirth}</td>`;
-							html += `<td>${user.uiAddress}</td>`;
-							html += `<td>${user.uiPhoneNum}</td>`;
-							html += `<td>${user.uiEmail}</td>`;
-							html += '</tr>';
-							i++;
-						}
-						document.querySelector('#tBody').innerHTML = html;
-					
+					document.querySelector('input#address').value = user.uiAddress;
+					document.querySelector('input#date').value = user.uiBirth;
+					document.querySelector('#name').value = user.uiName;
+					document.querySelector('#email').value = user.uiEmail;
+					document.querySelector('#phone').value = user.uiPhoneNum;
+					document.querySelector('input#password').value = user.password.replace(/./g, '*');
+
 				});
+
+			</script>
+
+			<script>
+
 
 				function openChangePasswordPopup() {
 
@@ -389,23 +393,8 @@
 					document.getElementById('change-password-popup').style.display = 'none';
 				});
 
-				function popup() {
-					window.open("/page/team/team-add.html", "popup01", "width=700, height=500");
-				}
 
 
-				const userNameElement = document.getElementById('username');
-				userNameElement.textContent = ` ${profileData1.name}님`;
-				const birthdateInput = document.getElementById('date');
-				const phoneInput = document.getElementById('phone');
-
-				// Display user's birthdate and phone number in the form
-				birthdateInput.value =  userData.birthday;
-				phoneInput.value =  userData.phone;
-				document.querySelector('h6#name').textContent = userData.name;
-				document.querySelector('h6#email').textContent =  userData.email;
-				document.querySelector('#phone').textContent =  userData1.phone;
-				document.querySelector('input#password').value =  userData.password.replace(/./g, '*');
 
 
 
