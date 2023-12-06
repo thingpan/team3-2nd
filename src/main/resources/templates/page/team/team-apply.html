@@ -12,16 +12,8 @@
 
 <body>
 	<div th:replace="/page/fragment/header.html :: f-head"></div>
+	<div th:replace="/page/fragment/team-profile.html :: f-team-profile"></div>
 	<div class="main">
-		<div class="team-profile">
-			<div class="team-photo">
-				<img src="/imgs/basketball.png" />
-			</div>
-			<div class="score-badge">
-				<span id="team-name"></span>
-				<span id="score-value"></span>
-			</div>
-		</div>
 		<div class="membership-requests">
 			<h4>팀 가입 신청 목록</h4>
 			<table class="table">
@@ -70,28 +62,6 @@
 		}
 
 		document.querySelector('#team-name').innerHTML = team.taName;
-
-		const scoreValue = document.querySelector('#score-value');
-		const teamPoint = team.taPoint;
-		scoreValue.innerHTML = `${teamPoint}점`;
-
-		// 점수에 따라 배경색과 텍스트색 변경
-		if (teamPoint <= 100) {
-			scoreValue.style.backgroundColor = '#ececec';
-			scoreValue.style.color = '#767676';
-		} else if (teamPoint <= 200) {
-			scoreValue.style.backgroundColor = '#ede0c4';
-			scoreValue.style.color = '#825e01';
-		} else if (teamPoint <= 300) {
-			scoreValue.style.backgroundColor = '#fffbd5';
-			scoreValue.style.color = '#ffb800';
-		} else if (teamPoint <= 400) {
-			scoreValue.style.backgroundColor = '#e6f0ff';
-			scoreValue.style.color = '#0066ff';
-		} else {
-			scoreValue.style.backgroundColor = '#f4e2ff';
-			scoreValue.style.color = '#8200d2';
-		}
 
 		// 가입 수락 처리를 담당하는 함수
 		function acceptMembership(teamNum, userNum) {
