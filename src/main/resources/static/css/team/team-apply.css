@@ -10,11 +10,6 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* 
-색상 설정
-사용법: color: var(--white-color);
-*/
-
 :root {
 	--white-color: #fff;
 	--black-color: #111;
@@ -260,17 +255,12 @@ header {
 	text-align: center;
 }
 
-.table tbody td button {
-	margin-left: -45px;
-	/* 필요에 따라 여백을 조정 */
-}
-
 .table {
 	margin-top: 8px;
 	/* 테이블의 위쪽 여백을 조절합니다. */
 }
 
 .table td .btn {
-	font-size: 12px;
+	font-size: 15px;
 	/* 버튼 텍스트 크기 조절 */
 }
