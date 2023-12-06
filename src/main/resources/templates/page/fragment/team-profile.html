@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="EUC-KR">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<div th:fragment="f-team-profile">
+		<div class="team-profile">
+			<div class="team-photo">
+				<img src="/imgs/team.png" />
+			</div>
+			<div class="score-badge">
+				<span id="team-name"></span>
+				<span id="score-value"></span>
+			</div>
+		</div>
+		<script>
+			// 팀 이름을 메인 화면에 설정
+			document.querySelector('#team-name').innerText = 'Team Name';
+
+			// 랜덤 점수 생성 함수
+			function getRandomPoint() {
+				return Math.floor(Math.random() * 501); // 0부터 500까지
+			}
+
+			// 랜덤으로 점수 생성
+			const randomScore = getRandomPoint();
+
+			// 점수 출력
+			const scoreValue = document.querySelector('#score-value');
+			scoreValue.textContent = `${randomScore}점`;
+
+			// 점수에 따라 배경색과 텍스트색 변경
+			if (randomScore <= 100) {
+				scoreValue.style.backgroundColor = '#ececec';
+				scoreValue.style.color = '#767676';
+			} else if (randomScore <= 200) {
+				scoreValue.style.backgroundColor = '#ede0c4';
+				scoreValue.style.color = '#825e01';
+			} else if (randomScore <= 300) {
+				scoreValue.style.backgroundColor = '#fffbd5';
+				scoreValue.style.color = '#ffb800';
+			} else if (randomScore <= 400) {
+				scoreValue.style.backgroundColor = '#e6f0ff';
+				scoreValue.style.color = '#0066ff';
+			} else {
+				scoreValue.style.backgroundColor = '#f4e2ff';
+				scoreValue.style.color = '#8200d2';
+			}
+		</script>
+	</div>
+</body>
+
+</html>
