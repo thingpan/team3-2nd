@@ -6,6 +6,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>마이페이지</title>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@200;300;400;500;600;700;800&display=swap"
+		rel="stylesheet" />
+
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
 		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
@@ -28,11 +32,11 @@
 
 	<div id="main">
 		<div id="sub">
-			<input type="text" id="name"  >
+			<input type="text" id="name">
 			<div class="first">
 			</div>
 			<div class="action-buttonss">
-				<button id="create-team-btn" onclick="openModal()" class="btn btn-dark" style="margin-left: 30px">팀
+				<button id="create-team-btn" onclick="openModal()" class="btn btn-dark">팀
 					만들기</button>
 
 				<button id="edit-button" class="btn btn-dark" onclick="openCurrentPasswordModal()">정보 수정</button>
@@ -280,46 +284,38 @@
 		<div class="edit-profile-form" style="display: none;">
 
 			<h3 id="my">내 정보</h3>
-
-
-			<p style="margin-bottom: 50px;"></p>
 			<hr>
-			</hr>
-			<label for="name">이름</label>
+			
+			<label for="name">이름 :</label>
 			<input type="text" id="user-name">
 			<hr>
-			</hr>
 
-			<label for="email">이메일</label>
+			<label for="email">이메일 :</label>
 			<input type="text" id="email">
 			<button id="change-email-button" class="btn btn-dark" value="uiEmail" onclick="openChangeEmailPopup()">이메일
 				변경</button>
 			<hr>
-			</hr>
 
-			<label for="password">비밀번호</label>
+			<label for="password">비밀번호 :</label>
 			<input type="password" id="password" name="password" placeholder="비밀번호">
 			<button id="change-password-button" class="btn btn-dark" onclick="openChangePasswordPopup()">비밀번호
 				변경</button>
-
-
 			<hr>
-			</hr>
-			<label for="phone">전화번호</label>
+
+			<label for="phone">전화번호 :</label>
 			<input type="text" id="phone">
 			<hr>
-			</hr>
 
-			<label for="year">생년월일</label>
+			<label for="year">생년월일 :</label>
 			<input type="text" id="date" name="date">
 			<hr>
-			</hr>
-			<label for="address">주소</label>
 
+			<label for="address">주소 :</label>
 			<input type="text" id="address" name="address" value="" placeholder="주소">
 			<button type="button" id="search-address" value="JOIN" onclick="openAddressSearchModal()"
 				class="btn btn-dark">검색</button>
 			<hr>
+
 			<button type="button" id="save-profile" class="btn btn-dark">완료</button>
 		</div>
 
@@ -354,9 +350,9 @@
 
 				window.addEventListener('load', async function () {
 					const userRes = await fetch('/user-info');
-					 user = await userRes.json();
+					user = await userRes.json();
 
-					
+
 
 
 					document.querySelector('#name').value = user.uiName;
@@ -366,7 +362,7 @@
 					document.querySelector('#phone').value = user.uiPhoneNum;
 					document.querySelector('input#password').value = user.uiPwd.replace(/./g, '*');
 					document.querySelector('#user-name').value = user.uiName;
-					
+
 
 				});
 
@@ -500,13 +496,16 @@
 					changePasswordPopup.style.display = 'none';
 				});
 
+				window.addEventListener('scroll', () => {
+					if (window.scrollY > 50) {
+						header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
+						header.style.transform = 'translateY(-100%)';
+					} else {
+						header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
+						header.style.transform = 'translateY(0)';
+					}
+				});
 			</script>
-
-
-
-
-
-
 
 			<script>
 				const basketballButton = document.getElementById('basketball');
@@ -517,12 +516,9 @@
 				const editProfileForm = document.querySelector('.edit-profile-form');
 				const saveButton = document.getElementById('save-profile');
 
-			
-
 				// 초기화 함수
 				function initializeTeamList(selectedSport) {
 					teamList.innerHTML = '';
-
 					if (selectedSport === '') {
 						profileData.forEach(data => {
 							const team = createTeamElement(data);
@@ -536,8 +532,6 @@
 						});
 					}
 				}
-
-
 
 				// 팀 엘리먼트 생성 함수
 				function createTeamElement(data) {
@@ -585,15 +579,7 @@
 
 				// 페이지 로드 시 초기화 함수 호출
 				initializeTeamList('');
-
-
 			</script>
-
-
-
-
-
 </body>
-
 
 </html>

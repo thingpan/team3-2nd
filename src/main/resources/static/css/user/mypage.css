@@ -1,552 +1,470 @@
 @charset "EUC-KR";
 
 #main {
-		width: 70%;
-		margin: 0 auto;
-
-	}
-
-   #user-info-form {
-        max-width: 400px;
-        margin: 0 auto;
-    }
-
-    /* Style for labels and input fields */
-    label {
-        display: inline-block;
-        width: 80px; /* Adjust the width as needed */
-        text-align: right;
-
-    }
-
-
-
-
-    /* Optional: Adjust the max-width for better responsiveness */
-  
-
-
-    button {
-        margin-left: 85px; /* Adjust the margin as needed */
-    }
-
-
-
-	
-
-
-
-
-
-	#password {
-		display: inline-block;
-		margin: 0 auto;
-		text-align: center;
-		width: 100px;
-		border: 0 solid white;
-
-	}
-
-	#name {
-		display: inline-block;	
-		border: 0 solid white;
-		text-align: center;
-
-	}
-
-	#email {
-		display: inline-block;
-		margin: 0 auto;
-		text-align: cetneter;
-		border: 0 solid white;
-	
-
-	}
-
-	#sex {
-		display: inline-block;	
-		border: 0 solid white;
-	}
-	
-
-	#box2 {
-		width: 100%;
-		padding: 20px;
-		border: 2px solid #ddd;
-		border-radius: 10px;
-		background-color: #fff;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	}
-
-
-	#change-email-button {
-		display: inline-block;
-		margin-left: 76px;
-		padding: 10px 15px;
-		background-color: #000000f5;
-		color: #fff;
-		width: 130px;
-		height: 42px;
-		border: none;
-		font-size: 15px;
-		cursor: pointer;
-		text-align: center;
-		border-radius: 5px;
-	}
-
-	#change-password-button {
-		display: inline-block;
-		padding: 10px 15px;
-		background-color: #000000f5;
-		color: #fff;
-		width: 130px;
-		height: 42px;
-		border: none;
-		margin-left: 135px;
-	
-		font-size: 15px;
-		cursor: pointer;
-		text-align: center;
-		border-radius: 5px;
-	}
-
-	#search-address {
-
-		padding: 10px 15px;
-		background-color: #000000f5;
-		color: #fff;
-		width: 80px;
-		height: 40px;
-		border: none;
-		font-size: 15px;
-		cursor: pointer;
-		text-align: center;
-		border-radius: 5px;
-	}
-
-
-	.team-list {
-		display: flex;
-		flex-wrap: wrap;
-		margin-right: 30%;
-		/* Add this line */
-		justify-content: flex-start;
-		/* Add this line */
-	}
-
-	.additional-content {
-		margin-top: 20px;
-		/* Add additional styling as needed */
-	}
-
-	.action-buttons {
-		display: flex;
-		Position: fixed;
-		justify-content: space-between;
-		align-items: center;
-		margin-top: 10px;
-	}
-
-
-
-
-	.edit-profile-form {
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		margin: 0 auto;
-		display: none;
-		text-align: left;
-		border: 2px solid #ddd;
-		border-radius: 10px;
-		background-color: #fff;
-		margin-top: 20px;
-	}
-
-	.action-buttonss {
-		text-align: center;
-		margin-top: 10px;
-	}
-
-	#create-team-btn,
-	#edit-button {
-		margin-right: 10px;
-	}
-
-	/* Style for the profile image (replace this with your actual styles) */
-	#profile-image {
-		width: 100px;
-		height: 100px;
-		border-radius: 50%;
-		cursor: pointer;
-	}
-
-
-	.profile-container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin-top: 100px;
-	}
-
-	.profile-container img {
-		width: 100px;
-		height: 100px;
-		border-radius: 50%;
-		margin-right: 20px;
-	}
-
-	#team-heading {
-
-		margin-right: 280px;
-	}
-
-
-
-
-
-
-	.dropdown {
-		margin-top: 20px;
-		display: inline-block;
-		float: left;
-		/* 왼쪽으로 배치 */
-	}
-
-
-
-
-	/* 추가한 부분 */
-	.team {
-		margin: 10px;
-
-		text-align: center;
-	}
-
-	.team img {
-		width: 50px;
-		height: 50px;
-	}
-
-
-
-
-
-	.search-results {
-		width: 0%;
-		margin-top: 10px;
-	}
-
-
-
-	.action-buttons {
-		text-align: center;
-	}
-
-	.action-buttons1 {
-		display: inline-block;
-	}
-
-
-	#save-profile {
-		padding: 10px 15px;
-		font-size: 7px;
-		width: 10%;
-		border-radius: 5px;
-		margin-left: 88%;
-		display: inline-block;
-		padding: 10px 15px;
-		background-color: #000000f5;
-		color: #fff;
-		height: 40px;
-		border: none;
-		font-size: 15px;
-		cursor: pointer;
-		text-align: center;
-		border-radius: 5px;
-	}
-
-	.first {
-		margin-left: 50px;
-		width: 30%;
-		box-sizing: border-box;
-	}
-	.info#info__birth select {
-		margin-left: 7px;
-	}
-
-	.info#info__birth select:first-child {
-		margin-left: 0px;
-	}
-
-	.info#info__birth select::-webkit-scrollbar {
-		width: 10px;
-	}
-
-	.info#info__birth select::-webkit-scrollbar-thumb {
-		background-color: #b6b6b6;
-		border-radius: 3px;
-	}
-
-	.info#info__birth select::-webkit-scrollbar-track {
-		background-color: #ebe9e9;
-		border-radius: 6px;
-	}
-
-
-
-	select.box {
-		height: 50px;
-		box-sizing: border-box;
-		border-radius: 4px;
-		border: 1px solid #d9d6d6;
-		color: #383838;
-		background-color: #ffffff;
-		font-family: 'Montserrat', 'Pretendard', sans-serif;
-	}
-
-	option {
-		font-size: 16px;
-	}
-
-	.info.box#domain-list option {
-		font-size: 14px;
-		background-color: #ffffff;
-
-	}
-
-	.in-line {
-		width: 350px;
-		height: 40px;
-	}
-
-	input {
-		margin: 0;
-	}
-
-	input[type="text"] {
-		width: 70%;
-		height: 100%;
-		border: none;
-		font-size: 1em;
-		padding-left: 5px;
-		font-style: oblique;
-		display: inline;
-		outline: none;
-		box-sizing: border-box;
-		color: black;
-
-	}
-
-	input[type=button] {
-		width: 30%;
-		height: 100%;
-		background-color: lightgray;
-		border: none;
-		background-color: white;
-		font-size: 1em;
-		color: #042AaC;
-		outline: none;
-		display: inline;
-		margin-left: -10px;
-		box-sizing: border-box;
-	}
-
-	input[type=button]:hover {
-		background-color: lightgray;
-	}
-
-	.info.box#domain-list {
-		margin-bottom: 10px;
-		/* 원하는 간격으로 조절 */
-
-	}
-
-
-	.edit-profile-form.info {
-		margin-bottom: 20px;
-		/* 간격 조절 */
-	}
-	.edit-profile-form .label-data-container {
-		display: flex;
-		align-items: center;
-		margin-bottom: 10px;
-	
-	}
-
-	.edit-profile-form label {
-		margin-right: 10px;
-		/* 레이블과 데이터 간 간격 조절 */
-	}
-
-	h4 {
-		font-weight: 700;
-	}
-
-	.modal-title {
-		text-align: center;
-	}
-
-	.modal-title-text {
-		font-size: 1.25rem;
-		font-weight: 700;
-	}
-	#my{
-		margin-left:2%;
-		margin-top:1%;
-	}
-
-	select {
-		width: 206px;
-		height: 40px;
-		text-align-last: center;
-		border-radius: 10px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-
-	.btn-check {
-		display: none;
-	}
-
-	.btn-check:checked+.btn-outline-dark {
-		background-color: black;
-		color: white;
-	}
-
-	.modal-body form div {
-		margin-bottom: 10px;
-	}
-
-	.region-select-section {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.modal-body form div label,
-	.modal-body form div input,
-	.modal-body form div textarea {
-		width: 100%;
-	}
-
-	/* 추가된 스타일: 모든 텍스트를 왼쪽으로 정렬 */
-	.modal-body form div .modal-title-text,
-	.modal-body form div p {
-		text-align: left;
-	}
-
-	/* 추가된 스타일: 별표를 텍스트 옆에 표시 */
-	.modal-body form div p {
-		display: inline-block;
-		margin-left: 5px;
-	}
-
-	/* 추가된 스타일: 종목을 가로로 표시 */
-	.modal-body form div .sports-section {
-		display: flex;
-		gap: 10px;
-	}
-
-
-	.profile-section {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		margin-top: 20px;
-	}
-
-
-	.profile-image,
-	.team-image {
-		max-width: 100%;
-		max-height: 200px;
-		margin-top: 10px;
-	}
-
-
-	.file-upload-btn {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		margin-top: 10px;
-	}
-
-
-
-
-
-	.modal label {
-		display: block;
-		margin-bottom: 10px;
-	}
-
-	.modal input {
-		width: 100%;
-		padding: 8px;
-		margin-bottom: 15px;
-		box-sizing: border-box;
-	}
-
-	.modal button {
-		background-color: #0066ff;
-		color: #fff;
-		border: none;
-		padding: 10px 20px;
-		cursor: pointer;
-	}
-
-	.overlay {
-		display: none;
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0, 0, 0, 0.5);
-		top: 0;
-		left: 0;
-		z-index: 0;
-	}
-
-	#logout-button {
-
-		background-color: #000000f5;
-		color: #fff;
-		margin-left: 130%;
-		width: 100px;
-		height: 35px;
-		border: none;
-		font-size: 15px;
-		border-radius: 5px;
-		cursor: pointer;
-
-
-	}
-
-	#create-team-btn {
-		margin-top: 10px;
-		background-color: #000000f5;
-		color: #fff;
-		width: 100px;
-		height: 35px;
-		border: none;
-		font-size: 15px;
-		border-radius: 5px;
-		margin-left: 80px;
-		cursor: pointer;
-	}
-
-	#username {
-		margin-left: 42%;
-	}
-
-	#edit-button {
-		margin-top: 10px;
-		background-color: #000000f5;
-		color: #fff;
-		width: 100px;
-		height: 35px;
-		border: none;
-		font-size: 15px;
-		margin-right: 100px;
-		border-radius: 5px;
-		cursor: pointer;
-	}
-	
+	width: 70%;
+	margin: 0 auto;
+
+}
+
+#user-info-form {
+	max-width: 400px;
+	margin: 0 auto;
+}
+
+label {
+	width: 80px;
+	/* Adjust the width as needed */
+	text-align: center;
+}
+
+button {
+	margin-left: 85px;
+	/* Adjust the margin as needed */
+}
+
+#password {
+	display: inline-block;
+	margin: 0 auto;
+	text-align: center;
+	width: 100px;
+	border: 0 solid white;
+}
+
+#name {
+	text-align: center;
+	width: 97%;
+}
+
+#email {
+	display: inline-block;
+	margin: 0 auto;
+	text-align: cetneter;
+	border: 0 solid white;
+}
+
+#sex {
+	display: inline-block;
+	border: 0 solid white;
+}
+
+#box2 {
+	width: 100%;
+	padding: 20px;
+	border: 2px solid #ddd;
+	border-radius: 10px;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#change-email-button {
+	display: inline-block;
+	margin-left: 76px;
+	padding: 10px 15px;
+	background-color: #000000f5;
+	color: #fff;
+	width: 100px;
+	height: 42px;
+	border: none;
+	font-size: 12px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 5px;
+}
+
+#change-password-button {
+	display: inline-block;
+	padding: 10px 15px;
+	background-color: #000000f5;
+	color: #fff;
+	width: 100px;
+	height: 42px;
+	border: none;
+	margin-left: 135px;
+
+	font-size: 12px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 5px;
+}
+
+#search-address {
+	background-color: #000000f5;
+	color: #fff;
+	width: 60px;
+	height: 40px;
+	border: none;
+	font-size: 12px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 5px;
+}
+
+
+.team-list {
+	display: flex;
+	flex-wrap: wrap;
+	margin-right: 30%;
+	/* Add this line */
+	justify-content: flex-start;
+	/* Add this line */
+}
+
+.additional-content {
+	margin-top: 20px;
+	/* Add additional styling as needed */
+}
+
+.action-buttonss {
+	text-align: center;
+	margin-top: 10px;
+	width: 100%;
+	font-size: 12px;
+}
+
+#create-team-btn, #edit-button {
+	margin-right: 10px;
+	font-size: 12px;
+}
+
+/* Style for the profile image (replace this with your actual styles) */
+#profile-image {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.profile-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 100px;
+}
+
+.profile-container img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-right: 20px;
+}
+
+#team-heading {
+	margin-right: 280px;
+}
+
+.dropdown {
+	margin-top: 20px;
+	display: inline-block;
+	float: left;
+	/* 왼쪽으로 배치 */
+}
+
+/* 추가한 부분 */
+.team {
+	margin: 10px;
+	text-align: center;
+}
+
+.team img {
+	width: 50px;
+	height: 50px;
+}
+
+.search-results {
+	width: 0%;
+	margin-top: 10px;
+}
+
+.action-buttons {
+	text-align: center;
+}
+
+.action-buttons1 {
+	display: inline-block;
+}
+
+#save-profile {
+	padding: 10px 15px;
+	font-size: 7px;
+	width: 80px;
+	border-radius: 5px;
+	margin-left: 88%;
+	margin-bottom: 30px;
+	background-color: #000000f5;
+	color: #fff;
+	height: 40px;
+	border: none;
+	font-size: 12px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.first {
+	margin-left: 50px;
+	width: 30%;
+	box-sizing: border-box;
+}
+
+.info#info__birth select {
+	margin-left: 7px;
+}
+
+.info#info__birth select:first-child {
+	margin-left: 0px;
+}
+
+.info#info__birth select::-webkit-scrollbar {
+	width: 10px;
+}
+
+.info#info__birth select::-webkit-scrollbar-thumb {
+	background-color: #b6b6b6;
+	border-radius: 3px;
+}
+
+.info#info__birth select::-webkit-scrollbar-track {
+	background-color: #ebe9e9;
+	border-radius: 6px;
+}
+
+select.box {
+	height: 50px;
+	box-sizing: border-box;
+	border-radius: 4px;
+	border: 1px solid #d9d6d6;
+	color: #383838;
+	background-color: #ffffff;
+	font-family: 'Montserrat', 'Pretendard', sans-serif;
+}
+
+option {
+	font-size: 16px;
+}
+
+.info.box#domain-list option {
+	font-size: 14px;
+	background-color: #ffffff;
+}
+
+.in-line {
+	width: 350px;
+	height: 40px;
+}
+
+input {
+	margin: 0;
+}
+
+input[type="text"] {
+	width: 70%;
+	height: 100%;
+	border: none;
+	font-size: 1em;
+	padding-left: 5px;
+	font-style: oblique;
+	display: inline;
+	outline: none;
+	box-sizing: border-box;
+	color: black;
+
+}
+
+input[type=button] {
+	width: 30%;
+	height: 100%;
+	background-color: lightgray;
+	border: none;
+	background-color: white;
+	font-size: 1em;
+	color: #042AaC;
+	outline: none;
+	display: inline;
+	margin-left: -10px;
+	box-sizing: border-box;
+}
+
+input[type=button]:hover {
+	background-color: lightgray;
+}
+
+.info.box#domain-list {
+	margin-bottom: 10px;
+	/* 원하는 간격으로 조절 */
+}
+
+.edit-profile-form.info {
+	margin-bottom: 20px;
+	/* 간격 조절 */
+}
+
+.edit-profile-form .label-data-container {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.edit-profile-form label {
+	margin-right: 10px;
+	/* 레이블과 데이터 간 간격 조절 */
+}
+
+h4 {
+	font-weight: 700;
+}
+
+.modal-title {
+	text-align: center;
+}
+
+.modal-title-text {
+	font-size: 1.25rem;
+	font-weight: 700;
+}
+
+#my {
+	margin-left: 2%;
+	margin-top: 40px;
+}
+
+select {
+	width: 206px;
+	height: 40px;
+	text-align-last: center;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btn-check {
+	display: none;
+}
+
+.btn-check:checked+.btn-outline-dark {
+	background-color: black;
+	color: white;
+}
+
+.modal-body form div {
+	margin-bottom: 10px;
+}
+
+.region-select-section {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.modal-body form div label,
+.modal-body form div input,
+.modal-body form div textarea {
+	width: 100%;
+}
+
+/* 추가된 스타일: 모든 텍스트를 왼쪽으로 정렬 */
+.modal-body form div .modal-title-text,
+.modal-body form div p {
+	text-align: left;
+}
+
+/* 추가된 스타일: 별표를 텍스트 옆에 표시 */
+.modal-body form div p {
+	display: inline-block;
+	margin-left: 5px;
+}
+
+/* 추가된 스타일: 종목을 가로로 표시 */
+.modal-body form div .sports-section {
+	display: flex;
+	gap: 10px;
+}
+
+.profile-section {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-top: 20px;
+}
+
+.profile-image,
+.team-image {
+	max-width: 100%;
+	max-height: 200px;
+	margin-top: 10px;
+}
+
+.file-upload-btn {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-top: 10px;
+}
+
+.modal label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.modal input {
+	width: 100%;
+	padding: 8px;
+	margin-bottom: 15px;
+	box-sizing: border-box;
+}
+
+.modal button {
+	background-color: #0066ff;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+}
+
+.overlay {
+	display: none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 0;
+	left: 0;
+	z-index: 0;
+}
+
+#logout-button {
+	background-color: #000000f5;
+	color: #fff;
+	margin-left: 130%;
+	width: 100px;
+	height: 35px;
+	border: none;
+	font-size: 15px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#create-team-btn {
+	margin-top: 10px;
+	background-color: #000000f5;
+	color: #fff;
+	width: 100px;
+	height: 35px;
+	border: none;
+	font-size: 15px;
+	border-radius: 5px;
+	margin-left: 80px;
+	cursor: pointer;
+}
+
+#edit-button {
+	margin-top: 10px;
+	background-color: #000000f5;
+	color: #fff;
+	width: 100px;
+	height: 35px;
+	border: none;
+	font-size: 15px;
+	margin-right: 100px;
+	border-radius: 5px;
+	cursor: pointer;
+}

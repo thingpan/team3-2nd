@@ -239,19 +239,18 @@ header {
 }
 
 #teamList {
-	flex: 1;
-
-
-	max-width: 430px;
+	width: 400px;
 	padding: 10px;
 	box-sizing: border-box;
+	overflow-y: scroll;
+	padding: 20px;
 }
 
 #chatContainer {
-
-	margin-left: 130px;
 	padding: 20px;
-	border: 2px solid #ddd;
+	margin-left: 20px;
+	margin-top: 30px;
+	border: 2px solid var(--btn-gray-color);
 	width: 350px;
 	border-radius: 10px;
 	background-color: #fff;
@@ -302,9 +301,6 @@ header {
 	font-size: 14px;
 }
 
-
-
-
 #messageContainer {
 	margin-bottom: 10px;
 	position: relative;
@@ -352,8 +348,6 @@ header {
 	font-size: 20px;
 	color: #007bff;
 }
-
-
 
 .teamContainer:hover,
 .teamDetails:hover {
