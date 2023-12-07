@@ -34,9 +34,11 @@ public class MatchInfoController {
 		return matchInfoService.insertMatchInfo(match);
 	}
 
-	@GetMapping("/match-board/{mbNum}")
-	public MatchBoardInfoVO selectMatchBoardInfo(@PathVariable int mbNum) {
-		return matchInfoService.selectMatchInfo(mbNum);
+	@GetMapping("/match-view/{mbNum}")
+	public ResponseEntity<MatchBoardInfoVO> selectMatchBoardInfo(@PathVariable int mbNum) {
+		log.info("mbNum => {}", mbNum);
+		MatchBoardInfoVO matchInfo = matchInfoService.selectMatchInfo(mbNum);
+		return ResponseEntity.ok(matchInfo);
 	}
 
 	@GetMapping("/match-board")

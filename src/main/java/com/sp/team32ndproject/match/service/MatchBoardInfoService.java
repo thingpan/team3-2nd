@@ -34,7 +34,7 @@ public class MatchBoardInfoService {
 		return matchBoardInfoMapper.selectMatchInfo(mbNum);
 	}
 
-	public MatchBoardInfoListVO selectMatchList() {  // 추가
+	public MatchBoardInfoListVO selectMatchList() {
 		List<MatchBoardInfoVO> matchBoardList = matchBoardInfoMapper.selectMatchList();
 		MatchBoardInfoListVO matchBoardInfoListVO = new MatchBoardInfoListVO();
 		matchBoardInfoListVO.setMatchBoardList(matchBoardList);
