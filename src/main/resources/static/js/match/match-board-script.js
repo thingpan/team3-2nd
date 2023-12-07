@@ -11,10 +11,8 @@ async function showSchedule(date) {
     const clonedRes = res.clone();
     const matchBoardInfos = await clonedRes.json();
 
-    console.log(res.status);
     console.log("msg", await res.text());
-
-    console.log("match board list: ", matchBoardInfos);
+    console.log("match-board list: ", matchBoardInfos);
 
     const apiScheduleItems = matchBoardInfos.matchBoardList.map(matchBoardList => {
         return {
@@ -25,7 +23,7 @@ async function showSchedule(date) {
             mbSido: matchBoardList.mbSido,
             mbDate: new Date(matchBoardList.mbDate),
             mbType: matchBoardList.mbType,
-            statusBadge: '마감',
+            mbStatus: matchBoardList.mbStatus,
         };
     });
 
@@ -97,20 +95,18 @@ async function showSchedule(date) {
             // 상태 뱃지 표시
             const statusCell = row.insertCell();
             const statusBadge = document.createElement('span');
-            statusBadge.textContent = apiScheduleItem.statusBadge;
 
             // 상태에 따라 스타일을 지정
-            switch (apiScheduleItem.statusBadge) {
-                case '마감':
-                    statusBadge.style.backgroundColor = '#D3D3D3';
-                    statusBadge.style.color = '#8F8F8F';
-                    statusBadge.style.padding = '14px 50px';
-                    break;
-                case '신청가능':
-                    statusBadge.style.backgroundColor = '#0066FF';
-                    statusBadge.style.color = '#FFFFFF';
-                    statusBadge.style.padding = '14px 37px';
-                    break;
+            if (apiScheduleItem.mbStatus === "0") {
+                statusBadge.textContent = '신청가능';
+                statusBadge.style.backgroundColor = '#0066FF';
+                statusBadge.style.color = '#FFFFFF';
+                statusBadge.style.padding = '14px 37px';
+            } else if (apiScheduleItem.mbStatus === "1") {
+                statusBadge.textContent = '마감';
+                statusBadge.style.backgroundColor = '#D3D3D3';
+                statusBadge.style.color = '#8F8F8F';
+                statusBadge.style.padding = '14px 50px';
             }
 
             statusBadge.style.borderRadius = '18px';
@@ -135,7 +131,7 @@ function updateCalendar(date) {
         dayDiv.classList.add('day');
 
         const dayDate = day.getDate();
-        const dayName = day.toLocaleDateString('en-US', { weekday: 'short' });
+        const dayName = day.toLocaleDateString('en-US', {weekday: 'short'});
         dayDiv.textContent = `${dayDate}\n${dayName}`;
 
         dayDiv.addEventListener('click', () => {
