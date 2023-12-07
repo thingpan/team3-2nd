@@ -17,605 +17,18 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
 		crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/css/user/mypage.css">
 
 
 
-</head>
-<style>
-	#main {
-		width: 70%;
-		margin: 0 auto;
-
-	}
-
-   #user-info-form {
-        max-width: 400px;
-        margin: 0 auto;
-    }
-
-    /* Style for labels and input fields */
-    label {
-        display: inline-block;
-        width: 80px; /* Adjust the width as needed */
-        text-align: right;
-        margin-right: 10px;
-    }
-     #name,
-    #email,
-    #password,
-    #change-password-button,
-    #sex,
-  #gender,
-	#phone,
-	#info__birth
-    #date,
-    #address,
-    #search-address {
-        display: inline-block;
-        margin-right: 10px; /* Adjust the margin as needed */
-    }
-
-    #change-password-button,
-    #search-address {
-        margin-left: 0; /* Resetting the margin for specific elements */
-    }
-
-    /* Optional: Adjust the max-width for better responsiveness */
-  
-
-
-    button {
-        margin-left: 85px; /* Adjust the margin as needed */
-    }
-
-
-
-	
-	#sex
-	#gender,
-	#phone,
-	#info__birth {
-		display: inline-block;
-		margin: 0 auto;
-		border: 0 solid white;
-		margin-left: 60px;
-
-	}
-
-
-
-
-	#password {
-		display: inline-block;
-		margin: 0 auto;
-		margin-left: 70px;
-		width: 100px;
-		border: 0 solid white;
-
-	}
-
-	#name {
-		display: inline-block;
-		margin: 0 auto;
-		margin-left: 100px;
-		text-align: cetneter;
-		border: 0 solid white;
-		text-align: center;
-
-	}
-
-	#email {
-		display: inline-block;
-		margin: 0 auto;
-		margin-left: 90px;
-		text-align: cetneter;
-		border: 0 solid white;
-		text-align: center;
-
-	}
-
-	#sex {
-		display: inline-block;
-		margin: 0 auto;
-		margin-left: 100px;
-		text-align: cetneter;
-		border: 0 solid white;
-		text-align: center;
-
-	}
-
-
-	#box2 {
-		width: 100%;
-		padding: 20px;
-		border: 2px solid #ddd;
-		border-radius: 10px;
-		background-color: #fff;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	}
-
-
-	#change-email-button {
-		display: inline-block;
-		margin-left: 76px;
-		padding: 10px 15px;
-		background-color: #000000f5;
-		color: #fff;
-		width: 130px;
-		height: 42px;
-		border: none;
-		font-size: 15px;
-		cursor: pointer;
-		text-align: center;
-		border-radius: 5px;
-	}
-
-	#change-password-button {
-		display: inline-block;
-		padding: 10px 15px;
-		background-color: #000000f5;
-		color: #fff;
-		width: 130px;
-		height: 42px;
-		border: none;
-		margin-left: 135px;
-	
-		font-size: 15px;
-		cursor: pointer;
-		text-align: center;
-		border-radius: 5px;
-	}
-
-	#search-address {
-
-		padding: 10px 15px;
-		background-color: #000000f5;
-		color: #fff;
-		width: 80px;
-		height: 40px;
-		border: none;
-		font-size: 15px;
-		cursor: pointer;
-		text-align: center;
-		border-radius: 5px;
-	}
-
-
-	.team-list {
-		display: flex;
-		flex-wrap: wrap;
-		margin-right: 30%;
-		/* Add this line */
-		justify-content: flex-start;
-		/* Add this line */
-	}
-
-	.additional-content {
-		margin-top: 20px;
-		/* Add additional styling as needed */
-	}
-
-	.action-buttons {
-		display: flex;
-		Position: fixed;
-		justify-content: space-between;
-		align-items: center;
-		margin-top: 10px;
-	}
-
-
-
-
-	.edit-profile-form {
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		margin: 0 auto;
-		display: none;
-		text-align: left;
-		border: 2px solid #ddd;
-		border-radius: 10px;
-		background-color: #fff;
-		margin-top: 20px;
-	}
-
-	.action-buttonss {
-		text-align: center;
-		margin-top: 10px;
-	}
-
-	#create-team-btn,
-	#edit-button {
-		margin-right: 10px;
-	}
-
-	/* Style for the profile image (replace this with your actual styles) */
-	#profile-image {
-		width: 100px;
-		height: 100px;
-		border-radius: 50%;
-		cursor: pointer;
-	}
-
-
-	.profile-container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin-top: 100px;
-	}
-
-	.profile-container img {
-		width: 100px;
-		height: 100px;
-		border-radius: 50%;
-		margin-right: 20px;
-	}
-
-	#team-heading {
-
-		margin-right: 280px;
-	}
-
-
-
-
-
-
-	.dropdown {
-		margin-top: 20px;
-		display: inline-block;
-		float: left;
-		/* 왼쪽으로 배치 */
-	}
-
-
-
-
-	/* 추가한 부분 */
-	.team {
-		margin: 10px;
-
-		text-align: center;
-	}
-
-	.team img {
-		width: 50px;
-		height: 50px;
-	}
-
-
-
-
-
-	.search-results {
-		width: 0%;
-		margin-top: 10px;
-	}
-
-
-
-	.action-buttons {
-		text-align: center;
-	}
-
-	.action-buttons1 {
-		display: inline-block;
-	}
-
-
-	#save-profile {
-		padding: 10px 15px;
-		font-size: 7px;
-		width: 10%;
-		border-radius: 5px;
-		margin-left: 88%;
-		display: inline-block;
-		padding: 10px 15px;
-		background-color: #000000f5;
-		color: #fff;
-		height: 40px;
-		border: none;
-		font-size: 15px;
-		cursor: pointer;
-		text-align: center;
-		border-radius: 5px;
-	}
-
-	.first {
-		margin-left: 50px;
-		width: 30%;
-		box-sizing: border-box;
-	}
-	.info#info__birth select {
-		margin-left: 7px;
-	}
-
-	.info#info__birth select:first-child {
-		margin-left: 0px;
-	}
-
-	.info#info__birth select::-webkit-scrollbar {
-		width: 10px;
-	}
-
-	.info#info__birth select::-webkit-scrollbar-thumb {
-		background-color: #b6b6b6;
-		border-radius: 3px;
-	}
-
-	.info#info__birth select::-webkit-scrollbar-track {
-		background-color: #ebe9e9;
-		border-radius: 6px;
-	}
-
-
-
-	select.box {
-		height: 50px;
-		box-sizing: border-box;
-		border-radius: 4px;
-		border: 1px solid #d9d6d6;
-		color: #383838;
-		background-color: #ffffff;
-		font-family: 'Montserrat', 'Pretendard', sans-serif;
-	}
-
-	option {
-		font-size: 16px;
-	}
-
-	.info.box#domain-list option {
-		font-size: 14px;
-		background-color: #ffffff;
-
-	}
-
-	.in-line {
-		width: 350px;
-		height: 40px;
-	}
-
-	input {
-		margin: 0;
-	}
-
-	input[type="text"] {
-		width: 70%;
-		height: 100%;
-		border: none;
-		font-size: 1em;
-		padding-left: 5px;
-		font-style: oblique;
-		display: inline;
-		outline: none;
-		box-sizing: border-box;
-		color: black;
-
-	}
-
-	input[type=button] {
-		width: 30%;
-		height: 100%;
-		background-color: lightgray;
-		border: none;
-		background-color: white;
-		font-size: 1em;
-		color: #042AaC;
-		outline: none;
-		display: inline;
-		margin-left: -10px;
-		box-sizing: border-box;
-	}
-
-	input[type=button]:hover {
-		background-color: lightgray;
-	}
-
-	.info.box#domain-list {
-		margin-bottom: 10px;
-		/* 원하는 간격으로 조절 */
-
-	}
-
-
-	.edit-profile-form.info {
-		margin-bottom: 20px;
-		/* 간격 조절 */
-	}
-	.edit-profile-form .label-data-container {
-		display: flex;
-		align-items: center;
-		margin-bottom: 10px;
-	
-	}
-
-	.edit-profile-form label {
-		margin-right: 10px;
-		/* 레이블과 데이터 간 간격 조절 */
-	}
-
-	h4 {
-		font-weight: 700;
-	}
-
-	.modal-title {
-		text-align: center;
-	}
-
-	.modal-title-text {
-		font-size: 1.25rem;
-		font-weight: 700;
-	}
-	#my{
-		margin-left:2%;
-		margin-top:1%;
-	}
-
-	select {
-		width: 206px;
-		height: 40px;
-		text-align-last: center;
-		border-radius: 10px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-
-	.btn-check {
-		display: none;
-	}
-
-	.btn-check:checked+.btn-outline-dark {
-		background-color: black;
-		color: white;
-	}
-
-	.modal-body form div {
-		margin-bottom: 10px;
-	}
-
-	.region-select-section {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.modal-body form div label,
-	.modal-body form div input,
-	.modal-body form div textarea {
-		width: 100%;
-	}
-
-	/* 추가된 스타일: 모든 텍스트를 왼쪽으로 정렬 */
-	.modal-body form div .modal-title-text,
-	.modal-body form div p {
-		text-align: left;
-	}
-
-	/* 추가된 스타일: 별표를 텍스트 옆에 표시 */
-	.modal-body form div p {
-		display: inline-block;
-		margin-left: 5px;
-	}
-
-	/* 추가된 스타일: 종목을 가로로 표시 */
-	.modal-body form div .sports-section {
-		display: flex;
-		gap: 10px;
-	}
-
-
-	.profile-section {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		margin-top: 20px;
-	}
-
-
-	.profile-image,
-	.team-image {
-		max-width: 100%;
-		max-height: 200px;
-		margin-top: 10px;
-	}
-
-
-	.file-upload-btn {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		margin-top: 10px;
-	}
-
-
-
-
-
-	.modal label {
-		display: block;
-		margin-bottom: 10px;
-	}
-
-	.modal input {
-		width: 100%;
-		padding: 8px;
-		margin-bottom: 15px;
-		box-sizing: border-box;
-	}
-
-	.modal button {
-		background-color: #0066ff;
-		color: #fff;
-		border: none;
-		padding: 10px 20px;
-		cursor: pointer;
-	}
-
-	.overlay {
-		display: none;
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0, 0, 0, 0.5);
-		top: 0;
-		left: 0;
-		z-index: 0;
-	}
-
-	#logout-button {
-
-		background-color: #000000f5;
-		color: #fff;
-		margin-left: 130%;
-		width: 100px;
-		height: 35px;
-		border: none;
-		font-size: 15px;
-		border-radius: 5px;
-		cursor: pointer;
-
-
-	}
-
-	#create-team-btn {
-		margin-top: 10px;
-		background-color: #000000f5;
-		color: #fff;
-		width: 100px;
-		height: 35px;
-		border: none;
-		font-size: 15px;
-		border-radius: 5px;
-		margin-left: 80px;
-		cursor: pointer;
-	}
-
-	#username {
-		margin-left: 42%;
-	}
-
-	#edit-button {
-		margin-top: 10px;
-		background-color: #000000f5;
-		color: #fff;
-		width: 100px;
-		height: 35px;
-		border: none;
-		font-size: 15px;
-		margin-right: 100px;
-		border-radius: 5px;
-		cursor: pointer;
-	}
-	
-</style>
 
 <body>
 
 	<div th:replace="/page/fragment/header.html :: f-head"></div>
 
 	<div id="main">
-
 		<div id="sub">
-			<h2 id="username"></h2>
+			<input type="text" id="name"  >
 			<div class="first">
 			</div>
 			<div class="action-buttonss">
@@ -679,16 +92,19 @@
 								</div>
 							</div>
 
-							<div class="mb-2 sports-section">
-								<input type="checkbox" class="btn-check" id="btn-check-outlined1" autocomplete="off" />
+							<div class="mb-2 sports-section" id="checked">
+								<input type="checkbox" class="btn-check" id="btn-check-outlined1" autocomplete="off"
+									value="축구" />
 								<label class="btn btn-outline-dark" for="btn-check-outlined1">
 									축구
 								</label>
-								<input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off" />
+								<input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off"
+									value="야구" />
 								<label class="btn btn-outline-dark" for="btn-check-outlined2">
 									야구
 								</label>
-								<input type="checkbox" class="btn-check" id="btn-check-outlined3" autocomplete="off" />
+								<input type="checkbox" class="btn-check" id="btn-check-outlined3" autocomplete="off"
+									value="농구" />
 								<label class="btn btn-outline-dark" for="btn-check-outlined3">
 									농구
 								</label>
@@ -699,11 +115,11 @@
 								</div>
 								<div id="gender1">
 									<input type="radio" id="male" name="gender" value="남자" />
-									<label for="male">남자</label>
+									남자
 									<input type="radio" id="female" name="gender" value="여자" />
-									<label for="female">여자</label>
+									여자
 									<input type="radio" id="all" name="gender" value="혼성" />
-									<label for="all">혼성</label>
+									혼성
 								</div>
 							</div>
 							<div class="mb-2">
@@ -734,7 +150,6 @@
 						<h4 class="modal-title">현재 비밀번호 확인</h4>
 					</div>
 					<div class="modal-body">
-						<label for="current-password-input">현재 비밀번호를 입력하세요:</label>
 						<input type="password" id="current-password-input" class="form-control">
 					</div>
 					<div class="modal-footer">
@@ -753,6 +168,7 @@
 
 			}
 		</script>
+
 		<script>
 
 			function openCurrentPasswordModal() {
@@ -769,7 +185,7 @@
 
 			function checkCurrentPassword() {
 				const enteredPassword = document.getElementById('current-password-input').value;
-				const userPassword = 'user123'; // Replace with the actual user's password
+				const userPassword = '';
 
 				if (enteredPassword === userPassword) {
 					$('#current-password-modal').modal('hide');
@@ -816,6 +232,7 @@
 
 
 
+
 			async function showAlert() {
 				const teamImgFile = document.querySelector('#team-file-input');
 				const formData = new FormData();
@@ -826,7 +243,7 @@
 				const taName = document.querySelector('#recipient-name').value;
 				const taBoundarySido = document.querySelector('#sido').value;
 				const taBoundarySigungu = document.querySelector('#sigungu').value;
-				const taType = '축구';
+				const taType = document.querySelector('input[type="checkbox"]:checked').value;
 				const taGender = document.querySelector('input[name="gender"]:checked').value;
 				const taDesc = document.querySelector('#message-text').value;
 				formData.append('taName', taName);
@@ -841,8 +258,10 @@
 				});
 
 			}
+
 		</script>
-		<script src="/js/region.js"></script>
+
+		<script src="/js/mock/region.js"></script>
 
 
 		<hr style="margin-top:20px ;">
@@ -861,19 +280,20 @@
 		<div class="edit-profile-form" style="display: none;">
 
 			<h3 id="my">내 정보</h3>
-			
+
 
 			<p style="margin-bottom: 50px;"></p>
 			<hr>
 			</hr>
 			<label for="name">이름</label>
-			<h6 id="name"></h6>
+			<input type="text" id="user-name">
 			<hr>
 			</hr>
 
 			<label for="email">이메일</label>
-			<h6 id="email"></h6>
-			<button id="change-email-button" class="btn btn-dark" onclick="openChangeEmailPopup()">이메일 변경</button>
+			<input type="text" id="email">
+			<button id="change-email-button" class="btn btn-dark" value="uiEmail" onclick="openChangeEmailPopup()">이메일
+				변경</button>
 			<hr>
 			</hr>
 
@@ -882,19 +302,11 @@
 			<button id="change-password-button" class="btn btn-dark" onclick="openChangePasswordPopup()">비밀번호
 				변경</button>
 
-			<hr>
-			</hr>
-			<label for="gender">성별</label>
-			<div id="sex">
-				<input type="radio" id="male" name="gender" value="남자">
-				<label for="male">남자</label>
-				<input type="radio" id="female" name="gender" value="여자">
-				<label for="female">여자</label>
-			</div>
+
 			<hr>
 			</hr>
 			<label for="phone">전화번호</label>
-			<input type="text" id="phone" placeholder="01012345678">
+			<input type="text" id="phone">
 			<hr>
 			</hr>
 
@@ -939,6 +351,30 @@
 
 			<script>
 
+
+				window.addEventListener('load', async function () {
+					const userRes = await fetch('/user-info');
+					 user = await userRes.json();
+
+					
+
+
+					document.querySelector('#name').value = user.uiName;
+					document.querySelector('#address').value = user.uiAddress;
+					document.querySelector('#date').value = user.uiBirth;
+					document.querySelector('#email').value = user.uiEmail;
+					document.querySelector('#phone').value = user.uiPhoneNum;
+					document.querySelector('input#password').value = user.uiPwd.replace(/./g, '*');
+					document.querySelector('#user-name').value = user.uiName;
+					
+
+				});
+
+			</script>
+
+			<script>
+
+
 				function openChangePasswordPopup() {
 
 					document.getElementById('change-password-popup').style.display = 'block';
@@ -951,29 +387,8 @@
 					document.getElementById('change-password-popup').style.display = 'none';
 				});
 
-				function popup() {
-					window.open("/page/team/team-add.html", "popup01", "width=700, height=500");
-				}
 
-				const profileData1 = {
-					name: '이왕균',
-					email: 'diskldffm@naver.com',
-					birthday: '1999.02.12',
-					phone: '010-2222-3344',
-					password: '********',
-				};
-				const userNameElement = document.getElementById('username');
-				userNameElement.textContent = ` ${profileData1.name}님`;
-				const birthdateInput = document.getElementById('date');
-				const phoneInput = document.getElementById('phone');
 
-				// Display user's birthdate and phone number in the form
-				birthdateInput.value = profileData1.birthday;
-				phoneInput.value = profileData1.phone;
-				document.querySelector('h6#name').textContent = profileData1.name;
-				document.querySelector('h6#email').textContent = profileData1.email;
-				document.querySelector('#phone').textContent = profileData1.phone;
-				document.querySelector('input#password').value = profileData1.password.replace(/./g, '*');
 
 
 
@@ -1102,12 +517,7 @@
 				const editProfileForm = document.querySelector('.edit-profile-form');
 				const saveButton = document.getElementById('save-profile');
 
-				const profileData = [
-					{id: 1, image: '/imgs/basketball.png', name: '이름 1', data: "농구"},
-					{id: 2, image: '/imgs/baseball.png', name: '이름 2', data: "야구"},
-					{id: 3, image: '/imgs/soccer.png', name: '이름 3', data: "축구"},
-					{id: 4, image: '/imgs/basketball.png', name: '이름 4', data: "농구"}
-				];
+			
 
 				// 초기화 함수
 				function initializeTeamList(selectedSport) {
@@ -1178,6 +588,7 @@
 
 
 			</script>
+
 
 
 

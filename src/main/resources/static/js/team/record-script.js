@@ -18,8 +18,7 @@ document.querySelector('#team-name-modal').innerText = 'Team Name';
 document
     .querySelector('#confirmMembershipBtn')
     .addEventListener('click', function () {
-        $('#membershipModal').modal('hide'); // 모달 숨기기
-        alert('가입신청이 완료되었습니다.'); // 알림 표시
+        $('#membershipModal').modal('hide'); // 모달 숨기기 // 알림 표시
         location.reload(); // 페이지 새로고침
     });
 

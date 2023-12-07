@@ -7,4 +7,15 @@
 		INSERT INTO TEAM_USER_INFO(UI_NUM, TA_NUM, TU_ROLE)
 		VALUES(#{uiNum},#{taNum},#{tuRole})
 	</insert>
+	<select id="selectTeamUserInfosWithHelper"
+		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
+		SELECT TU.TU_NUM, TU.UI_NUM, TU.TA_NUM, TU.TU_ROLE,
+		UI.UI_NAME, UI.UI_ADDRESS, UI.UI_PHONE_NUM
+		FROM TEAM_USER_INFO TU
+		INNER
+		JOIN USER_INFO UI ON TU.UI_NUM= UI.UI_NUM
+		WHERE TU.TA_NUM = #{taNum}
+		ORDER BY TU_NUM
+	</select>
+
 </mapper>

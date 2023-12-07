@@ -2,6 +2,8 @@ package com.sp.team32ndproject.team.service;
 
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sp.team32ndproject.team.mapper.TeamUserInfoMapper;
 import com.sp.team32ndproject.team.vo.TeamInfoVO;
 import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
@@ -29,5 +31,10 @@ public class TeamUserInfoService {
 		teamUser.setTuRole("USER");
 		return teamUserInfoMapper.insertTeamUserInfo(teamUser); 
 		
+	}
+	
+	public PageInfo<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO){
+		PageHelper.startPage(teamUserInfoVO.getPage(),teamUserInfoVO.getPageSize());
+		return new PageInfo<>(teamUserInfoMapper.selectTeamUserInfosWithHelper(teamUserInfoVO));
 	}
 }

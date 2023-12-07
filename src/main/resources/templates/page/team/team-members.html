@@ -12,16 +12,8 @@
 
 <body>
 	<div th:replace="/page/fragment/header.html :: f-head"></div>
+	<div th:replace="/page/fragment/team-profile.html :: f-team-profile"></div>
 	<div class="main">
-		<div class="team-profile">
-			<div class="team-photo">
-				<img src="/imgs/basketball.png" />
-			</div>
-			<div class="score-badge">
-				<span id="team-name"></span>
-				<span id="score-value"></span>
-			</div>
-		</div>
 		<div class="team-user-list">
 			<h4>팀원 목록</h4>
 			<table class="table">
@@ -42,20 +34,8 @@
 		<div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
 			<nav aria-label="Page navigation">
 				<ul class="pagination justify-content-center">
-					<li class="page-item">
-						<a class="page-link" href="#" aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-						</a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item">
-						<a class="page-link" href="#" aria-label="Next">
-							<span aria-hidden="true">&raquo;</span>
-						</a>
+					<li class="page-item" id="pageDiv">
+					
 					</li>
 				</ul>
 			</nav>
@@ -118,43 +98,73 @@
 
 		document.querySelector('#team-name').innerHTML = team.taName;
 
+		let total = 0;
+		let pageSize = 5;
+		const blockSize = 5;
+		const urlParams = new URL(location.href).searchParams;
+		const taNum = urlParams.get('taNum');
 
-		const scoreValue = document.querySelector('#score-value');
-		const teamPoint = team.taPoint;
-		scoreValue.innerHTML = `${teamPoint}점`;
+		const getTeamUserInfoList = async function (evt, page) {
+			if (!page) {
+				page = 1;
+			}
+			let url = `/team-users/helper?page=${page}&pageSize=${pageSize}&taNum=${taNum}`;
+			const res = await fetch(url);
+			const pageInfos = await res.json();
+			const totalCnt = pageInfos.total;
+			const pageBlock = Math.ceil(totalCnt / pageSize);
 
-		// 점수에 따라 배경색과 텍스트색 변경
-		if (teamPoint <= 100) {
-			scoreValue.style.backgroundColor = '#ececec';
-			scoreValue.style.color = '#767676';
-		} else if (teamPoint <= 200) {
-			scoreValue.style.backgroundColor = '#ede0c4';
-			scoreValue.style.color = '#825e01';
-		} else if (teamPoint <= 300) {
-			scoreValue.style.backgroundColor = '#fffbd5';
-			scoreValue.style.color = '#ffb800';
-		} else if (teamPoint <= 400) {
-			scoreValue.style.backgroundColor = '#e6f0ff';
-			scoreValue.style.color = '#0066ff';
-		} else {
-			scoreValue.style.backgroundColor = '#f4e2ff';
-			scoreValue.style.color = '#8200d2';
+			const startBlock = (Math.ceil(page / blockSize) - 1) * blockSize + 1;
+			let endBlock = startBlock + blockSize - 1;
+			let pageHtml = '';
+
+
+			if (endBlock > pageBlock) {
+				endBlock = pageBlock;
+			}
+
+			if (startBlock != 1) {
+				pageHtml += `<li class="page-item"><a class="page-link" aria-label="Previous" href="javascript:void(0)" onclick="getTeamSignUserInfoList(event,${startBlock - 1})"><span aria-hidden="true">&laquo;</span></a></li>`;
+			}
+
+			for (let i = startBlock; i <= endBlock; i++) {
+				pageHtml += `<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="getTeamSignUserInfoList(event,${i})">${i}</a></li>`;
+			}
+
+			if (endBlock < pageBlock) {
+				pageHtml += `<li class="page-item"><a  class="page-link" aria-label="Next" href="javascript:void(0)" onclick="getTeamSignUserInfoList(event,${endBlock + 1})"><span aria-hidden="true">&raquo;</span></a></li>`;
+			}
+			document.querySelector('#pageDiv').innerHTML = pageHtml;
+			let html = '';
+			for (let user of pageInfos.list) {
+				let role = user.tuRole;
+				if (role == 'ADMIN') {
+					role = '팀장';
+				} else {
+					role = '팀원';
+				}
+				html += '<tr>';
+				html += `<td>${user.uiName}</td>`;
+				html += `<td>${role}</td>`;
+				html += `<td>${user.uiAddress}</td>`;
+				html += `<td>${user.uiPhoneNum}</td>`;
+				html += `<td><button class="btn btn-dark" onclick="doRelease(${user.taNum},${user.uiNum})")>퇴출</button></td>`
+				html += '</tr>';
+			}
+			document.querySelector('#team-user-list-info').innerHTML = html;
 		}
 
+		window.addEventListener('load', getTeamUserInfoList);
 
-		let html = '';
-		for (let user of userList) {
-			html += '<tr>';
-			html += `<td>${user.uiName}</td>`;
-			html += `<td>${user.tuRole}</td>`;
-			html += `<td>${user.uiAddress}</td>`;
-			html += `<td>${user.uiPhoneNum}</td>`;
-			html += `<td><button class="btn btn-dark" onclick="doRelease(${user.taNum},${user.uiNum})")>퇴출</button></td>`
-			html += '</tr>';
-		}
-		document.querySelector('#team-user-list-info').innerHTML = html;
-
-
+		window.addEventListener('scroll', () => {
+			if (window.scrollY > 50) {
+				header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
+				header.style.transform = 'translateY(-100%)';
+			} else {
+				header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
+				header.style.transform = 'translateY(0)';
+			}
+		});
 	</script>
 
 </body>

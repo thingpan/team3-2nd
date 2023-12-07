@@ -4,14 +4,15 @@
 <head>
 	<meta charset="UTF-8">
 	<title>join</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
 	<style>
 		body {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			height: 100%;
-			scale: 130%;
+			scale: 150%;
 			overflow-y: scroll;
 			overflow-x: hidden;
 		}
@@ -19,7 +20,7 @@
 		h3 {
 			font-size: 15px;
 			text-align: right;
-			margin-top: 80px;
+			margin-top: 150px;
 			margin-right: 75px;
 		}
 
@@ -38,7 +39,7 @@
 		}
 
 		select {
-			font-size: 10px;
+			font-size: 8px;
 			width: 45px;
 		}
 
@@ -50,6 +51,12 @@
 			color: red;
 			margin-top: 3px;
 			font-size: 8px;
+		}
+
+		.filter-select {
+			padding: 2px;
+			border: 1px solid black;
+			border-radius: 5px;
 		}
 	</style>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -78,7 +85,7 @@
 			<div id="errorUiName" class="error-message"></div>
 
 			<label for="uiMobile" style="font-size: 8px;">전화번호</label><br>
-			<input type="text" id="uiMobile" style="font-size: 8px;" placeholder="전화번호"><br>
+			<input type="tel" id="uiMobile" style="font-size: 8px;" placeholder="전화번호"  pattern="[0-9]*"><br>
 			<div id="errorUiMobile" class="error-message"></div>
 
 			<label for="uiId" style="font-size: 8px;">이메일</label><br>
@@ -86,11 +93,10 @@
 			<div id="errorEmail" class="error-message"></div>
 
 			<label for="uiYear" style="font-size: 8px;">생년월일</label><br>
-
-			<select id="uiYear">
-				<option value="" selected>년도</option>
-			</select>
 		</div>
+		<select id="uiYear" class="filter-select">
+			<option value="" selected>년도</option>
+		</select>
 		<script>
 			const currentYear = new Date().getFullYear();
 			const selectYear = document.getElementById("uiYear");
@@ -103,7 +109,7 @@
 			}
 		</script>
 
-		<select id="uiMonth">
+		<select id="uiMonth" class="filter-select">
 			<option value="" selected>월</option>
 		</select>
 		<script>
@@ -118,7 +124,7 @@
 			}
 		</script>
 
-		<select id="uiDay">
+		<select id="uiDay" class="filter-select">
 			<option value="" selected>일</option>
 		</select>
 
@@ -133,6 +139,7 @@
 				selectDay.appendChild(option);
 			}
 		</script>
+				<div id="errorYear" class="error-message"></div>
 		<br>
 
 		<label for="uiGender" style="font-size: 8px;">성별</label><br>
@@ -147,13 +154,15 @@
 		<input type="text" id="uiAddress" style="font-size: 8px;" placeholder="주소" readonly>
 		<button type="button" class="btn btn-dark" id="searchButton" style="font-size: 7px;"
 			onclick="searchAddress()">검색
-		</button>
+		</button>				
 		<br>
 		<input type="text" id="uiAddress2" style="font-size: 8px;" placeholder="상세주소"><br><br>
+		<div id="errorAddress" class="error-message"></div>
 		<button type="button" class="btn btn-dark" id="joinButton" style="width: 184px;" onclick="join()">회원가입</button>
 	</div>
 
 	<script>
+		 let isIdChecked = false;
 		async function checkId() {
 			const uiId = document.querySelector('#uiId').value;
 
@@ -166,7 +175,7 @@
 
 			// 서버로 아이디 중복 확인 요청
 			const data = {
-				uiId : uiId
+				uiId: uiId
 			}
 			const res = await fetch('/check-id', {
 				method: 'POST',
@@ -174,15 +183,14 @@
 				headers: {
 					'Content-Type': 'application/json;charset=UTF-8'
 				}
+
 			});
 
+			console.log(res);
+			document.getElementById('errorUiId').innerHTML = "<span style='color: green;'>사용 가능한 아이디입니다.</span>";
 			const result = await res.json();
-			console.debug(result);
-
-			if (result.exists) {
+			if (result) {
 				document.getElementById('errorUiId').innerHTML = "<span style='color: red;'>이미 사용 중인 아이디입니다.</span>";
-			} else {
-				document.getElementById('errorUiId').innerHTML = "<span style='color: green;'>사용 가능한 아이디입니다.</span>";
 			}
 		}
 
@@ -250,9 +258,22 @@
 			} else {
 				document.getElementById('errorEmail').innerHTML = "";
 			}
+			if (!document.querySelector('#uiYear').value) {
+				document.getElementById('errorYear').innerHTML = "<span style='color: red;'>생년월일를 선택해주세요.</span>";
+				return;
+			} else {
+				document.getElementById('errorYear').innerHTML = "";
+			}
+
+			if (!document.querySelector('#uiAddress').value) {
+				document.getElementById('errorAddress').innerHTML = "<span style='color: red;'>주소를 입력해주세요.</span>";
+				return;
+			} else {
+				document.getElementById('errorAddress').innerHTML = "";
+			}
 
 			const uiGender = document.querySelector('input[name="uiGender"]:checked').value;
-			
+
 			const data = {
 				uiId: document.querySelector('#uiId').value,
 				uiPwd: document.querySelector('#uiPwd').value,
@@ -276,7 +297,7 @@
 				alert(`로그인 해주세요`);
 				location.href = '/page/user/login';
 			}
-			//회원 가입 실패 경우 넣어야함
+			
 		}
 
 		function searchAddress() {

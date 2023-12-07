@@ -40,5 +40,4 @@ public class MatchBoardInfoService {
 		matchBoardInfoListVO.setMatchBoardList(matchBoardList);
 		return matchBoardInfoListVO;
 	}
-
 }

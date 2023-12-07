@@ -238,6 +238,12 @@
 					'Content-Type': 'application/json;charset=UTF-8'
 				}
 		})
+		const result = res.json();
+		if(result == 1){
+			alert("가입 성공!");
+		}else{
+			alert("이미 신청한 팀 입니다");
+		}
 	}
 </script>
 

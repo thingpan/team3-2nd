@@ -1,5 +1,8 @@
 package com.sp.team32ndproject.user.service;
 
+import java.util.List;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,17 +34,17 @@ public class UserInfoService implements UserDetailsService{
 		return userInfoMapper.insertUserInfo(user);
 	}
 	
-	public int doCheckUiId(String uiId) {
-		UserInfoVO user = userInfoMapper.selectUserInfoByUiId(uiId);
-		int result;
-		if(user == null) {
-			//아이디 중복 없으
-			result = 1;
-			return result;
-		}else {
-			result = 0;
-			return result;
-		}
+	public UserInfoVO doCheckUiId(String uiId) {
+		return userInfoMapper.selectUserInfoByUiId(uiId);
+	}
+	public UserInfoVO selectUserInfoByUiId(String uiId) {
+		return userInfoMapper.selectUserInfoByUiId(uiId);
+	}
+	public UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
+		// TODO Auto-generated method stub
+		return  userInfoMapper.selectUserInfoByUiNum(user);
 	}
 
+
+	
 }
