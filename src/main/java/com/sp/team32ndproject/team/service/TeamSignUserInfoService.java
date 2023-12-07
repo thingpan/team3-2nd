@@ -37,4 +37,8 @@ public class TeamSignUserInfoService {
 		PageHelper.startPage(teamSignUserInfoVO.getPage(),teamSignUserInfoVO.getPageSize());
 		return new PageInfo<>(teamSignUserInfoMapper.selectTeamSignUserInfosWithHelper(teamSignUserInfoVO));
 	}
+	
+	public int deleteTeamSignUserInfo(TeamSignUserInfoVO teamSignUserInfoVO) {
+		return teamSignUserInfoMapper.deleteTeamSignUserInfo(teamSignUserInfoVO);
+	}
 }

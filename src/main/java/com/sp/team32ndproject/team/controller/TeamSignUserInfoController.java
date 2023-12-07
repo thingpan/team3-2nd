@@ -1,6 +1,8 @@
 package com.sp.team32ndproject.team.controller;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +35,12 @@ public class TeamSignUserInfoController {
 	@GetMapping("/team-sign-users/helper")
 	public PageInfo<TeamSignUserInfoVO> selectTeamSignUserInfosWithHelper(TeamSignUserInfoVO teamSignUserInfoVO){
 		return teamSignUserInfoService.selectTeamSignUserInfosWithHelper(teamSignUserInfoVO);
+	}
+	
+	@DeleteMapping("/team-sign-user-delete")
+	public int deleteTeamSignUserInfo(@RequestBody TeamSignUserInfoVO teamSignUserInfoVO) {
+		log.info("teamData => {}",teamSignUserInfoVO);
+		return teamSignUserInfoService.deleteTeamSignUserInfo(teamSignUserInfoVO);
 	}
 	
 }

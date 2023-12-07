@@ -3,6 +3,7 @@ package com.sp.team32ndproject.team.controller;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
@@ -22,8 +23,8 @@ public class TeamUserInfoController {
 	private final TeamUserInfoService teamUserInfoService;
 	
 	@PostMapping("/team-user-add")
-	public int insertTeamUserInfo(TeamInfoVO team, @AuthenticationPrincipal UserInfoVO user) {
-		return teamUserInfoService.insertTeamUserInfo(team, user); 
+	public int insertTeamUserInfo(@RequestBody TeamSignUserInfoVO teamSignUserInfoVO) {
+		return teamUserInfoService.insertTeamUserInfoToUser(teamSignUserInfoVO); 
 	}
 	
 	@GetMapping("/team-users/helper")

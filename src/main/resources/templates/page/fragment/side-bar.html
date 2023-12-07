@@ -16,30 +16,30 @@
                 <a href="/" class="nav__logo" style="text-decoration: none">MMIYC</a>
             </div>
             <div class="nav__list">
-                <a href="/page/team/record" class="nav__link" style="color: #fff; text-decoration: none">
+                <a th:href="@{/page/team/record(taNum=${param.taNum})}" class="nav__link" style="color: #fff; text-decoration: none">
                     <ion-icon name="flash-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">전적</span>
                 </a>
-                <a href="/page/team/team-members" class="nav__link" style="color: #fff; text-decoration: none">
+                <a th:href="@{/page/team/team-members(taNum=${param.taNum})}" class="nav__link" style="color: #fff; text-decoration: none">
                     <ion-icon name="create-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">팀원 목록</span>
                 </a>
 
-                <a href="/page/match/match-status" class="nav__link" style="color: #fff; text-decoration: none">
+                <a th:href="@{/page/match/match-status(taNum=${param.taNum})}" class="nav__link" style="color: #fff; text-decoration: none">
                     <ion-icon name="checkmark-done-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">매칭 현황</span>
                 </a>
 
-                <a href="/page/team/team-settings" class="nav__link" style="color: #fff; text-decoration: none">
+                <a th:href="@{/page/team/team-settings(taNum=${param.taNum})}" class="nav__link" style="color: #fff; text-decoration: none">
                     <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">팀 설정</span>
                 </a>
             </div>
-            <a href="/page/message/message-list" class="nav__link" style="color: #fff; text-decoration: none">
+            <a th:href="@{/page/message/message-list(taNum=${param.taNum})}" class="nav__link" style="color: #fff; text-decoration: none">
                 <ion-icon name="chatbubbles-outline" class="nav__icon"></ion-icon>
                 <span class="nav_name">채팅 목록</span>
             </a>
-            <a href="/page/team/team-apply" class="nav__link" style="color: #fff; text-decoration: none">
+            <a th:href="@{/page/team/team-apply(taNum=${param.taNum})}" class="nav__link" style="color: #fff; text-decoration: none">
                 <ion-icon name="people-outline" class="nav__icon"></ion-icon>
                 <span class="nav_name">가입 신청인원</span>
             </a>
