@@ -354,19 +354,10 @@
 
 				window.addEventListener('load', async function () {
 					const userRes = await fetch('/user-info');
-				
-					const user = await userRes.json();
+					 user = await userRes.json();
 
-					let html = '';
+					
 
-					html += '<tr>';
-					html += `<td>${user.uiPwd}</td>`;
-					html += `<td>${user.uiName}</td>`;
-					html += `<td>${user.uiBirth}</td>`;
-					html += `<td>${user.uiAddress}</td>`;
-					html += `<td>${user.uiPhoneNum}</td>`;
-					html += `<td>${user.uiEmail}</td>`;
-					html += '</tr>';
 
 					document.querySelector('#name').value = user.uiName;
 					document.querySelector('#address').value = user.uiAddress;
