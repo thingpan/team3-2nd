@@ -8,7 +8,7 @@
 		UI_EMAIL, UI_ADDRESS,
 		UI_CREDAT, UI_CRETIM
 	</sql>
-	<select id="selectTaTypeMatchBoardInfoByUiNum"
+	<select id="selectUserInfoByUiNum"
 		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">
 		SELECT * FROM USER_INFO
 		WHERE UI_NUM = #{uiNum}

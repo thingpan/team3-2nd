@@ -9,6 +9,6 @@ import com.sp.team32ndproject.user.vo.UserInfoVO;
 public interface UserInfoMapper {
 	UserInfoVO selectUserInfoByUiId(String uiId); 
 	int insertUserInfo(UserInfoVO user);
-	UserInfoVO selectTaTypeMatchBoardInfoByUiNum(@AuthenticationPrincipal UserInfoVO user);
+	UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user);
 
 }

@@ -31,9 +31,10 @@ public class UserInfoController {
 		return userInfoService.doCheckUiId(user.getUiId());
 	}
 	
-	@GetMapping("/user-infos")
-	public UserInfoVO selectTaTypeMatchBoardInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
-		return UserInfoService.selectTaTypeMatchBoardInfoByUiNum(user);
+	@GetMapping("/user-info")
+	public UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
+		log.info("user=>{}",user);
+		return userInfoService.selectUserInfoByUiNum(user);
 	}
 	
 }

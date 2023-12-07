@@ -316,7 +316,7 @@
 			</hr>
 			<label for="address">주소</label>
 
-			<input type="text" id="address" name="address" value="uiAddress" placeholder="주소">
+			<input type="text" id="address" name="address" value="" placeholder="주소">
 			<button type="button" id="search-address" value="JOIN" onclick="openAddressSearchModal()"
 				class="btn btn-dark">검색</button>
 			<hr>
@@ -353,7 +353,8 @@
 
 
 				window.addEventListener('load', async function () {
-					const userRes = await fetch('/user-infos');
+					const userRes = await fetch('/user-info');
+				
 					const user = await userRes.json();
 
 					let html = '';
@@ -367,7 +368,7 @@
 					html += `<td>${user.uiEmail}</td>`;
 					html += '</tr>';
 
-					document.querySelector('h2#name').value = user.uiName;
+					document.querySelector('#name').value = user.uiName;
 					document.querySelector('#address').value = user.uiAddress;
 					document.querySelector('#date').value = user.uiBirth;
 					document.querySelector('#email').value = user.uiEmail;

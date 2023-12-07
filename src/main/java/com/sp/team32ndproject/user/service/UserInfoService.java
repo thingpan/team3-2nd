@@ -40,9 +40,9 @@ public class UserInfoService implements UserDetailsService{
 	public UserInfoVO selectUserInfoByUiId(String uiId) {
 		return userInfoMapper.selectUserInfoByUiId(uiId);
 	}
-	public UserInfoVO selectTaTypeMatchBoardInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
+	public UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
 		// TODO Auto-generated method stub
-		return  userInfoMapper.selectTaTypeMatchBoardInfoByUiNum(user);
+		return  userInfoMapper.selectUserInfoByUiNum(user);
 	}
 
 
