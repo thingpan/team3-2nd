@@ -6,8 +6,6 @@ const slides = document.querySelectorAll('.slide');
 const slideCount = slides.length;
 let slideInterval;
 
-const header = document.querySelector('#header');
-
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
         header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
@@ -85,7 +83,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const row = document.createElement('tr');
             row.innerHTML = `
         <td>${team.rank}</td>
+        <td>${team.type}</td>
         <td>${team.name}</td>
+        <td>${team.location}</td>
         <td>${team.points}</td>
       `;
             tbody.appendChild(row);
@@ -106,30 +106,33 @@ let selectedDateDiv = null;
 function updateCalendar(date) {
     calendar.innerHTML = '';
 
-    for (let i = -3; i <= 3; i++) {
+    // 주간 캘린더(7일) 표시
+    for (let i = 0; i <= 6; i++) {
         const day = new Date(date); // 현재 날짜에서부터 i일 전/후의 날짜를 계산
         day.setDate(date.getDate() + i);
 
-        const dayDiv = document.createElement('div'); // 동적 생성을 위해 querySelector 대신 사용
+        const dayDiv = document.createElement('div');
         dayDiv.classList.add('day');
 
-        const dayDate = day.getDate(); // 날짜 부분 추출
-        const dayName = day.toLocaleDateString('en-US', {weekday: 'short'}); // 날짜의 요일 부분을 가져옴
+        const dayDate = day.getDate();
+        const dayName = day.toLocaleDateString('en-US', {weekday: 'short'});
         dayDiv.textContent = `${dayDate}\n${dayName}`;
 
         dayDiv.addEventListener('click', () => {
             if (selectedDateDiv) {
-                selectedDateDiv.classList.remove('selected'); // 기존 선택된 날짜 스타일 제거
+                selectedDateDiv.classList.remove('selected');
             }
             selectDate(dayDiv);
             selectedDateDiv = dayDiv;
+            showSchedule(day); // 클릭된 날짜에 대한 일정 업데이트
         });
 
         calendar.appendChild(dayDiv);
 
         if (i === 0) {
-            selectDate(dayDiv); // 현재 날짜 (i가 0인 경우)를 선택된 날짜로 표시
-            selectedDateDiv = dayDiv; // 선택된 날짜로 설정
+            selectDate(dayDiv);
+            selectedDateDiv = dayDiv;
+            showSchedule(day); // 초기에는 오늘 날짜의 일정을 표시
         }
     }
 }
@@ -143,17 +146,18 @@ function selectDate(selectedDate) {
     selectedDate.classList.add('selected');
 }
 
+// 초기 캘린더 업데이트
 let currentDate = new Date();
 updateCalendar(currentDate);
 
 calendarPrevBtn.addEventListener('click', () => {
-    currentDate.setDate(currentDate.getDate() - 1);
+    currentDate.setDate(currentDate.getDate() - 7);
     updateCalendar(currentDate);
     showSchedule(currentDate); // 날짜 변경 후 일정 업데이트
 });
 
 calendarNextBtn.addEventListener('click', () => {
-    currentDate.setDate(currentDate.getDate() + 1);
+    currentDate.setDate(currentDate.getDate() + 7);
     updateCalendar(currentDate);
     showSchedule(currentDate); // 날짜 변경 후 일정 업데이트
 });
@@ -161,7 +165,7 @@ calendarNextBtn.addEventListener('click', () => {
 const sportsIcons = ['⚽', '🏀', '⚾️'];
 
 // 상태 뱃지 목록
-const statusBadges = ['마감', '신청가능', '마감임박'];
+const statusBadges = ['마감', '신청가능'];
 
 function generateMockData() {
     const mockData = [];
@@ -173,7 +177,7 @@ function generateMockData() {
         randomDate.setDate(currentDate.getDate() + i);
 
         // 각 날짜당 5개의 일정 생성
-        const numberOfSchedules = 6;
+        const numberOfSchedules = 2;
         for (let j = 1; j < numberOfSchedules; j++) {
             // 랜덤으로 종목, 시간, 장소, 성별, 및 인원수 선택 (db 작업 후 수정)
             const randomSportIcon =
@@ -226,74 +230,112 @@ function generateRandomCapacity(sportIcon) {
 // 무작위로 생성된 경기 일정 데이터 가져오기
 const scheduleData = generateMockData();
 
+// 스포츠 종목별 아이콘 매핑
+const sportIconsMap = {
+    '축구': '⚽',
+    '농구': '🏀',
+    '야구': '⚾️'
+};
+
 // 현재 날짜의 경기 일정을 표시하는 함수
-function showSchedule(date) {
+async function showSchedule(date) {
+    // 서버에서 matchBoard 데이터 가져오기 중
+    const res = await fetch(`/match-board/1`);
+    const matchBoards = await res.json();
+
+    const filteredMatchBoards = matchBoards.filter(matchBoard => {
+        const boardDate = new Date(matchBoard.mbDate);
+        return boardDate.getFullYear() === date.getFullYear() &&
+            boardDate.getMonth() === date.getMonth() &&
+            boardDate.getDate() === date.getDate();
+    });
+
+
     const scheduleTable = document.querySelector('#schedule');
     scheduleTable.innerHTML = '';
 
-    scheduleData.forEach((scheduleItem) => {
-        if (scheduleItem.date.toDateString() === date.toDateString()) {
-            const row = scheduleTable.insertRow();
+    if (filteredMatchBoards.length === 0) {
+        const noScheduleMessage = document.createElement('div');
+        noScheduleMessage.classList.add('schedule-none');
+        noScheduleMessage.textContent = '경기 일정이 없습니다.';
 
-            // 시간과 스포츠 아이콘 열
-            const timeAndSportIconCell = row.insertCell(0);
-            timeAndSportIconCell.innerHTML = `${scheduleItem.time}${scheduleItem.sportIcon}`;
+        scheduleTable.appendChild(noScheduleMessage);
+    } else {
+        filteredMatchBoards.forEach(matchBoard => {
+            const apiScheduleItem = {
+                mbNum: matchBoard.mbNum,
+                mbTime: matchBoard.mbTime,
+                mbAddress: matchBoard.mbAddress,
+                mbAddressDetail: matchBoard.mbAddressDetail,
+                mbSido: matchBoard.mbSido,
+                mbDate: new Date(matchBoard.mbDate),
+                mbType: matchBoard.mbType,
+            };
 
-            function getGenderLabelAndText(gender) {
-                const colors = {
-                    남자: '#0066FF',
-                    여자: '#FF7474',
-                    모두: '#80FF00',
-                    학생: '#FFE500',
-                };
-                const color = colors[gender];
+            scheduleData.forEach((scheduleItem) => {
+                if (scheduleItem.date.toDateString() === date.toDateString()) {
+                    const row = scheduleTable.insertRow();
 
-                return `
-          <span style="background-color: ${color}; border-radius: 50%; width: 8px; height: 8px; display: inline-block; margin-right: 4px;"></span>
-          ${gender}
-        `;
-            }
+                    // 시간과 스포츠 아이콘
+                    const timeAndSportIconCell = row.insertCell(0);
+                    const sportIcon = getSportIconByType(apiScheduleItem.mbType);
+                    timeAndSportIconCell.innerHTML = `${apiScheduleItem.mbTime}${sportIcon}`;
 
-            // 장소와 성별 표시
-            const locationCell = row.insertCell(1);
-            locationCell.innerHTML = `
-  ${scheduleItem.location}<br>
-  <span style="color: gray;">${getGenderLabelAndText(
-                scheduleItem.gender
-            )}</span>
-  <span style="color: gray;">${scheduleItem.capacity}</span>
-`;
-            // 상태 뱃지 표시
-            const statusCell = row.insertCell(2);
-            const statusBadge = document.createElement('span');
-            statusBadge.textContent = scheduleItem.statusBadge;
 
-            // 상태에 따라 스타일을 지정
-            switch (scheduleItem.statusBadge) {
-                case '마감':
-                    statusBadge.style.backgroundColor = '#D3D3D3';
-                    statusBadge.style.color = '#8F8F8F';
-                    statusBadge.style.padding = '14px 50px';
-                    break;
-                case '마감임박':
-                    statusBadge.style.backgroundColor = '#FF0000';
-                    statusBadge.style.color = '#FFFFFF';
-                    statusBadge.style.padding = '14px 37px';
-                    break;
-                case '신청가능':
-                    statusBadge.style.backgroundColor = '#0066FF';
-                    statusBadge.style.color = '#FFFFFF';
-                    statusBadge.style.padding = '14px 37px';
-                    break;
-            }
+                    function getSportIconByType() {
+                        return sportIconsMap[apiScheduleItem.mbType];
+                    }
 
-            statusBadge.style.borderRadius = '18px';
-            statusBadge.style.fontSize = '14px';
-            statusBadge.style.fontWeight = '500';
+                    function getGenderLabelAndText(gender) {
+                        const colors = {
+                            남자: '#0066FF',
+                            여자: '#FF7474',
+                            모두: '#80FF00'
+                        };
+                        const color = colors[gender];
 
-            statusCell.appendChild(statusBadge);
-        }
-    });
+                        return `
+                        <span style="background-color: ${color}; border-radius: 50%; width: 8px; height: 8px; display: inline-block; margin-right: 4px;"></span>
+                        ${gender}
+                    `;
+                    }
+
+                    // 장소와 성별 표시
+                    const locationCell = row.insertCell(1);
+                    locationCell.innerHTML = `[${apiScheduleItem.mbSido}]
+                    <a class="match-board-title" style="color: #111; font-weight: 400; text-decoration: none" href="/page/match/match-view?mbNum=${apiScheduleItem.mbNum}">${apiScheduleItem.mbAddressDetail}</a> <br>
+                    <span style="color: gray;">${getGenderLabelAndText(scheduleItem.gender)}</span>
+                    <span style="color: gray;">${scheduleItem.capacity}</span>
+                `;
+
+                    // 상태 뱃지 표시
+                    const statusCell = row.insertCell(2);
+                    const statusBadge = document.createElement('span');
+                    statusBadge.textContent = scheduleItem.statusBadge;
+
+                    // 상태에 따라 스타일을 지정
+                    switch (scheduleItem.statusBadge) {
+                        case '마감':
+                            statusBadge.style.backgroundColor = '#D3D3D3';
+                            statusBadge.style.color = '#8F8F8F';
+                            statusBadge.style.padding = '14px 50px';
+                            break;임
+                        case '신청가능':
+                            statusBadge.style.backgroundColor = '#0066FF';
+                            statusBadge.style.color = '#FFFFFF';
+                            statusBadge.style.padding = '14px 37px';
+                            break;
+                    }
+
+                    statusBadge.style.borderRadius = '18px';
+                    statusBadge.style.fontSize = '14px';
+                    statusBadge.style.fontWeight = '500';
+
+                    statusCell.appendChild(statusBadge);
+                }
+            });
+        });
+    }
 }
 
 // 페이지 로드 시 오늘 날짜의 테이블 자동 표시
@@ -310,6 +352,12 @@ calendarDays.forEach((dayElement) => {
         selectedDate.setDate(
             selectedDate.getDate() + parseInt(dayElement.textContent) - 1
         );
-        showSchedule(selectedDate);
+
+        if (selectedSido === '부산') {
+            showSchedule(selectedDate);
+        } else {
+            updateCalendar(selectedDate);
+            console.log("Selected Date:", selectedDate);
+        }
     });
 });

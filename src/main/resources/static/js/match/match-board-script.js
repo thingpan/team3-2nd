@@ -1,26 +1,126 @@
-// 팀 데이터 가져오기
-import teamData from '/js/mock/teamData.js';
-
-const header = document.querySelector('#header');
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
-        header.style.transform = 'translateY(-100%)';
-    } else {
-        header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
-        header.style.transform = 'translateY(0)';
-    }
-});
-
 const calendar = document.querySelector('.calendar');
-const calendarPrevBtn = document.querySelector(
-    '.calendar-button:first-of-type'
-);
+const calendarPrevBtn = document.querySelector('.calendar-button:first-of-type');
 const calendarNextBtn = document.querySelector('.calendar-button:last-of-type');
 
 // 이전에 선택된 날짜를 추적하기 위한 변수 추가
 let selectedDateDiv = null;
+
+async function showSchedule(date) {
+    // 서버에서 matchBoard 데이터 가져오기 중
+    const res = await fetch(`/match-board`);
+    const clonedRes = res.clone();
+    const matchBoardInfos = await clonedRes.json();
+
+    console.log(res.status);
+    console.log("msg", await res.text());
+
+    console.log("match board list: ", matchBoardInfos);
+
+    const apiScheduleItems = matchBoardInfos.matchBoardList.map(matchBoardList => {
+        return {
+            mbNum: matchBoardList.mbNum,
+            mbTime: matchBoardList.mbTime,
+            mbAddress: matchBoardList.mbAddress,
+            mbAddressDetail: matchBoardList.mbAddressDetail,
+            mbSido: matchBoardList.mbSido,
+            mbDate: new Date(matchBoardList.mbDate),
+            mbType: matchBoardList.mbType,
+            statusBadge: '마감',
+        };
+    });
+
+    const filteredMatchBoards = apiScheduleItems.filter(apiScheduleItem => {
+        // matchBoardList 안에 있는 경우 처리
+        if (apiScheduleItem.matchBoardList) {
+            // matchBoardList에서 mbDate와 date가 같은 경우 필터링
+            const matchingItems = apiScheduleItem.matchBoardList.filter(item => {
+                const boardDate = new Date(item.mbDate);
+                boardDate.setHours(0, 0, 0, 0);
+
+                date.setHours(0, 0, 0, 0);
+
+                return (
+                    boardDate.getTime() === date.getTime()
+                );
+            });
+
+            // matchingItems이 비어있으면 false 반환
+            return matchingItems.length > 0;
+        }
+
+        // matchBoardList가 없는 경우, matchBoard의 mbDate와 date가 같은 경우 필터링
+        const boardDate = new Date(apiScheduleItem.mbDate);
+        boardDate.setHours(0, 0, 0, 0);
+
+        date.setHours(0, 0, 0, 0);
+
+        return boardDate.getTime() === date.getTime();
+    });
+
+    console.log("filteredMatchBoards:", filteredMatchBoards);
+
+
+    const scheduleTable = document.querySelector('#schedule');
+    scheduleTable.innerHTML = '';
+
+    if (filteredMatchBoards.length === 0) {
+        const noScheduleMessage = document.createElement('div');
+        noScheduleMessage.classList.add('schedule-none');
+        noScheduleMessage.textContent = '경기 일정이 없습니다.';
+
+        scheduleTable.appendChild(noScheduleMessage);
+    } else {
+        filteredMatchBoards.forEach(apiScheduleItem => {
+            const row = scheduleTable.insertRow();
+
+            const sportIconsMap = {
+                '축구': '⚽',
+                '농구': '🏀',
+                '야구': '⚾️'
+            };
+
+            // 시간과 스포츠 아이콘
+            const timeAndSportIconCell = row.insertCell();
+            const sportIcon = getSportIconByType(apiScheduleItem.mbType);
+            timeAndSportIconCell.innerHTML = `${apiScheduleItem.mbTime}${sportIcon}`;
+
+            function getSportIconByType(mbType) {
+                return sportIconsMap[mbType];
+            }
+
+            // 장소와 상태 뱃지 표시
+            const locationAndStatusCell = row.insertCell();
+            locationAndStatusCell.innerHTML = `[${apiScheduleItem.mbSido}]
+                <a class="match-board-title" style="color: #111; font-weight: 400; text-decoration: none" href="/page/match/match-view?mbNum=${apiScheduleItem.mbNum}">${apiScheduleItem.mbAddressDetail}</a> <br>
+            `;
+
+            // 상태 뱃지 표시
+            const statusCell = row.insertCell();
+            const statusBadge = document.createElement('span');
+            statusBadge.textContent = apiScheduleItem.statusBadge;
+
+            // 상태에 따라 스타일을 지정
+            switch (apiScheduleItem.statusBadge) {
+                case '마감':
+                    statusBadge.style.backgroundColor = '#D3D3D3';
+                    statusBadge.style.color = '#8F8F8F';
+                    statusBadge.style.padding = '14px 50px';
+                    break;
+                case '신청가능':
+                    statusBadge.style.backgroundColor = '#0066FF';
+                    statusBadge.style.color = '#FFFFFF';
+                    statusBadge.style.padding = '14px 37px';
+                    break;
+            }
+
+            statusBadge.style.borderRadius = '18px';
+            statusBadge.style.fontSize = '14px';
+            statusBadge.style.fontWeight = '500';
+
+            statusCell.appendChild(statusBadge);
+        });
+    }
+}
 
 // 캘린더 업데이트 함수
 function updateCalendar(date) {
@@ -35,7 +135,7 @@ function updateCalendar(date) {
         dayDiv.classList.add('day');
 
         const dayDate = day.getDate();
-        const dayName = day.toLocaleDateString('en-US', {weekday: 'short'});
+        const dayName = day.toLocaleDateString('en-US', { weekday: 'short' });
         dayDiv.textContent = `${dayDate}\n${dayName}`;
 
         dayDiv.addEventListener('click', () => {
@@ -81,200 +181,41 @@ calendarNextBtn.addEventListener('click', () => {
     currentDate.setDate(currentDate.getDate() + 7);
     updateCalendar(currentDate);
     showSchedule(currentDate); // 날짜 변경 후 일정 업데이트
-});
 
-const sportsIcons = ['⚽', '🏀', '⚾️'];
+    // 스포츠 종목별 아이콘 매핑
+    const sportIconsMap = {
+        '축구': '⚽',
+        '농구': '🏀',
+        '야구': '⚾️'
+    };
 
-// 상태 뱃지 목록
-const statusBadges = ['마감', '신청가능'];
+    window.addEventListener('load', async function () {
+        try {
+            const res = await fetch(`/match-board`);
+            if (!res.ok) {
+                throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+            const matchBoardInfos = await res.json();
 
-function generateMockData() {
-    const mockData = [];
+            if (Array.isArray(matchBoardInfos.matchBoardList)) {
+                // 여기서 바로 showSchedule 호출
+                showSchedule(matchBoardInfos.matchBoardList);
+            } else {
+                console.error('Invalid data format received from the server.');
+            }
 
-    // 30일 동안의 무작위 일정 생성
-    const currentDate = new Date();
-    for (let i = -15; i <= 15; i++) {
-        const randomDate = new Date(currentDate);
-        randomDate.setDate(currentDate.getDate() + i);
-
-        // 각 날짜당 랜덤으로 일정 생성
-        const numberOfSchedules = 2;
-        for (let j = 1; j < numberOfSchedules; j++) {
-            // 랜덤으로 종목, 시간, 장소, 성별, 및 인원수 선택 (db 작업 후 수정)
-            const randomSportIcon =
-                sportsIcons[Math.floor(Math.random() * sportsIcons.length)];
-            const randomTime = `${Math.floor(Math.random() * 12) + 8}:${
-                Math.random() < 0.5 ? '00' : '30'
-            }`;
-            const randomLocation = `장소 ${j}`;
-            const randomGender = generateRandomGender();
-            const randomCapacity = generateRandomCapacity(randomSportIcon);
-
-            // 일정 항목 생성
-            const scheduleItem = {
-                date: randomDate,
-                sportIcon: randomSportIcon,
-                time: randomTime,
-                location: randomLocation,
-                gender: randomGender,
-                capacity: randomCapacity,
-                statusBadge:
-                    statusBadges[Math.floor(Math.random() * statusBadges.length)],
-            };
-
-            mockData.push(scheduleItem);
+        } catch (error) {
+            console.error('Error fetching match-board data:', error);
         }
-    }
-
-    return mockData;
-}
-
-function generateRandomGender() {
-    const genders = ['남자', '여자', '모두'];
-    const randomIndex = Math.floor(Math.random() * genders.length);
-    return genders[randomIndex];
-}
-
-function generateRandomCapacity(sportIcon) {
-    switch (sportIcon) {
-        case '⚽':
-            return '11vs11';
-        case '⚾️':
-            return '12vs12';
-        case '🏀':
-            return '6vs6';
-    }
-}
-
-// 무작위로 생성된 경기 일정 데이터 가져오기
-const scheduleData = generateMockData();
-
-// 스포츠 종목별 아이콘 매핑
-const sportIconsMap = {
-    '축구': '⚽',
-    '농구': '🏀',
-    '야구': '⚾️'
-};
-
-window.addEventListener('load', async function () {
-    const res = await fetch(`/match-board/1`);
-    const matchBoardInfos = await res.json();
-    console.log(matchBoardInfos);
-
-    matchBoardInfos.forEach(matchBoardInfo => {
-        console.log(matchBoardInfo);
     });
 
-});
-
-async function showSchedule(date) {
-    // 서버에서 matchBoard 데이터 가져오기 중
-    const res = await fetch(`/match-board/1`);
-    const matchBoards = await res.json();
-
-    const filteredMatchBoards = matchBoards.filter(matchBoard => {
-        const boardDate = new Date(matchBoard.mbDate);
-        return boardDate.getFullYear() === date.getFullYear() &&
-            boardDate.getMonth() === date.getMonth() &&
-            boardDate.getDate() === date.getDate();
-    });
-
-
-    const scheduleTable = document.querySelector('#schedule');
-    scheduleTable.innerHTML = '';
-
-    if (filteredMatchBoards.length === 0) {
-        const noScheduleMessage = document.createElement('div');
-        noScheduleMessage.classList.add('schedule-none');
-        noScheduleMessage.textContent = '경기 일정이 없습니다.';
-
-        scheduleTable.appendChild(noScheduleMessage);
-    } else {
-        filteredMatchBoards.forEach(matchBoard => {
-            const apiScheduleItem = {
-                mbNum: matchBoard.mbNum,
-                mbTime: matchBoard.mbTime,
-                mbAddress: matchBoard.mbAddress,
-                mbAddressDetail: matchBoard.mbAddressDetail,
-                mbSido: matchBoard.mbSido,
-                mbDate: new Date(matchBoard.mbDate),
-                mbType: matchBoard.mbType,
-            };
-
-            scheduleData.forEach((scheduleItem) => {
-                if (scheduleItem.date.toDateString() === date.toDateString()) {
-                    const row = scheduleTable.insertRow();
-
-                    // 시간과 스포츠 아이콘
-                    const timeAndSportIconCell = row.insertCell(0);
-                    const sportIcon = getSportIconByType(apiScheduleItem.mbType);
-                    timeAndSportIconCell.innerHTML = `${apiScheduleItem.mbTime}${sportIcon}`;
-
-
-                    function getSportIconByType() {
-                        return sportIconsMap[apiScheduleItem.mbType];
-                    }
-
-                    function getGenderLabelAndText(gender) {
-                        const colors = {
-                            남자: '#0066FF',
-                            여자: '#FF7474',
-                            모두: '#80FF00'
-                        };
-                        const color = colors[gender];
-
-                        return `
-                        <span style="background-color: ${color}; border-radius: 50%; width: 8px; height: 8px; display: inline-block; margin-right: 4px;"></span>
-                        ${gender}
-                    `;
-                    }
-
-                    // 장소와 성별 표시
-                    const locationCell = row.insertCell(1);
-                    locationCell.innerHTML = `[${apiScheduleItem.mbSido}]
-                    <a class="match-board-title" style="color: #111; font-weight: 400; text-decoration: none" href="/page/match/match-view?mbNum=${apiScheduleItem.mbNum}">${apiScheduleItem.mbAddressDetail}</a> <br>
-                    <span style="color: gray;">${getGenderLabelAndText(scheduleItem.gender)}</span>
-                    <span style="color: gray;">${scheduleItem.capacity}</span>
-                `;
-
-                    // 상태 뱃지 표시
-                    const statusCell = row.insertCell(2);
-                    const statusBadge = document.createElement('span');
-                    statusBadge.textContent = scheduleItem.statusBadge;
-
-                    // 상태에 따라 스타일을 지정
-                    switch (scheduleItem.statusBadge) {
-                        case '마감':
-                            statusBadge.style.backgroundColor = '#D3D3D3';
-                            statusBadge.style.color = '#8F8F8F';
-                            statusBadge.style.padding = '14px 50px';
-                            break;
-                        case '신청가능':
-                            statusBadge.style.backgroundColor = '#0066FF';
-                            statusBadge.style.color = '#FFFFFF';
-                            statusBadge.style.padding = '14px 37px';
-                            break;
-                    }
-
-                    statusBadge.style.borderRadius = '18px';
-                    statusBadge.style.fontSize = '14px';
-                    statusBadge.style.fontWeight = '500';
-
-                    statusCell.appendChild(statusBadge);
-                }
-            });
-        });
-    }
-}
-
-
-// 페이지 로드 시 오늘 날짜의 테이블 자동 표시
+    // 페이지 로드 시 오늘 날짜의 테이블 자동 표시
     showSchedule(currentDate);
 
-// 초기 캘린더 업데이트
+    // 초기 캘린더 업데이트
     updateCalendar(currentDate);
 
-// 캘린더 날짜 클릭 시 일정 표시
+    // 캘린더 날짜 클릭 시 일정 표시
     const calendarDays = document.querySelectorAll('.day');
     calendarDays.forEach((dayElement) => {
         dayElement.addEventListener('click', () => {
@@ -286,14 +227,14 @@ async function showSchedule(date) {
             if (selectedSido === '부산') {
                 showSchedule(selectedDate);
             } else {
-                updateCalendar(selectedDate);
                 console.log("Selected Date:", selectedDate);
+
+                // 새로 선택된 날짜에 대한 일정만 표시
+                showSchedule(selectedDate);
             }
         });
     });
 
-// 페이지 로드 시 오늘 날짜의 테이블 자동 표시
+    // 페이지 로드 시 오늘 날짜의 테이블 자동 표시
     showSchedule(currentDate);
-
-// 초기 캘린더 업데이트
-    updateCalendar(currentDate);
+});

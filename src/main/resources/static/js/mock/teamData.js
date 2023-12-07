@@ -1,78 +1,108 @@
 const teamData = [
 	{
 		name: 'Soccer 1',
+		type: '축구',
 		points: 450,
 		sport: 'soccer',
+		location: '서울'
 	},
 	{
 		name: 'KIA TIGERS',
+		type: '야구',
 		points: 480,
 		sport: 'baseball',
+		location: '광주'
 	},
 	{
 		name: 'BasketBall 1',
+		type: '농구',
 		points: 400,
 		sport: 'basketball',
+		location: '서울'
 	},
 	{
 		name: 'Soccer 2',
+		type: '축구',
 		points: 430,
 		sport: 'soccer',
+		location: '부산'
 	},
 	{
 		name: 'Baseball 2',
+		type: '야구',
 		points: 401,
 		sport: 'baseball',
+		location: '충북'
 	},
 	{
 		name: 'BasketBall 2',
+		type: '농구',
 		points: 390,
 		sport: 'basketball',
+		location: '강원'
 	},
 	{
 		name: 'Soccer 3',
+		type: '축구',
 		points: 312,
 		sport: 'soccer',
+		location: '대전'
 	},
 	{
 		name: 'Baseball 3',
+		type: '야구',
 		points: 391,
 		sport: 'baseball',
+		location: '제주'
 	},
 	{
 		name: 'BasketBall 3',
+		type: '농구',
 		points: 310,
 		sport: 'basketball',
+		location: '경북'
 	},
 	{
 		name: 'Soccer 4',
+		type: '축구',
 		points: 281,
 		sport: 'soccer',
+		location: '전남'
 	},
 	{
 		name: 'Baseball 4',
+		type: '야구',
 		points: 211,
 		sport: 'baseball',
+		location: '전북'
 	},
 	{
 		name: 'BasketBall 4',
+		type: '농구',
 		points: 280,
 		sport: 'basketball',
+		location: '서울'
 	},
 	{
 		name: 'Soccer 5',
+		type: '축구',
 		points: 450,
 		sport: 'soccer',
+		location: '경기'
 	},
 	{
 		name: 'Baseball 5',
+		type: '야구',
 		points: 135,
 		sport: 'baseball',
+		location: '인천'
 	},
 	{
 		name: 'BasketBall 5',
+		type: '농구',
 		points: 129,
 		sport: 'basketball',
+		location: '충남'
 	},
 ];
 
@@ -123,7 +153,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			const row = document.createElement('tr');
 			row.innerHTML = `
           <td>${team.rank}</td>
+          <td>${team.type}</td>
           <td>${team.name}</td>
+          <td>${team.location}</td>
           <td>${team.points}</td>
         `;
 			tableBody.appendChild(row);

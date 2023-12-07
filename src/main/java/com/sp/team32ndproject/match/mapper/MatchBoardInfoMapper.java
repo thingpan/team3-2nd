@@ -6,8 +6,10 @@ import com.sp.team32ndproject.match.vo.MatchBoardInfoVO;
 
 import java.util.List;
 
-@Mapper 
+@Mapper
 public interface MatchBoardInfoMapper {
 	int insertMatchInfo(MatchBoardInfoVO match);
-	List<MatchBoardInfoVO> selectMatchInfo(int mbNum);
+	MatchBoardInfoVO selectMatchInfo(int mbNum);
+
+	List<MatchBoardInfoVO> selectMatchList();
 }
