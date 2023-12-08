@@ -31,7 +31,12 @@ button {
 }
 
 #address {
-	width: 420px;
+	width: 400px;
+}
+
+#name {
+	text-align: center;
+	width: 100%;
 }
 
 #email {
@@ -55,27 +60,11 @@ button {
 }
 
 #change-email-button {
-	display: inline-block;
-	padding: 10px 15px;
-	background-color: #000000f5;
-	color: #fff;
-	width: 100px;
-	height: 42px;
-	border: none;
 	font-size: 12px;
-	cursor: pointer;
-	text-align: center;
-	border-radius: 5px;
 }
 
 #change-password-button {
-	display: inline-block;
-	padding: 10px 15px;
-	background-color: #000000f5;
-	color: #fff;
-	width: 100px;
-	height: 42px;
-	border: none;
+	font-size: 12px;
 	margin-left: 135px;
 
 	font-size: 12px;
@@ -85,15 +74,7 @@ button {
 }
 
 #search-address {
-	background-color: #000000f5;
-	color: #fff;
-	width: 60px;
-	height: 40px;
-	border: none;
 	font-size: 12px;
-	cursor: pointer;
-	text-align: center;
-	border-radius: 5px;
 }
 
 
@@ -111,17 +92,13 @@ button {
 	/* Add additional styling as needed */
 }
 
-#name {
-	text-align: center;
-	width: 100%;
-}
-
 .action-buttonss {
 	text-align: center;
 	margin-top: 10px;
 	width: 100%;
 }
 
+/* Style for the profile image (replace this with your actual styles) */
 #profile-image {
 	width: 100px;
 	height: 100px;
@@ -179,20 +156,8 @@ button {
 }
 
 #save-profile {
-	padding: 10px 15px;
-	font-size: 7px;
-	width: 80px;
-	border-radius: 5px;
 	margin-left: 88%;
 	margin-bottom: 30px;
-	background-color: #000000f5;
-	color: #fff;
-	height: 40px;
-	border: none;
-	font-size: 12px;
-	cursor: pointer;
-	text-align: center;
-	border-radius: 5px;
 }
 
 .first {
@@ -436,4 +401,16 @@ select {
 	font-size: 15px;
 	border-radius: 5px;
 	cursor: pointer;
+}
+
+#create-team-btn {
+	margin-right: 5px;
+	width: 90px;
+	font-size: 15px;
+}
+
+#edit-button {
+	margin-right: 5px;
+	width: 90px;
+	font-size: 15px;
 }

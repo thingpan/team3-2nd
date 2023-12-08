@@ -297,7 +297,7 @@
 			<hr>
 
 			<label for="password">비밀번호 :</label>
-			<input type="password" id="password" name="password" placeholder="비밀번호">
+			<input type="password" id="password" name="password">
 			<button id="change-password-button" class="btn btn-dark" onclick="openChangePasswordPopup()">비밀번호
 				변경</button>
 			<hr>
@@ -360,7 +360,6 @@
 					document.querySelector('#date').value = user.uiBirth;
 					document.querySelector('#email').value = user.uiEmail;
 					document.querySelector('#phone').value = user.uiPhoneNum;
-					document.querySelector('input#password').value = user.uiPwd.replace(/./g, '*');
 					document.querySelector('#user-name').value = user.uiName;
 
 
