@@ -1,6 +1,7 @@
 package com.sp.team32ndproject.team.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,11 @@ public class TeamUserInfoController {
 	@GetMapping("/team-users/helper")
 	public PageInfo<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO){
 		return teamUserInfoService.selectTeamUserInfosWithHelper(teamUserInfoVO);
+	}
+	
+	@DeleteMapping("team-user-delete")
+	public int deleteTeamUserInfo(@RequestBody TeamUserInfoVO teamUserInfoVO) {
+		return teamUserInfoService.deleteTeamUserInfo(teamUserInfoVO);
 	}
 	
 	

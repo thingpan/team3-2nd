@@ -115,27 +115,38 @@
 			tuRole: "1",
 			taName: "농구 2팀"
 		}
-		const teamList = [team1, team2, team3, team4, team5, team6];
-
-		//내가 선택한 팀 번호
+		
+			//내가 선택한 팀 번호
 		let selectedTeamNum;
+		let teamList;
 
-		//내가 선택한 종목 별로 소속된 팀 보여주기
-		function selectTeamType(obj) {
-			selectedTeamNum = null;
-			document.querySelector('#team-list').innerHTML = '';
-			for (team of teamList) {
-				let html = '';
-				if (team.taType == obj.value) {
-					html += '<div id="team-list-div">'
-					html += `<button onclick="selectedTeam(this)" value="${team.taNum}" id="team${team.taNum}">`;
-					html += '</button>';
-					html += `<span>${team.taName}<span>`;
-					html += '</div>';
-				}
-				document.querySelector('#team-list').innerHTML += html;
-			}
+		async function getTeamInfos() {
+			
+			const res = await fetch('/my-team-infos')
+			teamList = await res.json();
+			console.log(teamList);
+			//내가 선택한 종목 별로 소속된 팀 보여주기
 		}
+
+		window.addEventListener('load', getTeamInfos);
+		
+		function selectTeamType(obj) {
+				selectedTeamNum = null;
+				document.querySelector('#team-list').innerHTML = '';
+				for (team of teamList) {
+					let html = '';
+					if (team.taType == obj.value) {
+						html += '<div id="team-list-div">'
+						html += `<button onclick="selectedTeam(this)" value="${team.taNum}" id="team${team.taNum}">`;
+						html += '</button>';
+						html += `<span>${team.taName}<span>`;
+						html += '</div>';
+					}
+					document.querySelector('#team-list').innerHTML += html;
+				}
+			}
+
+	
 
 		//팀 선택시 팀 번호 저장
 		function selectedTeam(obj) {
@@ -210,12 +221,12 @@
 		}
 
 		function preview(fileInput, imgId) {
-			if(fileInput.files[0] == undefined){
+			if (fileInput.files[0] == undefined) {
 				document.querySelector(`#${imgId}`).src = undefined
-			}else{
+			} else {
 				document.querySelector(`#${imgId}`).src = URL.createObjectURL(fileInput.files[0]);
 			}
-			
+
 		}
 
 		function addFileInput(button) {
@@ -228,10 +239,10 @@
 					+ `-</button>${button.outerHTML}</div> `;
 				button.remove();
 				document.querySelector('#fileDiv').insertAdjacentHTML('beforeend', html);
-			}else{
+			} else {
 				alert('사진은 최대 3장까지 가능합니다');
 			}
-			
+
 
 		}
 

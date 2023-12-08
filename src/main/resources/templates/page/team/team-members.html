@@ -61,54 +61,35 @@
 			taPoint: 200,
 			taName: '농구 짱짱'
 		}
-		const user1 = {
-			taNum: 1,
-			tuNum: 1,
-			uiNum: 1,
-			tuRole: 'user',
-			uiName: '이원준',
-			uiAddress: '서울 성북구',
-			uiPhoneNum: '01063473534'
-		}
-		const user2 = {
-			taNum: 1,
-			tuNum: 1,
-			uiNum: 2,
-			tuRole: 'user',
-			uiName: '이왕균',
-			uiAddress: '시골',
-			uiPhoneNum: '01063473534'
-		}
-		const user3 = {
-			taNum: 1,
-			tuNum: 1,
-			uiNum: 3,
-			tuRole: 'user',
-			uiName: '이명관',
-			uiAddress: '서울 성북구',
-			uiPhoneNum: '01063473534'
-		}
-		const user4 = {
-			taNum: 1,
-			tuNum: 1,
-			uiNum: 4,
-			tuRole: 'user',
-			uiName: '김아영',
-			uiAddress: '서울 성북구',
-			uiPhoneNum: '01063473534'
-		}
-		const user5 = {
-			taNum: 1,
-			tuNum: 1,
-			uiNum: 5,
-			tuRole: 'user',
-			uiName: '박경훈',
-			uiAddress: '서울 성북구',
-			uiPhoneNum: '01063473534'
-		}
-		const userList = [user1, user2, user3, user4, user5];
 
 		document.querySelector('#team-name').innerHTML = team.taName;
+		
+		async function doRelease(tuNum, uiName){
+			
+			
+			if (confirm(`${uiName}님을 방출 하시겠습니까?`) == true) {
+				const body = {
+					tuNum: tuNum
+				}
+				const res = await fetch('/team-user-delete', {
+					method: 'DELETE',
+					body: JSON.stringify(body),
+					headers: {
+						'Content-Type': 'application/json;charset=UTF-8'
+					}
+				});
+				const result = await res.json();
+				if (result) {
+					alert('방출 성공');
+					location.reload();
+				} else {
+					alert('방출 실패 다시 시도해 주세요');
+					location.reload();
+				}
+			} else {
+				return false;
+			}
+		}
 
 		let total = 0;
 		let pageSize = 5;
@@ -160,7 +141,7 @@
 				html += `<td>${role}</td>`;
 				html += `<td>${user.uiAddress}</td>`;
 				html += `<td>${user.uiPhoneNum}</td>`;
-				html += `<td><button class="btn btn-dark" onclick="doRelease(${user.taNum},${user.uiNum})")>퇴출</button></td>`
+				html += `<td><button class="btn btn-dark" onclick="doRelease(${user.tuNum},'${user.uiName}')")>퇴출</button></td>`
 				html += '</tr>';
 			}
 			document.querySelector('#team-user-list-info').innerHTML = html;

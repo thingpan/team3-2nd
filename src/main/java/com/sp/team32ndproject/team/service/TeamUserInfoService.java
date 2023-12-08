@@ -44,4 +44,8 @@ public class TeamUserInfoService {
 		PageHelper.startPage(teamUserInfoVO.getPage(),teamUserInfoVO.getPageSize());
 		return new PageInfo<>(teamUserInfoMapper.selectTeamUserInfosWithHelper(teamUserInfoVO));
 	}
+	
+	public int deleteTeamUserInfo(TeamUserInfoVO teamUserInfoVO) {
+		return teamUserInfoMapper.deleteTeamUserInfo(teamUserInfoVO);
+	}
 }

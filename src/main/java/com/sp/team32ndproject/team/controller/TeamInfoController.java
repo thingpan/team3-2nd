@@ -35,6 +35,12 @@ public class TeamInfoController {
 	public List<TeamInfoVO> selectTeamInfos(TeamInfoVO team) {
 		return teamInfoService.selectTeamInfos(team);
 	}
+	
+	@GetMapping("/my-team-infos")
+	public List<TeamInfoVO> selectTeamInfosByUiNum(@AuthenticationPrincipal UserInfoVO user){
+		return teamInfoService.selectTeamInfosByUiNum(user.getUiNum());
+	}
+	
 
 	// 팀 랭크
 	@GetMapping("/team-infos/rank")

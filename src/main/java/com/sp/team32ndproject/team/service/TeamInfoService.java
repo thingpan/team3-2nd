@@ -63,6 +63,10 @@ public class TeamInfoService {
 		return teamInfoMapper.selectTeamInfos(team);
 	}
 	
+	public List<TeamInfoVO> selectTeamInfosByUiNum(int uiNum){
+		return teamInfoMapper.selectTeamInfosByUiNum(uiNum);
+	}
+	
 
 
 	
