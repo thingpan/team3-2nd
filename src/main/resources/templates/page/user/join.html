@@ -150,9 +150,7 @@
 		<button type="button" class="btn btn-dark" id="searchButton" style="font-size: 7px;"
 			onclick="searchAddress()">검색
 		</button>
-		<br>
-		<input type="text" id="uiAddress2" style="font-size: 8px;" placeholder="상세주소"><br><br>
-		<div id="errorAddress" class="error-message"></div>
+		<br><br>
 		<button type="button" class="btn btn-dark" id="joinButton" style="width: 184px;" onclick="join()">회원가입</button>
 	</div>
 
@@ -196,7 +194,6 @@
 			const uiName = document.querySelector('#uiName').value;
 			const uiMobile = document.querySelector('#uiMobile').value
 			const uiAddress = document.querySelector('#uiAddress').value;
-			const uiAddress2 = document.querySelector('#uiAddress2').value;
 			const selectedYear = document.getElementById('uiYear').value;
 			const selectedMonth = document.getElementById('uiMonth').value;
 			const selectedDay = document.getElementById('uiDay').value;
@@ -209,7 +206,6 @@
 			console.log('전화번호:', uiMobile)
 			console.log('생년월일:', uiBirth);
 			console.log('주소:', uiAddress);
-			console.log('상세주소:', uiAddress2);
 
 
 			if (!uiId) {
