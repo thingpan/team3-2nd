@@ -1,4 +1,3 @@
-
 /* 
 색상 설정
 사용법: color: var(--white-color);
@@ -31,7 +30,7 @@
 	display: flex;
 }
 
-.main> div {
+.main>div {
 	margin-top: 0.5em;
 	display: block;
 }
@@ -44,7 +43,6 @@
 .info-main>div {
 	width: 80%;
 	margin: auto;
-	border: 1px solid var(--black-color);
 }
 
 
@@ -55,10 +53,6 @@
 	width: 30%;
 	height: 50%;
 	margin-left: auto;
-}
-
-.desc {
-	word-wrap: break-word;
 }
 
 .team-info {
@@ -76,9 +70,9 @@
 	border-radius: 8px;
 }
 
-.select-team{
+.select-team {
 	text-align: center;
-	
+
 }
 
 .team-list {
@@ -106,16 +100,54 @@
 	text-align: center;
 }
 
-#post-message-textarea{
+#post-message-textarea {
 	resize: none;
-	
+
 }
 
-.post-message-info{
+.post-message-info {
 	text-align: center;
 	margin-bottom: 5%;
 }
-.post-message-info button{
+
+.post-message-info button {
 	margin-top: 3%;
 }
 
+.info-main {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 30px;
+}
+
+.address-time-date {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.desc {
+	word-wrap: break-word;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.team-info {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+#map {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.send-info {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px
+}

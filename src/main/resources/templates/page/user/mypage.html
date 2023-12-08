@@ -186,19 +186,6 @@
 				// Hide the user information section
 				document.querySelector('.edit-profile-form').style.display = 'none';
 			}
-
-			function checkCurrentPassword() {
-				const enteredPassword = document.getElementById('current-password-input').value;
-				const userPassword = '';
-
-				if (enteredPassword === userPassword) {
-					$('#current-password-modal').modal('hide');
-					// Display the profile editing form
-					document.querySelector('.edit-profile-form').style.display = 'block';
-				} else {
-					alert('비밀번호가 틀렸습니다. 다시 입력해주세요.');
-				}
-			}
 			//여기까지
 			function openModal() {
 				const teamAddModal = document.querySelector('#teamAddModal');
@@ -233,7 +220,27 @@
 					reader.readAsDataURL(file);
 				}
 			}
+			async function checkCurrentPassword() {
+				const password = document.querySelector("#current-password-input").value;
 
+				const response = await fetch('/check-password', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({password}),
+				});
+
+				const result = await response.json();
+
+				if (result) {
+					alert("비밀번호가 일치합니다!");
+					$('#current-password-modal').modal('hide');
+					document.querySelector('.edit-profile-form').style.display = 'block';
+				} else {
+					alert("비밀번호가 일치하지않습니다!");
+				}
+			}
 
 
 
@@ -285,7 +292,7 @@
 
 			<h3 id="my">내 정보</h3>
 			<hr>
-			
+
 			<label for="name">이름 :</label>
 			<input type="text" id="user-name">
 			<hr>
@@ -334,12 +341,9 @@
 			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
 			<h3>비밀번호 변경</h3>
 
-			<input type="password" id="current-password" name="current-password" placeholder="현재 비밀번호 입력"> <label
-				for="current-password">현재 비밀번호</label><br>
-			<input type="password" id="new-password" name="new-password" placeholder="새 비밀번호 입력"> <label
-				for="new-password">새 비밀번호</label> <br>
-			<input type="password" id="confirm-new-password" name="confirm-new-password" placeholder="새 비밀번호 확인"> <label
-				for="confirm-new-password">새 비밀번호 확인</label><br>
+			<input type="password" id="current-password" name="current-password" placeholder="현재 비밀번호 입력"> <br>
+			<input type="password" id="new-password" name="new-password" placeholder="새 비밀번호 입력"> <br>
+			<input type="password" id="confirm-new-password" name="confirm-new-password" placeholder="새 비밀번호 확인"> <br>
 			<button type="button" id="confirm-password-change">확인</button>
 			<button type="button" id="cancel-password-change">취소</button>
 		</div>
@@ -366,8 +370,93 @@
 				});
 
 			</script>
+		
 
-			<script>
+			<script>	
+				window.addEventListener('load', async function () {
+					const userRes = await fetch('/team-user');
+					team = await userRes.json();
+					console.log(team)
+					});
+				
+				document.addEventListener('DOMContentLoaded', function () {
+					const changePasswordPopup = document.getElementById('change-password-popup');
+					const confirmPasswordChangeButton = document.getElementById('confirm-password-change');
+					const cancelPasswordChangeButton = document.getElementById('cancel-password-change');
+
+					confirmPasswordChangeButton.addEventListener('click', async function () {
+						const currentPasswordInput = document.getElementById('current-password');
+						const newPasswordInput = document.getElementById('new-password');
+						const confirmNewPasswordInput = document.getElementById('confirm-new-password');
+
+						const currentPassword = currentPasswordInput.value.trim();
+						const newPassword = newPasswordInput.value.trim();
+						const confirmNewPassword = confirmNewPasswordInput.value.trim();
+
+						try {
+
+							await checkCurrentPassword(currentPassword);
+
+
+							if (newPassword === confirmNewPassword) {
+								await changePassword(newPassword);
+
+								changePasswordPopup.style.display = 'none';
+								alert('비밀번호가 성공적으로 변경되었습니다.');
+							} else {
+
+								alert('새 비밀번호가 일치하지 않습니다. 다시 확인해주세요.');
+							}
+						} catch (error) {
+							alert(error.message);
+							console.error(error);
+						}
+					});
+
+					cancelPasswordChangeButton.addEventListener('click', function () {
+						// 팝업을 닫을 수 있도록 처리
+						changePasswordPopup.style.display = 'none';
+					});
+					async function checkCurrentPassword1() {
+						const password = document.querySelector("#current-password-input").value;
+
+						const response = await fetch('/check-password', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({password}),
+						});
+
+						const result = await response.json();
+
+						if (result.success) {
+							alert("비밀번호가 일치합니다!");
+							$('#current-password-modal').modal('hide');
+							document.querySelector('.edit-profile-form').style.display = 'block';
+						} else {
+							throw new Error("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+						}
+					}
+
+
+					async function changePassword(newPassword) {
+						const response = await fetch('/change-password', {
+							method: 'PUT',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({newPassword}),
+						});
+
+						const result = await response.json();
+
+						if (!result.success) {
+							throw new Error('비밀번호 변경 중 오류가 발생했습니다. 다시 시도해주세요.');
+						}
+					}
+				});
+
 
 
 				function openChangePasswordPopup() {
@@ -466,34 +555,8 @@
 					changeEmailPopup.style.display = 'none';
 				});
 
-				// 비밀번호 변경 관련 스크립트
-				const changePasswordPopup = document.getElementById('change-password-popup');
-				const confirmPasswordChangeButton = document.getElementById('confirm-password-change');
-				const cancelPasswordChangeButton = document.getElementById('cancel-password-change');
 
-				confirmPasswordChangeButton.addEventListener('click', function () {
-					const currentPasswordInput = document.getElementById('current-password');
-					const newPasswordInput = document.getElementById('new-password');
-					const confirmNewPasswordInput = document.getElementById('confirm-new-password');
 
-					const currentPassword = currentPasswordInput.value.trim();
-					const newPassword = newPasswordInput.value.trim();
-					const confirmNewPassword = confirmNewPasswordInput.value.trim();
-
-					if (newPassword === confirmNewPassword) {
-
-						changePasswordPopup.style.display = 'none';
-
-					} else {
-
-						alert('새 비밀번호가 일치하지 않습니다. 다시 확인해주세요.');
-					}
-				});
-
-				cancelPasswordChangeButton.addEventListener('click', function () {
-					// 팝업을 닫을 수 있도록 처리
-					changePasswordPopup.style.display = 'none';
-				});
 
 				window.addEventListener('scroll', () => {
 					if (window.scrollY > 50) {

@@ -1,9 +1,9 @@
-
 .main {
 	width: 70%;
 	margin: 0 auto;
-	}
-#main-tag{
+}
+
+#main-tag {
 	font-size: var(--h2-font);
 }
 
@@ -22,26 +22,27 @@
 }
 
 #select-team button:hover {
-		background-color: var(--black-color);
-		font-size: var(--p-font);
-		content: 'test';
-				
-	}
+	background-color: var(--black-color);
+	font-size: var(--p-font);
+	content: 'test';
+
+}
 
 #select-team img {
 	width: 70%;
 }
-#team-list-div{
-	width: 5em; 
-	margin: 0; 
-	display:inline-block;
-	text-align: center; 
+
+#team-list-div {
+	width: 5em;
+	margin: 0;
+	display: inline-block;
+	text-align: center;
 	margin-right: 0.3em;
 	height: 100%;
 }
 
 
-#team-list button { 
+#team-list button {
 	margin-right: 0.3em;
 	background-color: gray;
 	color: white;
@@ -51,7 +52,7 @@
 	border: none;
 }
 
-#team-list{
+#team-list {
 	margin-top: 0.5em;
 	height: 80%;
 }
@@ -82,11 +83,11 @@
 	width: 100%;
 }
 
-#info-main-left{
+#info-main-left {
 	width: 20%;
 }
 
-#info-main-left input{
+#info-main-left input {
 	width: 100%;
 }
 
@@ -94,7 +95,8 @@
 .map_wrap {
 	height: 40em;
 }
-#main-tag{
+
+#main-tag {
 	font-size: var(--h2-font);
 }
 
@@ -105,4 +107,49 @@
 	text-decoration: none;
 	list-style: none;
 	scroll-behavior: smooth;
+}
+
+.remove-btn {
+	margin-right: 5px;
+}
+
+#mbDesc,
+#mbPay {
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+#sample5_address,
+#address_detail {
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+#sample5_address {
+	margin-bottom: 5px;
+}
+
+.price {
+	display: flex;
+	align-items: center;
+}
+
+#date-input input[type="date"] {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+#time-input input[type="time"] {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+#okButton {
+	margin-top: 30px;
+	margin-bottom: 30px;
 }

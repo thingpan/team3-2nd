@@ -32,6 +32,10 @@ public class TeamUserInfoController {
 	public PageInfo<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO){
 		return teamUserInfoService.selectTeamUserInfosWithHelper(teamUserInfoVO);
 	}
+	@GetMapping("/team-user")
+	public PageInfo<TeamUserInfoVO> selectTeamUserInfos(TeamUserInfoVO teamUserInfoVO){
+		return teamUserInfoService.selectTeamUserInfosWithHelper(teamUserInfoVO);
+	}
 	
 	@DeleteMapping("team-user-delete")
 	public int deleteTeamUserInfo(@RequestBody TeamUserInfoVO teamUserInfoVO) {

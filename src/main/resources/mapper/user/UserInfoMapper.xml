@@ -20,6 +20,21 @@
 		FROM USER_INFO
 		WHERE UI_ID= #{uiId}
 	</select>
+	<update id="updateUserPassword"
+		parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
+		UPDATE USER_INFO
+		SET UI_PWD = #{uiPwd}
+		WHERE  UI_ID= #{uiId}
+	</update>
+
+
+	<select id="selectPasswordByUiPwd"
+		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">
+		SELECT UI_PWD
+		FROM USER_INFO
+		WHERE UI_ID= #{uiId}
+	</select>
+
 
 	<insert id="insertUserInfo"
 		parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">

@@ -36,8 +36,11 @@ public class TeamUserInfoService {
 		}else {
 			return 0;
 		}
-		 
+	
 		
+	}
+	public TeamUserInfoVO selecTeamUserInfo(TeamUserInfoVO teamUserInfoVO) {  
+		return teamUserInfoMapper.selectTeamUserInfo(teamUserInfoVO);
 	}
 	
 	public PageInfo<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO){
