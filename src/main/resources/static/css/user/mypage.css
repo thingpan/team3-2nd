@@ -26,20 +26,18 @@ button {
 	display: inline-block;
 	margin: 0 auto;
 	text-align: center;
-	width: 100px;
+	width: 265px;
 	border: 0 solid white;
 }
 
-#name {
-	text-align: center;
-	width: 97%;
+#address {
+	width: 420px;
 }
 
 #email {
 	display: inline-block;
 	margin: 0 auto;
-	text-align: cetneter;
-	border: 0 solid white;
+	width: 400px;
 }
 
 #sex {
@@ -58,7 +56,6 @@ button {
 
 #change-email-button {
 	display: inline-block;
-	margin-left: 76px;
 	padding: 10px 15px;
 	background-color: #000000f5;
 	color: #fff;
@@ -114,19 +111,17 @@ button {
 	/* Add additional styling as needed */
 }
 
+#name {
+	text-align: center;
+	width: 100%;
+}
+
 .action-buttonss {
 	text-align: center;
 	margin-top: 10px;
 	width: 100%;
-	font-size: 12px;
 }
 
-#create-team-btn, #edit-button {
-	margin-right: 10px;
-	font-size: 12px;
-}
-
-/* Style for the profile image (replace this with your actual styles) */
 #profile-image {
 	width: 100px;
 	height: 100px;
@@ -439,32 +434,6 @@ select {
 	height: 35px;
 	border: none;
 	font-size: 15px;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-#create-team-btn {
-	margin-top: 10px;
-	background-color: #000000f5;
-	color: #fff;
-	width: 100px;
-	height: 35px;
-	border: none;
-	font-size: 15px;
-	border-radius: 5px;
-	margin-left: 80px;
-	cursor: pointer;
-}
-
-#edit-button {
-	margin-top: 10px;
-	background-color: #000000f5;
-	color: #fff;
-	width: 100px;
-	height: 35px;
-	border: none;
-	font-size: 15px;
-	margin-right: 100px;
 	border-radius: 5px;
 	cursor: pointer;
 }
