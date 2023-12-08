@@ -58,6 +58,10 @@
 			border: 1px solid black;
 			border-radius: 5px;
 		}
+		
+		#joinButton{
+			margin-bottom: 20px;
+		}
 	</style>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
@@ -85,7 +89,7 @@
 			<div id="errorUiName" class="error-message"></div>
 
 			<label for="uiMobile" style="font-size: 8px;">전화번호</label><br>
-			<input type="tel" id="uiMobile" style="font-size: 8px;" placeholder="전화번호"  pattern="[0-9]*"><br>
+			<input type="tel" id="uiMobile" style="font-size: 8px;" placeholder="전화번호" pattern="[0-9]*"><br>
 			<div id="errorUiMobile" class="error-message"></div>
 
 			<label for="uiId" style="font-size: 8px;">이메일</label><br>
@@ -139,22 +143,13 @@
 				selectDay.appendChild(option);
 			}
 		</script>
-				<div id="errorYear" class="error-message"></div>
+		<div id="errorYear" class="error-message"></div>
 		<br>
-
-		<label for="uiGender" style="font-size: 8px;">성별</label><br>
-		<input type="radio" id="male" name="uiGender" value="male" style="margin-left: -85px;">
-		<label for="male" style="font-size: 8px; margin-left: -85px;">남성</label>
-		<br>
-
-		<input type="radio" id="female" name="uiGender" value="female" style="margin-left: -85px;">
-		<label for="female" style="font-size: 8px; margin-left: -85px;">여성</label>
-		<br><br>
 
 		<input type="text" id="uiAddress" style="font-size: 8px;" placeholder="주소" readonly>
 		<button type="button" class="btn btn-dark" id="searchButton" style="font-size: 7px;"
 			onclick="searchAddress()">검색
-		</button>				
+		</button>
 		<br>
 		<input type="text" id="uiAddress2" style="font-size: 8px;" placeholder="상세주소"><br><br>
 		<div id="errorAddress" class="error-message"></div>
@@ -162,7 +157,7 @@
 	</div>
 
 	<script>
-		 let isIdChecked = false;
+		let isIdChecked = false;
 		async function checkId() {
 			const uiId = document.querySelector('#uiId').value;
 
@@ -297,7 +292,7 @@
 				alert(`로그인 해주세요`);
 				location.href = '/page/user/login';
 			}
-			
+
 		}
 
 		function searchAddress() {
