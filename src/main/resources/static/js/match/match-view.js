@@ -2,6 +2,45 @@ let oponentTaName;
 let myTaName;
 const urlParams = new URL(location.href).searchParams;
 const mbNum = urlParams.get('mbNum');
+
+const team1 = {
+    taNum: 1,
+    taType: "축구",
+    tuRole: "1",
+    taName: "축구 1팀"
+}
+const team2 = {
+    taNum: 2,
+    taType: "축구",
+    tuRole: "1",
+    taName: "축구 2팀"
+}
+const team3 = {
+    taNum: 3,
+    taType: "야구",
+    tuRole: "1",
+    taName: "야구 1팀"
+}
+const team4 = {
+    taNum: 4,
+    taType: "야구",
+    tuRole: "1",
+    taName: "야구 2팀"
+}
+const team5 = {
+    taNum: 5,
+    taType: "농구",
+    tuRole: "1",
+    taName: "농구 1팀"
+}
+const team6 = {
+    taNum: 6,
+    taType: "농구",
+    tuRole: "1",
+    taName: "농구 2팀"
+}
+
+const teamList = [team1, team2, team3, team4, team5, team6];
 window.addEventListener('load', async function () {
     const res = await fetch(`/match-view/${mbNum}`);
 
@@ -63,6 +102,7 @@ window.addEventListener('load', async function () {
 
     var map = new kakao.maps.Map(mapContainer, mapOption);
 
+
     // 마커가 표시될 위치입니다
     var markerPosition = new kakao.maps.LatLng(matchInfo.mbMapY, matchInfo.mbMapX);
 
@@ -74,7 +114,7 @@ window.addEventListener('load', async function () {
     // 마커가 지도 위에 표시되도록 설정합니다
     marker.setMap(map);
 
-    var iwContent = `<div style="padding:5px;">${matchInfo.mbAddress} <br> <a href="https://map.kakao.com/link/to/${matchInfo.mbAddress},${matchInfo.mbMapY},${matchInfo.mbMapX}" style="color:blue" target="_blank">길찾기</a></div>`;  // 수정: matchBoardInfo -> matchInfo
+    var iwContent = `<div style="padding:5px;">${matchInfo.mbAddress} <br> <a href="https://map.kakao.com/link/to/${matchInfo.mbAddress},${matchInfo.mbMapY},${matchInfo.mbMapX}" style="color:blue" target="_blank">길찾기</a></div>`;
     var iwPosition = new kakao.maps.LatLng(matchInfo.mbMapY, matchInfo.mbMapX); //인포윈도우 표시 위치입니다
 
     // 인포윈도우를 생성합니다
