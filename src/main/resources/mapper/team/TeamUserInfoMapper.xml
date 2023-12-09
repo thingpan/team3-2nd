@@ -17,5 +17,16 @@
 		WHERE TU.TA_NUM = #{taNum}
 		ORDER BY TU_NUM
 	</select>
+	<delete id="deleteTeamUserInfo" 
+		parameterType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
+		DELETE FROM TEAM_USER_INFO
+		WHERE TU_NUM = #{tuNum}
+	</delete>
+	<select id="selectTeamUserInfo"
+		parameterType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
+		SELECT * FROM TEAM_USER_INFO
+		where UI_NUM=#{uiNum}
+
+	</select>
 
 </mapper>

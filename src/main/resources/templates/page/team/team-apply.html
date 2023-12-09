@@ -60,26 +60,71 @@
 			taPoint: 200,
 			taName: '농구 짱짱'
 		}
+		
+		const urlParams = new URL(location.href).searchParams;
+		const taNum = urlParams.get('taNum');
 
 		document.querySelector('#team-name').innerHTML = team.taName;
 
 		// 가입 수락 처리를 담당하는 함수
-		function acceptMembership(teamNum, userNum) {
-			// 실제 수락 로직을 구현해야함.
-			console.log(`팀 ${teamNum}, 사용자 ${userNum}의 가입을 수락합니다.`);
+		async function acceptMembership(tsuNum, uiName, uiNum) {
+			if (confirm(`사용자 ${uiName}의 가입을 수락합니다.`) == true) {
+				const body = {
+					tsuNum: tsuNum,
+					uiNum: uiNum,
+					taNum: taNum
+				}
+				const res = await fetch('/team-user-add', {
+					method: 'POST',
+					body: JSON.stringify(body),
+					headers: {
+						'Content-Type': 'application/json;charset=UTF-8'
+					}
+				});
+				const result = await res.json();
+				if (result) {
+					alert('수락 성공');
+					location.reload();
+				} else {
+					alert('수락 실패 다시 시도해 주세요');
+					location.reload();
+				}
+			} else {
+				return false;
+			}
 		}
 
 		// 가입 거절 처리를 담당하는 함수
-		function rejectMembership(teamNum, userNum) {
-			// 실제 거절 로직을 구현해야함.
-			console.log(`팀 ${teamNum}, 사용자 ${userNum}의 가입을 거절합니다.`);
+		async function rejectMembership(tsuNum, uiName) {
+			if (confirm(`사용자 ${uiName}의 가입을 거절합니다.`) == true) {
+				const body = {
+					tsuNum: tsuNum
+				}
+				const res = await fetch('/team-sign-user-delete', {
+					method: 'DELETE',
+					body: JSON.stringify(body),
+					headers: {
+						'Content-Type': 'application/json;charset=UTF-8'
+					}
+				});
+				const result = await res.json();
+				if (result) {
+					alert('거절 성공');
+					location.reload();
+				} else {
+					alert('거절 실패 다시 시도해 주세요');
+					location.reload();
+				}
+			} else {
+				return false;
+			}
+
 		}
 
 		let total = 0;
 		let pageSize = 5;
 		const blockSize = 5;
-		const urlParams = new URL(location.href).searchParams;
-		const taNum = urlParams.get('taNum');
+		
 
 		const getTeamSignUserInfoList = async function (evt, page) {
 			if (!page) {
@@ -118,8 +163,8 @@
 				html += `<td>${request.uiName}</td>`;
 				html += `<td>${request.uiAddress}</td>`;
 				html += `<td>${request.uiPhoneNum}</td>`;
-				html += `<td><button class="btn btn-success" onclick="acceptMembership(${request.tsuNum},${request.uiNum})">수락</button></td>`;
-				html += `<td><button class="btn btn-danger" onclick="rejectMembership(${request.taNum},${request.uiNum})">거절</button></td>`;
+				html += `<td><button class="btn btn-success" onclick="acceptMembership(${request.tsuNum},'${request.uiName}',${request.uiNum})">수락</button></td>`;
+				html += `<td><button class="btn btn-danger" onclick="rejectMembership(${request.tsuNum},'${request.uiName}','${request.uiNum}')">거절</button></td>`;
 				html += '</tr>';
 			}
 			document.querySelector('#membership-requests-info').innerHTML = html;
