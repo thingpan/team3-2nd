@@ -19,7 +19,6 @@ document
     .querySelector('#confirmMembershipBtn')
     .addEventListener('click', function () {
         $('#membershipModal').modal('hide'); // 모달 숨기기 // 알림 표시
-        location.reload(); // 페이지 새로고침
     });
 
 const matchList = document.querySelector('#match-list');

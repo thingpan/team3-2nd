@@ -227,9 +227,11 @@
 
 <script>
 	async function doSendObj(){
+		//타임리프 안돼서 일단 ㅠㅠ
+		const urlParams = new URL(location.href).searchParams;
+		const taNum = urlParams.get('taNum');
 		const obj = {
-			//나중에 url에서 taNum 받아와야함!!
-			taNum: 2 
+			taNum: taNum
 		} 
 		const res = await fetch('/team-sign-user-add',{
 			method: 'POST',
@@ -237,8 +239,9 @@
 			headers: {
 					'Content-Type': 'application/json;charset=UTF-8'
 				}
-		})
-		const result = res.json();
+		});
+		const result = await res.json();
+		console.log(result);
 		if(result == 1){
 			alert("가입 성공!");
 		}else{
