@@ -113,19 +113,7 @@
 									농구
 								</label>
 							</div>
-							<div class="mb-3">
-								<div class="modal-title-text">
-									성별선택
-								</div>
-								<div id="gender1">
-									<input type="radio" id="male" name="gender" value="남자" />
-									남자
-									<input type="radio" id="female" name="gender" value="여자" />
-									여자
-									<input type="radio" id="all" name="gender" value="혼성" />
-									혼성
-								</div>
-							</div>
+
 							<div class="mb-2">
 								<div class="modal-title-text">
 									팀 소개
@@ -164,7 +152,9 @@
 				</div>
 			</div>
 		</div>
+
 		<script>
+
 			function closeModalAndShowAlert() {
 				// Bootstrap 모달 닫기
 				$('#teamAddModal').modal('hide');
@@ -255,13 +245,11 @@
 				const taBoundarySido = document.querySelector('#sido').value;
 				const taBoundarySigungu = document.querySelector('#sigungu').value;
 				const taType = document.querySelector('input[type="checkbox"]:checked').value;
-				const taGender = document.querySelector('input[name="gender"]:checked').value;
 				const taDesc = document.querySelector('#message-text').value;
 				formData.append('taName', taName);
 				formData.append('taBoundarySido', taBoundarySido);
 				formData.append('taBoundarySigungu', taBoundarySigungu);
 				formData.append('taType', taType);
-				formData.append('taGender', taGender);
 				formData.append('taDesc', taDesc);
 				const res = await fetch('/team-add', {
 					method: 'POST',
@@ -323,7 +311,8 @@
 				class="btn btn-dark">검색</button>
 			<hr>
 
-			<button type="button" id="save-profile" class="btn btn-dark">완료</button>
+			<button type="button" id="save-profile" class="btn btn-dark" onclick="save()">완료</button>
+			<button type="button" id="delete-profile" class="btn btn-dark" onclick="userdelete()">삭제</button>
 		</div>
 
 
@@ -332,7 +321,7 @@
 			<h3>이메일 변경</h3>
 			<label for="new-email">새 이메일</label>
 			<input type="email" id="new-email" name="new-email" placeholder="새 이메일 입력">
-			<button type="button" id="confirm-email-change">확인</button>
+			<button type="button" id="confirm-email-change" onclick="changeemail()">확인</button>
 			<button type="button" id="cancel-email-change">취소</button>
 		</div>
 
@@ -350,6 +339,65 @@
 		<div id="change-password-popup" style="display: none;">
 
 			<script>
+
+				async function changeemail() {
+					const email = document.querySelector("#new-email").value;
+
+					const response = await fetch('/change-email', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({email}),
+					});
+
+					const result = await response.json();
+
+					if (result) {
+						alert("이메일 변경이 완료 되었습니다");
+						$('#change-email-popup').modal('hide');
+						document.querySelector('.edit-profile-form').style.display = 'block';
+					} else {
+						throw new Error("이메일 변경이 실패했습니다.");
+					}
+				}
+				function save() {
+					// 사용자가 입력한 값을 가져오기
+					var uiName = document.getElementById("user-name").value;
+					var uiAddress = document.getElementById("address").value;
+					var uiBirth = document.getElementById("date").value;
+					var uiPhoneNum = document.getElementById("phone").value;
+
+
+					updateProfile({
+						uiName: uiName,
+						uiAddress: uiAddress,
+						uiBirth: uiBirth,
+						uiPhoneNum: uiPhoneNum
+					});
+				}
+
+				async function updateProfile(profileData) {
+					try {
+						const response = await fetch('/update-profile', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify(profileData),
+						});
+
+						if (response.ok) {
+							alert('프로필이 업데이트 되었습니다.');
+						} else {
+							throw new Error('프로필 업데이트에 실패했습니다.');
+						}
+					} catch (error) {
+						console.error('에러 발생: ', error);
+
+					}
+				}
+
 
 
 				window.addEventListener('load', async function () {
@@ -370,15 +418,11 @@
 				});
 
 			</script>
-		
 
-			<script>	
-				window.addEventListener('load', async function () {
-					const userRes = await fetch('/team-user');
-					team = await userRes.json();
-					console.log(team)
-					});
-				
+
+			<script>
+
+
 				document.addEventListener('DOMContentLoaded', function () {
 					const changePasswordPopup = document.getElementById('change-password-popup');
 					const confirmPasswordChangeButton = document.getElementById('confirm-password-change');
@@ -417,27 +461,6 @@
 						// 팝업을 닫을 수 있도록 처리
 						changePasswordPopup.style.display = 'none';
 					});
-					async function checkCurrentPassword1() {
-						const password = document.querySelector("#current-password-input").value;
-
-						const response = await fetch('/check-password', {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json',
-							},
-							body: JSON.stringify({password}),
-						});
-
-						const result = await response.json();
-
-						if (result.success) {
-							alert("비밀번호가 일치합니다!");
-							$('#current-password-modal').modal('hide');
-							document.querySelector('.edit-profile-form').style.display = 'block';
-						} else {
-							throw new Error("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
-						}
-					}
 
 
 					async function changePassword(newPassword) {
@@ -451,8 +474,10 @@
 
 						const result = await response.json();
 
-						if (!result.success) {
-							throw new Error('비밀번호 변경 중 오류가 발생했습니다. 다시 시도해주세요.');
+						if (result) {
+							("비밀번호가 변경이 되었습니다");
+						} else {
+							throw new Error("비밀번호 변경에 실패했습니다");
 						}
 					}
 				});
@@ -570,6 +595,63 @@
 			</script>
 
 			<script>
+				const profileData = [];
+				// 세션에서 사용자 정보를 가져오는 함수 (프로젝트에 맞게 수정 필요)
+				async function getSessionUserInfo() {
+					try {
+						const response = await fetch('/user-info', {
+							method: 'GET',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							// 세션 쿠키 등을 프로젝트에 맞게 설정
+							credentials: 'include',
+						});
+						console.log(response);
+
+						if (!response.ok) {
+							throw new Error('세션에서 사용자 정보를 불러오는 데 실패했습니다.');
+						}
+
+						const userData = await response.json();
+						return userData;
+					} catch (error) {
+						console.error('세션에서 사용자 정보를 불러오는 중 오류가 발생했습니다:', error);
+						return null;
+					}
+				}
+
+				// 팀 사용자 정보를 불러오는 함수
+				async function fetchTeamUserInfo(uiNum) {
+					try {
+						const response = await fetch(`/team-user-info?uiNum=${uiNum}`);
+						if (!response.ok) {
+							throw new Error('팀 사용자 정보를 불러오는 데 실패했습니다.');
+						}
+						const data = await response.json();
+						profileData.push(data);
+					} catch (error) {
+						console.error('팀 사용자 정보를 불러오는 중 오류가 발생했습니다:', error);
+					}
+				}
+
+				// 세션에서 사용자 정보를 가져옴
+				async function init() {
+					const userInfo = await getSessionUserInfo();
+
+					if (userInfo && userInfo.uiNum) {
+						const userNum = userInfo.uiNum;
+
+						// 팀 사용자 정보를 불러오는 함수 호출
+						await fetchTeamUserInfo(userNum);
+					} else {
+						console.error('사용자 정보를 가져오지 못했습니다.');
+					}
+				}
+
+				// 페이지 로드 시 초기화 함수 호출
+				init();
+
 				const basketballButton = document.getElementById('basketball');
 				const baseballButton = document.getElementById('baseball');
 				const soccerButton = document.getElementById('soccer');

@@ -4,7 +4,6 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>Login</title>
-	<!--    <link rel="stylesheet" type="text/css" href="styles.css" />-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
 	<link
@@ -22,7 +21,6 @@
 			align-items: center;
 			height: 80vh;
 			overflow: hidden;
-			/* 오버플로우를 숨겨 불필요한 스크롤바 제거 */
 		}
 
 		#main {
@@ -38,17 +36,12 @@
 			font-size: 10px;
 			margin-top: 10px;
 			color: #b8b8b8;
-			/* 텍스트 색을 회색으로 설정합니다 */
 		}
 
 		.signUp a {
 			color: #111;
-			/* 링크 색을 검정색으로 설정합니다 */
 			text-decoration: none;
-			/* 링크의 밑줄을 제거합니다 */
-
 			font-weight: 600;
-			/* 로그인 버튼의 폰트 굵기를 설정합니다 */
 		}
 
 		input[type='text'] {
@@ -80,25 +73,41 @@
 			margin-top: 5px;
 		}
 	</style>
-	   <script>
-        // JavaScript function to validate the form
-        function validateForm() {
-            // Get values from the form
-            var uiId = document.getElementById('uiId').value;
-            var uiPwd = document.getElementById('uiPwd').value;
+	<script>
+		async function login() {
+			var uiId = document.getElementById('uiId').value;
+			var uiPwd = document.getElementById('uiPwd').value;
 
-            // Your validation logic here
-            // For example, you can check if the username and password are correct
-            if (uiId !== "correctUsername" || uiPwd !== "correctPassword") {
-                // Display an error message
-                document.getElementById('error-message').innerText = '아이디 또는 비밀번호가 일치하지 않습니다.';
-                return false; // Prevent form submission
-            }
 
-            // If validation passes, allow form submission
-            return true;
-        }
-    </script>
+			if (uiId === '' && uiPwd === '') {
+				alert('아이디와 비밀번호를 입력해주세요.');
+				return false;
+			} else if (uiId === '') {
+				alret('아이디를 입력해주세요.');
+				return false;
+			} else if (uiPwd === '') {
+				alert('비밀번호를 입력해주세요.');
+				return false;
+			}
+
+			const response = await fetch('/login', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					uiId: uiId,
+					uiPwd: uiPwd
+				}),
+			});
+			if (response.ok) {
+				return true;
+			} else {
+				alert(errorMessage = '아이디나 비밀번호가 일치하지 않습니다. 다시 확인해주세요.')
+				return false;
+			}
+		}
+	</script>
 </head>
 
 <body>
@@ -107,7 +116,7 @@
 			<h3 style="font-size: 14px; font-weight: 700">Match Me If You Can</h3>
 		</div>
 		<div>
-			<form method="post" action="/login" onsubmit="return validateForm(); ">
+			<form method="post" action="/login" onsubmit="return login(); ">
 
 				<input type="text" id="uiId" name="uiId" placeholder="아이디" /><br />
 				<input type="password" id="uiPwd" name="uiPwd" placeholder="비밀번호" /><br />
@@ -120,42 +129,7 @@
 		<div class="signUp">
 			<span>계정이 없으신가요? <a href="/page/user/join">회원가입</a></span>
 		</div>
-	
-	<script>
-		async function validateForm() {
-			var uiId = document.getElementById('uiId').value;
-			var uiPwd = document.getElementById('uiPwd').value;
-			var errorMessage = document.getElementById('error-message');
-
-			if (uiId === '' || uiPwd === '') {
-				errorMessage.innerText = '아이디나 비밀번호를 확인해주세요.';
-				return false;
-			}
-
-				const response = await fetch('/login', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
-						uiId: uiId,
-						uiPwd: uiPwd
-					}),
-				});
-
-				const data = await response.json();
-
-				if (data.success) {
-					errorMessage.innerText = '';
-				} else {
-					errorMessage.innerText = '아이디나 비밀번호가 일치하지 않습니다. 다시 확인해주세요.';
-					return false;
-				}
-			} 
-		
-
-	</script>
-	
+	</div>
 </body>
 
 </html>

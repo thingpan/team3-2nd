@@ -3,7 +3,9 @@ package com.sp.team32ndproject.user.controller;
 import java.util.Map;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,15 +42,30 @@ public class UserInfoController {
 	}
 
 	@PutMapping("/change-password")
-	public int changePassword(@AuthenticationPrincipal UserInfoVO user, @RequestBody String newPassword) {
+	public int changePassword(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String> newPassword) {
 		log.info("Changing password for user: {}", user.getUiId());
 
 		return userInfoService.changePassword(user.getUiId(), newPassword);
 	}
 
 	@PostMapping("/check-password")
-	public boolean checkPassword(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String,String> password ) {
+	public boolean checkPassword(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String> password) {
 		return userInfoService.checkPassword(user.getUiId(), password);
 	}
+
+	@PostMapping("/change-email")
+	public int changeEmail(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String> newEmail) {
+
+		return userInfoService.changeEmail(user.getUiId(), newEmail);
+
+	}
+	@PostMapping("/update-profile")
+    public int updateProfile(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String>request) {
+
+         return  userInfoService.updateUserProfile(user.getUiId(), request);
+       
+    }
+ 
+	
 
 }

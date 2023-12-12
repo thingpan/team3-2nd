@@ -16,39 +16,41 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TeamUserInfoService {
-	
+
 	private final TeamUserInfoMapper teamUserInfoMapper;
 	private final TeamSignUserInfoMapper teamSignUserInfoMapper;
-	
-	
-	//팀 만들때 
-	public int insertTeamUserInfo(TeamUserInfoVO teamUserInfoVO) {  
+
+	// 팀 만들때
+	public int insertTeamUserInfo(TeamUserInfoVO teamUserInfoVO) {
 		return teamUserInfoMapper.insertTeamUserInfo(teamUserInfoVO);
 	}
-	
+
 	public int insertTeamUserInfoToUser(TeamSignUserInfoVO teamSignUserInfoVO) {
 		TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
 		teamUserInfoVO.setUiNum(teamSignUserInfoVO.getUiNum());
 		teamUserInfoVO.setTaNum(teamSignUserInfoVO.getTaNum());
 		teamUserInfoVO.setTuRole("USER");
-		if(1 == teamUserInfoMapper.insertTeamUserInfo(teamUserInfoVO)) {
+		if (1 == teamUserInfoMapper.insertTeamUserInfo(teamUserInfoVO)) {
 			return teamSignUserInfoMapper.deleteTeamSignUserInfo(teamSignUserInfoVO);
-		}else {
+		} else {
 			return 0;
 		}
-	
-		
+
 	}
-	public TeamUserInfoVO selecTeamUserInfo(TeamUserInfoVO teamUserInfoVO) {  
-		return teamUserInfoMapper.selectTeamUserInfo(teamUserInfoVO);
+
+	public TeamUserInfoVO selectTeamUserInfo(TeamInfoVO teamInfoVO) {
+	    return teamUserInfoMapper.selectTeamUserInfo(teamInfoVO);
 	}
-	
-	public PageInfo<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO){
-		PageHelper.startPage(teamUserInfoVO.getPage(),teamUserInfoVO.getPageSize());
+
+
+	public PageInfo<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO) {
+		PageHelper.startPage(teamUserInfoVO.getPage(), teamUserInfoVO.getPageSize());
 		return new PageInfo<>(teamUserInfoMapper.selectTeamUserInfosWithHelper(teamUserInfoVO));
 	}
-	
+
 	public int deleteTeamUserInfo(TeamUserInfoVO teamUserInfoVO) {
 		return teamUserInfoMapper.deleteTeamUserInfo(teamUserInfoVO);
 	}
+
+	
 }
