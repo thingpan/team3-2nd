@@ -16,5 +16,6 @@ public interface TeamInfoMapper {
 	List<TeamInfoVO> selectTeamRank(TeamInfoVO team);
 	List<TeamInfoVO> selectTeamInfosByUiNum(int uiNum);
 	TeamInfoVO selectAdminByUiNumAndTaNum(int uiNum, int taNum);
+	TeamInfoVO selectTeamInfoByTaNum(TeamInfoVO team);
 	
 }
