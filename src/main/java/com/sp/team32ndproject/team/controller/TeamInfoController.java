@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,6 +55,14 @@ public class TeamInfoController {
 	@GetMapping("/team-info")
 	public TeamInfoVO selectTeamInfoByTaNum(@RequestParam int taNum) {
 	    return teamInfoService.selectTeamInfoByTaNum(taNum);
+	}
+	
+	@GetMapping("/my-team-infos-by-type/{taType}")
+	public List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(@PathVariable String taType, @AuthenticationPrincipal UserInfoVO user){
+		log.info("taType => {}", taType);
+		log.info("user => {}", user);
+		
+		return teamInfoService.selectTeamInfosByUiNumAndTaType(taType,user.getUiNum());
 	}
 
 }

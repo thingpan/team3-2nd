@@ -71,8 +71,16 @@ public class TeamInfoService {
 	public TeamInfoVO selectAdminByUiNumAndTaNum(int uiNum, int taNum) {
 		return teamInfoMapper.selectAdminByUiNumAndTaNum(uiNum, taNum);
 	}
-	  public TeamInfoVO selectTeamInfoByTaNum(int taNum) {
-	        return teamInfoMapper.selectTeamInfoByTaNum(taNum);
-	    }
+
+	public TeamInfoVO selectTeamInfoByTaNum(int taNum) {
+		return teamInfoMapper.selectTeamInfoByTaNum(taNum);
+	}
+	
+	public List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(String taType, int uiNum) {
+		TeamInfoVO teamInfoVO = new TeamInfoVO();
+		teamInfoVO.setTaType(taType);
+		teamInfoVO.setUiNum(uiNum);
+		return teamInfoMapper.selectTeamInfosByUiNumAndTaType(teamInfoVO);
+	}
 
 }
