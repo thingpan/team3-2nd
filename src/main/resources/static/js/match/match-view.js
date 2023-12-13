@@ -141,6 +141,7 @@ function matchRequest() {
 }
 
 function goTeamPage(obj) {
+	console.log(obj);
 	location.href = `/page/team/record?taNum=${obj.value}`;
 }
 
