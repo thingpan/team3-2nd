@@ -32,6 +32,17 @@ window.addEventListener('load', async function() {
 			document.querySelector(`#${key}`).innerHTML = matchInfo[key];
 		}
 	}
+	
+	goodsFiles = matchInfo.matchPhotos; 
+	console.log(goodsFiles);
+	for(let i = 0;i<goodsFiles.length;i++){
+			const goodsFile = matchInfo.matchPhotos[i];
+			const html = `<div id="fileDiv${i+1}">`
+			             + `<img src="${goodsFile.mbpFilePath}" style="width:100px" id="img${i+1}">`
+			             + `</div>`
+			             + ``;
+			document.querySelector('#match-pic').innerHTML = html; 
+		}
 
 	for (const team of teamList) {
 		let html = '';

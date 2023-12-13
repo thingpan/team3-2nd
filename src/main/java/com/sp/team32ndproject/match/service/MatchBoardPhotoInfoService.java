@@ -51,4 +51,8 @@ public class MatchBoardPhotoInfoService {
 		
 		return result; 
 	}
+	
+	public List<MatchBoardPhotoInfoVO> selectMatchBoardInfo(int mbNum){
+		return matchBoardPhotoInfoMapper.selectMatchBoardInfo(mbNum);
+	}
 }

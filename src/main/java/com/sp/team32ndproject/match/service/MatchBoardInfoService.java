@@ -23,7 +23,8 @@ public class MatchBoardInfoService {
 	private final TeamInfoMapper teamInfoMapper;
 
 	public int insertMatchInfo(MatchBoardInfoVO matchBoardInfoVO) {
-		matchBoardInfoVO.setMbType(teamInfoMapper.selectTaTypeMatchBoardInfoByTaNum(matchBoardInfoVO.getTaNum()).getTaType());
+		matchBoardInfoVO
+				.setMbType(teamInfoMapper.selectTaTypeMatchBoardInfoByTaNum(matchBoardInfoVO.getTaNum()).getTaType());
 		int result = matchBoardInfoMapper.insertMatchInfo(matchBoardInfoVO);
 		List<MatchBoardPhotoInfoVO> matchPhotos = matchBoardInfoVO.getMatchPhotos();
 		result += matchBoardPhotoInfoService.insertMatchBoardPhotoInfo(matchBoardInfoVO.getMbNum(), matchPhotos);
@@ -31,7 +32,11 @@ public class MatchBoardInfoService {
 	}
 
 	public MatchBoardInfoVO selectMatchInfo(int mbNum) {
-		return matchBoardInfoMapper.selectMatchInfo(mbNum);
+
+		MatchBoardInfoVO matchBoardInfoVO = matchBoardInfoMapper.selectMatchInfo(mbNum);
+		List<MatchBoardPhotoInfoVO> files = matchBoardPhotoInfoService.selectMatchBoardInfo(mbNum);
+		matchBoardInfoVO.setMatchPhotos(files);
+		return matchBoardInfoVO;
 	}
 
 	public MatchBoardInfoListVO selectMatchList() {
