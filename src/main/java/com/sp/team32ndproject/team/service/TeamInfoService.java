@@ -75,7 +75,7 @@ public class TeamInfoService {
 	public TeamInfoVO selectTeamInfoByTaNum(int taNum) {
 		return teamInfoMapper.selectTeamInfoByTaNum(taNum);
 	}
-	
+
 	public List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(String taType, int uiNum) {
 		TeamInfoVO teamInfoVO = new TeamInfoVO();
 		teamInfoVO.setTaType(taType);
@@ -83,4 +83,12 @@ public class TeamInfoService {
 		return teamInfoMapper.selectTeamInfosByUiNumAndTaType(teamInfoVO);
 	}
 
+	public List<TeamInfoVO> selectTeamUserInfo(int uiNum) {
+		return teamInfoMapper.selectTeamUserInfo(uiNum);
+	}
+
+	public TeamInfoVO selectTeamInfoByTaName(TeamInfoVO team) {
+		return teamInfoMapper.selectTeamInfoByTaName(team);
+
+	}
 }

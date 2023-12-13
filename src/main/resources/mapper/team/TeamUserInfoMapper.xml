@@ -22,14 +22,7 @@
 		DELETE FROM TEAM_USER_INFO
 		WHERE TU_NUM = #{tuNum}
 	</delete>
-	<select id="selectTeamUserInfo"
-		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
-		SELECT TUI.TA_NUM, TMI.TA_TYPE, TMI.TA_NAME, TMI.TA_FILE_PATH
-		FROM TEAM_USER_INFO TUI
-		INNER JOIN TEAM_SIGN_USER_INFO TSUI ON TUI.UI_NUM = TSUI.UI_NUM
-		INNER JOIN TEAM_INFO TMI ON TSUI.TA_NUM = TMI.TA_NUM
-		WHERE TUI.UI_NUM = #{uiNum}
-	</select>
+
 
 
 

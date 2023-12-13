@@ -44,17 +44,4 @@ public class TeamUserInfoController {
 		return teamUserInfoService.deleteTeamUserInfo(teamUserInfoVO);
 	}
 
-	@GetMapping("/team-user-info")
-	public TeamUserInfoVO selectTeamUserInfo(@RequestParam int uiNum) {
-		try {
-
-			TeamInfoVO teamUserInfoVO = new TeamInfoVO();
-			teamUserInfoVO.setUiNum(uiNum);
-			TeamUserInfoVO result = teamUserInfoService.selectTeamUserInfo(teamUserInfoVO);
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace(); // 디버깅을 위해 예외를 로그로 출력합니다.
-			return null; // 여기서 오류 응답을 반환하는 것이 좋을 것입니다.
-		}
-	}
 }
