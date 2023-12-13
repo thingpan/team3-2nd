@@ -14,7 +14,6 @@ import com.sp.team32ndproject.user.service.UserInfoService;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 @Configuration
 @Slf4j
 public class SecurityBeanConfig {
@@ -22,22 +21,21 @@ public class SecurityBeanConfig {
 	private UserInfoService userInfoService;
 	@Autowired
 	private TeamInfoService teamInfoService;
-	
+
 	@Bean
-	WebSecurityCustomizer webSecurityCustomizer() { //static 안에 있는 css등등 필요한 애들은 webServer딴에서 이그노어 해줘야 해서 일케 함
+	WebSecurityCustomizer webSecurityCustomizer() { // static 안에 있는 css등등 필요한 애들은 webServer딴에서 이그노어 해줘야 해서 일케 함
 		return web -> {
-			web.ignoring()	
-			.antMatchers("/css/**","/js/**","/imgs/**","/resources/**", "/**");
+			web.ignoring().antMatchers("/css/**", "/js/**", "/imgs/**", "/resources/**", "/page/**");
 		};
 	}
-	
+
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity hs) throws Exception {
-		hs.authorizeHttpRequests(auth -> auth
-				.antMatchers("/login","/join","/page/user/login","/page/user/join")
+		hs.authorizeRequests(req->req
+			.antMatchers("/login","/join","/page/user/login","/page/user/join", "/" , "/**")
 				.permitAll()
-				.antMatchers("/page/team/team-settings/{taNum}")
-				.access(new TeamPathAuthManager(teamInfoService))
+				//.antMatchers("html/admin/**").hasRole("ADMIN")
+				//.antMatchers("html/user/**").hasRole("USER")
 				.anyRequest().authenticated())
 		.formLogin(formLogin -> formLogin
 				.loginPage("/page/user/login")
