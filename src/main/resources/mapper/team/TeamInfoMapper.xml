@@ -14,7 +14,7 @@
 		WHERE TA_NUM = #{taNum}
 
 	</select>
-		<select id="selectTeamInfoByTaNum"
+	<select id="selectTeamInfoByTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
 		WHERE TA_NUM = #{taNum}
@@ -26,6 +26,12 @@
 		SELECT * FROM TEAM_INFO
 		WHERE UI_NUM = #{uiNum}
 
+	</select>
+	<select id="selectTeamInfosByUiNumAndTaType"
+		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		SELECT * FROM TEAM_INFO
+		WHERE UI_NUM = #{uiNum}
+		AND TA_TYPE = #{taType}
 	</select>
 
 
@@ -67,8 +73,8 @@
 		LIMIT 20;
 	</select>
 
-	<select id="selectAdminByUiNumAndTaNum" 
-	resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+	<select id="selectAdminByUiNumAndTaNum"
+		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
 		<where>
 			<if test="uiNum != null and uiNum != ''">
@@ -78,7 +84,7 @@
 				AND TA_NUM = 3
 			</if>
 		</where>
-		
+
 
 	</select>
 
