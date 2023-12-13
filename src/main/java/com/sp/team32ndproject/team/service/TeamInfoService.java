@@ -71,8 +71,8 @@ public class TeamInfoService {
 	public TeamInfoVO selectAdminByUiNumAndTaNum(int uiNum, int taNum) {
 		return teamInfoMapper.selectAdminByUiNumAndTaNum(uiNum, taNum);
 	}
-	  public TeamInfoVO selectTeamInfoByTaNum(TeamInfoVO team) {
-	        return teamInfoMapper.selectTeamInfoByTaNum(team);
+	  public TeamInfoVO selectTeamInfoByTaNum(int taNum) {
+	        return teamInfoMapper.selectTeamInfoByTaNum(taNum);
 	    }
 
 }
