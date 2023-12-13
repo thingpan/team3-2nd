@@ -48,19 +48,75 @@
 
 	<div th:replace="/page/fragment/side-bar.html :: f-side-bar"></div>
 	<script>
-		function saveTeamInfo() {
-			// 폼에서 입력된 값을 가져온다.
-			var teamName = document.getElementById('teamName').value;
-			var teamIntro = document.getElementById('teamIntro').value;
-			var jobStatus = document.getElementById('jobStatus').value; // 구인 및 구직 상태 값을 가져옵니다.
+		window.addEventListener('load', async function () {
+			// 현재 URL에서 taNum을 가져오기
+			const urlParams = new URLSearchParams(window.location.search);
+			const taNum = urlParams.get('taNum');
 
-			// 여기 서버에 정보를 저장하는 로직을 추가할 수 있음
-			// Ajax 요청을 사용하여 서버에 데이터를 전송할 수 있음
+			if (taNum) {
+				try {
+		
+					const userRes = await fetch(`/team-info?taNum=${taNum}`);		
+					const user = await userRes.json();
 
-			// 저장 성공 시 알람 표시
-			alert('팀 정보가 저장되었습니다.\n구인 상태 : ' + jobStatus);
+					 
+					document.querySelector('#teamName').value = user.taName;
+					console.log(user.taName);
+					document.querySelector('#teamIntro').value = user.taDesc;
 
-		}
+					const profilePicture = document.querySelector('#profilePicture');
+					profilePicture.src = user.taFilePath;
+					profilePicture.alt = "Profile Picture"; 
+
+				} catch (error) {
+					console.error('Error fetching team info:', error);
+				}
+			} else {
+				console.error('taNum이 없습니다.');
+			}
+		});
+
+
+
+		async function saveTeamInfo() {
+            // 폼에서 입력된 값을 가져온다.
+            var teamName = document.getElementById('teamName').value;
+            var teamIntro = document.getElementById('teamIntro').value;
+            var jobStatus = document.getElementById('jobStatus').value;
+
+       
+            const data = {
+                taName: teamName,
+                taDesc: teamIntro,
+                jobStatus: jobStatus
+            };
+
+            // 현재 URL에서 taNum을 가져오기
+            const urlParams = new URLSearchParams(window.location.search);
+            const taNum = urlParams.get('taNum');
+
+            if (taNum) {
+                data.taNum = taNum;
+                try {
+                    const response = await fetch('/update-team-info', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+
+                    // 저장 성공 시 알람 표시
+                    alert('팀 정보가 업데이트되었습니다.\n구인 상태 : ' + jobStatus);
+                } catch (error) {
+                    console.error('Error updating team info:', error);
+                }
+            } 
+        }
 
 		// 선택한 이미지를 미리보기하는 함수
 		function previewImage(input) {

@@ -156,8 +156,13 @@ button {
 }
 
 #save-profile {
-	margin-left: 88%;
-	margin-bottom: 30px;
+	margin-left: 85%;
+	margin-bottom: 20px;
+}
+
+#delete-profile {
+	margin-left: 10px;
+	margin-bottom: 20px;
 }
 
 .first {

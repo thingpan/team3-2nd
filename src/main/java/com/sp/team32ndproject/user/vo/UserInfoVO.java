@@ -1,6 +1,7 @@
 package com.sp.team32ndproject.user.vo;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -54,6 +55,8 @@ public class UserInfoVO implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+
+	
 	
 	
 }

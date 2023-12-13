@@ -37,7 +37,7 @@ public class TeamInfoService {
 		String extName = originFileName.substring(originFileName.lastIndexOf("."));
 		String fileName = UUID.randomUUID() + extName;
 		team.setTaFileName(originFileName);
-		team.setTaFilePath("/file/"+fileName);
+		team.setTaFilePath("/file/" + fileName);
 		team.setUiNum(user.getUiNum());
 		try {
 			file.transferTo(new File(uploadFilePath + fileName));
@@ -46,12 +46,12 @@ public class TeamInfoService {
 		} catch (IOException e) {
 			log.error("file upload error=>{}", e);
 		}
-		if(1 == teamInfoMapper.insertTeamInfo(team)) { 
+		if (1 == teamInfoMapper.insertTeamInfo(team)) {
 			TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
 			teamUserInfoVO.setTaNum(team.getTaNum());
 			teamUserInfoVO.setUiNum(user.getUiNum());
 			teamUserInfoVO.setTuRole("ADMIN");
-			return teamUserInfoService.insertTeamUserInfo(teamUserInfoVO); 
+			return teamUserInfoService.insertTeamUserInfo(teamUserInfoVO);
 		}
 		return 0;
 	}
@@ -59,15 +59,20 @@ public class TeamInfoService {
 	public List<TeamInfoVO> selectTeamInfos(TeamInfoVO team) {
 		return teamInfoMapper.selectTeamInfos(team);
 	}
+
 	public List<TeamInfoVO> selectTeamRank(TeamInfoVO team) {
 		return teamInfoMapper.selectTeamInfos(team);
 	}
-	
-	public List<TeamInfoVO> selectTeamInfosByUiNum(int uiNum){
+
+	public List<TeamInfoVO> selectTeamInfosByUiNum(int uiNum) {
 		return teamInfoMapper.selectTeamInfosByUiNum(uiNum);
 	}
-	
 
+	public TeamInfoVO selectAdminByUiNumAndTaNum(int uiNum, int taNum) {
+		return teamInfoMapper.selectAdminByUiNumAndTaNum(uiNum, taNum);
+	}
+	  public TeamInfoVO selectTeamInfoByTaNum(int taNum) {
+	        return teamInfoMapper.selectTeamInfoByTaNum(taNum);
+	    }
 
-	
 }

@@ -14,7 +14,13 @@
 		WHERE TA_NUM = #{taNum}
 
 	</select>
-	
+		<select id="selectTeamInfoByTaNum"
+		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		SELECT * FROM TEAM_INFO
+		WHERE TA_NUM = #{taNum}
+
+	</select>
+
 	<select id="selectTeamInfosByUiNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
@@ -60,7 +66,22 @@
 		ORDER BY TA_POINT DESC
 		LIMIT 20;
 	</select>
-	
+
+	<select id="selectAdminByUiNumAndTaNum" 
+	resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		SELECT * FROM TEAM_INFO
+		<where>
+			<if test="uiNum != null and uiNum != ''">
+				UI_NUM = 5
+			</if>
+			<if test="taNum != null and taNum != ''">
+				AND TA_NUM = 3
+			</if>
+		</where>
+		
+
+	</select>
+
 	<insert id="insertTeamInfo" useGeneratedKeys="true"
 		keyColumn="TA_NUM" keyProperty="taNum"
 		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
