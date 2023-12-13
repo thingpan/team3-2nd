@@ -16,6 +16,7 @@ function getRandomPoint() {
     return Math.floor(Math.random() * 501); // 0부터 500까지
 }
 
+/*
 // 랜덤으로 점수 생성
 const randomScore = getRandomPoint();
 
@@ -40,6 +41,7 @@ if (randomScore <= 100) {
     scoreValue.style.backgroundColor = '#f4e2ff';
     scoreValue.style.color = '#8200d2';
 }
+*/
 
 const matchData = [
     {

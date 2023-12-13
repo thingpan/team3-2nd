@@ -16,10 +16,17 @@
 				<span id="team-name"></span>
 				<span id="score-value"></span>
 			</div>
+			<div>
+				<span id="team-introduce"></span>
+			</div>
 		</div>
+		<br>
 		<script>
 			// 팀 이름을 메인 화면에 설정
 			document.querySelector('#team-name').innerText = 'Team Name';
+
+			// 팀 소개 설정
+			document.querySelector('#team-introduce').innerText = '안녕하세요 잘부탁드립니다.';
 
 			// 랜덤 점수 생성 함수
 			function getRandomPoint() {
