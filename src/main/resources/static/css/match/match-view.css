@@ -60,13 +60,15 @@
 	text-align: center;
 }
 
-
+#taName {
+	font-weight: 600;
+}
 
 #score-value {
 	font-weight: 500;
 	font-size: 16px;
-	margin-left: 0.5rem;
-	padding: 6px 14px;
+	/*margin-left: 0.5rem;*/
+	padding: 4px 14px;
 	border-radius: 8px;
 }
 

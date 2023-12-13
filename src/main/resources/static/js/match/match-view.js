@@ -6,13 +6,14 @@ const mbNum = urlParams.get('mbNum');
 
 window.addEventListener('load', async function() {
 	const res = await fetch(`/match-view/${mbNum}`);
-
 	const matchInfo = await res.json();
+
 	console.log("matchInfo", matchInfo);
 
 	const teamRes = await fetch(`/my-team-infos-by-type/${matchInfo.mbType}`);
 	const teamList = await teamRes.json();
 
+	console.log(teamList);
 	
 	oponentTaName = matchInfo.taName;
 	let typeFileName;
@@ -37,19 +38,21 @@ window.addEventListener('load', async function() {
 		let html = '';
 		if (matchInfo.mbType == team.taType) { 
 			html += '<div id="team-list-div" style="display: inline-block; margin: 0 auto;">'
-			html += `<button onclick="selectedTeam(${team.taNum}, '${team.taName}')" value="${team.taNum}" id="team${team.taNum}">`;
+			html += `<button onclick="selectedTeam(${teamList[0].taNum}, '${teamList[0].taName}')" value="${team.taNum}" id="team${team.taNum}">`;
 			html += '</button>';
 			html += `<span>${team.taName}<span>`;
 			html += '</div>';
 		}
 		document.querySelector('.team-list').innerHTML += html;
 	}
-	// 게시글 올린 팀 점수 배지 표시
+
 	const scoreValue = document.querySelector('#score-value');
-	const teamPoint = matchInfo.riPoint;
+	const nameValue = document.querySelector('#taName');
+	const taName = teamList[0].taName;
+	const teamPoint = teamList[0].taPoint;
+	nameValue.innerHTML = `${taName}`;
 	scoreValue.innerHTML = `${teamPoint}점`;
 
-	// 점수에 따라 배경색과 텍스트색 변경
 	if (teamPoint <= 100) {
 		scoreValue.style.backgroundColor = '#ececec';
 		scoreValue.style.color = '#767676';
