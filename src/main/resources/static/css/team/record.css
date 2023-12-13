@@ -52,6 +52,7 @@ body {
 
 .score-badge {
     font-weight: 600;
+    margin-bottom: 10px;
 }
 
 #score-value {

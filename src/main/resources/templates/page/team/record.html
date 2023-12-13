@@ -130,15 +130,8 @@
     </div>
 </div>
 
-<div class="team-profile">
-    <div class="team-photo">
-        <img src="/imgs/team.png"/>
-    </div>
-    <div class="score-badge">
-        <span id="team-name"></span>
-        <span id="score-value"></span>
-    </div>
-</div>
+<!-- 팀 프로필 영역 -->
+<div th:replace="/page/fragment/team-profile.html :: f-team-profile"></div>
 
 <ol class="custom-table" id="match-list"></ol>
 <div class="record-table-section">
