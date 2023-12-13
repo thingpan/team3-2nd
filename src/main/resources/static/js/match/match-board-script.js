@@ -8,8 +8,25 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectedSport = null;
     let selectedSido = null;
     let selectedPoint = null;
+    let selectedDate = new Date();
 
-// 캘린더 업데이트 함수
+    let matchBoardInfos = null;
+
+    async function fetchMatchBoardData() {
+        const res = await fetch(`/match-board`);
+        matchBoardInfos = await res.json();
+    }
+
+    // 초기 캘린더 업데이트 시에도 데이터를 가져오도록 수정
+    async function init() {
+        await fetchMatchBoardData();
+        updateCalendar(selectedDate);
+        showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
+    }
+
+    init();
+
+    // 캘린더 업데이트 함수
     function updateCalendar(date) {
         calendar.innerHTML = '';
 
@@ -32,7 +49,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 selectDate(dayDiv);
                 selectedDateDiv = dayDiv;
 
-                showSchedule(day, selectedSport, selectedSido, selectedPoint);
+                const clickedDate = new Date(date);
+                clickedDate.setDate(date.getDate() + i);
+
+                showSchedule(clickedDate, selectedSport, selectedSido);
             });
 
             calendar.appendChild(dayDiv);
@@ -41,12 +61,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 selectDate(dayDiv);
                 selectedDateDiv = dayDiv;
 
-                showSchedule(day, selectedSport, selectedSido, selectedPoint);
+                const clickedDate = new Date(date);
+                clickedDate.setDate(date.getDate() + i);
+
+                showSchedule(clickedDate, selectedSport, selectedSido, selectedPoint);
+                console.log('Click on dayDiv. 날짜:', clickedDate);
             }
         }
     }
 
-// 선택된 날짜에 대한 스타일을 적용하는 함수
+    // 선택된 날짜에 대한 스타일을 적용하는 함수
     function selectDate(selectedDate) {
         const dayDivs = document.querySelectorAll('.day');
         dayDivs.forEach((dayDiv) => {
@@ -56,26 +80,24 @@ document.addEventListener('DOMContentLoaded', function () {
         selectedDate.classList.add('selected');
     }
 
-    // 종목 선택 시 이벤트 리스너
     const selectSport = document.querySelector('#sports');
     if (selectSport) {
         selectSport.addEventListener('change', () => {
             selectedSport = selectSport.value;
-            showSchedule(currentDate, selectedSport, selectedSido, selectedPoint);
+            showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
         });
     }
 
     const selectSido = document.querySelector('#sido');
     selectSido.addEventListener('change', () => {
         selectedSido = selectSido.value;
-
-        showSchedule(currentDate, selectedSport, selectedSido, selectedPoint);
+        showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
     });
 
     const inputPoint = document.querySelector('#point');
     inputPoint.addEventListener('input', () => {
         selectedPoint = inputPoint.value;
-        showSchedule(currentDate, selectedSport, selectedSido, selectedPoint);
+        showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
     });
 
 // 초기 캘린더 업데이트
@@ -84,22 +106,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // 이전 주 버튼 클릭 시 이벤트 리스너
     calendarPrevBtn.addEventListener('click', () => {
-        currentDate.setDate(currentDate.getDate() - 7);
-        updateCalendar(currentDate);
+        selectedDate.setDate(selectedDate.getDate() - 7);
+        updateCalendar(selectedDate);
     });
 
 // 다음 주 버튼 클릭 시 이벤트 리스너
     calendarNextBtn.addEventListener('click', () => {
-        currentDate.setDate(currentDate.getDate() + 7);
-        updateCalendar(currentDate);
-        showSchedule(currentDate, selectedSport, selectedSido, selectedPoint);
+        selectedDate.setDate(selectedDate.getDate() + 7);
+        updateCalendar(selectedDate);
+        showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
     });
 
-// 일정 표시 함수
-    async function showSchedule(date, selectedSport, selectedSido, selectedPoint) {
-        console.log('showSchedule 호출');
-        const res = await fetch(`/match-board`);
-        const matchBoardInfos = await res.json();
+    // 일정 표시 함수
+    async function showSchedule(selectedDate, selectedSport, selectedSido) {
+        console.log('showSchedule 호출. Date: ', selectedDate);
+        console.log('Selected Sport: ', selectedSport);
+        console.log('Selected Sido: ', selectedSido);
+
+        // matchBoardInfos가 null이면 데이터를 다시 가져옴
+        if (!matchBoardInfos) {
+            await fetchMatchBoardData();
+        }
 
         const apiScheduleItems = matchBoardInfos.matchBoardList.map(matchBoardList => {
             return {
@@ -116,13 +143,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let filteredMatchBoards;
 
+        // 시간 순서로 배열 정렬
+        apiScheduleItems.sort((a, b) => {
+            const timeA = new Date(`2023-01-01 ${a.mbTime}`);
+            const timeB = new Date(`2023-01-01 ${b.mbTime}`);
+            return timeA - timeB;
+        });
+
         filteredMatchBoards = apiScheduleItems.filter(apiScheduleItem => {
             const mbDate = new Date(apiScheduleItem.mbDate);
 
             // 종목과 시도가 선택되었을 때만 해당 조건을 검사
             const isSportMatch = !selectedSport || apiScheduleItem.mbType === selectedSport;
-            const isSidoMatch = !selectedSido || apiScheduleItem.mbSido === selectedSido;
-            const isDateMatch = mbDate.setHours(0, 0, 0, 0) === new Date(date).setHours(0, 0, 0, 0);
+            // 시도가 2글자 초과인 경우, 앞의 2글자를 제외하고 나머지 글자만 가져옴
+            const isSidoMatch = !selectedSido || apiScheduleItem.mbSido.slice(0, 2) === selectedSido;
+
+            // 연, 월, 일이 일치해야지 필터링
+            const isDateMatch = mbDate.getFullYear() === selectedDate.getFullYear() &&
+                mbDate.getMonth() === selectedDate.getMonth() &&
+                mbDate.getDate() === selectedDate.getDate();
 
             // 모든 조건이 충족되어야 필터링
             return isSportMatch && isSidoMatch && isDateMatch;
@@ -158,9 +197,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // 장소와 상태 뱃지 표시
                 const locationAndStatusCell = row.insertCell();
-                locationAndStatusCell.innerHTML = `[${apiScheduleItem.mbSido}]
-        <a class="match-board-title" style="color: #111; font-weight: 400; text-decoration: none" href="/page/match/match-view?mbNum=${apiScheduleItem.mbNum}">${apiScheduleItem.mbAddressDetail}</a> <br>
-    `;
+                locationAndStatusCell.innerHTML = `[${apiScheduleItem.mbSido.slice(0, 2)}]
+    <a class="match-board-title" style="color: #111; font-weight: 400; text-decoration: none" href="/page/match/match-view?mbNum=${apiScheduleItem.mbNum}">${apiScheduleItem.mbAddressDetail}</a> <br>
+`;
 
                 // 상태 뱃지 표시
                 const statusCell = row.insertCell();
