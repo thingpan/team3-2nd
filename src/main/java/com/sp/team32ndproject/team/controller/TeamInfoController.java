@@ -53,10 +53,7 @@ public class TeamInfoController {
 	}
 	@GetMapping("/team-info")
 	public TeamInfoVO selectTeamInfoByTaNum(@RequestParam int taNum) {
-	    System.out.println("Received taNum: " + taNum);
-	    TeamInfoVO team = new TeamInfoVO();
-	    team.setTaNum(taNum);
-	    return teamInfoService.selectTeamInfoByTaNum(team);
+	    return teamInfoService.selectTeamInfoByTaNum(taNum);
 	}
 
 }
