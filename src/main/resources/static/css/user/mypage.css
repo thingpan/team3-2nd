@@ -21,14 +21,6 @@
         margin: 10px; /* 셀 간의 간격 조절 */
     }
 
-   
-    .team-info {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin-top: 10px; /* 다른 팀 정보 간의 간격 조절 */
-    }
-
     .team-info img {
         max-width: 100px; /* 이미지 최대 너비 설정 */
         max-height: 100px; /* 이미지 최대 높이 설정 */

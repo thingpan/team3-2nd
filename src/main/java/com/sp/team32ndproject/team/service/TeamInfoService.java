@@ -3,6 +3,7 @@ package com.sp.team32ndproject.team.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -87,8 +88,10 @@ public class TeamInfoService {
 		return teamInfoMapper.selectTeamUserInfo(uiNum);
 	}
 
-	public TeamInfoVO selectTeamInfoByTaName(TeamInfoVO team) {
-		return teamInfoMapper.selectTeamInfoByTaName(team);
+	
 
+	public TeamInfoVO selectTeamInfoByTaName(TeamInfoVO team) {
+		// TODO Auto-generated method stub
+		return teamInfoMapper.selectTeamInfoByTaName(team);
 	}
 }
