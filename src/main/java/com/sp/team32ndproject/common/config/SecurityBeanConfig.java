@@ -54,9 +54,9 @@ public class SecurityBeanConfig {
 	@Bean
 	SecurityFilterChain securityTeamPageFilterChain(HttpSecurity hs) throws Exception {
 		hs.authorizeHttpRequests((auth)-> auth
-				.antMatchers("/login","/join","/page/user/login","/page/user/join")
+				.antMatchers("/login","/join","/page/user/login","/page/user/join","/")
 				.permitAll()
-				.antMatchers("/page/team/team-settings","/page/team/team-apply", "/page/match/match-status")
+				.antMatchers("/page/team/team-settings","/page/team/team-apply", "/page/match/match-status","/team-user-delete")
 				.access(new TeamParamAuthManager(teamInfoService))
 				.anyRequest()
 				.authenticated())
@@ -68,7 +68,7 @@ public class SecurityBeanConfig {
 				.defaultSuccessUrl("/")
 				.failureUrl("/page/user/login"))
 		.logout(logout -> logout
-				.logoutUrl("/logout")
+				.logoutUrl("/auth/logout")
 				.logoutSuccessUrl("/page/user/login"));
 		
 		hs.csrf(csrf -> csrf.disable())

@@ -95,12 +95,12 @@
 			output.innerHTML = this.value;
 		}
 
-		function addRow(tableBody, rank, taType, taName, taBoundarySido, taPoint) {
+		function addRow(tableBody, rank, taType, taName, taBoundarySido, taPoint, taNum) {
 			const row = document.createElement('tr');
 			row.innerHTML = `
         <td>${rank}</td>
         <td>${taType}</td>
-        <td><a href="/html/team/team-view?taType=${taType}">${taName}</a></td>
+        <td><a href="/page/team/record?taNum=${taNum}">${taName}</a></td>
         <td>${taBoundarySido}</td>
         <td>${taPoint}</td>
     `;
@@ -148,7 +148,7 @@
 			tableBody.innerHTML = '';
 			let i = 1;
 			filteredData.forEach((row) => {
-				addRow(tableBody, i, row.taType, row.taName, row.taBoundarySido, row.taPoint);
+				addRow(tableBody, i, row.taType, row.taName, row.taBoundarySido, row.taPoint, row.taNum);
 				i++;
 			});
 			console.log('Checking values:', 'Sport:', sport, 'Area:', area, 'Skill:', skill);

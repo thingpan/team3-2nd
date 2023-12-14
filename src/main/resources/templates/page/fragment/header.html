@@ -19,6 +19,9 @@
 			function redirectToRegistrationPage() {
 				window.location.href = "/page/user/join";
 			}
+			function logout() {
+				window.location.href = "/page/user/login";
+			}
 		</script>
 
 		<a href="/" class="logo">Match Me If You Can</a>
@@ -27,9 +30,12 @@
 			<li><a href="/page/user/mypage">MyPage</a></li>
 			<li><a href="/page/team/team-rank">Rank</a></li>
 		</ul>
-		<div class="user-menu">
+		<div class="user-menu" sec:authorize="isAnonymous()">
 			<button id="login-button" class="btn btn-dark" onclick="redirectToLoginPage()">로그인</button>
 			<button id="register-button" class="btn btn-dark" onclick="redirectToRegistrationPage()">회원가입</button>
+		</div>
+		<div sec:authorize="isAuthenticated()">
+			<button onclick="logout()" class="btn btn-dark">로그아웃</button> 
 		</div>
 	</header>
 </head>
