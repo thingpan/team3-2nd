@@ -47,6 +47,17 @@ window.addEventListener('load', async function () {
         }
         document.querySelector('.team-list').innerHTML += html;
     }
+    
+    console.log(matchInfo.matchPhotos);
+    
+    matchPhotos = matchInfo.matchPhotos;
+    for(let i=0; i<matchPhotos.length; i++){
+		const matchPhoto = matchInfo.matchPhotos[i];
+		const html = `<div id="fileDiv${i + 1}">`
+					+ `<img src="${matchPhoto.mbpFilePath}" style="width:100px" id="img${i + 1}">`
+					+ `</div>`;
+			document.querySelector('#match-pic').innerHTML = html;
+	}
 
     const scoreValue = document.querySelector('#score-value');
     const nameValue = document.querySelector('#taName');
