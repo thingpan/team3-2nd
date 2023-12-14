@@ -77,8 +77,10 @@ public class UserInfoService implements UserDetailsService {
 	    }
 	    if (request.containsKey("uiEmail")) {
 	        user.setUiEmail(request.get("uiEmail"));
-	    }if(request.containsKey("uiPwd")) {
-	    user.setUiPwd(request.get(passwordEncoder.encode("uiPwd")));
+	    }if (request.containsKey("uiPwd")) {
+	        String rawPassword = request.get("uiPwd");
+	        String encodedPassword = passwordEncoder.encode(rawPassword);
+	        user.setUiPwd(encodedPassword);
 	    }
 	    return userInfoMapper.updateUserProfile(user);
 	}
