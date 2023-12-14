@@ -31,8 +31,16 @@
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
 		WHERE UI_NUM = #{uiNum}
-		AND TA_TYPE = #{taType}
+		AND TA_TYPE =
+		#{taType}
 	</select>
+   <select id="selectTeamUserInfo"
+      resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+   SELECT TSU.UI_NUM, TSU.TA_NUM, TA.TA_NAME,TA.TA_TYPE,TA.TA_FILE_PATH
+      FROM TEAM_USER_INFO TSU
+      INNER JOIN TEAM_INFO TA ON TSU.TA_NUM = TA.TA_NUM
+      WHERE TSU.UI_NUM = #{uiNum};
+   </select>
 
 
 	<select id="selectTeamRank"
@@ -72,6 +80,12 @@
 		ORDER BY TA_POINT DESC
 		LIMIT 20;
 	</select>
+	<select id="selectTeamInfoByTaName"
+		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		SELECT TA_NAME FROM TEAM_INFO
+		WHERE TA_NUM = #{taNum}
+
+	</select>
 
 	<select id="selectAdminByUiNumAndTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
@@ -87,6 +101,7 @@
 
 
 	</select>
+
 
 	<insert id="insertTeamInfo" useGeneratedKeys="true"
 		keyColumn="TA_NUM" keyProperty="taNum"

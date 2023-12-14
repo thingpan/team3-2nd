@@ -141,7 +141,11 @@
 				html += `<td>${role}</td>`;
 				html += `<td>${user.uiAddress}</td>`;
 				html += `<td>${user.uiPhoneNum}</td>`;
-				html += `<td><button class="btn btn-dark" onclick="doRelease(${user.tuNum},'${user.uiName}')")>퇴출</button></td>`
+				html += `<td>`;
+				if(role == '팀원'){
+					html += `<button class="btn btn-dark" onclick="doRelease(${user.tuNum},'${user.uiName}')")>방출</button>`;
+				}
+				html += `</td>`;
 				html += '</tr>';
 			}
 			document.querySelector('#team-user-list-info').innerHTML = html;

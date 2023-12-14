@@ -44,6 +44,11 @@
     margin-bottom: 1rem;
 }
 
+.score-badge {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
 #score-value {
     font-weight: 600;
     font-size: 16px;
@@ -142,7 +147,6 @@ tr:last-child {
 }
 
 span {
-    font-weight: 600;
     font-size: 16px;
     padding: 6px 14px;
     border-radius: 8px;

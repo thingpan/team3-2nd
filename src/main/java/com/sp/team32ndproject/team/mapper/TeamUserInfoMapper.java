@@ -12,5 +12,4 @@ public interface TeamUserInfoMapper {
 	int insertTeamUserInfo(TeamUserInfoVO teamUser);
 	List<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO);
 	int deleteTeamUserInfo(TeamUserInfoVO teamUserInfoVO);
-	 TeamUserInfoVO selectTeamUserInfo(TeamInfoVO teamInfoVO);
 }
