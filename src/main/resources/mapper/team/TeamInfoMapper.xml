@@ -92,10 +92,10 @@
 		SELECT * FROM TEAM_INFO
 		<where>
 			<if test="uiNum != null and uiNum != ''">
-				UI_NUM = 5
+				UI_NUM = #{uiNum}
 			</if>
 			<if test="taNum != null and taNum != ''">
-				AND TA_NUM = 3
+				AND TA_NUM = #{taNum}
 			</if>
 		</where>
 
