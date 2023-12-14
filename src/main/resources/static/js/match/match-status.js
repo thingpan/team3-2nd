@@ -33,12 +33,16 @@ window.addEventListener('load', async function () {
 
         const teamInfoResponse = await fetch(`/team-infos`);
         const teamInfo = await teamInfoResponse.json();
-        console.log("teamInfo", teamInfo);
 
-        document.querySelector('#team-name').innerText = teamInfo[0].taName;
+        // url 주소에서 taNum을 가져옴
+        const urlParams = new URLSearchParams(window.location.search);
+        const taNum = urlParams.get('taNum');
 
-        const teamScore = teamInfo[0].taPoint;
-        console.log("teamScore 값: ", teamScore);
+        // teamInfo 배열에서 taNum에 해당하는 taName 받아오기
+        document.querySelector('#team-name').innerText = teamInfo.find(team => team.taNum.toString() === taNum).taName;
+
+        // teamInfo에서 받아온 taNum에 해당하는 taPoint 받아오기
+        const teamScore = teamInfo.find(team => team.taNum.toString() === taNum).taPoint;
 
         const scoreValue = document.querySelector('#score-value');
         scoreValue.textContent = `${teamScore}점`;
