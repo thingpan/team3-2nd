@@ -36,7 +36,9 @@
 			<b>팀 정보</b>
 			<div class="team-info" onclick="goTeamPage(this)">
 				<div class="team-img"><img src="/imgs/basketball.png"></div>
-				<span id="taName"></span><br><span id="score-value"></span>
+				<div style="margin-bottom: 10px; margin-top: 10px;">
+					<span id="taName" style="margin-right: 10px;"></span><span id="score-value"></span>
+				</div>
 				<p>상세보기 ></p>
 			</div>
 			<hr>
@@ -87,7 +89,7 @@
 		</div>
 	</div>
 	<script src="/js/match/match-view.js"></script>
-	
+
 	<script>
 		window.addEventListener('scroll', () => {
 			if (window.scrollY > 50) {
