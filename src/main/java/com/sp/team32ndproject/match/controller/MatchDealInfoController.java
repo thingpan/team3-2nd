@@ -2,6 +2,7 @@ package com.sp.team32ndproject.match.controller;
 
 import com.sp.team32ndproject.match.service.MatchDealInfoService;
 import com.sp.team32ndproject.match.vo.MatchDealInfoVO;
+import com.sp.team32ndproject.team.vo.TeamSignUserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,5 +26,10 @@ public class MatchDealInfoController {
     public ResponseEntity<List<MatchDealInfoVO>> getAllMatchDealInfo() {
         List<MatchDealInfoVO> matchDealInfoList = matchDealInfoService.getAllMatchDealInfo();
         return new ResponseEntity<>(matchDealInfoList, HttpStatus.OK);
+    }
+
+    @PostMapping("/insert")
+    public int insertMatchDealInfo(@RequestBody MatchDealInfoVO matchDealInfoVO) {
+        return matchDealInfoService.insertMatchDealInfo(matchDealInfoVO);
     }
 }

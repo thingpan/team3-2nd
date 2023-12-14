@@ -140,8 +140,58 @@ function createMatchTable(data) {
     });
 }
 
-function statusButtonAcceptAlert() {
-    alert('매칭 수락을 성공했습니다.');
+async function statusButtonAcceptAlert(taName, taNum, mbNum) {
+    if (confirm(`팀 ${taName}과 매칭을 성공했습니다.`) == true) {
+        const body = {
+            taNum: taNum,
+            mbNum: mbNum
+        }
+        console.log(body);
+        const res = await fetch('/match-deal/insert', {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            }
+        });
+        const result = await res.json();
+        if (result) {
+            alert('매칭을 성공했습니다.');
+            location.reload();
+        } else {
+            alert('매칭을 실패했습니다. 다시 시도해주세요.');
+            location.reload();
+        }
+    } else {
+        return false;
+    }
+}
+
+async function acceptMembership(tsuNum, uiName, uiNum) {
+    if (confirm(`사용자 ${uiName}의 가입을 수락합니다.`) == true) {
+        const body = {
+            tsuNum: tsuNum,
+            uiNum: uiNum,
+            taNum: taNum
+        }
+        const res = await fetch('/team-user-add', {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            }
+        });
+        const result = await res.json();
+        if (result) {
+            alert('수락 성공');
+            location.reload();
+        } else {
+            alert('수락 실패 다시 시도해 주세요');
+            location.reload();
+        }
+    } else {
+        return false;
+    }
 }
 
 function statusButtonDefuseAlert() {
