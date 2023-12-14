@@ -4,6 +4,7 @@ const urlParams = new URL(location.href).searchParams;
 const mbNum = urlParams.get('mbNum');
 let selectedTeamNum = 2;
 let matchInfo;
+let teamList;
 
 window.addEventListener('load', async function () {
     const res = await fetch(`/match-view/${mbNum}`);
@@ -12,7 +13,7 @@ window.addEventListener('load', async function () {
     console.log("matchInfo", matchInfo);
 
     const teamRes = await fetch(`/my-team-infos-by-type/${matchInfo.mbType}`);
-    const teamList = await teamRes.json();
+    teamList = await teamRes.json();
 
     console.log(teamList);
 
@@ -146,13 +147,13 @@ async function matchRequest() {
             mdsNum: selectedTeamNum, // 선택된 팀 번호
             mbNum: mbNum, // 매치 보드 번호
             mdAddress: matchInfo.mbAddressDetail,
-            taName: teamList.taName,
+            taName: teamList[0].taName,
             mdTime: matchInfo.mbTime,
             mdDate: matchInfo.mbDate,
             mdMatchStatus: 1
         };
 
-        console.log(matchDealInfo);
+        console.log("matchDealInfo: ", matchDealInfo);
 
         const response = await fetch('/match-deal/save', {
             method: 'POST',
