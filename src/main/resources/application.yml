@@ -33,6 +33,6 @@ upload:
   file-path: C:\dev\upload\
     
   
-#download: 
-#  file-path: file:///dev/upload/
-#  resource-url: /file/**
+download: 
+  file-path: file:///C:/dev/upload/
+  resource-url: /file/**
