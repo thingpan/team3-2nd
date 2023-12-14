@@ -63,6 +63,7 @@
 									<label for="team-file-input" class="btn btn-dark">
 										팀 사진 첨부
 									</label>
+
 								</div>
 							</div>
 
@@ -73,7 +74,11 @@
 									<p style="color: red">&nbsp;*</p>
 								</div>
 								<input type="text" class="form-control" id="recipient-name" />
+								<div id="errorTaName" class="error-message"></div>
+								<button type="button" class="btn btn-dark" id="checkIdButton" style="font-size:13px;"
+									onclick="checkTeamName()">중복확인</button><br>
 							</div>
+
 							<div class="mb-2">
 								<div class="modal-title-text">
 									지역
@@ -105,7 +110,7 @@
 								<input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off"
 									value="야구" />
 								<label class="btn btn-outline-dark" for="btn-check-outlined2">
-
+									야구
 								</label>
 								<input type="checkbox" class="btn-check" id="btn-check-outlined3" autocomplete="off"
 									value="농구" />
@@ -176,7 +181,6 @@
 				// Hide the user information section
 				document.querySelector('.edit-profile-form').style.display = 'none';
 			}
-			//여기까지
 			function openModal() {
 				const teamAddModal = document.querySelector('#teamAddModal');
 				$(teamAddModal).modal('show');
@@ -236,6 +240,10 @@
 
 
 			async function showAlert() {
+				if (!isNameChecked) {
+					alert('팀 이름 중복 확인을 해주세요.');
+					return;
+				}
 				const teamImgFile = document.querySelector('#team-file-input');
 				const formData = new FormData();
 				if (teamImgFile.files.length) {
@@ -256,6 +264,7 @@
 					method: 'POST',
 					body: formData
 				});
+				$('#teamAddModal').modal('hide');
 
 			}
 
@@ -324,7 +333,7 @@
 			<h3>이메일 변경</h3>
 			<label for="new-email">새 이메일</label>
 			<input type="email" id="new-email" name="new-email" placeholder="새 이메일 입력">
-			<button type="button" id="confirm-email-change" onclick="changeemail()">확인</button>
+			<button type="button" id="confirm-email-change" onclick="changeEmailAndDisplay()">확인</button>
 			<button type="button" id="cancel-email-change">취소</button>
 		</div>
 
@@ -332,16 +341,27 @@
 		<div id="change-password-popup"
 			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
 			<h3>비밀번호 변경</h3>
-
-			<input type="password" id="current-password-input" name="current-password" placeholder="현재 비밀번호 입력"> <br>
-			<input type="password" id="new-password" name="new-password" placeholder="새 비밀번호 입력"> <br>
-			<input type="password" id="confirm-new-password" name="confirm-new-password" placeholder="새 비밀번호 확인"> <br>
+			<input type="password" id="changecurrentpasswordinput" name="current-password" placeholder="현재 비밀번호 입력">
+			<br>
+			<input type="password" id="newpassword" name="new-password" placeholder="새 비밀번호 입력"> <br>
+			<input type="password" id="confirmnewpassword" name="confirm-new-password" placeholder="새 비밀번호 확인"> <br>
 			<button type="button" id="confirm-password-change">확인</button>
 			<button type="button" id="cancel-password-change">취소</button>
 		</div>
 		<div id="change-password-popup" style="display: none;">
 
 			<script>
+				
+				function changeEmailAndDisplay() {
+
+					const newEmailInput = document.getElementById('new-email');
+					const newEmail = newEmailInput.value;
+
+					const displayedEmailInput = document.getElementById('email');
+					displayedEmailInput.value = newEmail;
+
+					document.getElementById('change-email-popup').style.display = 'none';
+				}
 				let teamData;
 				window.addEventListener('load', async function () {
 					const rankRes = await fetch('/team-user-info');
@@ -386,45 +406,25 @@
 					}
 
 				}
-
-
-
-
-
-				async function changeemail() {
-					const email = document.querySelector("#new-email").value;
-
-					const response = await fetch('/change-email', {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify({email}),
-					});
-
-					const result = await response.json();
-
-					if (result) {
-						alert("이메일 변경이 완료 되었습니다");
-						$('#change-email-popup').modal('hide');
-						document.querySelector('.edit-profile-form').style.display = 'block';
-					} else {
-						throw new Error("이메일 변경이 실패했습니다.");
-					}
-				}
 				function save() {
-					// 사용자가 입력한 값을 가져오기
+
 					var uiName = document.getElementById("user-name").value;
 					var uiAddress = document.getElementById("address").value;
 					var uiBirth = document.getElementById("date").value;
 					var uiPhoneNum = document.getElementById("phone").value;
+					var uiEmail = document.getElementById("email").value;
+					var uiPwd = document.getElementById("password").value;
+					
+
 
 
 					updateProfile({
 						uiName: uiName,
 						uiAddress: uiAddress,
 						uiBirth: uiBirth,
-						uiPhoneNum: uiPhoneNum
+						uiPhoneNum: uiPhoneNum,
+						uiEmail: uiEmail,
+						uiPwd : uiPwd
 					});
 				}
 
@@ -472,6 +472,38 @@
 
 
 			<script>
+				let isNameChecked = false;
+				async function checkTeamName() {
+					const taName = document.querySelector('#recipient-name').value;
+
+					if (!taName) {
+						document.getElementById('errorTaName').innerHTML = "<span style='color: red;'>팀이름 를 입력해주세요.</span>";
+						return;
+					} else {
+						document.getElementById('errorTaName').innerHTML = "";
+					}
+
+
+					const data = {
+						taName: taName
+					}
+					const res = await fetch('/check-taName', {
+						method: 'POST',
+						body: JSON.stringify(data),
+						headers: {
+							'Content-Type': 'application/json;charset=UTF-8'
+						}
+
+					});
+
+
+					document.getElementById('errorTaName').innerHTML = "<span style='color: green;'>사용 가능한 이름입니다.</span>";
+					isNameChecked = true;
+					const result = await res.json();
+					if (result) {
+						document.getElementById('errorTaName').innerHTML = "<span style='color: red;'>이미 사용 중인 이름입니다.</span>";
+					}
+				}
 
 
 				document.addEventListener('DOMContentLoaded', function () {
@@ -480,9 +512,9 @@
 					const cancelPasswordChangeButton = document.getElementById('cancel-password-change');
 
 					confirmPasswordChangeButton.addEventListener('click', async function () {
-						const currentPasswordInput = document.getElementById('current-password-input');
-						const newPasswordInput = document.getElementById('new-password');
-						const confirmNewPasswordInput = document.getElementById('confirm-new-password');
+						const currentPasswordInput = document.getElementById('changecurrentpasswordinput');
+						const newPasswordInput = document.getElementById('newpassword');
+						const confirmNewPasswordInput = document.getElementById('confirmnewpassword');
 
 						const currentPassword = currentPasswordInput.value.trim();
 						const newPassword = newPasswordInput.value.trim();
@@ -512,28 +544,7 @@
 						// 팝업을 닫을 수 있도록 처리
 						changePasswordPopup.style.display = 'none';
 					});
-
-
-					async function changePassword(newPassword) {
-						const response = await fetch('/change-password', {
-							method: 'PUT',
-							headers: {
-								'Content-Type': 'application/json',
-							},
-							body: JSON.stringify({newPassword}),
-						});
-
-						const result = await response.json();
-
-						if (result) {
-							("비밀번호가 변경이 되었습니다");
-						} else {
-							throw new Error("비밀번호 변경에 실패했습니다");
-						}
-					}
 				});
-
-
 
 				function openChangePasswordPopup() {
 
@@ -546,12 +557,6 @@
 
 					document.getElementById('change-password-popup').style.display = 'none';
 				});
-
-
-
-
-
-
 				function profile() {
 					var image = document.getElementById('image');
 					var source = image.src;
@@ -570,42 +575,28 @@
 				}
 
 			</script>
-			<script>
-
-
-			</script>
 
 			<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 			<div class="overlay" id="overlay"></div>
 			<input type="file" id="profile-image-upload" style="display: none" accept="image/*"
 				onchange="previewProfileImage(event)">
-
-
 			<div id="overlay"></div>
-
-
 			<script>
 				function openChangeEmailPopup() {
 
 					document.getElementById('change-email-popup').style.display = 'block';
 
-
 				}
-
-
 				document.getElementById('cancel-email-change').addEventListener('click', function () {
 
 					document.getElementById('change-email-popup').style.display = 'none';
 				});
-
 
 				document.getElementById('confirm-email-change').addEventListener('click', function () {
 
 					document.getElementById('change-email-popup').style.display = 'none';
 
 				});
-
-
 
 				function closeProfilePopup() {
 					// 모달 창 닫기
@@ -614,16 +605,16 @@
 				}
 
 				const changeEmailPopup = document.getElementById('change-email-popup');
-				const confirmEmailChangeButton = document.getElementById('confirm-email-change');
-				const cancelEmailChangeButton = document.getElementById('cancel-email-change');
+				const confirmEmailChangeButton = document.getElementById('confirmemailchange');
+				const cancelEmailChangeButton = document.getElementById('cancelemailchange');
 
 				confirmEmailChangeButton.addEventListener('click', function () {
-					const newEmailInput = document.getElementById('new-email');
+					const newEmailInput = document.getElementById('newemail');
 					const newEmail = newEmailInput.value.trim();
 
 
 					changeEmailPopup.style.display = 'none';
-					// 이메일 변경 완료 메시지 등을 추가할 수 있습니다.
+
 				});
 
 				cancelEmailChangeButton.addEventListener('click', function () {
@@ -685,6 +676,7 @@
 
 				// 페이지 로드 시 초기화 함수 호출
 				initializeTeamList('');
+				
 			</script>
 </body>
 

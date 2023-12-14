@@ -43,27 +43,13 @@ public class UserInfoController {
 		return userInfoService.selectUserInfoByUiNum(user);
 	}
 
-	@PutMapping("/change-password")
-	public int changePassword(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String> newPassword) {
-		log.info("Changing password for user: {}", user.getUiId());
-
-		return userInfoService.changePassword(user.getUiId(), newPassword);
-	}
-
 	@PostMapping("/check-password")
 	public boolean checkPassword(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String> password) {
 		return userInfoService.checkPassword(user.getUiId(), password);
 	}
 
-	@PostMapping("/change-email")
-	public int changeEmail(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String> newEmail) {
-
-		return userInfoService.changeEmail(user.getUiId(), newEmail);
-
-	}
 	@PostMapping("/update-profile")
-    public int updateProfile(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String>request) {
-
+    public int updateUserProfile(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String>request) {
          return  userInfoService.updateUserProfile(user.getUiId(), request);
        
     }

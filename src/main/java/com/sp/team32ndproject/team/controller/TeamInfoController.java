@@ -2,6 +2,7 @@ package com.sp.team32ndproject.team.controller;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,8 +67,8 @@ public class TeamInfoController {
 		return teamInfoService.selectTeamInfosByUiNumAndTaType(taType, user.getUiNum());
 	}
 
-	@GetMapping("/check-taName")
-	public TeamInfoVO selectTeamInfoByTaName(TeamInfoVO team) {
+	@PostMapping("/check-taName")
+	public TeamInfoVO TeamInfoByTaName(@RequestBody TeamInfoVO team) {
 		return teamInfoService.selectTeamInfoByTaName(team);
 	}
 

@@ -11,7 +11,5 @@ public interface UserInfoMapper {
    int insertUserInfo(UserInfoVO user);
    UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user);
  UserInfoVO selectPasswordByUiPwd(String uiId);
-      int updateUserPassword(UserInfoVO user);
-      int updateUserEmail( UserInfoVO user);
-      int updateUserProfile( UserInfoVO user);
+      int updateUserProfile(UserInfoVO user);
 }
