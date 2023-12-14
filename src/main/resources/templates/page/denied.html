@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
+
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+	<meta charset="EUC-KR">
+	<title>팀장 권한 없음</title>
+	<style>
+		body {
+			background-color: #f4f4f4;
+			text-align: center;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+
+		.container {
+			background-color: #ffffff;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			color: #e74c3c;
+			font-size: 30px;
+		}
+
+		button {
+			background-color: #3498db;
+			color: #ffffff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+
+		button:hover {
+			background-color: #2980b9;
+		}
+	</style>
 </head>
+
 <body>
-팀장 권한 없음
+	<div class="container">
+		<h1>팀장 권한 없음</h1>
+		<p>팀장 권한이 필요한 작업을 수행할 권한이 없습니다.</p>
+		<button onclick="goBack()">뒤로 가기</button>
+	</div>
+
+	<script>
+		function goBack() {
+			window.history.back();
+		}
+	</script>
 </body>
+
 </html>
