@@ -52,15 +52,7 @@ public class UserInfoService implements UserDetailsService {
 		return userInfoMapper.selectUserInfoByUiNum(user);
 	}
 
-	public int changePassword(String uiId, Map<String, String> newPasswordMap) {
-        String newPassword = newPasswordMap.get("newPassword");
-
-	    UserInfoVO user = userInfoMapper.selectUserInfoByUiId(uiId);
-	    user.setUiPwd(passwordEncoder.encode(newPassword));
-	    return userInfoMapper.updateUserPassword(user);
-	}
-
-
+	
 	public boolean checkPassword(String uiId, Map<String, String> password) {
 		UserInfoVO user = userInfoMapper.selectPasswordByUiPwd(uiId);
 		if(passwordEncoder.matches(password.get("password"), user.getUiPwd())) {
@@ -69,16 +61,8 @@ public class UserInfoService implements UserDetailsService {
 		return false;
 	}
 
-	public int changeEmail(String uiId, Map<String, String> newEmail) {
-	    UserInfoVO user = userInfoMapper.selectUserInfoByUiId(uiId);
-	    String email = newEmail.get("email");
-	    user.setUiEmail(email);
-	    return userInfoMapper.updateUserEmail(user);
-	}
 	public int updateUserProfile(String uiId, Map<String, String> request) {
-	    UserInfoVO user = userInfoMapper.selectUserInfoByUiId(uiId);
-
-	    // 필드를 직접 업데이트
+	    UserInfoVO user = userInfoMapper.selectUserInfoByUiId(uiId); 
 	    if (request.containsKey("uiName")) {
 	    	user.setUiName(request.get("uiName"));
 	    }
@@ -91,11 +75,12 @@ public class UserInfoService implements UserDetailsService {
 	    if (request.containsKey("uiPhoneNum")) {
 	        user.setUiPhoneNum(request.get("uiPhoneNum"));
 	    }
-
-	    // 업데이트된 유저 정보를 데이터베이스에 반영
+	    if (request.containsKey("uiEmail")) {
+	        user.setUiEmail(request.get("uiEmail"));
+	    }if(request.containsKey("uiPwd")) {
+	    user.setUiPwd(request.get(passwordEncoder.encode("uiPwd")));
+	    }
 	    return userInfoMapper.updateUserProfile(user);
 	}
-	
-
 
 }

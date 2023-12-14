@@ -20,22 +20,13 @@
 		FROM USER_INFO
 		WHERE UI_ID= #{uiId}
 	</select>
-	<update id="updateUserPassword"
-		parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
-		UPDATE USER_INFO
-		SET UI_PWD = #{uiPwd}
-		WHERE  UI_ID= #{uiId}
-	</update>
-		<update id="updateUserEmail"
-		parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
-		UPDATE USER_INFO
-		SET UI_EMAIL = #{uiEmail}
-		WHERE  UI_ID= #{uiId}
-	</update>
+
 		<update id="updateUserProfile"
 		parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
  UPDATE USER_INFO
     SET 
+    	UI_PWD =#{uiPwd},
+    	UI_EMAIL = #{uiEmail},
         UI_BIRTH = #{uiBirth},
         UI_NAME = #{uiName},
         UI_ADDRESS = #{uiAddress},
