@@ -13,10 +13,6 @@ public class MatchDealInfoService {
     @Autowired
     private MatchDealInfoMapper matchDealInfoMapper;
 
-    public void saveMatchDealInfo(MatchDealInfoVO matchDealInfo) {
-        matchDealInfoMapper.insertMatchDealInfo(matchDealInfo);
-    }
-
     public List<MatchDealInfoVO> getAllMatchDealInfo() {
         return matchDealInfoMapper.getAllMatchDealInfo();
     }

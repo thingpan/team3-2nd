@@ -1,7 +1,6 @@
 package com.sp.team32ndproject.match.mapper;
 
 import com.sp.team32ndproject.match.vo.MatchDealInfoVO;
-import com.sp.team32ndproject.team.vo.TeamSignUserInfoVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -1,3 +1,5 @@
+let recordList;
+
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
         header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
@@ -21,56 +23,32 @@ document
         $('#membershipModal').modal('hide'); // 모달 숨기기 // 알림 표시
     });
 
-const matchList = document.querySelector('#match-list');
+window.addEventListener('load', async function () {
+    const recordRes = await fetch(`/record-save/select`);
+    recordList = await recordRes.json();
+    console.log(recordList);
+});
 
-function getRandomDate() {
-    const year = 2023;
-    const month = 11;
-    const day = String(Math.floor(Math.random() * 30) + 1).padStart(2, '0'); // yyyy-mm-dd 형식으로 출력
-    return `${year}.${month}.${day}`;
-}
+// 매치 리스트 렌더링 함수
+function renderMatchList() {
+    const matchList = document.querySelector('#match-list');
 
-function getRandomArena() {
-    const arenas = [
-        '월곡 구민 축구장',
-        '고척스카이돔 야외축구장',
-        '뚝섬한강공원 축구장',
-    ];
-    const randomIndex = Math.floor(Math.random() * arenas.length);
-    return arenas[randomIndex];
-}
+    // 기존 매치 아이템 삭제
+    matchList.innerHTML = '';
 
-function getRandomOpponent() {
-    const opponents = ['상대팀 A', '상대팀 B', '상대팀 C'];
-    const randomIndex = Math.floor(Math.random() * opponents.length);
-    return opponents[randomIndex];
-}
-
-function getRandomScore(isWin) {
-    if (isWin) {
-        const ourScore = Math.floor(Math.random() * 10) + 1;
-        const opponentScore = Math.floor(Math.random() * (ourScore - 1));
-        return `${ourScore} : ${opponentScore}`;
-    } else {
-        const ourScore = Math.floor(Math.random() * 2);
-        const opponentScore = Math.floor(Math.random() * 10) + 1;
-        return `${ourScore} : ${opponentScore}`;
-    }
-}
-
-function getRandomTime() {
-    const minHour = 6;
-    const maxHour = 22;
-    const hours = String(
-        Math.floor(Math.random() * (maxHour - minHour + 1) + minHour)
-    ).padStart(2, '0');
-    const minutes = Math.random() < 0.5 ? '00' : '30';
-    return `${hours}:${minutes}`;
+    // 받아온 데이터를 이용하여 매치 아이템 생성
+    matchData.forEach(match => {
+        const matchItem = createMatchItem(match);
+        matchList.appendChild(matchItem);
+    });
 }
 
 let matchEndButtons = [];
 
-function createMatchItem() {
+function createMatchItem(data) {
+    data.forEach((record) => {
+
+
     const matchItem = document.createElement('li');
     const matchDate = document.createElement('span');
     const matchArena = document.createElement('span');
@@ -78,16 +56,16 @@ function createMatchItem() {
     const matchScore = document.createElement('span');
     const matchStatus = document.createElement('span');
 
-    const date = getRandomDate();
-    const time = getRandomTime();
+    const date = record.rsDate;
+    const time = record.rsTime;
 
     matchDate.innerHTML = `${date}<br>${time}`;
-    matchArena.textContent = getRandomArena();
-    matchOpponent.textContent = getRandomOpponent();
+    matchArena.textContent = recordList.rsAddress;
+    matchOpponent.textContent = recordList.rsTmName;
 
-    const randomStatus = Math.floor(Math.random() * 3);
+    const matchStatusResult = recordList.rsMatchStatus;
 
-    switch (randomStatus) {
+    switch (matchStatusResult) {
         case 0:
             matchScore.textContent = getRandomScore(true);
             matchScore.style.color = '#0066FF';
@@ -140,6 +118,7 @@ function createMatchItem() {
     matchItem.appendChild(matchStatus);
 
     matchList.appendChild(matchItem);
+    });
 }
 
 for (let i = 0; i < 5; i++) {
@@ -151,40 +130,12 @@ function getRandomPoint() {
     return Math.floor(Math.random() * 501); // 0부터 500까지
 }
 
-/*
-// 랜덤으로 점수 생성
-const randomScore = getRandomPoint();
-
-// 점수 출력
-const scoreValue = document.querySelector('#score-value');
-scoreValue.textContent = `${randomScore}점`;
-
-// 점수에 따라 배경색과 텍스트색 변경
-if (randomScore <= 100) {
-    scoreValue.style.backgroundColor = '#ececec';
-    scoreValue.style.color = '#767676';
-} else if (randomScore <= 200) {
-    scoreValue.style.backgroundColor = '#ede0c4';
-    scoreValue.style.color = '#825e01';
-} else if (randomScore <= 300) {
-    scoreValue.style.backgroundColor = '#fffbd5';
-    scoreValue.style.color = '#ffb800';
-} else if (randomScore <= 400) {
-    scoreValue.style.backgroundColor = '#e6f0ff';
-    scoreValue.style.color = '#0066ff';
-} else {
-    scoreValue.style.backgroundColor = '#f4e2ff';
-    scoreValue.style.color = '#8200d2';
-}
-*/
-
 function openModal() {
     const scoreModal = document.querySelector('#scoreModal');
     $(scoreModal).modal('show');
 }
 
 // matchEndButtons 배열에 대한 이벤트 리스너 추가
-
 matchEndButtons.forEach((button) => {
     button.addEventListener('click', function () {
         openModal();

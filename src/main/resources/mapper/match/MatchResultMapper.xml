@@ -9,12 +9,8 @@
 
     <insert id="insertMatchResult" parameterType="com.sp.team32ndproject.match.vo.MatchResultVO">
         INSERT INTO MATCH_RESULT
-        (TA_HOME_NUM, TA_AWAY_NUM, MR_HOME_SCORE,
-         MR_AWAY_SCORE, MR_WIN_NUM, MR_LOSE_NUM, MR_HOME_MANNER_POINT,
-         MR_AWAY_MANNER_POINT, MR_REQUEST_STATUS)
-        VALUES (#{taHomeNum}, #{taAwayNum}, #{mrHomeScore},
-                #{mrAwayScore}, #{mrWinNum}, #{mrLoseNum}, #{mrHomeMannerPoint},
-                #{mrAwayMannerPoint}, #{mrRequestStatus})
+        (MD_NUM, TA_HOME_NUM, TA_AWAY_NUM, MR_REQUEST_STATUS)
+        VALUES (#{mdNum}, #{taHomeNum}, #{taAwayNum}, #{mrRequestStatus})
     </insert>
 
 
