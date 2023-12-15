@@ -47,9 +47,9 @@ window.addEventListener('load', async function () {
         }
         document.querySelector('.team-list').innerHTML += html;
     }
-    
+
     console.log(matchInfo.matchPhotos);
-    
+
     matchPhotos = matchInfo.matchPhotos;
     for(let i=0; i<matchPhotos.length; i++){
 		const matchPhoto = matchInfo.matchPhotos[i];
@@ -59,9 +59,18 @@ window.addEventListener('load', async function () {
 			document.querySelector('#match-pic').innerHTML = html;
 	}
 
+    // const taNum = document.querySelector('.team-info').value;
+    // console.log("taNum 값: ", taNum);
+
+    const teamListRes = await fetch(`/team-infos`);
+    const teamInfoList = await teamListRes.json();
+
+    console.log("teamInfoList", teamInfoList);
+
     const scoreValue = document.querySelector('#score-value');
     const nameValue = document.querySelector('#taName');
-    const taName = teamList[0].taName;
+
+    const taName = teamInfoList[21].taName;
     const teamPoint = teamList[0].taPoint;
     nameValue.innerHTML = `${taName}`;
     scoreValue.innerHTML = `${teamPoint}점`;
@@ -157,16 +166,19 @@ async function matchRequest() {
         const matchDealInfo = {
             mdsNum: selectedTeamNum, // 선택된 팀 번호
             mbNum: mbNum, // 매치 보드 번호
+            mdHomeNum: matchInfo.mbNum,
+            mdAwayNum: teamList[0].taNum,
             mdAddress: matchInfo.mbAddressDetail,
             taName: teamList[0].taName,
             mdTime: matchInfo.mbTime,
             mdDate: matchInfo.mbDate,
+            mdType: matchInfo.mbType,
             mdMatchStatus: 1
         };
 
         console.log("matchDealInfo: ", matchDealInfo);
 
-        const response = await fetch('/match-deal/save', {
+        const response = await fetch('/match-deal/insert', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -174,10 +186,11 @@ async function matchRequest() {
             body: JSON.stringify(matchDealInfo),
         });
 
-        if (response.ok) {
-            alert('매치 신청을 성공했습니다.');
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            console.error('오류 메시지:', errorMessage);
         } else {
-            alert('매치 신청을 실패했습니다.');
+            alert('매치 신청을 성공했습니다.');
         }
     }
 }

@@ -4,12 +4,54 @@
     <insert id="insertMatchDealInfo" useGeneratedKeys="true"
             keyColumn="MD_NUM" keyProperty="mdNum"
             parameterType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
-        INSERT INTO MATCH_DEAL_INFO (MDS_NUM, MB_NUM, MD_ADDRESS, TA_NAME, MD_TIME, MD_DATE, MD_MATCH_STATUS)
-        VALUES (#{mdsNum}, #{mbNum}, #{mdAddress}, #{taName}, #{mdTime}, #{mdDate}, #{mdMatchStatus})
+        INSERT INTO
+            MATCH_DEAL_INFO
+            (MDS_NUM, MB_NUM, TA_NAME, MD_HOME_NUM, MD_AWAY_NUM, MD_ADDRESS, MD_TYPE, MD_TIME, MD_DATE, MD_MATCH_STATUS)
+        VALUES
+            (#{mdsNum}, #{mbNum}, #{taName}, #{mdHomeNum},
+             #{mdAwayNum}, #{mdAddress}, #{mdType}, #{mdTime},
+             #{mdDate}, #{mdMatchStatus})
     </insert>
 
     <select id="getAllMatchDealInfo" resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
         SELECT * FROM MATCH_DEAL_INFO
     </select>
 
+    <!-- Home 팀이 글을 올린 경우 -->
+    <select id="getMatchDealInfoByMatchBoardNum" parameterType="int" resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
+        SELECT * FROM project.MATCH_DEAL_INFO
+        WHERE MB_NUM = #{mbNum}
+    </select>
+
+    <!-- Away 팀이 신청한 경우 -->
+    <select id="getMatchDealInfoByMatchDealNum" parameterType="int" resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
+        SELECT * FROM project.MATCH_DEAL_INFO
+        WHERE MDS_NUM = #{mdsNum}
+    </select>
+
+    <!-- 대기 중인 매치 딜 정보 조회 -->
+    <select id="getWaitingMatchDealInfoForHomeTeam" parameterType="int" resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
+        SELECT * FROM project.MATCH_DEAL_INFO
+        WHERE MD_HOME_NUM = #{homeTeamNum}
+          AND MD_MATCH_STATUS = '0'
+    </select>
+
+    <!-- 대기 중인 매치 딜 정보 조회 -->
+    <select id="getWaitingMatchDealInfoForAwayTeam" parameterType="int" resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
+        SELECT * FROM project.MATCH_DEAL_INFO
+        WHERE MD_AWAY_NUM = #{awayTeamNum}
+          AND MD_MATCH_STATUS = '0'
+    </select>
+
+    <update id="updateMatchDealStatus" parameterType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
+        UPDATE project.MATCH_DEAL_INFO
+        SET MD_MATCH_STATUS = #{mdMatchStatus}
+        WHERE MD_NUM = #{mdNum}
+    </update>
+
+    <delete id="deleteMatchDealStatus"
+            parameterType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
+        DELETE FROM MATCH_DEAL_INFO
+        WHERE MD_NUM = #{mdNum}
+    </delete>
 </mapper>
