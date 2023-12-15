@@ -299,3 +299,17 @@ header {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 }
+
+#teamNameCheckButton{
+	width: 10%;
+	margin-top: 0%;
+}
+
+#checkTeamNameInModal{
+	width: 70%;
+	display: inline-block;
+}
+
+#checkTeamNameButtonInModal{
+	display: inline-block;
+}

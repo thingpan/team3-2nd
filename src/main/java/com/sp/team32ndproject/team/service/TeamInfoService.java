@@ -56,6 +56,23 @@ public class TeamInfoService {
 		}
 		return 0;
 	}
+	
+	public int updateTeamInfo(TeamInfoVO teamInfoVO) {
+		MultipartFile file = teamInfoVO.getTaFile();
+		String originFileName = teamInfoVO.getTaFile().getOriginalFilename();
+		String extName = originFileName.substring(originFileName.lastIndexOf("."));
+		String fileName = UUID.randomUUID() + extName;
+		teamInfoVO.setTaFileName(originFileName);
+		teamInfoVO.setTaFilePath("/file/" + fileName);
+		try {
+			file.transferTo(new File(uploadFilePath + fileName));
+		} catch (IllegalStateException e) {
+			log.error("file upload error=>{}", e);
+		} catch (IOException e) {
+			log.error("file upload error=>{}", e);
+		}
+		return teamInfoMapper.updateTeamInfo(teamInfoVO);
+	}
 
 	public List<TeamInfoVO> selectTeamInfos(TeamInfoVO team) {
 		return teamInfoMapper.selectTeamInfos(team);

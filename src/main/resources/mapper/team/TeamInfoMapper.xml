@@ -34,13 +34,15 @@
 		AND TA_TYPE =
 		#{taType}
 	</select>
-   <select id="selectTeamUserInfo"
-      resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
-   SELECT TSU.UI_NUM, TSU.TA_NUM, TA.TA_NAME,TA.TA_TYPE,TA.TA_FILE_PATH
-      FROM TEAM_USER_INFO TSU
-      INNER JOIN TEAM_INFO TA ON TSU.TA_NUM = TA.TA_NUM
-      WHERE TSU.UI_NUM = #{uiNum};
-   </select>
+	<select id="selectTeamUserInfo"
+		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		SELECT TSU.UI_NUM, TSU.TA_NUM,
+		TA.TA_NAME,TA.TA_TYPE,TA.TA_FILE_PATH
+		FROM TEAM_USER_INFO TSU
+		INNER JOIN
+		TEAM_INFO TA ON TSU.TA_NUM = TA.TA_NUM
+		WHERE TSU.UI_NUM = #{uiNum};
+	</select>
 
 
 	<select id="selectTeamRank"
@@ -101,6 +103,26 @@
 
 
 	</select>
+
+	<update id="updateTeamInfo"
+		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		UPDATE TEAM_INFO
+		<set>
+			<if test="taFilePath != null and taFilePath != ''">
+				TA_FILE_PATH = #{taFilePath},
+			</if>
+			<if test="taFileName != null and taFileName != ''">
+				TA_FILE_NAME = #{taFileName},
+			</if>
+			<if test="taName != null and taName != ''">
+				TA_NAME = #{taName},
+			</if>
+			<if test="taDesc != null and taDesc != ''">
+				TA_DESC = #{taDesc}
+			</if>
+		</set>
+		WHERE TA_NUM = #{taNum};
+	</update>
 
 
 	<insert id="insertTeamInfo" useGeneratedKeys="true"
