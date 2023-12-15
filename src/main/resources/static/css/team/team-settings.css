@@ -275,7 +275,6 @@ header {
 	overflow: hidden;
 	border-radius: 50%;
 	margin: 10px 0;
-	background-image: url('/imgs/basketball.png');
 	/* 기본 이미지 URL을 넣는 곳 */
 	background-size: cover;
 }
@@ -284,7 +283,6 @@ header {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	display: none;
 }
 
 .container.team-settings input#profilePicture {

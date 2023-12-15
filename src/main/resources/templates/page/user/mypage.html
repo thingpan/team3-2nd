@@ -264,6 +264,7 @@
 					method: 'POST',
 					body: formData
 				});
+				alert("팀 만들기 성공")
 				$('#teamAddModal').modal('hide');
 
 			}
@@ -343,341 +344,306 @@
 			<h3>비밀번호 변경</h3>
 			<input type="password" id="changecurrentpasswordinput" name="current-password" placeholder="현재 비밀번호 입력">
 			<br>
-			<input type="password" id="newpassword" name="new-password" placeholder="새 비밀번호 입력"> <br>
+			<input type="password" id="newpassword" name="new-password" placeholder="새 비밀번호 입력 (8자 이상, 특수기호 포함)"> <br>
 			<input type="password" id="confirmnewpassword" name="confirm-new-password" placeholder="새 비밀번호 확인"> <br>
-			<button type="button" id="confirm-password-change">확인</button>
+			<button type="button" id="confirm-password-change" onclick="changePasswordAndDisplay()">확인</button>
 			<button type="button" id="cancel-password-change">취소</button>
 		</div>
-		<div id="change-password-popup" style="display: none;">
 
-			<script>
-				
-				function changeEmailAndDisplay() {
+		<script>
+			async function changePasswordAndDisplay() {
+				const password = document.querySelector("#changecurrentpasswordinput").value;
+				const newPassword = document.querySelector("#newpassword").value;
+				const confirmNewPassword = document.getElementById("confirmnewpassword").value;
+				const confirmPassword = document.getElementById("confirmnewpassword")
+				const pPassword =confirmPassword.value;		
+				const Inputpassword =document.querySelector("#password");
+				// Password validation
+				const passwordRegex = /^(?=.*[!@#$%^&*])(?=.{8,})/;
+				const response = await fetch('/check-password', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({password}),
+				});
 
-					const newEmailInput = document.getElementById('new-email');
-					const newEmail = newEmailInput.value;
+				const result = await response.json();
 
-					const displayedEmailInput = document.getElementById('email');
-					displayedEmailInput.value = newEmail;
-
-					document.getElementById('change-email-popup').style.display = 'none';
+				if (result) {
+					alert("현재 비밀번호가 일치합니다!");
+				} else {
+					alert("현재 비밀번호가 일치하지않습니다!");
 				}
-				let teamData;
-				window.addEventListener('load', async function () {
-					const rankRes = await fetch('/team-user-info');
-					teamData = await rankRes.json();
+				if (!passwordRegex.test(newPassword)) {
+					alert("새 비밀번호가 조건을 충족하지 않습니다.");
+					return;
+				}
+				if (newPassword == confirmNewPassword) {
+					Inputpassword.value=pPassword;
+					alert("새 비밀번호와 확인이 일치합니다");
+					document.getElementById('change-password-popup').style.display = 'none';
+					return;
+				}
 
+				if (newPassword !== confirmNewPassword) {
+					alert("새 비밀번호와 확인이 일치하지 않습니다.");
+					return;
+				}
+
+			}
+
+
+
+			function changeEmailAndDisplay() {
+
+				const newEmailInput = document.getElementById('new-email');
+				const newEmail = newEmailInput.value;
+
+				const displayedEmailInput = document.getElementById('email');
+				displayedEmailInput.value = newEmail;
+
+				document.getElementById('change-email-popup').style.display = 'none';
+			}
+			let teamData;
+			window.addEventListener('load', async function () {
+				const rankRes = await fetch('/team-user-info');
+				teamData = await rankRes.json();
+
+				let html = '';
+				for (const row of teamData) {
+					html += '<tr class="team-info">';
+					html += `<td><img src="${row.taFilePath}" class="team-image" data-ta-num="${row.taNum}"></td>`;
+					html += `<td>${row.taName}</td>`;
+					html += '</tr>';
+				}
+				document.querySelector('#team-list').innerHTML = html;
+
+				const teamImages = document.querySelectorAll('.team-image');
+				teamImages.forEach(image => {
+					image.addEventListener('click', handleImageClick);
+				});
+			});
+			function handleImageClick(event) {
+				const taNum = event.currentTarget.dataset.taNum;
+				window.location.href = '/page/team/record?taNum=' + taNum;
+			}
+			function selectTeamType(obj) {
+				document.querySelector('#team-list').innerHTML = '';
+
+				for (const row of teamData) {
 					let html = '';
-					for (const row of teamData) {
+					if (row.taType === obj.dataset.value) {
 						html += '<tr class="team-info">';
 						html += `<td><img src="${row.taFilePath}" class="team-image" data-ta-num="${row.taNum}"></td>`;
 						html += `<td>${row.taName}</td>`;
 						html += '</tr>';
-					}
-					document.querySelector('#team-list').innerHTML = html;
 
-					const teamImages = document.querySelectorAll('.team-image');
-					teamImages.forEach(image => {
-						image.addEventListener('click', handleImageClick);
-					});
-				});
-				function handleImageClick(event) {
-					const taNum = event.currentTarget.dataset.taNum;
-					window.location.href = '/page/team/record?taNum=' + taNum;
-				}
-				function selectTeamType(obj) {
-					document.querySelector('#team-list').innerHTML = '';
-
-					for (const row of teamData) {
-						let html = '';
-						if (row.taType === obj.dataset.value) {
-							html += '<tr class="team-info">';
-							html += `<td><img src="${row.taFilePath}" class="team-image" data-ta-num="${row.taNum}"></td>`;
-							html += `<td>${row.taName}</td>`;
-							html += '</tr>';
-
-							document.querySelector('#team-list').innerHTML += html;
-							const teamImages = document.querySelectorAll('.team-image');
-							teamImages.forEach(image => {
-								image.addEventListener('click', handleImageClick);
-							});
-						}
-
-					}
-
-				}
-				function save() {
-
-					var uiName = document.getElementById("user-name").value;
-					var uiAddress = document.getElementById("address").value;
-					var uiBirth = document.getElementById("date").value;
-					var uiPhoneNum = document.getElementById("phone").value;
-					var uiEmail = document.getElementById("email").value;
-					var uiPwd = document.getElementById("password").value;
-					
-
-
-
-					updateProfile({
-						uiName: uiName,
-						uiAddress: uiAddress,
-						uiBirth: uiBirth,
-						uiPhoneNum: uiPhoneNum,
-						uiEmail: uiEmail,
-						uiPwd : uiPwd
-					});
-				}
-
-				async function updateProfile(profileData) {
-					try {
-						const response = await fetch('/update-profile', {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json',
-							},
-							body: JSON.stringify(profileData),
+						document.querySelector('#team-list').innerHTML += html;
+						const teamImages = document.querySelectorAll('.team-image');
+						teamImages.forEach(image => {
+							image.addEventListener('click', handleImageClick);
 						});
-
-						if (response.ok) {
-							alert('프로필이 업데이트 되었습니다.');
-						} else {
-							throw new Error('프로필 업데이트에 실패했습니다.');
-						}
-					} catch (error) {
-						console.error('에러 발생: ', error);
-
 					}
+
 				}
 
+			}
 
+			function save() {
 
-				window.addEventListener('load', async function () {
-					const userRes = await fetch('/user-info');
-					user = await userRes.json();
-
-
-
-
-					document.querySelector('#name').value = user.uiName;
-					document.querySelector('#address').value = user.uiAddress;
-					document.querySelector('#date').value = user.uiBirth;
-					document.querySelector('#email').value = user.uiEmail;
-					document.querySelector('#phone').value = user.uiPhoneNum;
-					document.querySelector('#user-name').value = user.uiName;
-
-
+				var uiName = document.getElementById("user-name").value;
+				var uiAddress = document.getElementById("address").value;
+				var uiBirth = document.getElementById("date").value;
+				var uiPhoneNum = document.getElementById("phone").value;
+				var uiEmail = document.getElementById("email").value;
+				var uiPwd = document.getElementById("password").value;
+				updateProfile({
+					uiName: uiName,
+					uiAddress: uiAddress,
+					uiBirth: uiBirth,
+					uiPhoneNum: uiPhoneNum,
+					uiEmail: uiEmail,
+					uiPwd: uiPwd
 				});
-
-			</script>
-
-
-			<script>
-				let isNameChecked = false;
-				async function checkTeamName() {
-					const taName = document.querySelector('#recipient-name').value;
-
-					if (!taName) {
-						document.getElementById('errorTaName').innerHTML = "<span style='color: red;'>팀이름 를 입력해주세요.</span>";
-						return;
-					} else {
-						document.getElementById('errorTaName').innerHTML = "";
-					}
-
-
-					const data = {
-						taName: taName
-					}
-					const res = await fetch('/check-taName', {
+			}
+			async function updateProfile(profileData) {
+				try {
+					const response = await fetch('/update-profile', {
 						method: 'POST',
-						body: JSON.stringify(data),
 						headers: {
-							'Content-Type': 'application/json;charset=UTF-8'
-						}
-
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(profileData),
 					});
 
-
-					document.getElementById('errorTaName').innerHTML = "<span style='color: green;'>사용 가능한 이름입니다.</span>";
-					isNameChecked = true;
-					const result = await res.json();
-					if (result) {
-						document.getElementById('errorTaName').innerHTML = "<span style='color: red;'>이미 사용 중인 이름입니다.</span>";
-					}
-				}
-
-
-				document.addEventListener('DOMContentLoaded', function () {
-					const changePasswordPopup = document.getElementById('change-password-popup');
-					const confirmPasswordChangeButton = document.getElementById('confirm-password-change');
-					const cancelPasswordChangeButton = document.getElementById('cancel-password-change');
-
-					confirmPasswordChangeButton.addEventListener('click', async function () {
-						const currentPasswordInput = document.getElementById('changecurrentpasswordinput');
-						const newPasswordInput = document.getElementById('newpassword');
-						const confirmNewPasswordInput = document.getElementById('confirmnewpassword');
-
-						const currentPassword = currentPasswordInput.value.trim();
-						const newPassword = newPasswordInput.value.trim();
-						const confirmNewPassword = confirmNewPasswordInput.value.trim();
-
-						try {
-
-							await checkCurrentPassword(currentPassword);
-
-
-							if (newPassword === confirmNewPassword) {
-								await changePassword(newPassword);
-
-								changePasswordPopup.style.display = 'none';
-								alert('비밀번호가 성공적으로 변경되었습니다.');
-							} else {
-
-								alert('새 비밀번호가 일치하지 않습니다. 다시 확인해주세요.');
-							}
-						} catch (error) {
-							alert(error.message);
-							console.error(error);
-						}
-					});
-
-					cancelPasswordChangeButton.addEventListener('click', function () {
-						// 팝업을 닫을 수 있도록 처리
-						changePasswordPopup.style.display = 'none';
-					});
-				});
-
-				function openChangePasswordPopup() {
-
-					document.getElementById('change-password-popup').style.display = 'block';
-
-				}
-
-
-				document.getElementById('cancel-password-change').addEventListener('click', function () {
-
-					document.getElementById('change-password-popup').style.display = 'none';
-				});
-				function profile() {
-					var image = document.getElementById('image');
-					var source = image.src;
-					window.open(source);
-				}
-
-				function openAddressSearchModal() {
-					new daum.Postcode({
-						oncomplete: function (data) {
-							const selectedAddress = data.address;
-							const searchResults = document.getElementById('search-results')
-							const addressInput = document.getElementById('address');
-							addressInput.value = selectedAddress;
-						}
-					}).open();
-				}
-
-			</script>
-
-			<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-			<div class="overlay" id="overlay"></div>
-			<input type="file" id="profile-image-upload" style="display: none" accept="image/*"
-				onchange="previewProfileImage(event)">
-			<div id="overlay"></div>
-			<script>
-				function openChangeEmailPopup() {
-
-					document.getElementById('change-email-popup').style.display = 'block';
-
-				}
-				document.getElementById('cancel-email-change').addEventListener('click', function () {
-
-					document.getElementById('change-email-popup').style.display = 'none';
-				});
-
-				document.getElementById('confirm-email-change').addEventListener('click', function () {
-
-					document.getElementById('change-email-popup').style.display = 'none';
-
-				});
-
-				function closeProfilePopup() {
-					// 모달 창 닫기
-					document.getElementById('overlay').style.display = 'none';
-					document.getElementById('profileModal').style.display = 'none';
-				}
-
-				const changeEmailPopup = document.getElementById('change-email-popup');
-				const confirmEmailChangeButton = document.getElementById('confirmemailchange');
-				const cancelEmailChangeButton = document.getElementById('cancelemailchange');
-
-				confirmEmailChangeButton.addEventListener('click', function () {
-					const newEmailInput = document.getElementById('newemail');
-					const newEmail = newEmailInput.value.trim();
-
-
-					changeEmailPopup.style.display = 'none';
-
-				});
-
-				cancelEmailChangeButton.addEventListener('click', function () {
-					// 팝업을 닫을 수 있도록 처리
-					changeEmailPopup.style.display = 'none';
-				});
-
-
-
-
-				window.addEventListener('scroll', () => {
-					if (window.scrollY > 50) {
-						header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
-						header.style.transform = 'translateY(-100%)';
+					if (response.ok) {
+						alert('프로필이 업데이트 되었습니다.');
 					} else {
-						header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
-						header.style.transform = 'translateY(0)';
+						throw new Error('프로필 업데이트에 실패했습니다.');
 					}
-				});
-			</script>
+				} catch (error) {
+					console.error('에러 발생: ', error);
 
-			<script>
-
-
-
-
-				const teamList = document.querySelector('.');
-				const editButton = document.getElementById('edit-button');
-				const editProfileForm = document.querySelector('.edit-profile-form');
-				const saveButton = document.getElementById('save-profile');
-
-				// 초기화 함수
-				function initializeTeamList(selectedSport) {
-					teamList.innerHTML = '';
-					if (selectedSport === '') {
-						profileData.forEach(data => {
-							const team = createTeamElement(data);
-							teamList.appendChild(team);
-						});
-					} else {
-						const filteredData = profileData.filter(data => data.data === selectedSport);
-						filteredData.forEach(data => {
-							const team = createTeamElement(data);
-							teamList.appendChild(team);
-						});
-					}
 				}
+			}
+			window.addEventListener('load', async function () {
+				const userRes = await fetch('/user-info');
+				user = await userRes.json();
+				document.querySelector('#name').value = user.uiName;
+				document.querySelector('#address').value = user.uiAddress;
+				document.querySelector('#date').value = user.uiBirth;
+				document.querySelector('#email').value = user.uiEmail;
+				document.querySelector('#phone').value = user.uiPhoneNum;
+				document.querySelector('#user-name').value = user.uiName;
+			});
+		</script>
+		<script>
+			let isNameChecked = false;
+			async function checkTeamName() {
+				const taName = document.querySelector('#recipient-name').value;
 
+				if (!taName) {
+					document.getElementById('errorTaName').innerHTML = "<span style='color: red;'>팀이름 를 입력해주세요.</span>";
+					return;
+				} else {
+					document.getElementById('errorTaName').innerHTML = "";
+				}
+				const data = {
+					taName: taName
+				}
+				const res = await fetch('/check-team-name', {
+					method: 'POST',
+					body: JSON.stringify(data),
+					headers: {
+						'Content-Type': 'application/json;charset=UTF-8'
+					}
 
-				// 정보 수정 버튼 클릭 시 이벤트 리스너
-				editButton.addEventListener('click', function () {
-					editProfileForm.style.display = 'block';
 				});
+				document.getElementById('errorTaName').innerHTML = "<span style='color: green;'>사용 가능한 이름입니다.</span>";
+				isNameChecked = true;
+				const result = await res.json();
+				if (result) {
+					document.getElementById('errorTaName').innerHTML = "<span style='color: red;'>이미 사용 중인 이름입니다.</span>";
+				}
+			}
+			function openChangePasswordPopup() {
 
-				// 완료 버튼 클릭 시 이벤트 리스너
-				saveButton.addEventListener('click', function () {
-					editProfileForm.style.display = 'none';
-				});
+				document.getElementById('change-password-popup').style.display = 'block';
 
-				// 페이지 로드 시 초기화 함수 호출
-				initializeTeamList('');
-				
-			</script>
+			}
+			document.getElementById('cancel-password-change').addEventListener('click', function () {
+				document.getElementById('change-password-popup').style.display = 'none';
+			});
+			function profile() {
+				var image = document.getElementById('image');
+				var source = image.src;
+				window.open(source);
+			}
+
+			function openAddressSearchModal() {
+				new daum.Postcode({
+					oncomplete: function (data) {
+						const selectedAddress = data.address;
+						const searchResults = document.getElementById('search-results')
+						const addressInput = document.getElementById('address');
+						addressInput.value = selectedAddress;
+					}
+				}).open();
+			}
+
+		</script>
+
+		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+		<div class="overlay" id="overlay"></div>
+		<input type="file" id="profile-image-upload" style="display: none" accept="image/*"
+			onchange="previewProfileImage(event)">
+		<div id="overlay"></div>
+		<script>
+			function openChangeEmailPopup() {
+
+				document.getElementById('change-email-popup').style.display = 'block';
+
+			}
+			document.getElementById('cancel-email-change').addEventListener('click', function () {
+
+				document.getElementById('change-email-popup').style.display = 'none';
+			});
+
+			document.getElementById('confirm-email-change').addEventListener('click', function () {
+
+				document.getElementById('change-email-popup').style.display = 'none';
+
+			});
+
+			function closeProfilePopup() {
+				// 모달 창 닫기
+				document.getElementById('overlay').style.display = 'none';
+				document.getElementById('profileModal').style.display = 'none';
+			}
+
+			const changeEmailPopup = document.getElementById('change-email-popup');
+			const confirmEmailChangeButton = document.getElementById('confirmemailchange');
+			const cancelEmailChangeButton = document.getElementById('cancelemailchange');
+
+			confirmEmailChangeButton.addEventListener('click', function () {
+				const newEmailInput = document.getElementById('newemail');
+				const newEmail = newEmailInput.value.trim();
+
+
+				changeEmailPopup.style.display = 'none';
+
+			});
+
+			cancelEmailChangeButton.addEventListener('click', function () {
+				// 팝업을 닫을 수 있도록 처리
+				changeEmailPopup.style.display = 'none';
+			});
+			window.addEventListener('scroll', () => {
+				if (window.scrollY > 50) {
+					header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
+					header.style.transform = 'translateY(-100%)';
+				} else {
+					header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
+					header.style.transform = 'translateY(0)';
+				}
+			});
+		</script>
+		<script>
+			const teamList = document.querySelector('.');
+			const editButton = document.getElementById('edit-button');
+			const editProfileForm = document.querySelector('.edit-profile-form');
+			const saveButton = document.getElementById('save-profile');
+
+			// 초기화 함수
+			function initializeTeamList(selectedSport) {
+				teamList.innerHTML = '';
+				if (selectedSport === '') {
+					profileData.forEach(data => {
+						const team = createTeamElement(data);
+						teamList.appendChild(team);
+					});
+				} else {
+					const filteredData = profileData.filter(data => data.data === selectedSport);
+					filteredData.forEach(data => {
+						const team = createTeamElement(data);
+						teamList.appendChild(team);
+					});
+				}
+			}
+			// 정보 수정 버튼 클릭 시 이벤트 리스너
+			editButton.addEventListener('click', function () {
+				editProfileForm.style.display = 'block';
+			});
+
+			// 완료 버튼 클릭 시 이벤트 리스너
+			saveButton.addEventListener('click', function () {
+				editProfileForm.style.display = 'none';
+			});
+
+			// 페이지 로드 시 초기화 함수 호출
+			initializeTeamList('');
+		</script>
 </body>
 
 </html>

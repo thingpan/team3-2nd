@@ -67,7 +67,7 @@ public class TeamInfoController {
 		return teamInfoService.selectTeamInfosByUiNumAndTaType(taType, user.getUiNum());
 	}
 
-	@PostMapping("/check-taName")
+	@PostMapping("/check-team-name")
 	public TeamInfoVO TeamInfoByTaName(@RequestBody TeamInfoVO team) {
 		return teamInfoService.selectTeamInfoByTaName(team);
 	}
