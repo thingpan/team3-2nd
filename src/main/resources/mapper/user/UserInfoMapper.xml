@@ -21,20 +21,30 @@
 		WHERE UI_ID= #{uiId}
 	</select>
 
-		<update id="updateUserProfile"
+	<update id="updateUserProfile"
 		parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
- UPDATE USER_INFO
-    SET 
-    	UI_PWD =#{uiPwd},
-    	UI_EMAIL = #{uiEmail},
-        UI_BIRTH = #{uiBirth},
-        UI_NAME = #{uiName},
-        UI_ADDRESS = #{uiAddress},
-        UI_PHONE_NUM= #{uiPhoneNum}
-    WHERE UI_ID = #{uiId}
+		UPDATE USER_INFO
+		<set>
+			<if test="uiPwd != null and uiPwd != ''">
+				UI_PWD =#{uiPwd},
+			</if>
+			<if test="uiEmail != null and uiEmail != ''">
+				UI_EMAIL = #{uiEmail},
+			</if>
+			<if test="uiBirth != null and uiBirth != ''">
+				UI_BIRTH = #{uiBirth},
+			</if>
+			<if test="uiAddress != null and uiAddress != ''">
+				UI_ADDRESS = #{uiAddress},
+			</if>
+			<if test="uiPhoneNum != null and uiPhoneNum != ''">
+				UI_PHONE_NUM= #{uiPhoneNum}
+			</if>
+		</set>
+		WHERE UI_NUM = #{uiNum}
 	</update>
-	
-	
+
+
 
 
 	<select id="selectPasswordByUiPwd"

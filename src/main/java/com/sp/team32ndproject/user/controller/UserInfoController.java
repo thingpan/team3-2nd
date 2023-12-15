@@ -50,7 +50,7 @@ public class UserInfoController {
 
 	@PostMapping("/update-profile")
     public int updateUserProfile(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String>request) {
-         return  userInfoService.updateUserProfile(user.getUiId(), request);
+         return  userInfoService.updateUserProfile(user.getUiNum(), request);
        
     }
 }

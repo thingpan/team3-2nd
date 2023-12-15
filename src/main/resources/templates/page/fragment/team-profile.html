@@ -10,7 +10,7 @@
 	<div th:fragment="f-team-profile">
 		<div class="team-profile">
 			<div class="team-photo">
-				<img src="/imgs/team.png" />
+				<img src="/imgs/team.png" id="png" />
 			</div>
 			<div class="score-badge">
 				<span id="team-name"></span>
@@ -29,6 +29,7 @@
 				const rankRes = await fetch(`/team-info?taNum=${taNum}`);
 				teamData = await rankRes.json();
 				document.querySelector('#team-name').innerText = teamData.taName;
+				document.querySelector('#png').value= teamData.taFilePath;
 				// 팀 소개 설정
 				document.querySelector('#team-introduce').innerText = teamData.taDesc;
 				document.querySelector('#score-value').innerText = teamData.taPoint;

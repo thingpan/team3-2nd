@@ -61,28 +61,18 @@ public class UserInfoService implements UserDetailsService {
 		return false;
 	}
 
-	public int updateUserProfile(String uiId, Map<String, String> request) {
-	    UserInfoVO user = userInfoMapper.selectUserInfoByUiId(uiId); 
-	    if (request.containsKey("uiName")) {
-	    	user.setUiName(request.get("uiName"));
+	public int updateUserProfile(int uiNum, Map<String, String> request) {
+		UserInfoVO userInfoVO = new UserInfoVO();
+		userInfoVO.setUiNum(uiNum);
+	    if(request.get("uiPwd") != null && !request.get("uiPwd").isBlank()) {
+	    	request.put("uiPwd", passwordEncoder.encode(request.get("uiPwd")));
 	    }
-	    if (request.containsKey("uiAddress")) {
-	        user.setUiAddress(request.get("uiAddress"));
-	    }
-	    if (request.containsKey("uiBirth")) {
-	        user.setUiBirth(request.get("uiBirth"));
-	    }
-	    if (request.containsKey("uiPhoneNum")) {
-	        user.setUiPhoneNum(request.get("uiPhoneNum"));
-	    }
-	    if (request.containsKey("uiEmail")) {
-	        user.setUiEmail(request.get("uiEmail"));
-	    }if (request.containsKey("uiPwd")) {
-	        String rawPassword = request.get("uiPwd");
-	        String encodedPassword = passwordEncoder.encode(rawPassword);
-	        user.setUiPwd(encodedPassword);
-	    }
-	    return userInfoMapper.updateUserProfile(user);
+	    userInfoVO.setUiPwd(request.get("uiPwd"));
+	    userInfoVO.setUiEmail(request.get("uiEmail"));
+	    userInfoVO.setUiPhoneNum(request.get("uiPhoneNum"));
+	    userInfoVO.setUiAddress(request.get("uiAddress"));
+	    userInfoVO.setUiBirth(request.get("uiBirth"));
+	    return userInfoMapper.updateUserProfile(userInfoVO);
 	}
 
 }
