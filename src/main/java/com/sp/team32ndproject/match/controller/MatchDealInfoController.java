@@ -1,26 +1,25 @@
 package com.sp.team32ndproject.match.controller;
 
+import com.sp.team32ndproject.match.mapper.MatchDealInfoMapper;
 import com.sp.team32ndproject.match.service.MatchDealInfoService;
 import com.sp.team32ndproject.match.vo.MatchDealInfoVO;
-import com.sp.team32ndproject.team.vo.TeamSignUserInfoVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+
+@Slf4j
 @RestController
 @RequestMapping("/match-deal")
 public class MatchDealInfoController {
     @Autowired
     private MatchDealInfoService matchDealInfoService;
-
-    @PostMapping("/save")
-    public ResponseEntity<String> saveMatchDealInfo(@RequestBody MatchDealInfoVO matchDealInfo) {
-        matchDealInfoService.saveMatchDealInfo(matchDealInfo);
-        return ResponseEntity.ok("매칭현황에 저장 성공");
-    }
 
     @GetMapping("/all")
     public ResponseEntity<List<MatchDealInfoVO>> getAllMatchDealInfo() {
@@ -29,7 +28,71 @@ public class MatchDealInfoController {
     }
 
     @PostMapping("/insert")
-    public int insertMatchDealInfo(@RequestBody MatchDealInfoVO matchDealInfoVO) {
-        return matchDealInfoService.insertMatchDealInfo(matchDealInfoVO);
+    public ResponseEntity<Map<String, String>> insertMatchDealInfo(@RequestBody MatchDealInfoVO matchDealInfoVO) {
+        Map<String, String> response = new HashMap<>();
+
+        try {
+            // 매칭 신청 로직 추가
+            matchDealInfoVO.setMdMatchStatus("0"); // 0: 대기 중, 1: 수락, 2: 거절
+            int affectedRows = matchDealInfoService.insertMatchDealInfo(matchDealInfoVO);
+
+            // 적절한 조건에 따라 성공 여부 판단
+            if (affectedRows > 0) {
+                response.put("status", "success");
+                response.put("message", "매치 신청이 성공했습니다.");
+            } else {
+                response.put("status", "error");
+                response.put("message", "매치 신청이 실패했습니다.");
+            }
+        } catch (Exception e) {
+            // 예외가 발생하면 실패로 처리
+            e.printStackTrace(); // 예외 정보 출력
+            response.put("status", "error");
+            response.put("message", "매치 신청 중 오류가 발생했습니다.");
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/home/{mbNum}")
+    public ResponseEntity<List<MatchDealInfoVO>> getMatchDealInfoByMatchBoardNum(@PathVariable int mbNum) {
+        List<MatchDealInfoVO> matchDealInfoList = matchDealInfoService.getMatchDealInfoByMatchBoardNum(mbNum);
+        return new ResponseEntity<>(matchDealInfoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/away/{mdsNum}")
+    public ResponseEntity<List<MatchDealInfoVO>> getMatchDealInfoByMatchDealNum(@PathVariable int mdsNum) {
+        List<MatchDealInfoVO> matchDealInfoList = matchDealInfoService.getMatchDealInfoByMatchDealNum(mdsNum);
+        return new ResponseEntity<>(matchDealInfoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/home-team/{mbNum}")
+    public ResponseEntity<List<MatchDealInfoVO>> getMatchDealInfoForHomeTeam(@PathVariable int mbNum) {
+        List<MatchDealInfoVO> matchDealInfoList = matchDealInfoService.getMatchDealInfoForHomeTeam(mbNum);
+        return new ResponseEntity<>(matchDealInfoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/away-team/{mbNum}")
+    public ResponseEntity<List<MatchDealInfoVO>> getMatchDealInfoForAwayTeam(@PathVariable int mbNum) {
+        List<MatchDealInfoVO> matchDealInfoList = matchDealInfoService.getMatchDealInfoForAwayTeam(mbNum);
+        return new ResponseEntity<>(matchDealInfoList, HttpStatus.OK);
+    }
+
+    @PostMapping("/complete-match/{mbNum}")
+    public ResponseEntity<String> completeMatch(@PathVariable int mbNum, @RequestParam String result) {
+        matchDealInfoService.completeMatch(mbNum, result);
+        return ResponseEntity.ok("경기가 종료되었습니다.");
+    }
+
+    @PutMapping("/update-status")
+    public ResponseEntity<String> updateMatchDealStatus(@RequestBody MatchDealInfoVO matchDealInfoVO) {
+        matchDealInfoService.updateMatchDealStatus(matchDealInfoVO);
+        return ResponseEntity.ok("매칭현황 상태 업데이트 성공");
+    }
+
+    @DeleteMapping("/delete-status")
+    public int deleteTeamSignUserInfo(@RequestBody MatchDealInfoVO matchDealInfoVO) {
+        log.info("matchDealDate => {}", matchDealInfoVO);
+        return matchDealInfoService.deleteMatchStatusInfo(matchDealInfoVO);
     }
 }

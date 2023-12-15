@@ -140,62 +140,75 @@ function createMatchTable(data) {
     });
 }
 
-async function statusButtonAcceptAlert(taName, taNum, mbNum) {
-    if (confirm(`팀 ${taName}과 매칭을 성공했습니다.`) == true) {
-        const body = {
-            taNum: taNum,
-            mbNum: mbNum
+async function statusButtonAcceptAlert(match) {
+    const matchDealResponse = await fetch(`/match-deal/all`);
+    const matchDealInfo = await matchDealResponse.json();
+
+    console.log("matchDealInfo 값: ", matchDealInfo[2]);
+
+    const loggedInTeamNum = 31;  // 로그인한 팀의 번호로 대체 되어야 함
+
+    if (matchDealInfo[2].mdHomeNum === loggedInTeamNum) {
+        if (confirm(`팀 ${matchDealInfo[2].taName}과 매칭을 성공했습니다.`)) {
+            const body = {
+                taNum: matchDealInfo[2].mdAwayNum,
+                mbNum: matchDealInfo[2].mbNum
+            };
+
+            const res = await fetch('/match-deal/insert', {
+                method: 'POST',
+                body: JSON.stringify(body),
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                }
+            });
+
+            console.log("res 값: ", res);
+
+            const result = await res.json();
+
+            if (result) {
+                alert('매칭을 성공했습니다.');
+                location.reload();
+            } else {
+                alert('매칭 성공을 실패했습니다. 다시 시도해주세요.');
+                location.reload();
+            }
         }
-        console.log(body);
-        const res = await fetch('/match-deal/insert', {
-            method: 'POST',
+    } else {
+        alert(`해당 게시글은 다른 팀의 경기입니다.`);
+    }
+}
+
+async function statusButtonDefuseAlert() {
+    const matchDealResponse = await fetch(`/match-deal/all`);
+    const matchDealInfo = await matchDealResponse.json();
+
+    console.log("matchDealInfo 값: ", matchDealInfo[0].taName);
+
+    if (confirm(`팀 '${matchDealInfo[0].taName}'의 매칭을 거절합니다.`) == true) {
+        const body = {
+            mdNum: matchDealInfo[3].mdNum
+        }
+        const res = await fetch('/match-deal/delete-status', {
+            method: 'DELETE',
             body: JSON.stringify(body),
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8'
             }
         });
         const result = await res.json();
+        console.log("result 값: ", result);
         if (result) {
-            alert('매칭을 성공했습니다.');
+            alert('매칭을 거절했습니다.');
             location.reload();
         } else {
-            alert('매칭을 실패했습니다. 다시 시도해주세요.');
+            alert('매칭 거절 실패, 다시 시도해주세요.');
             location.reload();
         }
     } else {
         return false;
     }
-}
-
-async function acceptMembership(tsuNum, uiName, uiNum) {
-    if (confirm(`사용자 ${uiName}의 가입을 수락합니다.`) == true) {
-        const body = {
-            tsuNum: tsuNum,
-            uiNum: uiNum,
-            taNum: taNum
-        }
-        const res = await fetch('/team-user-add', {
-            method: 'POST',
-            body: JSON.stringify(body),
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            }
-        });
-        const result = await res.json();
-        if (result) {
-            alert('수락 성공');
-            location.reload();
-        } else {
-            alert('수락 실패 다시 시도해 주세요');
-            location.reload();
-        }
-    } else {
-        return false;
-    }
-}
-
-function statusButtonDefuseAlert() {
-    alert('매칭 거절을 성공했습니다.');
 }
 
 createMatchTable(matchData);
@@ -204,7 +217,7 @@ document.querySelector('#sport-filter').addEventListener('change', function () {
     const selectedValue = this.value;
     const filteredData = matchData.filter(
         (match) =>
-            (selectedValue === 'home' && match.status === 'home') ||
+            (selectedValue === 'home' && match.mdMatchStatus === '1') ||
             (selectedValue === 'away' && match.status === 'away') ||
             selectedValue === 'all'
     );
