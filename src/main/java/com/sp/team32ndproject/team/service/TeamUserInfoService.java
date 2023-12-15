@@ -1,5 +1,7 @@
 package com.sp.team32ndproject.team.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -44,6 +46,16 @@ public class TeamUserInfoService {
 
 	public int deleteTeamUserInfo(TeamUserInfoVO teamUserInfoVO) {
 		return teamUserInfoMapper.deleteTeamUserInfo(teamUserInfoVO);
+	}
+	
+	public boolean checkTeamUserInfo(int taNum, int uiNum) {
+		List<TeamUserInfoVO> teamUserInfoVOList = teamUserInfoMapper.selectTeamUsersByTaNum(taNum);
+		for(TeamUserInfoVO teamUserInfoVO : teamUserInfoVOList) {
+			if(teamUserInfoVO.getUiNum() == uiNum) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	

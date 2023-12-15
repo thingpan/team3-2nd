@@ -21,10 +21,11 @@
 		ORDER BY
 		TSU_NUM DESC
 	</select>
-	<select id="selectTeamSignUserInfoByUiNum"
+	<select id="selectTeamSignUserInfoByUiNumAndTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamSignUserInfoVO">
 		SELECT * FROM TEAM_SIGN_USER_INFO
 		WHERE UI_NUM = #{uiNum}
+		AND TA_NUM = #{taNum}
 	</select>
 	<delete id="deleteTeamSignUserInfo" 
 		parameterType="com.sp.team32ndproject.team.vo.TeamSignUserInfoVO">
