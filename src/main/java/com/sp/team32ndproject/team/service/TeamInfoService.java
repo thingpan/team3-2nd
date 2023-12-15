@@ -33,19 +33,21 @@ public class TeamInfoService {
 	private String uploadFilePath;
 
 	public int insertTeamInfo(TeamInfoVO team, UserInfoVO user) {
-		MultipartFile file = team.getTaFile();
-		String originFileName = team.getTaFile().getOriginalFilename();
-		String extName = originFileName.substring(originFileName.lastIndexOf("."));
-		String fileName = UUID.randomUUID() + extName;
-		team.setTaFileName(originFileName);
-		team.setTaFilePath("/file/" + fileName);
 		team.setUiNum(user.getUiNum());
-		try {
-			file.transferTo(new File(uploadFilePath + fileName));
-		} catch (IllegalStateException e) {
-			log.error("file upload error=>{}", e);
-		} catch (IOException e) {
-			log.error("file upload error=>{}", e);
+		if(team.getTaFile() != null) {
+			MultipartFile file = team.getTaFile();
+			String originFileName = team.getTaFile().getOriginalFilename();
+			String extName = originFileName.substring(originFileName.lastIndexOf("."));
+			String fileName = UUID.randomUUID() + extName;
+			team.setTaFileName(originFileName);
+			team.setTaFilePath("/file/" + fileName);
+			try {
+				file.transferTo(new File(uploadFilePath + fileName));
+			} catch (IllegalStateException e) {
+				log.error("file upload error=>{}", e);
+			} catch (IOException e) {
+				log.error("file upload error=>{}", e);
+			}
 		}
 		if (1 == teamInfoMapper.insertTeamInfo(team)) {
 			TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
