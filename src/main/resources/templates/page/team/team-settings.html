@@ -20,8 +20,8 @@
 				<label for="profilePicture">프로필 사진</label>
 				<!-- 원 모양의 플레이스홀더 이미지 컨테이너 -->
 				<div class="circular-image-container" id="teamProfilePicPriveiw">
-					<!--<img id="preview" src="#" alt="프로필 사진 미리보기"
-						style="display:none; max-width: 100%; border-radius: 50%;">-->
+					<img id="preview" src="#" alt="프로필 사진 미리보기"
+						style="max-width: 100%; border-radius: 50%;">
 				</div>
 
 				<input type="file" id="profilePicture" accept="image/*" onchange="previewImage(this)">
@@ -61,15 +61,16 @@
 					document.querySelector('#teamName').value = user.taName;
 					console.log(user.taName);
 					document.querySelector('#teamIntro').value = user.taDesc;
+					document.querySelector('#jobStatus').value = user.taStatus;
 
 					const profilePicture = document.querySelector('#profilePicture');
 					console.log(user);
 					if(user.taFilePath != null){
 						let html = `<img src="${user.taFilePath}" style="width:100px">`
-						document.querySelector('#teamProfilePicPriveiw').innerHTML += html;
+						document.querySelector('#preview').src = user.taFilePath;
 					}else{
 						let html = `<img src="/imgs/basketball.png" style="width:100px">`
-						document.querySelector('#teamProfilePicPriveiw').innerHTML += html;
+						document.querySelector('#preview').src = html;
 					}
 
 				} catch (error) {
