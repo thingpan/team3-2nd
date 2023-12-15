@@ -20,8 +20,7 @@
 				<label for="profilePicture">프로필 사진</label>
 				<!-- 원 모양의 플레이스홀더 이미지 컨테이너 -->
 				<div class="circular-image-container" id="teamProfilePicPriveiw">
-					<img id="preview" src="#" alt="프로필 사진 미리보기"
-						style="max-width: 100%; border-radius: 50%;">
+					<img id="preview" src="#" alt="프로필 사진 미리보기" style="max-width: 100%; border-radius: 50%;">
 				</div>
 
 				<input type="file" id="profilePicture" accept="image/*" onchange="previewImage(this)">
@@ -45,7 +44,6 @@
 			</form>
 		</div>
 	</div>
-
 	<div th:replace="/page/fragment/side-bar.html :: f-side-bar"></div>
 	<script>
 		window.addEventListener('load', async function () {
@@ -55,7 +53,7 @@
 
 			if (taNum) {
 				try {
-					const userRes = await fetch(`/team-info?taNum=${taNum}`);		
+					const userRes = await fetch(`/team-info?taNum=${taNum}`);
 					const user = await userRes.json();
 
 					document.querySelector('#teamName').value = user.taName;
@@ -65,10 +63,10 @@
 
 					const profilePicture = document.querySelector('#profilePicture');
 					console.log(user);
-					if(user.taFilePath != null){
+					if (user.taFilePath != null) {
 						let html = `<img src="${user.taFilePath}" style="width:100px">`
 						document.querySelector('#preview').src = user.taFilePath;
-					}else{
+					} else {
 						let html = `<img src="/imgs/basketball.png" style="width:100px">`
 						document.querySelector('#preview').src = html;
 					}
@@ -84,44 +82,44 @@
 
 
 		async function saveTeamInfo() {
-            // 폼에서 입력된 값을 가져온다.
-            var teamName = document.getElementById('teamName').value;
-            var teamIntro = document.getElementById('teamIntro').value;
-            var jobStatus = document.getElementById('jobStatus').value;
+			// 폼에서 입력된 값을 가져온다.
+			var teamName = document.getElementById('teamName').value;
+			var teamIntro = document.getElementById('teamIntro').value;
+			var jobStatus = document.getElementById('jobStatus').value;
 
-       
-            const data = {
-                taName: teamName,
-                taDesc: teamIntro,
-                jobStatus: jobStatus
-            };
 
-            // 현재 URL에서 taNum을 가져오기
-            const urlParams = new URLSearchParams(window.location.search);
-            const taNum = urlParams.get('taNum');
+			const data = {
+				taName: teamName,
+				taDesc: teamIntro,
+				jobStatus: jobStatus
+			};
 
-            if (taNum) {
-                data.taNum = taNum;
-                try {
-                    const response = await fetch('/update-team-info', {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data),
-                    });
+			// 현재 URL에서 taNum을 가져오기
+			const urlParams = new URLSearchParams(window.location.search);
+			const taNum = urlParams.get('taNum');
 
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
+			if (taNum) {
+				data.taNum = taNum;
+				try {
+					const response = await fetch('/update-team-info', {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(data),
+					});
 
-                    // 저장 성공 시 알람 표시
-                    alert('팀 정보가 업데이트되었습니다.\n구인 상태 : ' + jobStatus);
-                } catch (error) {
-                    console.error('Error updating team info:', error);
-                }
-            } 
-        }
+					if (!response.ok) {
+						throw new Error(`HTTP error! Status: ${response.status}`);
+					}
+
+					// 저장 성공 시 알람 표시
+					alert('팀 정보가 업데이트되었습니다.\n구인 상태 : ' + jobStatus);
+				} catch (error) {
+					console.error('Error updating team info:', error);
+				}
+			}
+		}
 
 		// 선택한 이미지를 미리보기하는 함수
 		function previewImage(input) {

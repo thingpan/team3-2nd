@@ -334,8 +334,9 @@
 			<h3>이메일 변경</h3>
 			<label for="new-email">새 이메일</label>
 			<input type="email" id="new-email" name="new-email" placeholder="새 이메일 입력">
-			<button type="button" id="confirm-email-change" onclick="changeEmailAndDisplay()">확인</button>
-			<button type="button" id="cancel-email-change">취소</button>
+			<button type="button" id="confirm-email-change" onclick="changeEmailAndDisplay()"
+				class="btn btn-dark">확인</button>
+			<button type="button" id="cancel-email-change" class="btn btn-dark">취소</button>
 		</div>
 
 		<!-- 비밀번호 변경 팝업 -->
@@ -344,10 +345,11 @@
 			<h3>비밀번호 변경</h3>
 			<input type="password" id="changecurrentpasswordinput" name="current-password" placeholder="현재 비밀번호 입력">
 			<br>
-			<input type="password" id="newpassword" name="new-password" placeholder="새 비밀번호 입력 (8자 이상, 특수기호 포함)"> <br>
+			<input type="password" id="newpassword" name="new-password" placeholder="새 비밀번호 입력"> <br>
 			<input type="password" id="confirmnewpassword" name="confirm-new-password" placeholder="새 비밀번호 확인"> <br>
-			<button type="button" id="confirm-password-change" onclick="changePasswordAndDisplay()">확인</button>
-			<button type="button" id="cancel-password-change">취소</button>
+			<button type="button" id="confirm-password-change" onclick="changePasswordAndDisplay()"
+				class="btn btn-dark">확인</button>
+			<button type="button" id="cancel-password-change" class="btn btn-dark">취소</button>
 		</div>
 
 		<script>
@@ -356,8 +358,8 @@
 				const newPassword = document.querySelector("#newpassword").value;
 				const confirmNewPassword = document.getElementById("confirmnewpassword").value;
 				const confirmPassword = document.getElementById("confirmnewpassword")
-				const pPassword =confirmPassword.value;		
-				const Inputpassword =document.querySelector("#password");
+				const pPassword = confirmPassword.value;
+				const Inputpassword = document.querySelector("#password");
 				// Password validation
 				const passwordRegex = /^(?=.*[!@#$%^&*])(?=.{8,})/;
 				const response = await fetch('/check-password', {
@@ -376,11 +378,11 @@
 					alert("현재 비밀번호가 일치하지않습니다!");
 				}
 				if (!passwordRegex.test(newPassword)) {
-					alert("새 비밀번호가 조건을 충족하지 않습니다.");
+					alert("8자 이상 특수문자를 포함해 입력해주세요.");
 					return;
 				}
 				if (newPassword == confirmNewPassword) {
-					Inputpassword.value=pPassword;
+					Inputpassword.value = pPassword;
 					alert("새 비밀번호와 확인이 일치합니다");
 					document.getElementById('change-password-popup').style.display = 'none';
 					return;
@@ -599,15 +601,7 @@
 				// 팝업을 닫을 수 있도록 처리
 				changeEmailPopup.style.display = 'none';
 			});
-			window.addEventListener('scroll', () => {
-				if (window.scrollY > 50) {
-					header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
-					header.style.transform = 'translateY(-100%)';
-				} else {
-					header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
-					header.style.transform = 'translateY(0)';
-				}
-			});
+
 		</script>
 		<script>
 			const teamList = document.querySelector('.');
@@ -643,6 +637,17 @@
 
 			// 페이지 로드 시 초기화 함수 호출
 			initializeTeamList('');
+		</script>
+		<script>
+			window.addEventListener('scroll', () => {
+				if (window.scrollY > 50) {
+					header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
+					header.style.transform = 'translateY(-100%)';
+				} else {
+					header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
+					header.style.transform = 'translateY(0)';
+				}
+			});
 		</script>
 </body>
 

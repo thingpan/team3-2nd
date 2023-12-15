@@ -11,21 +11,25 @@
 	margin: 0 auto;
 }
 
-  #team-list {
-        display: flex;
-        flex-direction: column;
-    }
+#team-list {
+	display: flex;
+	flex-direction: column;
+}
 
-    #team-list td {
-        text-align: center;
-        margin: 10px; /* 셀 간의 간격 조절 */
-    }
+#team-list td {
+	text-align: center;
+	margin: 10px;
+	/* 셀 간의 간격 조절 */
+}
 
-    .team-info img {
-        max-width: 100px; /* 이미지 최대 너비 설정 */
-        max-height: 100px; /* 이미지 최대 높이 설정 */
-        margin-right: 10px; /* 이미지와 텍스트 간의 간격 조절 */
-    }
+.team-info img {
+	max-width: 100px;
+	/* 이미지 최대 너비 설정 */
+	max-height: 100px;
+	/* 이미지 최대 높이 설정 */
+	margin-right: 10px;
+	/* 이미지와 텍스트 간의 간격 조절 */
+}
 
 label {
 	width: 80px;
@@ -434,4 +438,30 @@ select {
 	margin-right: 5px;
 	width: 90px;
 	font-size: 15px;
+}
+
+#new-email {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+#changecurrentpasswordinput,
+#newpassword {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+#confirmnewpassword {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+
+#confirm-email-change,
+#cancel-email-change {
+	font-size: 14px;
+	margin-bottom: 5px;
 }
