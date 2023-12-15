@@ -94,6 +94,7 @@
 
 			<label for="uiId" style="font-size: 8px;">이메일</label><br>
 			<input type="email" id="uiEmail" style="font-size: 8px;" placeholder="이메일"><br>
+
 			<div id="errorEmail" class="error-message"></div>
 
 			<label for="uiYear" style="font-size: 8px;">생년월일</label><br>
@@ -159,9 +160,16 @@
 		let isIdChecked = false;
 		async function checkId() {
 			const uiId = document.querySelector('#uiId').value;
+			const IdRegex = /^(?=.{8,})/;
 
 			if (!uiId) {
 				document.getElementById('errorUiId').innerHTML = "<span style='color: red;'>아이디를 입력해주세요.</span>";
+				return;
+			} else {
+				document.getElementById('errorUiId').innerHTML = "";
+			}
+			if (!IdRegex.test(uiId)) {
+				document.getElementById('errorUiId').innerHTML = "<span style='color: red;'>아이디는 8자 이상이어야 하고</span>";
 				return;
 			} else {
 				document.getElementById('errorUiId').innerHTML = "";
@@ -182,7 +190,7 @@
 
 			console.log(res);
 			document.getElementById('errorUiId').innerHTML = "<span style='color: green;'>사용 가능한 아이디입니다.</span>";
-			isIdChecked = true; 
+			isIdChecked = true;
 			const result = await res.json();
 			if (result) {
 				document.getElementById('errorUiId').innerHTML = "<span style='color: red;'>이미 사용 중인 아이디입니다.</span>";
@@ -204,6 +212,8 @@
 			const selectedMonth = document.getElementById('uiMonth').value;
 			const selectedDay = document.getElementById('uiDay').value;
 			const uiBirth = `${selectedYear}${selectedMonth}${selectedDay}`;
+			const IdRegex = /^(?=.{8,})/;
+			const passwordRegex = /^(?=.*[!@#$%^&*])(?=.{8,})/;
 
 			console.log('아이디:', uiId);
 			console.log('비밀번호:', uiPwd);
@@ -267,7 +277,13 @@
 				return;
 			} else {
 				document.getElementById('errorAddress').innerHTML = "";
+			} if (!passwordRegex.test(uiPwd)) {
+				document.getElementById('errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상이어야 하고, 특수문자가 하나 이상 포함되어야 합니다.</span>";
+				return;
+			} else {
+				document.getElementById('errorUiPwd').innerHTML = "";
 			}
+
 
 
 
