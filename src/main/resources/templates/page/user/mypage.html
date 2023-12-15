@@ -414,10 +414,22 @@
 				teamData = await rankRes.json();
 
 				let html = '';
+				let type;
 				for (const row of teamData) {
 					html += '<tr class="team-info">';
-					html += '<div id="team-list-div">'
-					html += `<td><img src="${row.taFilePath}" class="team-image" data-ta-num="${row.taNum}" style="display: block;"></td>`;
+					html += '<div id="team-list-div">';
+					if(row.taFilePath == null){
+						if(row.taType == '농구'){
+							type = 'basketball';
+						}else if(row.taType == '야구'){
+							type = 'baseball';
+						}else if(row.taType == '축구'){
+							type = 'soccerball';
+						}
+						html += `<td><img src="/imgs/${type}.png" class="team-image" data-ta-num="${row.taNum}" style="display: block;"></td>`;
+					}else{
+						html += `<td><img src="${row.taFilePath}" class="team-image" data-ta-num="${row.taNum}" style="display: block;"></td>`;
+					}
 					html += `<td>${row.taName}</td>`;
 					html += '</div>'
 					html += '</tr>';
