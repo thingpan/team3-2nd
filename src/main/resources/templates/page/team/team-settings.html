@@ -167,7 +167,7 @@
 					const result = await res.json();
 					
 					if(result == 1){
-						alert('팀 정보가 업데이트되었습니다.\n구인 상태 : ' + jobStatus);
+						alert('팀 정보가 업데이트되었습니다.');
 						location.href = `/page/team/record?taNum=${taNum}`
 					}else{
 						alert('저장 실패');
