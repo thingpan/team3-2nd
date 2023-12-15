@@ -151,11 +151,16 @@ async function statusButtonAcceptAlert(match) {
     if (matchDealInfo[2].mdHomeNum === loggedInTeamNum) {
         if (confirm(`팀 ${matchDealInfo[2].taName}과 매칭을 성공했습니다.`)) {
             const body = {
-                taNum: matchDealInfo[2].mdAwayNum,
-                mbNum: matchDealInfo[2].mbNum
+                mdNum: matchDealInfo[2].mdNum,
+                rsDate: matchDealInfo[2].mdDate,
+                rsTime: matchDealInfo[2].mdTime,
+                rsAddress: matchDealInfo[2].mdAddress,
+                rsTmName: matchDealInfo[2].taName
             };
 
-            const res = await fetch('/match-deal/insert', {
+            console.log("body 값:", body);
+
+            const res = await fetch('/record-save/insert', {
                 method: 'POST',
                 body: JSON.stringify(body),
                 headers: {
@@ -169,7 +174,9 @@ async function statusButtonAcceptAlert(match) {
 
             if (result) {
                 alert('매칭을 성공했습니다.');
-                location.reload();
+                // 페이지를 다시 로드하기 전에 서버에서 최신 데이터를 가져와서 matchData를 갱신
+                matchData = await fetchMatchDealInfo();
+                createMatchTable(matchData);
             } else {
                 alert('매칭 성공을 실패했습니다. 다시 시도해주세요.');
                 location.reload();

@@ -13,7 +13,21 @@
 
 #team-list {
 	display: flex;
-	flex-direction: column;
+    width: 100%;
+}
+
+#team-list-div {
+	text-align: center;
+	margin-right: 20px;
+}
+
+#team-list-div-type {
+	text-align: center;
+	margin-right: 20px;
+}
+
+.team-list {
+    justify-content: right; /* 가로 정렬을 오른쪽으로 설정 */
 }
 
 #team-list td {
@@ -371,8 +385,7 @@ select {
 	margin-top: 20px;
 }
 
-.profile-image,
-.team-image {
+.profile-image {
 	max-width: 100%;
 	max-height: 200px;
 	margin-top: 10px;
@@ -467,5 +480,8 @@ select {
 }
 
 .team-image {
-	width: 8%;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	cursor: pointer;
 }

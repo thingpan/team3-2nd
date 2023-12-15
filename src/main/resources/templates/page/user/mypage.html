@@ -266,6 +266,7 @@
 				});
 				alert("팀 만들기 성공")
 				$('#teamAddModal').modal('hide');
+				location.href = "/page/user/mypage";
 
 			}
 
@@ -281,7 +282,7 @@
 				<div class="team-buttons">
 					<img src='/imgs/basketball.png' id="basketball" onclick="selectTeamType(this)" data-value="농구">
 					<img src='/imgs/baseball.png' id="baseball" onclick="selectTeamType(this)" data-value="야구">
-					<img src='/imgs/soccer.png' id="soccer" onclick="selectTeamType(this)" data-value="축구">
+					<img src='/imgs/soccerball.png' id="soccer" onclick="selectTeamType(this)" style="margin-left: 5px;" data-value="축구">
 
 				</div>
 				<div id="team-list"></div>
@@ -415,8 +416,10 @@
 				let html = '';
 				for (const row of teamData) {
 					html += '<tr class="team-info">';
-					html += `<td><img src="${row.taFilePath}" class="team-image" data-ta-num="${row.taNum}"></td>`;
+					html += '<div id="team-list-div">'
+					html += `<td><img src="${row.taFilePath}" class="team-image" data-ta-num="${row.taNum}" style="display: block;"></td>`;
 					html += `<td>${row.taName}</td>`;
+					html += '</div>'
 					html += '</tr>';
 				}
 				document.querySelector('#team-list').innerHTML = html;
@@ -437,8 +440,10 @@
 					let html = '';
 					if (row.taType === obj.dataset.value) {
 						html += '<tr class="team-info">';
-						html += `<td><img src="${row.taFilePath}" class="team-image" data-ta-num="${row.taNum}"></td>`;
+						html += '<div id="team-list-div-type">'
+						html += `<td><img src="${row.taFilePath}" class="team-image" data-ta-num="${row.taNum}" style="display: block;"></td>`;
 						html += `<td>${row.taName}</td>`;
+						html += '</div>'
 						html += '</tr>';
 
 						document.querySelector('#team-list').innerHTML += html;

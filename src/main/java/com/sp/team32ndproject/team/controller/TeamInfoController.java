@@ -55,6 +55,7 @@ public class TeamInfoController {
 
 	@GetMapping("/team-info")
 	public TeamInfoVO selectTeamInfoByTaNum(@RequestParam int taNum) {
+		log.info("taNum =>{}" ,taNum);
 		return teamInfoService.selectTeamInfoByTaNum(taNum);
 	}
 
