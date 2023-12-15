@@ -264,9 +264,16 @@
 					method: 'POST',
 					body: formData
 				});
-				alert("팀 만들기 성공")
-				$('#teamAddModal').modal('hide');
-				location.href = "/page/user/mypage";
+				const result = await res.json()
+
+				if (result == 1) {
+					alert("팀 만들기 성공")
+					$('#teamAddModal').modal('hide');
+					location.href = "/page/user/mypage";
+				}else{
+					alert("팀 만들기 실패");
+				}
+
 
 			}
 
@@ -280,9 +287,11 @@
 			<div class="team-section">
 				<h3>소속팀</h3>
 				<div class="team-buttons">
-					<img src='/imgs/basketball.png' id="basketball" onclick="selectTeamType(this)" style="margin-right: 5px;" data-value="농구">
+					<img src='/imgs/basketball.png' id="basketball" onclick="selectTeamType(this)"
+						style="margin-right: 5px;" data-value="농구">
 					<img src='/imgs/baseball.png' id="baseball" onclick="selectTeamType(this)" data-value="야구">
-					<img src='/imgs/soccerball.png' id="soccer" onclick="selectTeamType(this)" style="margin-left: 5px;" data-value="축구">
+					<img src='/imgs/soccerball.png' id="soccer" onclick="selectTeamType(this)" style="margin-left: 5px;"
+						data-value="축구">
 
 				</div>
 				<div id="team-list"></div>
