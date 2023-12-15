@@ -235,10 +235,8 @@
 		});
 		const result = await res.json();
 		console.log(result);
-		if(result == 1){
-			alert("가입 성공!");
-		}else{
-			alert("이미 신청한 팀 입니다");
+		if(result){
+			alert(`${result.resultMsg}`);
 		}
 	}
 </script>

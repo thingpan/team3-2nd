@@ -2,12 +2,12 @@ package com.sp.team32ndproject.team.controller;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,5 +78,10 @@ public class TeamInfoController {
 		return teamInfoService.selectTeamUserInfo(user.getUiNum());
 
 	}
-
+	
+	@PutMapping("/team-info-update") 
+	public int updateTeamInfo(TeamInfoVO teamInfoVO) {
+		log.info("teamInfo => {}",teamInfoVO);
+		return teamInfoService.updateTeamInfo(teamInfoVO);
+	}
 }

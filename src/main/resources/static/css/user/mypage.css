@@ -465,3 +465,7 @@ select {
 	font-size: 14px;
 	margin-bottom: 5px;
 }
+
+.team-image {
+	width: 8%;
+}

@@ -21,5 +21,6 @@ public interface TeamInfoMapper {
 	List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(TeamInfoVO teamInfoVO);
 	TeamInfoVO selectTeamInfoByTaName(TeamInfoVO team);
     List<TeamInfoVO> selectTeamUserInfo(int uiNum);
+    int updateTeamInfo(TeamInfoVO teamInfoVO);
 
 }

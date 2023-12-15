@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
 import com.sp.team32ndproject.team.service.TeamSignUserInfoService;
+import com.sp.team32ndproject.team.vo.MsgVO;
 import com.sp.team32ndproject.team.vo.TeamInfoVO;
 import com.sp.team32ndproject.team.vo.TeamSignUserInfoVO;
 import com.sp.team32ndproject.user.vo.UserInfoVO;
@@ -26,7 +27,7 @@ public class TeamSignUserInfoController {
 	private final TeamSignUserInfoService teamSignUserInfoService;
 	
 	@PostMapping("/team-sign-user-add")
-	public int insertTeamSignUserInfo(@RequestBody TeamInfoVO team, @AuthenticationPrincipal UserInfoVO user) {
+	public MsgVO insertTeamSignUserInfo(@RequestBody TeamInfoVO team, @AuthenticationPrincipal UserInfoVO user) {
 		log.info("team=>{}", team); 
 		log.info("user=>{}", user);
 		return teamSignUserInfoService.insertTeamSignUserInfo(team, user);
