@@ -1,4 +1,4 @@
-let recordList;
+let matchData;
 
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
@@ -24,9 +24,20 @@ document
     });
 
 window.addEventListener('load', async function () {
-    const recordRes = await fetch(`/record-save/select`);
-    recordList = await recordRes.json();
-    console.log(recordList);
+    try {
+        const recordRes = await fetch(`/record-save/select`);
+        if (!recordRes.ok) {
+            throw new Error(`HTTP error! Status: ${recordRes.status}`);
+        }
+
+        matchData = await recordRes.json();
+        console.log(matchData);
+
+        // 데이터를 가져온 후에 매치 리스트를 렌더링
+        renderMatchList();
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
 });
 
 // 매치 리스트 렌더링 함수
@@ -39,16 +50,16 @@ function renderMatchList() {
     // 받아온 데이터를 이용하여 매치 아이템 생성
     matchData.forEach(match => {
         const matchItem = createMatchItem(match);
+
+        matchItem.classList.add('match-item');
         matchList.appendChild(matchItem);
     });
 }
 
+
 let matchEndButtons = [];
 
-function createMatchItem(data) {
-    data.forEach((record) => {
-
-
+function createMatchItem(record) {
     const matchItem = document.createElement('li');
     const matchDate = document.createElement('span');
     const matchArena = document.createElement('span');
@@ -60,35 +71,13 @@ function createMatchItem(data) {
     const time = record.rsTime;
 
     matchDate.innerHTML = `${date}<br>${time}`;
-    matchArena.textContent = recordList.rsAddress;
-    matchOpponent.textContent = recordList.rsTmName;
+    matchArena.textContent = record.rsAddress;
+    matchOpponent.textContent = record.rsTmName;
+    matchScore.textContent = '경기 시작 전';
 
-    const matchStatusResult = recordList.rsMatchStatus;
-
+    const matchStatusResult = record.rsMatchStatus;
     switch (matchStatusResult) {
-        case 0:
-            matchScore.textContent = getRandomScore(true);
-            matchScore.style.color = '#0066FF';
-            matchScore.style.fontSize = '32px';
-            matchScore.style.fontWeight = '500';
-            matchItem.style.backgroundColor = '#D9E5FF';
-            matchStatus.textContent = 'W';
-            matchStatus.style.color = '#0066FF';
-            matchStatus.style.fontSize = '36px';
-            matchStatus.style.fontWeight = '600';
-            break;
-        case 1:
-            matchScore.textContent = getRandomScore(false);
-            matchItem.style.backgroundColor = '#FFE6E6';
-            matchScore.style.color = '#FF5C5C';
-            matchScore.style.fontSize = '32px';
-            matchScore.style.fontWeight = '500';
-            matchStatus.textContent = 'D';
-            matchStatus.style.color = '#FF5C5C';
-            matchStatus.style.fontSize = '36px';
-            matchStatus.style.fontWeight = '600';
-            break;
-        case 2:
+        case "0":
             matchScore.textContent = '경기 시작 전';
             matchItem.style.backgroundColor = '#EAEAEA';
             matchScore.style.color = '#000000';
@@ -108,6 +97,28 @@ function createMatchItem(data) {
             matchStatus.appendChild(matchEndButton);
             matchEndButtons.push(matchEndButton);
             break;
+        case "1":
+            matchScore.textContent = getRandomScore(true);
+            matchScore.style.color = '#0066FF';
+            matchScore.style.fontSize = '32px';
+            matchScore.style.fontWeight = '500';
+            matchItem.style.backgroundColor = '#D9E5FF';
+            matchStatus.textContent = 'W';
+            matchStatus.style.color = '#0066FF';
+            matchStatus.style.fontSize = '36px';
+            matchStatus.style.fontWeight = '600';
+            break;
+        case "2":
+            matchScore.textContent = getRandomScore(false);
+            matchItem.style.backgroundColor = '#FFE6E6';
+            matchScore.style.color = '#FF5C5C';
+            matchScore.style.fontSize = '32px';
+            matchScore.style.fontWeight = '500';
+            matchStatus.textContent = 'L';
+            matchStatus.style.color = '#FF5C5C';
+            matchStatus.style.fontSize = '36px';
+            matchStatus.style.fontWeight = '600';
+            break;
     }
 
     matchItem.classList.add('match-item');
@@ -117,13 +128,12 @@ function createMatchItem(data) {
     matchItem.appendChild(matchScore);
     matchItem.appendChild(matchStatus);
 
-    matchList.appendChild(matchItem);
-    });
+    return matchItem;
 }
 
-for (let i = 0; i < 5; i++) {
-    createMatchItem();
-}
+// for (let i = 0; i < 5; i++) {
+//     createMatchItem(matchData);
+// }
 
 // 랜덤 점수 생성 함수
 function getRandomPoint() {

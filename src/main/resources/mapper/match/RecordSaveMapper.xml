@@ -12,7 +12,7 @@
             (MD_NUM, RS_DATE, RS_TIME, RS_ADDRESS,
              RS_TM_NAME, RS_MATCH_STATUS)
         VALUES (#{mdNum}, #{rsDate}, #{rsTime}, #{rsAddress},
-                #{rsTmName}, #{rsMatchStatus})
+                #{rsTmName}, "0")
     </insert>
 
 
