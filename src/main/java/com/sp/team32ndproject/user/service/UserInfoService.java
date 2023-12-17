@@ -75,4 +75,9 @@ public class UserInfoService implements UserDetailsService {
 	    return userInfoMapper.updateUserProfile(userInfoVO);
 	}
 
+	public int deleteUser(@AuthenticationPrincipal UserInfoVO user) {
+		return userInfoMapper.deleteUser(user);
+		
+	}
+
 }

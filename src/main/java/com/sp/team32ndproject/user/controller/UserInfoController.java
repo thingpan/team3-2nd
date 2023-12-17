@@ -53,4 +53,9 @@ public class UserInfoController {
          return  userInfoService.updateUserProfile(user.getUiNum(), request);
        
     }
+	@DeleteMapping("/user-info-delete")
+    public int deleteUser(@AuthenticationPrincipal UserInfoVO user) {
+         return  userInfoService.deleteUser(user);
+       
+    }
 }

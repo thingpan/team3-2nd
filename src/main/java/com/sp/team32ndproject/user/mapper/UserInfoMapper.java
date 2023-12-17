@@ -16,4 +16,6 @@ public interface UserInfoMapper {
 	UserInfoVO selectPasswordByUiPwd(String uiId);
 
 	int updateUserProfile(UserInfoVO user);
+
+	int deleteUser(UserInfoVO user);
 }
