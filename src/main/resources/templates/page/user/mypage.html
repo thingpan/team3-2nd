@@ -305,31 +305,36 @@
 			<hr>
 
 			<label for="name">이름 :</label>
-			<input type="text" id="user-name">
+			<input type="text" id="user-name" readonly>
 			<hr>
 
 			<label for="email">이메일 :</label>
-			<input type="text" id="email">
+			<input type="text" id="email" readonly>
 			<button id="change-email-button" class="btn btn-dark" value="uiEmail" onclick="openChangeEmailPopup()">이메일
 				변경</button>
 			<hr>
 
 			<label for="password">비밀번호 :</label>
-			<input type="password" id="password" name="password">
+			<input type="password" id="password" name="password" readonly>
 			<button id="change-password-button" class="btn btn-dark" onclick="openChangePasswordPopup()">비밀번호
 				변경</button>
 			<hr>
 
 			<label for="phone">전화번호 :</label>
-			<input type="text" id="phone">
+			<input type="text" id="phone" readonly>
+			<button id="change-phone-button" class="btn btn-dark" value="uiPhoneNum"
+				onclick="openPhoneNumberPopup()">전화번호 변경</button>
 			<hr>
 
 			<label for="year">생년월일 :</label>
-			<input type="text" id="date" name="date">
+			<input type="text" id="date" name="date" readonly>
+			<button id="change-birth-button" class="btn btn-dark" value="uiBirth" onclick="openChangeBirthPopup()">생년월일
+				변경</button>
+
 			<hr>
 
 			<label for="address">주소 :</label>
-			<input type="text" id="address" name="address" value="" placeholder="주소">
+			<input type="text" id="address" name="address" value="" placeholder="주소" readonly>
 			<button type="button" id="search-address" value="JOIN" onclick="openAddressSearchModal()"
 				class="btn btn-dark">검색</button>
 			<hr>
@@ -337,6 +342,8 @@
 			<button type="button" id="save-profile" class="btn btn-dark" onclick="save()">완료</button>
 			<button type="button" id="delete-profile" class="btn btn-dark" onclick="userdelete()">삭제</button>
 		</div>
+
+
 
 
 		<div id="change-email-popup"
@@ -361,8 +368,64 @@
 				class="btn btn-dark">확인</button>
 			<button type="button" id="cancel-password-change" class="btn btn-dark">취소</button>
 		</div>
+		<div id="phonePopup"
+			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
+			<h3>번호 변경</h3>
+			<label for="new-email">새 번호</label>
+			<input type="text" id="newPhone" placeholder="새로운 전화번호 (11자리)">
+			<button onclick="changePhoneNumber()">확인</button>
+			<button onclick="cancelPopup()">취소</button>
+		</div>
+
+
+		<div id="birthPopup"
+			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
+			<h3>생년월일 변경</h3>
+			<label for="new-email">새 생년월일</label>
+			<input type="text" id="newBirth" placeholder="새로운 생년월일 (8자리 숫자)">
+			<button onclick="changeBirthdate()">확인</button>
+			<button onclick="cancelPopup()">취소</button>
+		</div>
 
 		<script>
+			function openPhoneNumberPopup() {
+				document.getElementById('phonePopup').style.display = 'block';
+			}
+
+			function openChangeBirthPopup() {
+				document.getElementById('birthPopup').style.display = 'block';
+			}
+
+			function changePhoneNumber() {
+				var newPhone = document.getElementById('newPhone').value;
+				if (newPhone.length === 11 && !isNaN(newPhone)) {
+					document.getElementById('phone').value = newPhone;
+					closePopup('phonePopup');
+				} else {
+					alert('올바른 전화번호를 입력하세요.');
+				}
+			}
+
+			function changeBirthdate() {
+				var newBirth = document.getElementById('newBirth').value;
+				if (newBirth.length === 8 && !isNaN(newBirth)) {
+					document.getElementById('date').value = newBirth;
+					closePopup('birthPopup');
+				} else {
+					alert('올바른 생년월일을 입력하세요.');
+				}
+			}
+
+			function cancelPopup() {
+				closePopup('phonePopup');
+				closePopup('birthPopup');
+			}
+
+			function closePopup(popupId) {
+				document.getElementById(popupId).style.display = 'none';
+			}
+
+
 			async function changePasswordAndDisplay() {
 				const password = document.querySelector("#changecurrentpasswordinput").value;
 				const newPassword = document.querySelector("#newpassword").value;
@@ -404,19 +467,57 @@
 				}
 
 			}
+			async function userdelete() {
+				const confirmation = confirm('정말로 계정을 삭제하시겠습니까?');
 
+				if (confirmation) {
+					const response = await fetch(`/user-info-delete`, {
+						method: 'DELETE',
+					});
+
+					const result = await response.json();
+
+					if (result.success) {
+						alert('계정이 성공적으로 삭제되었습니다.');
+						location.reload(); 
+					} else {
+						alert('계정 삭제에 실패했습니다.');
+					}
+				}
+			}
+
+			// Event listener for delete button
+			document.querySelectorAll('.delete-team-button').forEach(function (button) {
+				button.addEventListener('click', function () {
+					const taNum = button.dataset.taNum;
+					deleteTeam(taNum);
+				});
+			});
 
 
 			function changeEmailAndDisplay() {
-
 				const newEmailInput = document.getElementById('new-email');
-				const newEmail = newEmailInput.value;
+				const newEmail = newEmailInput.value.trim(); // Trim removes leading and trailing whitespaces
+
+				// Check if the new email is a valid email format
+				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				if (!emailRegex.test(newEmail)) {
+					alert('올바른 이메일 주소를 입력하세요.');
+					return;
+				}
+
+				// Check if the new email is not null or empty
+				if (!newEmail) {
+					alert('이메일 주소를 입력하세요.');
+					return;
+				}
 
 				const displayedEmailInput = document.getElementById('email');
 				displayedEmailInput.value = newEmail;
 
 				document.getElementById('change-email-popup').style.display = 'none';
 			}
+
 			let teamData;
 			window.addEventListener('load', async function () {
 				const rankRes = await fetch('/team-user-info');
@@ -490,13 +591,19 @@
 			}
 
 			function save() {
-
 				var uiName = document.getElementById("user-name").value;
 				var uiAddress = document.getElementById("address").value;
 				var uiBirth = document.getElementById("date").value;
 				var uiPhoneNum = document.getElementById("phone").value;
 				var uiEmail = document.getElementById("email").value;
 				var uiPwd = document.getElementById("password").value;
+
+
+				if (uiPwd === '') {
+					alert('비밀번호를 입력해주세요.');
+					return;
+				}
+
 				updateProfile({
 					uiName: uiName,
 					uiAddress: uiAddress,
@@ -506,6 +613,7 @@
 					uiPwd: uiPwd
 				});
 			}
+
 			async function updateProfile(profileData) {
 				try {
 					const response = await fetch('/update-profile', {
@@ -517,15 +625,16 @@
 					});
 
 					if (response.ok) {
+						document.querySelector('.edit-profile-form').style.display = 'none';
 						alert('프로필이 업데이트 되었습니다.');
 					} else {
 						throw new Error('프로필 업데이트에 실패했습니다.');
 					}
 				} catch (error) {
 					console.error('에러 발생: ', error);
-
 				}
 			}
+
 			window.addEventListener('load', async function () {
 				const userRes = await fetch('/user-info');
 				user = await userRes.json();

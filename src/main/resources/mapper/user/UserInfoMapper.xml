@@ -70,4 +70,7 @@
 		DATE_FORMAT(NOW(),'%Y%m%d'),DATE_FORMAT(NOW(),'%H%i%s')
 		);
 	</insert>
+	<delete id="deleteUser" parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
+        DELETE FROM USER_INFO WHERE UI_ID = #{uiId}
+    </delete>
 </mapper>

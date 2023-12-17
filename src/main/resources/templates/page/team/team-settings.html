@@ -20,8 +20,8 @@
 				<label for="profilePicture">프로필 사진</label>
 				<!-- 원 모양의 플레이스홀더 이미지 컨테이너 -->
 				<div class="circular-image-container" id="teamProfilePicPriveiw">
-					<img id="preview" src="#"  style="max-width: 100%; border-radius: 50%;">
-
+					<img id="preview" src="#" style="max-width: 100%; border-radius: 50%;">
+					<div id="noImageText" style="display: none;">이미지 없음</div>
 				</div>
 
 				<input type="file" id="profilePicture" accept="image/*" onchange="previewImage(this)">
@@ -92,14 +92,21 @@
 
 					const profilePicture = document.querySelector('#profilePicture');
 					console.log(user);
-					if (user.taFilePath != null) {
-						let html = `<img src="${user.taFilePath}" style="width:100px">`
-						document.querySelector('#preview').src = user.taFilePath;
-					} else {
-						let html = `<img src="/imgs/basketball.png" style="width:100px">`
-						document.querySelector('#preview').src = html;
-					}
 
+					// 수정 시작
+					const previewImage = document.querySelector('#preview');
+					const noImageText = document.querySelector('#noImageText');
+
+					if (user.taFilePath != null) {
+						previewImage.src = user.taFilePath;
+						previewImage.style.display = 'block';
+						noImageText.style.display = 'none';
+					} else {
+						previewImage.src = '';
+						previewImage.style.display = 'none';
+						noImageText.style.display = 'block';
+					}
+					// 수정 종료
 				} catch (error) {
 					console.error('Error fetching team info:', error);
 				}
@@ -160,17 +167,17 @@
 					formData.append('taName', taName);
 					formData.append('taDesc', taDesc);
 					formData.append('taStatus', taStatus);
-					
+
 					const res = await fetch('/team-info-update', {
 						method: 'PUT',
 						body: formData
 					});
 					const result = await res.json();
-					
-					if(result == 1){
+
+					if (result == 1) {
 						alert('팀 정보가 업데이트되었습니다.');
 						location.href = `/page/team/record?taNum=${taNum}`
-					}else{
+					} else {
 						alert('저장 실패');
 					}
 
@@ -183,12 +190,14 @@
 		// 선택한 이미지를 미리보기하는 함수
 		function previewImage(input) {
 			var preview = document.getElementById('preview');
+			var noImageText = document.getElementById('noImageText');
 			var file = input.files[0];
 			var reader = new FileReader();
 
 			reader.onloadend = function () {
 				preview.src = reader.result;
 				preview.style.display = 'block';
+				noImageText.style.display = 'none';
 			}
 
 			if (file) {
@@ -196,6 +205,7 @@
 			} else {
 				preview.src = '';
 				preview.style.display = 'none';
+				noImageText.style.display = 'block';
 			}
 		}
 

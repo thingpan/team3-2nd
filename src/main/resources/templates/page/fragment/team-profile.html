@@ -2,73 +2,84 @@
 <html>
 
 <head>
-	<meta charset="EUC-KR">
-	<title>Insert title here</title>
+    <meta charset="EUC-KR">
+    <title>Insert title here</title>
+    <style>
+    </style>
 </head>
 
 <body>
-	<div th:fragment="f-team-profile">
-		<div class="team-profile">
-			<div class="team-photo">
-				<img src="/imgs/team.png" id="png" />
-			</div>
-			<div class="score-badge">
-				<span id="team-name"></span>
-				<span id="score-value"></span>
-			</div>
-			<div>
-				<span id="team-introduce"></span>
-			</div>
-		</div>
-		<br>
-		<script>
+    <div th:fragment="f-team-profile">
+        <div class="team-profile">
+            <div class="team-photo">
+                <img id="team-photo">
+                <div id="noImageText"style="display: none;" >이미지 없음</div>
+            </div>
+            <div class="score-badge">
+                <span id="team-name"></span>
+                <span id="score-value"></span>
+            </div>
+            <div>
+                <span id="team-introduce"></span>
+            </div>
+        </div>
+        <br>
+        <script>
+            window.addEventListener('load', async function () {
+                const urlParams = new URL(location.href).searchParams;
+                const taNum = urlParams.get('taNum');
+                const rankRes = await fetch(`/team-info?taNum=${taNum}`);
+                teamData = await rankRes.json();
+                document.querySelector('#team-name').innerText = teamData.taName;
 
-			window.addEventListener('load', async function () {
-				const urlParams = new URL(location.href).searchParams;
-				const taNum = urlParams.get('taNum');
-				const rankRes = await fetch(`/team-info?taNum=${taNum}`);
-				teamData = await rankRes.json();
-				document.querySelector('#team-name').innerText = teamData.taName;
-				document.querySelector('#png').value= teamData.taFilePath;
-				// 팀 소개 설정
-				document.querySelector('#team-introduce').innerText = teamData.taDesc;
-				document.querySelector('#score-value').innerText = teamData.taPoint;
-				const randomScore = teamData.taPoint;
+                const teamPhoto = document.querySelector('#team-photo');
+                const noImageText = document.querySelector('#noImageText');
 
-				// 점수 출력
-				const scoreValue = document.querySelector('#score-value');
-				scoreValue.textContent = `${randomScore}점`;
+                if (teamData.taFilePath) {
+                    teamPhoto.src = teamData.taFilePath;
+                    teamPhoto.style.display='block'
+                    noImageText.style.display = 'none';
+                } else {
+					   teamPhoto.src ='';
+                    teamPhoto.style.display = 'none';
+                    noImageText.style.display = 'block';
+                }
 
-				// 점수에 따라 배경색과 텍스트색 변경
-				if (randomScore <= 100) {
-					scoreValue.style.backgroundColor = '#ececec';
-					scoreValue.style.color = '#767676';
-				} else if (randomScore <= 200) {
-					scoreValue.style.backgroundColor = '#ede0c4';
-					scoreValue.style.color = '#825e01';
-				} else if (randomScore <= 300) {
-					scoreValue.style.backgroundColor = '#fffbd5';
-					scoreValue.style.color = '#ffb800';
-				} else if (randomScore <= 400) {
-					scoreValue.style.backgroundColor = '#e6f0ff';
-					scoreValue.style.color = '#0066ff';
-				} else {
-					scoreValue.style.backgroundColor = '#f4e2ff';
-					scoreValue.style.color = '#8200d2';
-				}
+                // 팀 소개 설정
+                document.querySelector('#team-introduce').innerText = teamData.taDesc;
+                document.querySelector('#score-value').innerText = teamData.taPoint;
+                const randomScore = teamData.taPoint;
 
+                // 점수 출력
+                const scoreValue = document.querySelector('#score-value');
+                scoreValue.textContent = `${randomScore}점`;
 
-			});
+                // 점수에 따라 배경색과 텍스트색 변경
+                if (randomScore <= 100) {
+                    scoreValue.style.backgroundColor = '#ececec';
+                    scoreValue.style.color = '#767676';
+                } else if (randomScore <= 200) {
+                    scoreValue.style.backgroundColor = '#ede0c4';
+                    scoreValue.style.color = '#825e01';
+                } else if (randomScore <= 300) {
+                    scoreValue.style.backgroundColor = '#fffbd5';
+                    scoreValue.style.color = '#ffb800';
+                } else if (randomScore <= 400) {
+                    scoreValue.style.backgroundColor = '#e6f0ff';
+                    scoreValue.style.color = '#0066ff';
+                } else {
+                    scoreValue.style.backgroundColor = '#f4e2ff';
+                    scoreValue.style.color = '#8200d2';
+                }
+            });
 
-			// 랜덤 점수 생성 함수
-			function getRandomPoint() {
-				return Math.floor(Math.random() * 501); // 0부터 500까지
-			}
-
-			// 랜덤으로 점수 생성
-
-		</script>
-	</div>
+            // 이미지 로딩 실패 시 호출되는 함수
+            function handleImageError() {
+                const noImageText = document.querySelector('#noImageText');
+                noImageText.style.display = 'block';
+            }
+        </script>
+    </div>
 </body>
 
 </html>
