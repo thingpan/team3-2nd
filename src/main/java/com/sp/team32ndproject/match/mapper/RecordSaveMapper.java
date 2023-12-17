@@ -1,6 +1,7 @@
 package com.sp.team32ndproject.match.mapper;
 
 import com.sp.team32ndproject.match.vo.RecordSaveVO;
+import com.sp.team32ndproject.team.vo.TeamSignUserInfoVO;
 
 import java.util.List;
 

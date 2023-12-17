@@ -9,11 +9,11 @@
 
     <insert id="insertRecordMatchResult" parameterType="com.sp.team32ndproject.match.vo.RecordSaveVO">
         INSERT INTO RECORD_SAVE
-            (MD_NUM, RS_DATE, RS_TIME, RS_ADDRESS,
-             RS_TM_NAME, RS_MATCH_STATUS)
-        VALUES (#{mdNum}, #{rsDate}, #{rsTime}, #{rsAddress},
-                #{rsTmName}, "0")
+        (MD_NUM, RS_DATE, RS_TIME, RS_ADDRESS,
+         RS_TM_NAME, RS_MATCH_STATUS, RS_TYPE)
+        VALUES
+            (#{mdNum}, #{rsDate}, #{rsTime}, #{rsAddress},
+             #{rsTmName}, "0", #{rsType})
     </insert>
-
 
 </mapper>

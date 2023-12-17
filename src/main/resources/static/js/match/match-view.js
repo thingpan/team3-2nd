@@ -2,9 +2,9 @@ let oponentTaName;
 let myTaName;
 const urlParams = new URL(location.href).searchParams;
 const mbNum = urlParams.get('mbNum');
-let selectedTeamNum = 2;
 let matchInfo;
 let teamList;
+let selectedTeamNum;
 
 window.addEventListener('load', async function () {
     const res = await fetch(`/match-view/${mbNum}`);
@@ -14,8 +14,6 @@ window.addEventListener('load', async function () {
 
     const teamRes = await fetch(`/my-team-infos-by-type/${matchInfo.mbType}`);
     teamList = await teamRes.json();
-
-    console.log(teamList);
 
     oponentTaName = matchInfo.taName;
     let typeFileName;
@@ -29,7 +27,7 @@ window.addEventListener('load', async function () {
 
     document.querySelector('.select-team').innerHTML = `<img src="/imgs/${typeFileName}.png"></img>`;
     document.querySelector('.team-info').value = matchInfo.taNum;
-    console.log("team-info", document.querySelector('.team-info').value);
+    console.log("team-info!", document.querySelector('.team-info').value);
     for (let key in matchInfo) {
         if (document.querySelector(`#${key}`) != null) {
             document.querySelector(`#${key}`).innerHTML = matchInfo[key];
@@ -37,10 +35,11 @@ window.addEventListener('load', async function () {
     }
 
     for (const team of teamList) {
+        console.log("away team을 찾아서", team.taNum);
         let html = '';
         if (matchInfo.mbType == team.taType) {
             html += '<div id="team-list-div" style="display: inline-block; margin: 0 auto;">'
-            html += `<button onclick="selectedTeam(${teamList[0].taNum}, '${teamList[0].taName}')" value="${team.taNum}" id="team${team.taNum}">`;
+            html += `<button onclick="selectedTeam(${team.taNum}, '${team.taName}')" value="${team.taNum}" id="team${team.taNum}">`;
             html += '</button>';
             html += `<span>${team.taName}<span>`;
             html += '</div>';
@@ -58,20 +57,18 @@ window.addEventListener('load', async function () {
 					+ `</div>`;
 			document.querySelector('#match-pic').innerHTML = html;
 	}
+    const taNum = matchInfo.taNum;
+    console.log("이거멍미:", taNum);
 
-    // const taNum = document.querySelector('.team-info').value;
-    // console.log("taNum 값: ", taNum);
-
-    const teamListRes = await fetch(`/team-infos`);
+    const teamListRes = await fetch(`/team-info?taNum=${taNum}`);
     const teamInfoList = await teamListRes.json();
-
-    console.log("teamInfoList", teamInfoList);
 
     const scoreValue = document.querySelector('#score-value');
     const nameValue = document.querySelector('#taName');
 
-    const taName = teamInfoList[21].taName;
-    const teamPoint = teamList[0].taPoint;
+    const taName = teamInfoList.taName;
+    const teamPoint = teamInfoList.taPoint;
+
     nameValue.innerHTML = `${taName}`;
     scoreValue.innerHTML = `${teamPoint}점`;
 
@@ -158,18 +155,21 @@ function doMakePostMessageDiv() {
 }
 
 async function matchRequest() {
+
+    selectedTeamNum = teamList[0].taNum;
+    console.log("넌뭐냐", selectedTeamNum);
+
     if (selectedTeamNum == undefined) {
         alert('팀을 선택해 주세요!');
     } else {
         // 이미 신청된 게시물인지 확인 로직 추가
-
         const matchDealInfo = {
             mdsNum: selectedTeamNum, // 선택된 팀 번호
             mbNum: mbNum, // 매치 보드 번호
-            mdHomeNum: matchInfo.mbNum,
+            mdHomeNum: matchInfo.taNum,
             mdAwayNum: teamList[0].taNum,
             mdAddress: matchInfo.mbAddressDetail,
-            taName: teamList[0].taName,
+            taNum: teamList[0].taNum,
             mdTime: matchInfo.mbTime,
             mdDate: matchInfo.mbDate,
             mdType: matchInfo.mbType,

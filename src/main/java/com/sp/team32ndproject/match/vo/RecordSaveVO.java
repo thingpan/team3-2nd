@@ -14,6 +14,7 @@ public class RecordSaveVO {
     private String rsTime;
     private String rsAddress;
     private String rsTmName;
+    private String rsType;
     private char rsMatchStatus;
 }
 

@@ -54,34 +54,16 @@ public class MatchDealInfoController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/home/{mbNum}")
-    public ResponseEntity<List<MatchDealInfoVO>> getMatchDealInfoByMatchBoardNum(@PathVariable int mbNum) {
-        List<MatchDealInfoVO> matchDealInfoList = matchDealInfoService.getMatchDealInfoByMatchBoardNum(mbNum);
+    @GetMapping("/home-team/{taNum}")
+    public ResponseEntity<List<MatchDealInfoVO>> getMatchDealInfoForHomeTeam(@PathVariable int taNum) {
+        List<MatchDealInfoVO> matchDealInfoList = matchDealInfoService.getMatchDealInfoForHomeTeam(taNum);
         return new ResponseEntity<>(matchDealInfoList, HttpStatus.OK);
     }
 
-    @GetMapping("/away/{mdsNum}")
-    public ResponseEntity<List<MatchDealInfoVO>> getMatchDealInfoByMatchDealNum(@PathVariable int mdsNum) {
-        List<MatchDealInfoVO> matchDealInfoList = matchDealInfoService.getMatchDealInfoByMatchDealNum(mdsNum);
+    @GetMapping("/away-team/{mdsNum}")
+    public ResponseEntity<List<MatchDealInfoVO>> getMatchDealInfoForAwayTeam(@PathVariable int mdsNum) {
+        List<MatchDealInfoVO> matchDealInfoList = matchDealInfoService.getMatchDealInfoForAwayTeam(mdsNum);
         return new ResponseEntity<>(matchDealInfoList, HttpStatus.OK);
-    }
-
-    @GetMapping("/home-team/{mbNum}")
-    public ResponseEntity<List<MatchDealInfoVO>> getMatchDealInfoForHomeTeam(@PathVariable int mbNum) {
-        List<MatchDealInfoVO> matchDealInfoList = matchDealInfoService.getMatchDealInfoForHomeTeam(mbNum);
-        return new ResponseEntity<>(matchDealInfoList, HttpStatus.OK);
-    }
-
-    @GetMapping("/away-team/{mbNum}")
-    public ResponseEntity<List<MatchDealInfoVO>> getMatchDealInfoForAwayTeam(@PathVariable int mbNum) {
-        List<MatchDealInfoVO> matchDealInfoList = matchDealInfoService.getMatchDealInfoForAwayTeam(mbNum);
-        return new ResponseEntity<>(matchDealInfoList, HttpStatus.OK);
-    }
-
-    @PostMapping("/complete-match/{mbNum}")
-    public ResponseEntity<String> completeMatch(@PathVariable int mbNum, @RequestParam String result) {
-        matchDealInfoService.completeMatch(mbNum, result);
-        return ResponseEntity.ok("경기가 종료되었습니다.");
     }
 
     @PutMapping("/update-status")

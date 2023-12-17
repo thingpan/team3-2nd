@@ -27,35 +27,41 @@ window.addEventListener('load', async function () {
     try {
         const recordRes = await fetch(`/record-save/select`);
         if (!recordRes.ok) {
-            throw new Error(`HTTP error! Status: ${recordRes.status}`);
+            throw new Error(`HTTP 에러: ${recordRes.status}`);
         }
 
         matchData = await recordRes.json();
-        console.log(matchData);
+        console.log("matchData", matchData);
 
         // 데이터를 가져온 후에 매치 리스트를 렌더링
         renderMatchList();
     } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('데이터를 가져오는 중 에러 발생:', error);
     }
 });
 
 // 매치 리스트 렌더링 함수
-function renderMatchList() {
+async function renderMatchList() {
     const matchList = document.querySelector('#match-list');
+
+    const teamInfoResponse = await fetch(`/team-infos`);
+    const teamInfo = await teamInfoResponse.json();
+
+    console.log("teamInfo", teamInfo[0].taType);
 
     // 기존 매치 아이템 삭제
     matchList.innerHTML = '';
 
     // 받아온 데이터를 이용하여 매치 아이템 생성
     matchData.forEach(match => {
-        const matchItem = createMatchItem(match);
+        if (match.rsType === teamInfo[0].taType) {
+            const matchItem = createMatchItem(match);
 
-        matchItem.classList.add('match-item');
-        matchList.appendChild(matchItem);
+            matchItem.classList.add('match-item');
+            matchList.appendChild(matchItem);
+        }
     });
 }
-
 
 let matchEndButtons = [];
 
@@ -76,6 +82,7 @@ function createMatchItem(record) {
     matchScore.textContent = '경기 시작 전';
 
     const matchStatusResult = record.rsMatchStatus;
+    console.log("record:", record.rsAddress);
     switch (matchStatusResult) {
         case "0":
             matchScore.textContent = '경기 시작 전';
@@ -134,11 +141,6 @@ function createMatchItem(record) {
 // for (let i = 0; i < 5; i++) {
 //     createMatchItem(matchData);
 // }
-
-// 랜덤 점수 생성 함수
-function getRandomPoint() {
-    return Math.floor(Math.random() * 501); // 0부터 500까지
-}
 
 function openModal() {
     const scoreModal = document.querySelector('#scoreModal');

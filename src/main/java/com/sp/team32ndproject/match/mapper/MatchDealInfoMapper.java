@@ -6,18 +6,16 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface MatchDealInfoMapper {
+    MatchDealInfoVO getMatchDealInfoById(int mdNum);
+
     int insertMatchDealInfo(MatchDealInfoVO matchDealInfoVO);
 
     List<MatchDealInfoVO> getAllMatchDealInfo();
 
-    List<MatchDealInfoVO> getMatchDealInfoByMatchBoardNum(int mbNum);
-
-    List<MatchDealInfoVO> getMatchDealInfoByMatchDealNum(int mdsNum);
-
-    List<MatchDealInfoVO> getMatchDealInfoForHomeTeam(int mbNum);
+    List<MatchDealInfoVO> getMatchDealInfoForHomeTeam(int taNum);
 
     List<MatchDealInfoVO> getMatchDealInfoForAwayTeam(int mbNum);
-    void completeMatch(@Param("mbNum") int mbNum, @Param("result") String result);
+
     void updateMatchDealStatus(MatchDealInfoVO matchDealInfoVO);
     int deleteMatchDealStatus(MatchDealInfoVO matchDealInfoVO);
 }

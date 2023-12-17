@@ -10,6 +10,7 @@ import lombok.ToString;
 public class MatchDealInfoVO {
     private int mdNum;
     private int mdsNum;
+    private int taNum;
     private int mbNum;
     private int mdHomeNum;
     private int mdAwayNum;

@@ -6,33 +6,25 @@
             parameterType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
         INSERT INTO
             MATCH_DEAL_INFO
-            (MDS_NUM, MB_NUM, TA_NAME, MD_HOME_NUM, MD_AWAY_NUM, MD_ADDRESS, MD_TYPE, MD_TIME, MD_DATE, MD_MATCH_STATUS)
+            (MDS_NUM, MB_NUM, TA_NUM, MD_HOME_NUM, MD_AWAY_NUM, MD_ADDRESS, MD_TYPE, MD_TIME, MD_DATE, MD_MATCH_STATUS)
         VALUES
-            (#{mdsNum}, #{mbNum}, #{taName}, #{mdHomeNum},
+            (#{mdsNum}, #{mbNum}, #{taNum}, #{mdHomeNum},
              #{mdAwayNum}, #{mdAddress}, #{mdType}, #{mdTime},
              #{mdDate}, #{mdMatchStatus})
     </insert>
+
+    <select id="getMatchDealInfoById" parameterType="int" resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
+        SELECT * FROM MATCH_DEAL_INFO WHERE MD_NUM = #{mdNum}
+    </select>
 
     <select id="getAllMatchDealInfo" resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
         SELECT * FROM MATCH_DEAL_INFO
     </select>
 
-    <!-- Home 팀이 글을 올린 경우 -->
-    <select id="getMatchDealInfoByMatchBoardNum" parameterType="int" resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
-        SELECT * FROM project.MATCH_DEAL_INFO
-        WHERE MB_NUM = #{mbNum}
-    </select>
-
-    <!-- Away 팀이 신청한 경우 -->
-    <select id="getMatchDealInfoByMatchDealNum" parameterType="int" resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
-        SELECT * FROM project.MATCH_DEAL_INFO
-        WHERE MDS_NUM = #{mdsNum}
-    </select>
-
     <!-- 대기 중인 매치 딜 정보 조회 -->
-    <select id="getWaitingMatchDealInfoForHomeTeam" parameterType="int" resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
+    <select id="getMatchDealInfoForHomeTeam" parameterType="int" resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
         SELECT * FROM project.MATCH_DEAL_INFO
-        WHERE MD_HOME_NUM = #{homeTeamNum}
+        WHERE MD_HOME_NUM = #{mdHomeNum}
           AND MD_MATCH_STATUS = '0'
     </select>
 
