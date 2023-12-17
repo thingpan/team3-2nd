@@ -21,6 +21,17 @@ public class MatchDealInfoController {
     @Autowired
     private MatchDealInfoService matchDealInfoService;
 
+    @GetMapping("/{mdNum}")
+    public ResponseEntity<MatchDealInfoVO> getMatchDealInfoById(@PathVariable int mdNum) {
+        MatchDealInfoVO matchDealInfo = matchDealInfoService.getMatchDealInfoById(mdNum);
+
+        if (matchDealInfo != null) {
+            return new ResponseEntity<>(matchDealInfo, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<MatchDealInfoVO>> getAllMatchDealInfo() {
         List<MatchDealInfoVO> matchDealInfoList = matchDealInfoService.getAllMatchDealInfo();
