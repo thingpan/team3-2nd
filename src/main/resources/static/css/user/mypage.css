@@ -15,8 +15,8 @@
 	display: flex;
 	width: 100%;
 	flex-direction: row;
-    flex-wrap: wrap;
-    margin: 2%;
+	flex-wrap: wrap;
+	margin: 2%;
 }
 
 #team-list-div {
@@ -52,7 +52,7 @@
 label {
 	width: 80px;
 	/* Adjust the width as needed */
-	text-align: center;
+	text-align: left;
 }
 
 button {
@@ -63,7 +63,7 @@ button {
 #password {
 	display: inline-block;
 	margin: 0 auto;
-	margin-left:0.5%;
+	margin-left: 0.5%;
 	width: 265px;
 	border: 0 solid white;
 }
@@ -112,28 +112,32 @@ button {
 
 #change-phone-button {
 	font-size: 12px;
-		margin-left: 135px;
+	margin-left: 135px;
 
 	font-size: 12px;
 	cursor: pointer;
 	text-align: center;
 	border-radius: 5px;
 }
+
 #change-birth-button {
 	font-size: 12px;
-		margin-left: 135px;
+	margin-left: 135px;
 
 	font-size: 12px;
 	cursor: pointer;
 	text-align: center;
 	border-radius: 5px;
 }
-#phone{
+
+#phone {
 	width: 265px;
 }
-#date{
+
+#date {
 	width: 265px;
 }
+
 #search-address {
 	font-size: 12px;
 }
@@ -481,6 +485,18 @@ select {
 }
 
 #new-email {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+#new-phone {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+#new-birth {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 5px;

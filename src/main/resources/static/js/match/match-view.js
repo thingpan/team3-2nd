@@ -22,7 +22,7 @@ window.addEventListener('load', async function() {
 	} else if (matchInfo.mbType == '야구') {
 		typeFileName = 'baseball';
 	} else {
-		typeFileName = 'soccer';
+		typeFileName = 'soccerball';
 	}
 
 	document.querySelector('.select-team').innerHTML = `<img src="/imgs/${typeFileName}.png"></img>`;
@@ -62,13 +62,18 @@ window.addEventListener('load', async function() {
 	console.log(matchInfo.matchPhotos);
 
 	matchPhotos = matchInfo.matchPhotos;
+	let html = '';
 	for (let i = 0; i < matchPhotos.length; i++) {
 		const matchPhoto = matchInfo.matchPhotos[i];
-		const html = `<div id="fileDiv${i + 1}">`
-			+ `<img src="${matchPhoto.mbpFilePath}" style="width:100px" id="img${i + 1}">`
-			+ `</div>`;
-		document.querySelector('#match-pic').innerHTML = html;
+		if (matchPhoto != null) {
+			document.querySelector('#match-pic').innerHTML = null;
+			html += `<div id="fileDiv${i + 1}">`
+				+ `<img src="${matchPhoto.mbpFilePath}" style="width:100px" id="img${i + 1}">`
+				+ `</div>`;
+			console.log(matchPhoto.mbpFilePath);
+		}
 	}
+	document.querySelector('#match-pic').innerHTML += html;
 	const taNum = matchInfo.taNum;
 	console.log("이거멍미:", taNum);
 
