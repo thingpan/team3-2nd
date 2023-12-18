@@ -406,7 +406,7 @@ select {
 .modal input {
 	width: 100%;
 	padding: 8px;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 	box-sizing: border-box;
 }
 
@@ -485,4 +485,13 @@ select {
 	border-radius: 50%;
 	cursor: pointer;
 	margin-top: 20px;
+}
+
+.filter-select {
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+#checkIdButton {
+	margin-bottom: 15px;
 }
