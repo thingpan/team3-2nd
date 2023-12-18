@@ -4,16 +4,15 @@
 <head>
     <meta charset="EUC-KR">
     <title>Insert title here</title>
-    <style>
-    </style>
+
 </head>
 
 <body>
     <div th:fragment="f-team-profile">
         <div class="team-profile">
             <div class="team-photo">
+				<div id="noImageText"style="display: none;   margin-bottom:20%" >이미지 없음</div>
                 <img id="team-photo">
-                <div id="noImageText"style="display: none;" >이미지 없음</div>
             </div>
             <div class="score-badge">
                 <span id="team-name"></span>
@@ -40,7 +39,7 @@
                     teamPhoto.style.display='block'
                     noImageText.style.display = 'none';
                 } else {
-					   teamPhoto.src ='';
+					teamPhoto.src ='';
                     teamPhoto.style.display = 'none';
                     noImageText.style.display = 'block';
                 }

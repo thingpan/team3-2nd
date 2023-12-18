@@ -60,7 +60,7 @@
 			taPoint: 200,
 			taName: '농구 짱짱'
 		}
-		
+
 		const urlParams = new URL(location.href).searchParams;
 		const taNum = urlParams.get('taNum');
 
@@ -124,7 +124,7 @@
 		let total = 0;
 		let pageSize = 5;
 		const blockSize = 5;
-		
+
 
 		const getTeamSignUserInfoList = async function (evt, page) {
 			if (!page) {
@@ -158,14 +158,19 @@
 			}
 			document.querySelector('#pageDiv').innerHTML = pageHtml;
 			let html = '';
-			for (let request of pageInfos.list) {
-				html += '<tr>';
-				html += `<td>${request.uiName}</td>`;
-				html += `<td>${request.uiAddress}</td>`;
-				html += `<td>${request.uiPhoneNum}</td>`;
-				html += `<td><button class="btn btn-success" onclick="acceptMembership(${request.tsuNum},'${request.uiName}',${request.uiNum})">수락</button></td>`;
-				html += `<td><button class="btn btn-danger" onclick="rejectMembership(${request.tsuNum},'${request.uiName}','${request.uiNum}')">거절</button></td>`;
-				html += '</tr>';
+			if (pageInfos === null || pageInfos.list.length === 0) {
+				html += '<tr><td colspan="5">비어있는 리스트 입니다.</td></tr>';
+			}
+			else {
+				for (let request of pageInfos.list) {
+					html += '<tr>';
+					html += `<td>${request.uiName}</td>`;
+					html += `<td>${request.uiAddress}</td>`;
+					html += `<td>${request.uiPhoneNum}</td>`;
+					html += `<td><button class="btn btn-success" onclick="acceptMembership(${request.tsuNum},'${request.uiName}',${request.uiNum})">수락</button></td>`;
+					html += `<td><button class="btn btn-danger" onclick="rejectMembership(${request.tsuNum},'${request.uiName}','${request.uiNum}')">거절</button></td>`;
+					html += '</tr>';
+				}
 			}
 			document.querySelector('#membership-requests-info').innerHTML = html;
 		}

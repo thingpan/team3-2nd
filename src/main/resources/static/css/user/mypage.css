@@ -13,7 +13,7 @@
 
 #team-list {
 	display: flex;
-    width: 100%;
+	width: 100%;
 }
 
 #team-list-div {
@@ -27,7 +27,8 @@
 }
 
 .team-list {
-    justify-content: right; /* 가로 정렬을 오른쪽으로 설정 */
+	justify-content: right;
+	/* 가로 정렬을 오른쪽으로 설정 */
 }
 
 #team-list td {
@@ -59,7 +60,7 @@ button {
 #password {
 	display: inline-block;
 	margin: 0 auto;
-	text-align: center;
+	margin-left:0.5%;
 	width: 265px;
 	border: 0 solid white;
 }
@@ -99,14 +100,37 @@ button {
 
 #change-password-button {
 	font-size: 12px;
-	margin-left: 135px;
-
+	margin-left: 130px;
 	font-size: 12px;
 	cursor: pointer;
 	text-align: center;
 	border-radius: 5px;
 }
 
+#change-phone-button {
+	font-size: 12px;
+		margin-left: 135px;
+
+	font-size: 12px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 5px;
+}
+#change-birth-button {
+	font-size: 12px;
+		margin-left: 135px;
+
+	font-size: 12px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 5px;
+}
+#phone{
+	width: 265px;
+}
+#date{
+	width: 265px;
+}
 #search-address {
 	font-size: 12px;
 }

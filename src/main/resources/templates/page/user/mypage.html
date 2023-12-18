@@ -340,7 +340,6 @@
 			<hr>
 
 			<button type="button" id="save-profile" class="btn btn-dark" onclick="save()">완료</button>
-			<button type="button" id="delete-profile" class="btn btn-dark" onclick="userdelete()">삭제</button>
 		</div>
 
 
@@ -640,6 +639,7 @@
 				user = await userRes.json();
 				document.querySelector('#name').value = user.uiName;
 				document.querySelector('#address').value = user.uiAddress;
+				document.querySelector('#password').value = '********';
 				document.querySelector('#date').value = user.uiBirth;
 				document.querySelector('#email').value = user.uiEmail;
 				document.querySelector('#phone').value = user.uiPhoneNum;
