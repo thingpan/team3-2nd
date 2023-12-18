@@ -33,7 +33,7 @@
 }
 
 #team-list-div {
-	width: 8em;
+	width: 6em;
 	margin: 0;
 	display: inline-block;
 	text-align: center;
@@ -51,12 +51,12 @@
 	border-radius: 100px;
 	border: none;
 	display: block;
+	margin: 0 auto;
 }
 
 #team-list {
 	margin-top: 0.5em;
 	height: 80%;
-	text-align-last: left;
 }
 
 #info-main * {
