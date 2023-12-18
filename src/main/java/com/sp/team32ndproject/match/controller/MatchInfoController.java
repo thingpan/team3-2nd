@@ -27,7 +27,7 @@ public class MatchInfoController {
 
 	private final MatchBoardInfoService matchInfoService;
 
-	@PostMapping("/match-add")
+	@PostMapping("/match-infos")
 	@ResponseBody
 	public int insertMatchBoardInfo(MatchBoardInfoVO match) {
 		log.info("match => {}", match);

@@ -11,6 +11,6 @@ import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
 public interface TeamUserInfoMapper {
 	int insertTeamUserInfo(TeamUserInfoVO teamUser);
 	List<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO);
-	int deleteTeamUserInfo(TeamUserInfoVO teamUserInfoVO);
+	int deleteTeamUserInfo(int tuNum);
 	List<TeamUserInfoVO> selectTeamUsersByTaNum(int taNum);
 }

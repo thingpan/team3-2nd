@@ -55,37 +55,26 @@
 	</div>
 	<div th:replace="/page/fragment/side-bar.html :: f-side-bar"></div>
 	<script>
-		const team = {
-			taNum: 1,
-			taFilePath: '/imgs/basketball',
-			taPoint: 200,
-			taName: '농구 짱짱'
-		}
 
-		document.querySelector('#team-name').innerHTML = team.taName;
+		
+		const urlParams = new URL(location.href).searchParams;
+		const taNum = urlParams.get('taNum');
 		
 		async function doRelease(tuNum, uiName){
 			
 			
 			if (confirm(`${uiName}님을 방출 하시겠습니까?`) == true) {
-				const body = {
-					tuNum: tuNum
-				}
-				const res = await fetch('/team-user-delete', {
-					method: 'DELETE',
-					body: JSON.stringify(body),
-					headers: {
-						'Content-Type': 'application/json;charset=UTF-8'
-					}
+				
+				const res = await fetch(`/team-infos?tuNum=${tuNum}&taNum=${taNum}`, {
+					method: 'DELETE'
 				});
 				const result = await res.json();
-				if (result) {
-					alert('방출 성공');
-					location.reload();
-				} else {
-					alert('방출 실패 다시 시도해 주세요');
+				
+				if(result != null){
+					alert(`${result.resultMsg}`);
 					location.reload();
 				}
+				
 			} else {
 				return false;
 			}
@@ -94,8 +83,7 @@
 		let total = 0;
 		let pageSize = 5;
 		const blockSize = 5;
-		const urlParams = new URL(location.href).searchParams;
-		const taNum = urlParams.get('taNum');
+		
 
 		const getTeamUserInfoList = async function (evt, page) {
 			if (!page) {

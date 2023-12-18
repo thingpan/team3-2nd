@@ -35,7 +35,7 @@ public class SecurityBeanConfig {
 		hs.authorizeHttpRequests((auth)-> auth
 				.antMatchers("/login","/join","/page/user/login","/page/user/join","/")
 				.permitAll()
-				.antMatchers("/page/team/team-settings","/page/team/team-apply", "/page/match/match-status","/team-user-delete")
+				.antMatchers("/page/team/team-settings","/page/team/team-apply", "/page/match/match-status")
 				.access(new TeamParamAuthManager(teamInfoService))
 				.anyRequest()
 				.authenticated())

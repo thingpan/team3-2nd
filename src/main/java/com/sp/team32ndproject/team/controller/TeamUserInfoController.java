@@ -9,17 +9,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
-import com.sp.team32ndproject.team.mapper.TeamUserInfoMapper;
 import com.sp.team32ndproject.team.service.TeamUserInfoService;
-import com.sp.team32ndproject.team.vo.TeamInfoVO;
+import com.sp.team32ndproject.team.vo.MsgVO;
 import com.sp.team32ndproject.team.vo.TeamSignUserInfoVO;
 import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
 import com.sp.team32ndproject.user.vo.UserInfoVO;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class TeamUserInfoController {
 
 	private final TeamUserInfoService teamUserInfoService;
@@ -39,9 +40,11 @@ public class TeamUserInfoController {
 		return teamUserInfoService.selectTeamUserInfosWithHelper(teamUserInfoVO);
 	}
 
-	@DeleteMapping("/team-user-delete")
-	public int deleteTeamUserInfo(@RequestBody TeamUserInfoVO teamUserInfoVO) {
-		return teamUserInfoService.deleteTeamUserInfo(teamUserInfoVO);
+	@DeleteMapping("/team-infos")
+	public MsgVO deleteTeamUserInfo(@RequestParam int tuNum, @RequestParam int taNum, @AuthenticationPrincipal UserInfoVO user) {
+		log.info("data param=>{}",taNum);
+		log.info("data param2 => {}", tuNum);
+		return teamUserInfoService.deleteTeamUserInfo(tuNum, taNum, user.getUiNum());
 	}
 
 }
