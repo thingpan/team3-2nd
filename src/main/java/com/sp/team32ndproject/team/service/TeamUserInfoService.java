@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sp.team32ndproject.team.mapper.TeamInfoMapper;
 import com.sp.team32ndproject.team.mapper.TeamSignUserInfoMapper;
 import com.sp.team32ndproject.team.mapper.TeamUserInfoMapper;
+import com.sp.team32ndproject.team.vo.MsgVO;
 import com.sp.team32ndproject.team.vo.TeamInfoVO;
 import com.sp.team32ndproject.team.vo.TeamSignUserInfoVO;
 import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
@@ -21,6 +23,7 @@ public class TeamUserInfoService {
 
 	private final TeamUserInfoMapper teamUserInfoMapper;
 	private final TeamSignUserInfoMapper teamSignUserInfoMapper;
+	private final TeamInfoMapper teamInfoMapper;
 
 	// 팀 만들때
 	public int insertTeamUserInfo(TeamUserInfoVO teamUserInfoVO) {
@@ -44,8 +47,23 @@ public class TeamUserInfoService {
 		return new PageInfo<>(teamUserInfoMapper.selectTeamUserInfosWithHelper(teamUserInfoVO));
 	}
 
-	public int deleteTeamUserInfo(TeamUserInfoVO teamUserInfoVO) {
-		return teamUserInfoMapper.deleteTeamUserInfo(teamUserInfoVO);
+	public MsgVO deleteTeamUserInfo(int tuNum, int taNum, int uiNum) {
+		MsgVO msgVO = new MsgVO();
+		if(teamInfoMapper.selectAdminByUiNumAndTaNum(uiNum, taNum) != null) {
+			int result = teamUserInfoMapper.deleteTeamUserInfo(tuNum);
+			if(result == 1) {
+				msgVO.setResultMsg("방출 성공!");
+				return msgVO;
+			}else {
+				msgVO.setResultMsg("방출 실패 다시 시도해 주세요!");
+				return msgVO;
+			}
+			
+		}else {
+			msgVO.setResultMsg("팀장만 방출 가능합니다!");
+			return msgVO;
+		}
+		
 	}
 	
 	public boolean checkTeamUserInfo(int taNum, int uiNum) {

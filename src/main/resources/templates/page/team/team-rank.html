@@ -118,7 +118,7 @@
 			console.log('Skill:', skill);
 
 
-			const rankRes = await fetch('/team-infos/rank');
+			const rankRes = await fetch('/team-infos'); 
 			const teamData = await rankRes.json();
 
 			console.log('teamData:', teamData);
@@ -157,7 +157,7 @@
 
 		window.addEventListener('load', async function () {
 
-			const rankRes = await fetch('/team-infos/rank');
+			const rankRes = await fetch('/team-infos');
 			teamData = await rankRes.json();
 
 			console.log('teamData:', teamData);

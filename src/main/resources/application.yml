@@ -23,7 +23,10 @@ spring:
       minimum-idle : 1
       maximum-pool-size : 1
       connection-init-sql : select now()
- 
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
 mybatis:
   mapper-locations : mapper/**/*.xml
   configuration :
