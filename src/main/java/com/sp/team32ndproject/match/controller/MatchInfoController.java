@@ -29,7 +29,7 @@ public class MatchInfoController {
 
 	@PostMapping("/match-add")
 	@ResponseBody
-	public int insertMatchBoardInfo( MatchBoardInfoVO match) {
+	public int insertMatchBoardInfo(MatchBoardInfoVO match) {
 		log.info("match => {}", match);
 		return matchInfoService.insertMatchInfo(match);
 	}

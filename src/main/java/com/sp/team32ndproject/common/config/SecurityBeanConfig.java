@@ -70,7 +70,6 @@ public class SecurityBeanConfig {
 		.logout(logout -> logout
 				.logoutUrl("/auth/logout")
 				.logoutSuccessUrl("/page/user/login"));
-		
 		hs.csrf(csrf -> csrf.disable())
 		.exceptionHandling(handling -> handling.accessDeniedPage("/page/denied"))
 		.userDetailsService(userInfoService);

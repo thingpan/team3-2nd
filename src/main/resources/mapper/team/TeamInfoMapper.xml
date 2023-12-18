@@ -118,7 +118,10 @@
 				TA_NAME = #{taName},
 			</if>
 			<if test="taDesc != null and taDesc != ''">
-				TA_DESC = #{taDesc}
+				TA_DESC = #{taDesc},
+			</if>
+			<if test="taStatus != null and taStatus != ''">
+				TA_STATUS = #{taStatus}
 			</if>
 		</set>
 		WHERE TA_NUM = #{taNum};
