@@ -23,9 +23,6 @@
 		crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/user/mypage.css">
 
-
-
-
 <body>
 
 	<div th:replace="/page/fragment/header.html :: f-head"></div>
@@ -159,17 +156,13 @@
 		</div>
 
 		<script>
-
 			function closeModalAndShowAlert() {
 				// Bootstrap 모달 닫기
 				$('#teamAddModal').modal('hide');
-
-
 			}
 		</script>
 
 		<script>
-
 			function openCurrentPasswordModal() {
 				$('#current-password-modal').modal('show');
 			}
@@ -181,6 +174,7 @@
 				// Hide the user information section
 				document.querySelector('.edit-profile-form').style.display = 'none';
 			}
+
 			function openModal() {
 				const teamAddModal = document.querySelector('#teamAddModal');
 				$(teamAddModal).modal('show');
@@ -202,7 +196,6 @@
 			function uploadTeamImage() {
 				const fileInput = document.getElementById('team-file-input');
 				const teamImage = document.querySelector('.profile-image');
-
 				const file = fileInput.files[0];
 				if (file) {
 					const reader = new FileReader();
@@ -214,9 +207,9 @@
 					reader.readAsDataURL(file);
 				}
 			}
+
 			async function checkCurrentPassword() {
 				const password = document.querySelector("#current-password-input").value;
-
 				const response = await fetch('/check-password', {
 					method: 'POST',
 					headers: {
@@ -235,9 +228,6 @@
 					alert("비밀번호가 일치하지않습니다!");
 				}
 			}
-
-
-
 
 			async function showAlert() {
 				if (!isNameChecked) {
@@ -265,7 +255,6 @@
 					body: formData
 				});
 				const result = await res.json()
-
 				if (result == 1) {
 					alert("팀 만들기 성공")
 					$('#teamAddModal').modal('hide');
@@ -273,14 +262,10 @@
 				} else {
 					alert("팀 만들기 실패");
 				}
-
-
 			}
-
 		</script>
 
 		<script src="/js/mock/region.js"></script>
-
 
 		<hr style="margin-top:20px ;">
 		<div id="box2">
@@ -292,11 +277,9 @@
 					<img src='/imgs/baseball.png' id="baseball" onclick="selectTeamType(this)" data-value="야구">
 					<img src='/imgs/soccerball.png' id="soccer" onclick="selectTeamType(this)" style="margin-left: 5px;"
 						data-value="축구">
-
+					<div id="team-list"></div>
 				</div>
-				<div id="team-list"></div>
 			</div>
-			<div class="team-list"></div>
 		</div>
 
 		<div class="edit-profile-form" style="display: none;">
@@ -342,9 +325,6 @@
 			<button type="button" id="save-profile" class="btn btn-dark" onclick="save()">완료</button>
 		</div>
 
-
-
-
 		<div id="change-email-popup"
 			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
 			<h3>이메일 변경</h3>
@@ -367,6 +347,7 @@
 				class="btn btn-dark">확인</button>
 			<button type="button" id="cancel-password-change" class="btn btn-dark">취소</button>
 		</div>
+
 		<div id="phonePopup"
 			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
 			<h3>번호 변경</h3>
@@ -424,7 +405,6 @@
 				document.getElementById(popupId).style.display = 'none';
 			}
 
-
 			async function changePasswordAndDisplay() {
 				const password = document.querySelector("#changecurrentpasswordinput").value;
 				const newPassword = document.querySelector("#newpassword").value;
@@ -478,7 +458,7 @@
 
 					if (result.success) {
 						alert('계정이 성공적으로 삭제되었습니다.');
-						location.reload(); 
+						location.reload();
 					} else {
 						alert('계정 삭제에 실패했습니다.');
 					}
@@ -492,7 +472,6 @@
 					deleteTeam(taNum);
 				});
 			});
-
 
 			function changeEmailAndDisplay() {
 				const newEmailInput = document.getElementById('new-email');
@@ -543,6 +522,7 @@
 					html += '</div>'
 					html += '</tr>';
 				}
+
 				document.querySelector('#team-list').innerHTML = html;
 
 				const teamImages = document.querySelectorAll('.team-image');
@@ -550,10 +530,12 @@
 					image.addEventListener('click', handleImageClick);
 				});
 			});
+
 			function handleImageClick(event) {
 				const taNum = event.currentTarget.dataset.taNum;
 				window.location.href = '/page/team/record?taNum=' + taNum;
 			}
+
 			function selectTeamType(obj) {
 				document.querySelector('#team-list').innerHTML = '';
 
@@ -596,7 +578,6 @@
 				var uiPhoneNum = document.getElementById("phone").value;
 				var uiEmail = document.getElementById("email").value;
 				var uiPwd = document.getElementById("password").value;
-
 
 				if (uiPwd === '') {
 					alert('비밀번호를 입력해주세요.');
@@ -699,7 +680,6 @@
 					}
 				}).open();
 			}
-
 		</script>
 
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -738,16 +718,12 @@
 				const newEmailInput = document.getElementById('newemail');
 				const newEmail = newEmailInput.value.trim();
 
-
 				changeEmailPopup.style.display = 'none';
-
 			});
-
 			cancelEmailChangeButton.addEventListener('click', function () {
 				// 팝업을 닫을 수 있도록 처리
 				changeEmailPopup.style.display = 'none';
 			});
-
 		</script>
 		<script>
 			const teamList = document.querySelector('.');
