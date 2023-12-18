@@ -84,11 +84,21 @@
 .team-list button {
 	background-color: gray;
 	color: white;
+	height: 90px;
+	width: 90px;
+	border-radius: 100px;
+	border: none;
+	display: block;
+}
+
+.team-list img {
+	margin-right: 0.3em;
 	height: 70px;
 	width: 70px;
 	border-radius: 100px;
 	border: none;
 	display: block;
+	margin: 0 auto;
 }
 
 #team-list-div {
