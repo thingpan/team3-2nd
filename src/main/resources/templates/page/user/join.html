@@ -169,7 +169,7 @@
 				document.getElementById('errorUiId').innerHTML = "";
 			}
 			if (!IdRegex.test(uiId)) {
-				document.getElementById('errorUiId').innerHTML = "<span style='color: red;'>아이디는 8자 이상이어야 하고</span>";
+				document.getElementById('errorUiId').innerHTML = "<span style='color: red;'>아이디는 8자 이상이어야 합니다.</span>";
 				return;
 			} else {
 				document.getElementById('errorUiId').innerHTML = "";
@@ -278,7 +278,7 @@
 			} else {
 				document.getElementById('errorAddress').innerHTML = "";
 			} if (!passwordRegex.test(uiPwd)) {
-				document.getElementById('errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상이어야 하고, 특수문자가 하나 이상 포함되어야 합니다.</span>";
+				document.getElementById('errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상이어야 하고,<br>특수문자가 하나 이상 포함되어야 합니다.</span>";
 				return;
 			} else {
 				document.getElementById('errorUiPwd').innerHTML = "";
@@ -306,7 +306,7 @@
 			console.log(res);
 			const result = await res.json();
 			if (result) {
-				alert(`로그인 해주세요`);
+				alert(`회원가입이 완료되었습니다. 로그인 해주세요.`);
 				location.href = '/page/user/login';
 			}
 

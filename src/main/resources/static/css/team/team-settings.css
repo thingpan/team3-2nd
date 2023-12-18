@@ -227,7 +227,7 @@ header {
 
 .container.team-settings input,
 .container.team-settings textarea {
-	margin-bottom: 16px;
+	margin-bottom: 8px;
 	padding: 8px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
@@ -301,7 +301,8 @@ header {
 }
 
 #teamNameCheckButton{
-	width: 10%;
+	width: 8%;
+	font-size: 12px;
 	margin-top: 0%;
 }
 
