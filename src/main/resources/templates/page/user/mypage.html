@@ -260,7 +260,7 @@
 				formData.append('taBoundarySigungu', taBoundarySigungu);
 				formData.append('taType', taType);
 				formData.append('taDesc', taDesc);
-				const res = await fetch('/team-add', {
+				const res = await fetch('/team-infos', {
 					method: 'POST',
 					body: formData
 				});

@@ -27,17 +27,11 @@ public class TeamInfoController {
 	private final TeamInfoService teamInfoService;
 
 	// 팀추가
-	@PostMapping("/team-add")
+	@PostMapping("/team-infos")
 	public int insertTeamInfo(TeamInfoVO team, @AuthenticationPrincipal UserInfoVO user) {
 		log.info("user => {}", user);
 		log.info("team => {}", team);
 		return teamInfoService.insertTeamInfo(team, user);
-	}
-
-	// 팀 목록
-	@GetMapping("/team-infos")
-	public List<TeamInfoVO> selectTeamInfos(TeamInfoVO team) {
-		return teamInfoService.selectTeamInfos(team);
 	}
 
 	@GetMapping("/my-team-infos")
@@ -46,7 +40,7 @@ public class TeamInfoController {
 	}
 
 	// 팀 랭크
-	@GetMapping("/team-infos/rank")
+	@GetMapping("/team-infos")
 	public List<TeamInfoVO> selectTeamRank(TeamInfoVO team) {
 		List<TeamInfoVO> teamInfos = teamInfoService.selectTeamInfos(team);
 		teamInfos.sort(Comparator.comparingInt(TeamInfoVO::getTaPoint).reversed());
@@ -56,7 +50,7 @@ public class TeamInfoController {
 	@GetMapping("/team-info")
 	public TeamInfoVO selectTeamInfoByTaNum(@RequestParam int taNum) {
 		log.info("taNum =>{}" ,taNum);
-		return teamInfoService.selectTeamInfoByTaNum(taNum);
+		return teamInfoService.selectTeamInfoByTaNum(taNum); 
 	}
 
 	@GetMapping("/my-team-infos-by-type/{taType}")
