@@ -78,7 +78,7 @@
 }
 
 .team-list {
-	text-align: center;
+	text-align: -webkit-center;
 }
 
 .team-list button {
@@ -88,10 +88,11 @@
 	width: 70px;
 	border-radius: 100px;
 	border: none;
+	display: block;
 }
 
 #team-list-div {
-	width: 5em;
+	width: 8em;
 	margin: 0;
 	display: inline-block;
 	margin-right: 0.3em;
