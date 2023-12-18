@@ -22,7 +22,7 @@ window.addEventListener('load', async function() {
 	} else if (matchInfo.mbType == '야구') {
 		typeFileName = 'baseball';
 	} else {
-		typeFileName = 'soccer';
+		typeFileName = 'soccerball';
 	}
 
 	document.querySelector('.select-team').innerHTML = `<img src="/imgs/${typeFileName}.png"></img>`;
@@ -48,6 +48,10 @@ window.addEventListener('load', async function() {
 			html += '<div id="team-list-div" style="display: inline-block; margin: 0 auto;">'
 			html += `<button onclick="selectedTeam(${team.taNum}, '${team.taName}')" value="${team.taNum}" id="team${team.taNum}">`;
 			if (team.taFilePath != null && team.taFilePath != '') {
+				console.log(team)
+				for(let file of team.taFilePath){
+					console.log(file.mbpFilePath)
+				}
 				html += `<img src="${team.taFilePath}">`;
 			} else {
 				html += `<img src="/imgs/${type}.png">`;
