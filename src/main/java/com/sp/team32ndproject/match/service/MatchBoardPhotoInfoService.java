@@ -29,26 +29,27 @@ public class MatchBoardPhotoInfoService {
 	
 	public int insertMatchBoardPhotoInfo(int mbNum, List<MatchBoardPhotoInfoVO> matchPhotos) {
 		int result = 0;
-		for(MatchBoardPhotoInfoVO matchPhoto : matchPhotos) {
-			MultipartFile file = matchPhoto.getFile();
-			String originName = matchPhoto.getFile().getOriginalFilename();
-			String extName = originName.substring(originName.lastIndexOf("."));
-			String fileName = UUID.randomUUID() + extName;
-			matchPhoto.setMbpFileName(originName);
-			matchPhoto.setMbpFilePath("/file/" + fileName);
-			
-			try {
-				file.transferTo(new File(uploadFilePath + fileName));
-			} catch (IllegalStateException e) {
-				log.error("error => {}", e.getMessage());
-			} catch (IOException e) {
-				log.error("error =>{}",e.getMessage());
+		if(matchPhotos != null && !matchPhotos.isEmpty()) {
+			for(MatchBoardPhotoInfoVO matchPhoto : matchPhotos) {
+				MultipartFile file = matchPhoto.getFile();
+				String originName = matchPhoto.getFile().getOriginalFilename();
+				String extName = originName.substring(originName.lastIndexOf("."));
+				String fileName = UUID.randomUUID() + extName;
+				matchPhoto.setMbpFileName(originName);
+				matchPhoto.setMbpFilePath("/file/" + fileName);
+				
+				try {
+					file.transferTo(new File(uploadFilePath + fileName));
+				} catch (IllegalStateException e) {
+					log.error("error => {}", e.getMessage());
+				} catch (IOException e) {
+					log.error("error =>{}",e.getMessage());
+				}
+				
+				matchPhoto.setMbNum(mbNum);
+				result += matchBoardPhotoInfoMapper.insertMatchBoardPhotoInfo(matchPhoto);
 			}
-			
-			matchPhoto.setMbNum(mbNum);
-			result += matchBoardPhotoInfoMapper.insertMatchBoardPhotoInfo(matchPhoto);
 		}
-		
 		return result; 
 	}
 	
