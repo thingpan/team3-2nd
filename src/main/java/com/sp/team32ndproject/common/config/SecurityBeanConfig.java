@@ -28,28 +28,7 @@ public class SecurityBeanConfig {
 		};
 	}
 
-	//@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity hs) throws Exception {
-		hs.authorizeRequests(req->req
-			.antMatchers("/login","/join","/page/user/login","/page/user/join")
-				.permitAll()
-				.anyRequest().authenticated())
-		.formLogin(formLogin -> formLogin
-				.loginPage("/page/user/login")
-				.usernameParameter("uiId")  
-				.passwordParameter("uiPwd")
-				.loginProcessingUrl("/login")
-				.defaultSuccessUrl("/")
-				.failureUrl("/page/user/login"))
-		.logout(logout -> logout
-				.logoutUrl("/logout")
-				.logoutSuccessUrl("/page/user/login"))
-		.csrf(csfr -> csfr.disable())
-		.exceptionHandling(handling -> handling.accessDeniedPage("/html/denied"))
-		.userDetailsService(userInfoService);
-	
-		return hs.build();
-	}
+
 	
 	@Bean
 	SecurityFilterChain securityTeamPageFilterChain(HttpSecurity hs) throws Exception {

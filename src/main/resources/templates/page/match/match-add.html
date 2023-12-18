@@ -78,13 +78,13 @@
 
 
 	<script>
-		
-			//내가 선택한 팀 번호
+
+		//내가 선택한 팀 번호
 		let selectedTeamNum;
 		let teamList;
 
 		async function getTeamInfos() {
-			
+
 			const res = await fetch('/my-team-infos')
 			teamList = await res.json();
 			console.log(teamList);
@@ -92,24 +92,38 @@
 		}
 
 		window.addEventListener('load', getTeamInfos);
-		
-		function selectTeamType(obj) {
-				selectedTeamNum = null;
-				document.querySelector('#team-list').innerHTML = '';
-				for (team of teamList) {
-					let html = '';
-					if (team.taType == obj.value) {
-						html += '<div id="team-list-div">'
-						html += `<button onclick="selectedTeam(this)" value="${team.taNum}" id="team${team.taNum}">`;
-						html += '</button>';
-						html += `<span>${team.taName}<span>`;
-						html += '</div>';
-					}
-					document.querySelector('#team-list').innerHTML += html;
-				}
-			}
 
-	
+		function selectTeamType(obj) {
+			selectedTeamNum = null;
+			document.querySelector('#team-list').innerHTML = '';
+			for (team of teamList) {
+				let html = '';
+				if (team.taType == '농구') {
+					type = 'basketball';
+				} else if (team.taType == '야구') {
+					type = 'baseball';
+				} else if (team.taType == '축구') {
+					type = 'soccerball';
+				}
+				if (team.taType == obj.value) {
+					html += '<div id="team-list-div">'
+					html += `<button onclick="selectedTeam(this)" value="${team.taNum}" id="team${team.taNum}">`;
+
+					if (team.taFilePath != null && team.taFilePath != '') {
+						html += `<img src="${team.taFilePath}">`;
+					} else {
+						html += `<img src="/imgs/${type}.png">`;
+					}
+
+					html += '</button>';
+					html += `<span>${team.taName}<span>`;
+					html += '</div>';
+				}
+				document.querySelector('#team-list').innerHTML += html;
+			}
+		}
+
+
 
 		//팀 선택시 팀 번호 저장
 		function selectedTeam(obj) {
@@ -225,8 +239,8 @@
 				alert('정보를 입력해 주세요');
 			}
 			for (let i = 0; i < files.length; i++) {
-				if(files[i].files[0] != null && files[i].files[0] != ''){
-					formData.append(`matchPhotos[${i}].file`, files[i].files[0]);	
+				if (files[i].files[0] != null && files[i].files[0] != '') {
+					formData.append(`matchPhotos[${i}].file`, files[i].files[0]);
 				}
 			}
 			formData.append('taNum', taNum);
@@ -244,18 +258,18 @@
 				method: 'POST',
 				body: formData
 			});
-			
+
 			const result = await res.json();
-			if(result == 2 || result == 1){
+			if (result == 2 || result == 1) {
 				alert('등록 성공');
 				location.href = '/page/match/match-board';
-			}else{
+			} else {
 				alert('등록 실패, 다시 시도해 주세요');
 				location.href = '/page/match/match-board';
 			}
 		}
 	</script>
-	
+
 	<script>
 		window.addEventListener('scroll', () => {
 			if (window.scrollY > 50) {

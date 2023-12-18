@@ -30,11 +30,11 @@ public class TeamSignUserInfoService {
 	
 	public MsgVO insertTeamSignUserInfo(TeamInfoVO teamInfoVO, UserInfoVO user) {
 		MsgVO msgVO = new MsgVO();
-		if(teamInfoMapper.selectTeamInfoByTaNum(teamInfoVO.getTaNum()).getTaStatus().equals("0")) {
-			msgVO.setResultMsg("팀을 구하고 있지 않은 상태입니다.");
-			return msgVO;
-		}else if (teamUserInfoService.checkTeamUserInfo(teamInfoVO.getTaNum(), user.getUiNum())) {
+		if (teamUserInfoService.checkTeamUserInfo(teamInfoVO.getTaNum(), user.getUiNum())) {
 			msgVO.setResultMsg("이미 가입된 팀 입니다.");
+			return msgVO;
+		}else if(teamInfoMapper.selectTeamInfoByTaNum(teamInfoVO.getTaNum()).getTaStatus().equals("0")) {
+			msgVO.setResultMsg("팀을 구하고 있지 않은 상태입니다.");
 			return msgVO;
 		}else if(teamSignUserInfoMapper.selectTeamSignUserInfoByUiNumAndTaNum(user.getUiNum(), teamInfoVO.getTaNum()) != null) {
 			msgVO.setResultMsg("이미 가입신청 상태 입니다.");
