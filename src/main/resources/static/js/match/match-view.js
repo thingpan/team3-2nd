@@ -48,10 +48,6 @@ window.addEventListener('load', async function() {
 			html += '<div id="team-list-div" style="display: inline-block; margin: 0 auto;">'
 			html += `<button onclick="selectedTeam(${team.taNum}, '${team.taName}')" value="${team.taNum}" id="team${team.taNum}">`;
 			if (team.taFilePath != null && team.taFilePath != '') {
-				console.log(team)
-				for(let file of team.taFilePath){
-					console.log(file.mbpFilePath)
-				}
 				html += `<img src="${team.taFilePath}">`;
 			} else {
 				html += `<img src="/imgs/${type}.png">`;
@@ -66,13 +62,18 @@ window.addEventListener('load', async function() {
 	console.log(matchInfo.matchPhotos);
 
 	matchPhotos = matchInfo.matchPhotos;
+	let html = '';
 	for (let i = 0; i < matchPhotos.length; i++) {
 		const matchPhoto = matchInfo.matchPhotos[i];
-		const html = `<div id="fileDiv${i + 1}">`
-			+ `<img src="${matchPhoto.mbpFilePath}" style="width:100px" id="img${i + 1}">`
-			+ `</div>`;
-		document.querySelector('#match-pic').innerHTML = html;
+		if (matchPhoto != null) {
+			document.querySelector('#match-pic').innerHTML = null;
+			html += `<div id="fileDiv${i + 1}">`
+				+ `<img src="${matchPhoto.mbpFilePath}" style="width:100px" id="img${i + 1}">`
+				+ `</div>`;
+			console.log(matchPhoto.mbpFilePath);
+		}
 	}
+	document.querySelector('#match-pic').innerHTML += html;
 	const taNum = matchInfo.taNum;
 	console.log("이거멍미:", taNum);
 
