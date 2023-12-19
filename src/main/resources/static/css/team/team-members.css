@@ -254,12 +254,16 @@ header {
 .team-user-list {
 	margin-top: 3%;
 }
-.team-user-list table{
+
+.team-user-list table {
 	text-align: center;
+	vertical-align: middle;
 }
+
 .pagination-calss {
-  margin-top: 3rem;
+	margin-top: 3rem;
 }
-#team-user-list-head th{
+
+#team-user-list-head th {
 	background-color: var(--btn-gray-color);
 }
