@@ -89,8 +89,16 @@
 
 	<!-- 팀 프로필 영역 -->
 	<div th:replace="/page/fragment/team-profile.html :: f-team-profile"></div>
+	<div>
+		<div>
+		<select id="sport-filter">
+			<option value="home" selected>Home</option>
+			<option value="away">Away</option>
+		</select>
+		</div>
+		<ol class="custom-table" id="match-list"></ol>
+	</div>
 
-	<ol class="custom-table" id="match-list"></ol>
 	<div class="record-table-section">
 		<button id="register-application-btn" data-toggle="modal" data-target="#membershipModal">
 			가입신청
@@ -186,7 +194,7 @@
 
 			document.querySelector('#team-name-modal').innerText = user.taName;
 		});
-	
+
 
 	</script>
 

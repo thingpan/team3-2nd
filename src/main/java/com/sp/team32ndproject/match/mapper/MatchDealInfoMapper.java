@@ -15,6 +15,8 @@ public interface MatchDealInfoMapper {
     List<MatchDealInfoVO> getMatchDealInfoForHomeTeam(int taNum);
 
     List<MatchDealInfoVO> getMatchDealInfoForAwayTeam(int mbNum);
+    
+    MatchDealInfoVO selectMatchDealInfoByMbNumAndTaNum(MatchDealInfoVO matchDealInfoVO);
 
     void updateMatchDealStatus(MatchDealInfoVO matchDealInfoVO);
     int deleteMatchDealStatus(MatchDealInfoVO matchDealInfoVO);

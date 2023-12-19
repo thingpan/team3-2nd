@@ -140,6 +140,7 @@ window.addEventListener('load', async function() {
 	infowindow.open(map, marker);
 })
 
+
 //팀 선택시 팀 번호 저장
 function selectedTeam(taNum, taName) {
 	let myTeams = document.querySelectorAll('.team-list button');
@@ -148,6 +149,7 @@ function selectedTeam(taNum, taName) {
 	}
 	document.querySelector(`#team${taNum}`).style.backgroundColor = "black";
 	doMakePostMessageDiv();
+	selectedTeamNum = taNum;
 
 	document.querySelector('#post-message-oponentName').innerHTML = oponentTaName;
 	document.querySelector('#post-message-info-oponentName').innerHTML = oponentTaName;
@@ -173,7 +175,7 @@ function doMakePostMessageDiv() {
 
 async function matchRequest() {
 
-	selectedTeamNum = teamList[0].taNum;
+	
 	console.log("넌뭐냐", selectedTeamNum);
 
 	if (selectedTeamNum == undefined) {
@@ -184,9 +186,9 @@ async function matchRequest() {
 			mdsNum: selectedTeamNum, // 선택된 팀 번호
 			mbNum: mbNum, // 매치 보드 번호
 			mdHomeNum: matchInfo.taNum,
-			mdAwayNum: teamList[0].taNum,
+			mdAwayNum: selectedTeamNum,
 			mdAddress: matchInfo.mbAddressDetail,
-			taNum: teamList[0].taNum,
+			taNum: selectedTeamNum,
 			mdTime: matchInfo.mbTime,
 			mdDate: matchInfo.mbDate,
 			mdType: matchInfo.mbType,
@@ -194,21 +196,28 @@ async function matchRequest() {
 		};
 
 		console.log("matchDealInfo: ", matchDealInfo);
-
-		const response = await fetch('/match-deal/insert', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(matchDealInfo),
-		});
-
-		if (!response.ok) {
-			const errorMessage = await response.text();
-			console.error('오류 메시지:', errorMessage);
+		if (matchInfo.taNum == selectedTeamNum) {
+			alert('같은 팀은 매칭 할 수 없습니다');
 		} else {
-			alert('매치 신청을 성공했습니다.');
+			const response = await fetch('/match-deal/insert', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(matchDealInfo),
+			});
+			const errorMessage = await response.json();
+			if (!response.ok) {
+				console.log(errorMessage);
+				console.error('오류 메시지:', errorMessage);
+			} else {
+				console.log(errorMessage);
+				alert(errorMessage.message);
+				location.reload();
+			}
 		}
+
+
 	}
 }
 

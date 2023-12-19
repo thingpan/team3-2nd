@@ -14,7 +14,10 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Configuration
+@Slf4j
 public class BeanConfig {
 	
 	

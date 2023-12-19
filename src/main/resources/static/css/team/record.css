@@ -32,6 +32,13 @@ body {
     color: var(--black-color);
 }
 
+#sport-filter {
+    margin-left: 79%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+}
+
 .team-profile {
     display: flex;
     justify-content: center;

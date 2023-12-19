@@ -40,29 +40,7 @@ public class MatchDealInfoController {
 
     @PostMapping("/insert")
     public ResponseEntity<Map<String, String>> insertMatchDealInfo(@RequestBody MatchDealInfoVO matchDealInfoVO) {
-        Map<String, String> response = new HashMap<>();
-
-        try {
-            // 매칭 신청 로직 추가
-            matchDealInfoVO.setMdMatchStatus("0"); // 0: 대기 중, 1: 수락, 2: 거절
-            int affectedRows = matchDealInfoService.insertMatchDealInfo(matchDealInfoVO);
-
-            // 적절한 조건에 따라 성공 여부 판단
-            if (affectedRows > 0) {
-                response.put("status", "success");
-                response.put("message", "매치 신청이 성공했습니다.");
-            } else {
-                response.put("status", "error");
-                response.put("message", "매치 신청이 실패했습니다.");
-            }
-        } catch (Exception e) {
-            // 예외가 발생하면 실패로 처리
-            e.printStackTrace(); // 예외 정보 출력
-            response.put("status", "error");
-            response.put("message", "매치 신청 중 오류가 발생했습니다.");
-        }
-
-        return ResponseEntity.ok(response);
+       return matchDealInfoService.insertMatchDealInfo(matchDealInfoVO);
     }
 
     @GetMapping("/home-team/{taNum}")
