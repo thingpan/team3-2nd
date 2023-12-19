@@ -264,3 +264,7 @@ header {
 	font-size: 15px;
 	/* 버튼 텍스트 크기 조절 */
 }
+
+#membership-requests-info {
+	vertical-align: middle;
+}
