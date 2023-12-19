@@ -169,6 +169,7 @@ button {
 	height: 100px;
 	border-radius: 50%;
 	cursor: pointer;
+	border: 1px solid #ccc;
 }
 
 .profile-container {
@@ -528,6 +529,7 @@ select {
 	border-radius: 50%;
 	cursor: pointer;
 	margin-top: 20px;
+	border: 1px solid #ccc;
 }
 
 .filter-select {
@@ -537,4 +539,10 @@ select {
 
 #checkIdButton {
 	margin-bottom: 15px;
+}
+
+#recipient-name {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
 }
