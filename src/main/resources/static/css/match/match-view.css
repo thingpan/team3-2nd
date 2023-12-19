@@ -168,3 +168,57 @@
 .select-team {
 	margin-bottom: 10px;
 }
+.main-slide {
+  position: relative;
+  max-height: 450px;
+}
+
+.image-slider {
+  width: 70%; /* 전체 영역의 70% 사용 (공통) */
+  height: 410px;
+  margin: 0 auto;
+  overflow: hidden; /* 영역을 벗어나면 보이지 않게 */
+  border-radius: 20px;
+}
+
+/* 슬라이더 내 이미지 resize */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.prev-btn,
+.next-btn {
+  background-color: var(--black-color);
+  color: var(--white-color);
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  border-radius: 20px;
+  border: none;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.prev-btn {
+  left: 10rem;
+}
+
+.next-btn {
+  right: 10rem;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  background-color: var(--text-light-gray-color);
+  color: var(--black-color);
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  border-radius: 20px;
+  border: none;
+  transform: translateY(-50%);
+  z-index: 1;
+}
