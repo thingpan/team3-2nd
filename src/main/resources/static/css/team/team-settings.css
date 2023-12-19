@@ -316,3 +316,8 @@ header {
 	font-size: 16px;
 	margin-bottom: 4px;
 }
+
+#teamProfilePicPriveiw {
+	border-radius: 50%;
+	border: 1px solid #ccc;
+}
