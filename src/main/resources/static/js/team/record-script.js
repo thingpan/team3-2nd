@@ -1,5 +1,8 @@
 let matchData;
 
+const urlParams = new URLSearchParams(window.location.search);
+const taNum = urlParams.get('taNum');
+
 window.addEventListener('scroll', () => {
 	if (window.scrollY > 50) {
 		header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
@@ -25,7 +28,8 @@ document
 
 window.addEventListener('load', async function() {
 	try {
-		const recordRes = await fetch(`/record-save/select`);
+		console.log(taNum);
+		const recordRes = await fetch(`/match-result/match-result-home-infos/${taNum}`);
 		if (!recordRes.ok) {
 			throw new Error(`HTTP 에러: ${recordRes.status}`);
 		}
@@ -44,7 +48,7 @@ window.addEventListener('load', async function() {
 async function renderMatchList() {
 	const matchList = document.querySelector('#match-list');
 
-	const teamInfoResponse = await fetch(`/team-infos`);
+	const teamInfoResponse = await fetch(`/match-result/match-result-home-infos/${taNum}`);
 	const teamInfo = await teamInfoResponse.json();
 
 	console.log("teamInfo", teamInfo[0].taType);
