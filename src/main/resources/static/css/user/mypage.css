@@ -20,7 +20,7 @@
 }
 
 #team-list-div {
-	text-align: center;
+	text-align: -webkit-center;
 	margin-right: 20px;
 }
 
