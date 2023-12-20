@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MatchResultMapper {
     int insertMatchResult(MatchResultVO matchResultVO);
-    List<MatchResultVO> selectMatchResultInfoByHomeNum(MatchResultVO matchResultVO);
+    //팀이 홈팀일때 리스트
+    List<MatchResultVO> selectMatchDealInfosByHomeNumWithHelper(MatchResultVO matchResultVO);
 }
 

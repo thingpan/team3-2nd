@@ -18,6 +18,7 @@ public class MatchResultVO {
     private int mrAwayMannerPoint;
     private char mrRequestStatus;
     private String mdDate;
+    private String mdTime;
     private String mdAddress;
     private String taName;
     private int page;

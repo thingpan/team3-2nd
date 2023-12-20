@@ -1,5 +1,4 @@
 let matchData;
-
 const urlParams = new URLSearchParams(window.location.search);
 const taNum = urlParams.get('taNum');
 
@@ -13,6 +12,121 @@ window.addEventListener('scroll', () => {
 	}
 });
 
+
+//홈 어웨이 셀렉트 박스 값 변할 때 밸류 갑 가져오기
+function getSelectChangeListener(obj) {
+	if (obj.value == 'home') {
+		getHomeAjaxList();
+	} else {
+		getAwayAjaxList();
+	}
+}
+
+async function getHomeAjaxList(evt, page) {
+	let total = 0;
+	let pageSize = 5;
+	const blockSize = 5;
+
+	if (!page) {
+		page = 1;
+	}
+
+	let url = `/match-result-home-infos?page=${page}&pageSize=${pageSize}&taHomeNum=${taNum}`;
+	const res = await fetch(url);
+	const pageInfos = await res.json();
+	const totalCnt = pageInfos.total;
+	const pageBlock = Math.ceil(totalCnt / pageSize);
+
+	const startBlock = (Math.ceil(page / blockSize) - 1) * blockSize + 1;
+	let endBlock = startBlock + blockSize - 1;
+	let pageHtml = '';
+
+	console.log(pageInfos.list);
+
+	if (endBlock > pageBlock) {
+		endBlock = pageBlock;
+	}
+
+	if (startBlock != 1) {
+		pageHtml += `<li class="page-item"><a class="page-link" aria-label="Previous" href="javascript:void(0)" onclick="getTeamUserInfoList(event,${startBlock - 1})"><span aria-hidden="true">&laquo;</span></a></li>`;
+	}
+
+	for (let i = startBlock; i <= endBlock; i++) {
+		pageHtml += `<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="getTeamUserInfoList(event,${i})">${i}</a></li>`;
+	}
+
+	if (endBlock < pageBlock) {
+		pageHtml += `<li class="page-item"><a  class="page-link" aria-label="Next" href="javascript:void(0)" onclick="getTeamUserInfoList(event,${endBlock + 1})"><span aria-hidden="true">&raquo;</span></a></li>`;
+	}
+	
+	
+	document.querySelector('#pageDiv').innerHTML = pageHtml;
+	
+	//여기서 상태별로 화면에 다르게 보여야함
+	
+	let html = '';
+	if (pageInfos.list.length == 0) {
+		html += '<tr><td colspan="5">비어있는 리스트 입니다.</td></tr>';
+	} else {
+		for (let matchStatus of pageInfos.list) {
+			html += '<li>';
+			html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
+			html += `<span>${matchStatus.taName}</span>`;
+			html += `<span>${matchStatus.mdAddress}</span>`;
+			html += `<span><button class="btn btn-dark" id="accept-button" onclick="doAcceptCheck('${matchStatus.taName}',${matchStatus.mdNum}, ${matchStatus.mdHomeNum}, ${matchStatus.mdAwayNum}, ${matchStatus.mbNum})">경기종료</span></span>`;
+			html += `</li>`;
+		}
+	}
+
+	document.querySelector('#match-list').innerHTML = html;
+
+}
+
+async function getAwayAjaxList(evt, page) {
+	let total = 0;
+	let pageSize = 5;
+	const blockSize = 5;
+
+	if (!page) {
+		page = 1;
+	}
+
+	let url = `/match-result-home-infos?page=${page}&pageSize=${pageSize}&taHomeNum=${taNum}`;
+	const res = await fetch(url);
+	const pageInfos = await res.json();
+	const totalCnt = pageInfos.total;
+	const pageBlock = Math.ceil(totalCnt / pageSize);
+
+	const startBlock = (Math.ceil(page / blockSize) - 1) * blockSize + 1;
+	let endBlock = startBlock + blockSize - 1;
+	let pageHtml = '';
+
+	console.log(pageInfos.list);
+
+	if (endBlock > pageBlock) {
+		endBlock = pageBlock;
+	}
+
+	if (startBlock != 1) {
+		pageHtml += `<li class="page-item"><a class="page-link" aria-label="Previous" href="javascript:void(0)" onclick="getTeamUserInfoList(event,${startBlock - 1})"><span aria-hidden="true">&laquo;</span></a></li>`;
+	}
+
+	for (let i = startBlock; i <= endBlock; i++) {
+		pageHtml += `<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="getTeamUserInfoList(event,${i})">${i}</a></li>`;
+	}
+
+	if (endBlock < pageBlock) {
+		pageHtml += `<li class="page-item"><a  class="page-link" aria-label="Next" href="javascript:void(0)" onclick="getTeamUserInfoList(event,${endBlock + 1})"><span aria-hidden="true">&raquo;</span></a></li>`;
+	}
+
+	document.querySelector('#pageDiv').innerHTML = pageHtml;
+
+}
+
+window.addEventListener('load', getHomeAjaxList());
+
+
+/* 
 // 팀 이름을 메인 화면에 설정
 document.querySelector('#team-name').innerText = 'Team Name';
 
@@ -352,3 +466,4 @@ function handleMatchEndButtonClick() {
 			}
 		});
 }
+*/
