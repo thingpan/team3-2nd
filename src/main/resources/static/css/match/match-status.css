@@ -148,46 +148,51 @@ tr:last-child {
 
 span {
     font-size: 16px;
+    font-weight: 600;
     padding: 6px 14px;
     border-radius: 8px;
 }
 
 
-.status-button {
-    background-color: transparent;
-    border: none;
-}
-
-.status-button button {
-    margin-right: 5px;
-    padding: 7px 15px;
-    font-size: 1rem;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-}
-
-.status-button button[value="accept"] {
+#accept-button {
     background-color: #D9E5FF;
     color: #0066FF;
     font-weight: 600;
+    border: none;
 }
 
-.status-button button[value="accept"]:hover {
-    background-color: #0066ff;
-    color: #fff;
-    font-weight: 600;
-}
-
-.status-button button[value="refuse"] {
+#refuse-button {
     background-color: #FFE6E6;
     color: #ff1200;
     font-weight: 600;
+    border: none;
 }
 
-.status-button button[value="refuse"]:hover {
-    background-color: #ff1200;
-    color: #fff;
+#accept-button:hover {
+    background-color: #0066FF;
+    color: #D9E5FF;
     font-weight: 600;
+    border: none;
+}
+
+#refuse-button:hover {
+    background-color: #ff1200;
+    color: #FFE6E6;
+    font-weight: 600;
+    border: none;
+}
+
+.badge-waiting {
+    background-color: #ECECEC;
+    color: #767676;
+}
+
+.badge-accepted {
+    background-color: #E6F0FF;
+    color: #0066FF;
+}
+
+.badge-rejected {
+    background-color: #FFE6E6;
+    color: #FF5C5C;
 }
