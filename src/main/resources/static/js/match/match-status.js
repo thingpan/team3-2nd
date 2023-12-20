@@ -75,7 +75,7 @@ async function getAwayAjaxList(evt, page) {
 			html += '<tr>';
 			html += `<td>${matchStatus.mdAddress}</td>`;
 			html += `<td>${matchStatus.taName}</td>`;
-			html += `<td>${matchStatus.mdDate}</td>`;
+			html += `<td>${matchStatus.mdDate}||${matchStatus.mdTime}</td>`;
 
 			if (matchStatus.mdMatchStatus == 0) {
 				status = '대기중';
@@ -143,7 +143,7 @@ async function getHomeAjaxList(evt, page) {
 			html += '<tr>';
 			html += `<td>${matchStatus.mdAddress}</td>`;
 			html += `<td>${matchStatus.taName}</td>`;
-			html += `<td>${matchStatus.mdDate}</td>`;
+			html += `<td>${matchStatus.mdDate}||${matchStatus.mdTime}</td>`;
 			html += `<td><button class="btn btn-dark" id="accept-button" onclick="doAcceptCheck('${matchStatus.taName}',${matchStatus.mdNum}, ${matchStatus.mdHomeNum}, ${matchStatus.mdAwayNum}, ${matchStatus.mbNum})">수락</button>
 		<button class="btn btn-white" id="refuse-button" onclick="doCancleCheck('${matchStatus.taName}',${matchStatus.mdNum},${matchStatus.mbNum})">거절</button></td>`;
 			html += `</tr>`;
