@@ -1,5 +1,3 @@
-@charset "EUC-KR";
-
 * {
 	padding: 0;
 	margin: 0;
@@ -33,183 +31,6 @@ body {
 	color: var(--black-color);
 }
 
-header {
-	position: fixed;
-	top: 0;
-	right: 0;
-	width: 100%;
-	z-index: 1000;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	background: transparent;
-	padding: 30px 18%;
-	transition: ease 0.4s;
-}
-
-.logo {
-	font-size: 20px;
-	font-weight: 600;
-	letter-spacing: 1px;
-	color: var(--black-color);
-}
-
-.navbar {
-	display: flex;
-}
-
-.navbar a {
-	color: var(--black-color);
-	font-size: var(--p-font);
-	font-weight: 400;
-	padding: 10px 22px;
-	transition: ease 0.4s;
-}
-
-.navbar a:hover {
-	background: var(--white-color);
-	color: var(--black-color);
-	font-weight: 600;
-	border-radius: 4px;
-}
-
-.l-navbar {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: var(--nav--width);
-	height: 100vh;
-	background-color: var(--bg-color);
-	color: var(--white-color);
-	padding: 1.5rem 1.5rem 2rem;
-	transition: 0.5s;
-	z-index: 1001;
-	/* 백드롭보다 위에 나타나도록 설정 */
-}
-
-.nav {
-	height: 100%;
-	flex-direction: column;
-	justify-content: space-between;
-	overflow: hidden;
-}
-
-.nav__brand {
-	display: grid;
-	grid-template-columns: max-content max-content;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 2rem;
-}
-
-.nav__toggle {
-	font-size: 1.25rem;
-	padding: 0.75rem;
-	cursor: pointer;
-}
-
-.nav__logo {
-	color: var(--white-color);
-	font-weight: 600;
-}
-
-.nav__link {
-	display: grid;
-	grid-template-columns: max-content max-content;
-	align-items: center;
-	column-gap: 0.75rem;
-	padding: 0.75rem;
-	color: var(--white-color);
-	border-radius: 0.5rem;
-	margin-bottom: 1rem;
-	transition: 0.3s;
-	cursor: pointer;
-}
-
-.nav__link:hover {
-	background-color: var(--first-color);
-}
-
-.nav__icon {
-	font-size: 1.25rem;
-}
-
-.nav__icon:hover {
-	font-size: 1.25rem;
-}
-
-.nav_name {
-	font-size: var(--small-font-size);
-}
-
-.expander {
-	width: calc(var(--nav--width) + 10rem);
-}
-
-.body-pd {
-	padding: 2rem 0 0 16rem;
-}
-
-.active {
-	background-color: var(--first-color);
-}
-
-.collapse {
-	grid-template-columns: 20px max-content 1fr;
-}
-
-.collapse__link {
-	justify-self: flex-end;
-	transition: 0.5;
-}
-
-.collapse__menu {
-	display: none;
-	padding: 0.75rem 2.25rem;
-}
-
-.collapse__sublink {
-	color: var(--sub-color);
-	font-size: var(--small-font-size);
-}
-
-.collapse__sublink:hover {
-	color: var(--white-color);
-}
-
-.showCollapse {
-	display: block;
-}
-
-.rotate {
-	transform: rotate(180deg);
-	transition: 0.5s;
-}
-
-.backdrop {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	/* 어두운 배경의 색상 및 투명도 조절 */
-	z-index: 1000;
-	/* 사이드바보다 앞에 나타나도록 설정 */
-	display: none;
-	/* 초기에는 화면에서 감추기 */
-}
-
-.backdrop.active {
-	display: block;
-	/* 토글되었을 때 보이도록 변경 */
-}
-
-.l-navbar.expander .backdrop {
-	display: none;
-	/* 사이드바가 열린 경우에는 백드롭을 감추기 */
-}
-
 .container.team-settings {
 	width: 70%;
 	margin-top: -30px;
@@ -236,13 +57,13 @@ header {
 
 .container.team-settings input#teamName {
 	width: 200px;
-	/* 조절할 크기 입력 */
+	/* 조�???? ?�기 ???? */
 }
 
 .container.team-settings textarea#teamIntro {
 	height: 150px;
 	width: 500px;
-	/* 원하는 크기로 조절 */
+	/* ?????? ?�기�? 조�?? */
 }
 
 .container.team-settings button {
@@ -259,23 +80,23 @@ header {
 .container.team-settings h1 {
 	font-size: 25px;
 	border-bottom: 2px solid #ccc;
-	/* 선의 스타일과 색상을 지정 */
+	/* ???? ?��???�과 ?????? �??? */
 	padding-bottom: 20px;
-	/* 선과 텍스트 사이의 간격을 조절 */
+	/* ??�? ???��?? ?��?��?? �?격�?? 조�?? */
 }
 
 .container.team-settings label {
 	margin-top: 10px;
 }
 
-/* 원형 이미지 컨테이너를 위한 스타일 추가 */
+/* ???? ?��?��? 컨�???��??�? ???? ?��???? �?�? */
 .circular-image-container {
 	width: 100px;
 	height: 100px;
 	overflow: hidden;
 	border-radius: 50%;
 	margin: 10px 0;
-	/* 기본 이미지 URL을 넣는 곳 */
+	/* 기본 ?��?��? URL?? ?��?? �? */
 	background-size: cover;
 }
 
@@ -289,7 +110,7 @@ header {
 	width: 500px;
 }
 
-/* 수정된 드롭다운 크기 */
+/* ?????? ??�??��?? ?�기 */
 #jobStatus {
 	width: 120px;
 }
