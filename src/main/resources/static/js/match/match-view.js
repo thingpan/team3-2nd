@@ -68,49 +68,51 @@ window.addEventListener('load', async function() {
 	matchPhotos = matchInfo.matchPhotos;
 	let html = '';
 
+	let currentSlideIndex = 0;
+	document.querySelector('#match-pic').innerHTML = null;
+
+
+	// 함수: 슬라이드를 특정 인덱스로 보여주는 함수
 	function displaySlide(i) {
 		// matchPhotos 배열에서 현재 인덱스에 해당하는 사진 정보 가져오기
 		const matchPhotos = matchInfo.matchPhotos;
 
 		// 슬라이드 HTML 생성
-		let html = `<section class="main-slide" id="main-slide${i}">`;
-		html += `<div class="image-slider">`;
-		html += `<div class="slider">`;
-
-		// 각각의 슬라이드에 대한 HTML 생성
-		matchPhotos.forEach((matchPhoto, index) => {
-			console.log(`Image ${index + 1}: ${matchPhoto.mbpFilePath}`);
-			html += `<div class="slide" style="display: ${index === 0 ? 'block' : 'none'};">`;
-			html += `<div id="fileDiv${i + 1}">`;
-			html += `<img src="${matchPhoto.mbpFilePath}" style="width:100px" id="img${i + 1}">`;
+		let html = `<section class="main-slide" id="main-slide${i}">`
+		html += `<div class="image-slider">`
+		html += `<div class="slider">`
+		for (let matchPhoto of matchPhotos) {
+			html += `<div class="slide">`
+			html += `<div id="fileDiv${i + 1}">`
+			html += `<img src="${matchPhoto.mbpFilePath}" style="width:100px" id="img${i + 1}">`
 			html += `</div>`;
 			html += `</div>`;
-		});
-console.log("Generated HTML:", html); // HTML 확인
+		}
+		html += `</div>`;
 		html += `</div>`;
 		html += `<button id="prev-btn" class="prev-btn">&lt;</button>`;
 		html += `<button id="next-btn" class="next-btn">&gt;</button>`;
 		html += `</section>`;
 
 		document.querySelector('#match-pic').innerHTML = html;
+
+		console.log(matchPhoto.mbpFilePath);
 	}
-	function prevSlide() {
-		currentSlide = (currentSlide - 1 + slideCount) % slideCount;
-		showSlide(currentSlide);
+
+	function showSlide(n) {
+		slides.forEach((slide) => (slide.style.display = 'none'));
+		slides[n].style.display = 'block';
 	}
 
 	function nextSlide() {
 		currentSlide = (currentSlide + 1) % slideCount;
-		console.log(`Next Slide: ${currentSlide}`);
 		showSlide(currentSlide);
 	}
-	// 함수: 현재 슬라이드를 보여주는 함수
-	function showSlide(n) {
-		slides.forEach((slide, index) => {
-			slide.style.display = index === n ? 'block' : 'none';  // 현재 슬라이드만 보이게 설정
-		});
-	}
 
+	function prevSlide() {
+		currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+		showSlide(currentSlide);
+	}
 
 	// 페이지 로드 시 슬라이드 표시
 	document.addEventListener('DOMContentLoaded', () => {
@@ -124,21 +126,19 @@ console.log("Generated HTML:", html); // HTML 확인
 		slidePrevBtn.addEventListener('click', () => {
 			clearInterval(slideInterval); // 자동 슬라이드 중지
 			prevSlide();
-			slideInterval = setInterval(nextSlide, 3000);
+			slideInterval = setInterval(nextSlide, 3000); // 다시 자동 슬라이드 시작
 		});
 
-
+		// 다음 버튼 클릭 시 다음 슬라이드로 이동
 		slideNextBtn.addEventListener('click', () => {
 			clearInterval(slideInterval); // 자동 슬라이드 중지
 			nextSlide();
-			slideInterval = setInterval(nextSlide, 3000);
+			slideInterval = setInterval(nextSlide, 3000); // 다시 자동 슬라이드 시작
 		});
 	});
 
 
-
-
-	displaySlide();
+	displaySlide(currentSlideIndex);
 	document.querySelector('#match-pic').innerHTML += html;
 	const taNum = matchInfo.taNum;
 	console.log("이거멍미:", taNum);
