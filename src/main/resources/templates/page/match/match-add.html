@@ -244,8 +244,9 @@
 			const mbDesc = document.querySelector('#mbDesc').value;
 			const mbPay = document.querySelector('#mbPay').value;
 			const mbAddressDetail = document.querySelector('#address_detail').value;
-			if (!(taNum && mbDate && mbTime && mbPay && mbMapX && mbMapY && mdAddress && mbSido && mbSigungu)) {
+			if (!(taNum && mbDate && mbTime && mbPay && mbMapX && mbMapY && mdAddress && mbSido && mbSigungu && mbAddressDetail)) {
 				alert('정보를 입력해 주세요');
+				return false;
 			}
 			for (let i = 0; i < files.length; i++) {
 				if (files[i].files[0] != null && files[i].files[0] != '') {
