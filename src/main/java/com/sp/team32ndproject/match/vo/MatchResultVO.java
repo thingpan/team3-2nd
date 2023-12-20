@@ -20,5 +20,9 @@ public class MatchResultVO {
     private String mdDate;
     private String mdAddress;
     private String taName;
+    private int page;
+  	private int start;
+  	private int end;
+  	private int pageSize; 
 }
 

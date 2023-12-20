@@ -7,64 +7,61 @@
 		parameterType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
 		INSERT INTO
 		MATCH_DEAL_INFO
-		(MDS_NUM, MB_NUM, TA_NUM,
-		MD_HOME_NUM, MD_AWAY_NUM, MD_ADDRESS, MD_TYPE,
+		(MB_NUM, MD_HOME_NUM,
+		MD_AWAY_NUM, MD_ADDRESS, MD_TYPE,
 		MD_TIME, MD_DATE,
 		MD_MATCH_STATUS)
 		VALUES
-		(#{mdsNum}, #{mbNum}, #{taNum}, #{mdHomeNum},
-		#{mdAwayNum}, #{mdAddress}, #{mdType}, #{mdTime},
+		(#{mbNum},#{mdHomeNum}, #{mdAwayNum}, #{mdAddress}, #{mdType},
+		#{mdTime},
 		#{mdDate},
 		#{mdMatchStatus})
 	</insert>
 
-	<select id="getMatchDealInfoById" parameterType="int"
-		resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
-		SELECT * FROM MATCH_DEAL_INFO WHERE MD_NUM = #{mdNum}
-	</select>
 
-	<select id="getAllMatchDealInfo"
-		resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
-		SELECT * FROM MATCH_DEAL_INFO
-	</select>
 
-	<!-- 대기 중인 매치 딜 정보 조회 -->
-	<select id="getMatchDealInfoForHomeTeam" parameterType="int"
-		resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
-		SELECT * FROM project.MATCH_DEAL_INFO
-		WHERE MD_HOME_NUM =
-		#{mdHomeNum}
-		AND MD_MATCH_STATUS = '0'
-	</select>
-
-	<!-- 대기 중인 매치 딜 정보 조회 -->
-	<select id="getWaitingMatchDealInfoForAwayTeam"
-		parameterType="int"
-		resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
-		SELECT * FROM project.MATCH_DEAL_INFO
-		WHERE MD_AWAY_NUM =
-		#{awayTeamNum}
-		AND MD_MATCH_STATUS = '0'
-	</select>
 	<!-- 매치 중복 검사 -->
 	<select id="selectMatchDealInfoByMbNumAndTaNum"
 		resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
 		SELECT * FROM MATCH_DEAL_INFO
 		WHERE MB_NUM = #{mbNum}
-		AND TA_NUM = #{taNum}
+		AND
+		MD_AWAY_NUM = #{mdAwayNum}
 	</select>
 
-	<update id="updateMatchDealStatus"
+	<select id="selectMatchDealInfosByHomeNumWithHelper"
+		resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
+		SELECT MD.MD_NUM, MD.MB_NUM, MD.MD_HOME_NUM,
+		MD.MD_AWAY_NUM,
+		MD.MD_ADDRESS, MD.MD_TYPE, MD.MD_TIME, MD.MD_DATE,
+		MD.MD_MATCH_STATUS,
+		TA.TA_NAME
+		FROM MATCH_DEAL_INFO MD
+		INNER JOIN
+		TEAM_INFO TA ON TA.TA_NUM = MD.MD_AWAY_NUM
+		WHERE MD.MD_HOME_NUM =
+		#{taNum}
+		AND MD.MD_MATCH_STATUS = 0
+	</select>
+
+	<select id="selectMatchDealInfosByAwayNumWithHelper"
+		resultType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
+		SELECT MD.MD_NUM, MD.MB_NUM, MD.MD_HOME_NUM,
+		MD.MD_AWAY_NUM,
+		MD.MD_ADDRESS, MD.MD_TYPE, MD.MD_TIME, MD.MD_DATE,
+		MD.MD_MATCH_STATUS,
+		TA.TA_NAME
+		FROM MATCH_DEAL_INFO MD
+		INNER JOIN
+		TEAM_INFO TA ON TA.TA_NUM = MD.MD_HOME_NUM
+		WHERE MD.MD_AWAY_NUM =
+		#{taNum}
+	</select>
+
+	<update id="updateMatchDealInfoMdMatchStatus"
 		parameterType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
-		UPDATE project.MATCH_DEAL_INFO
-		SET MD_MATCH_STATUS =
-		#{mdMatchStatus}
+		UPDATE MATCH_DEAL_INFO SET MD_MATCH_STATUS = #{mdMatchStatus}
 		WHERE MD_NUM = #{mdNum}
 	</update>
 
-	<delete id="deleteMatchDealStatus"
-		parameterType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
-		DELETE FROM MATCH_DEAL_INFO
-		WHERE MD_NUM = #{mdNum}
-	</delete>
 </mapper>
