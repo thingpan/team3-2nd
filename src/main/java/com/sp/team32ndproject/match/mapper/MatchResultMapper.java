@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MatchResultMapper {
-    void insertMatchResult(MatchResultVO matchResultVO);
+    int insertMatchResult(MatchResultVO matchResultVO);
     List<MatchResultVO> selectMatchResultInfoByHomeNum(MatchResultVO matchResultVO);
 }
 

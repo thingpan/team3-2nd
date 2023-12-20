@@ -4,27 +4,9 @@
 <mapper
 	namespace="com.sp.team32ndproject.match.mapper.MatchResultMapper">
 
-	<select id="selectMatchResult"
-		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
-		SELECT * FROM MATCH_RESULT
-	</select>
-
-	<select id="selectMatchResultInfoByHomeNum"
-		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
-		SELECT MRI.MR_NUM, MRI.MD_NUM, MRI.TA_HOME_NUM,
-		MRI.TA_AWAY_NUM, MRI.MR_HOME_SCORE, MRI.MR_AWAY_SCORE,
-		MRI.MR_HOME_MANNER_POINT, MRI.MR_AWAY_MANNER_POINT,
-		MRI.MR_REQUEST_STATUS,
-		MD.MD_DATE, MD.MD_ADDRESS, TA.TA_NAME
-		FROM MATCH_RESULT_INFO MRI
-		INNER JOIN MATCH_DEAL_INFO MD ON MRI.MD_NUM = MD.MD_NUM
-		INNER JOIN TEAM_INFO TA ON TA.TA_NUM = MRI.TA_AWAY_NUM
-		WHERE TA_HOME_NUM = #{taHomeNum}
-	</select>
-
 	<insert id="insertMatchResult"
 		parameterType="com.sp.team32ndproject.match.vo.MatchResultVO">
-		INSERT INTO MATCH_RESULT
+		INSERT INTO MATCH_RESULT_INFO
 		(MD_NUM, TA_HOME_NUM,
 		TA_AWAY_NUM, MR_REQUEST_STATUS)
 		VALUES (#{mdNum}, #{taHomeNum},

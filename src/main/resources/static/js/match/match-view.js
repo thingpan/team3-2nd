@@ -248,13 +248,11 @@ async function matchRequest() {
 		alert('팀을 선택해 주세요!');
 	} else {
 		// 이미 신청된 게시물인지 확인 로직 추가
-		const matchDealInfo = {
-			mdsNum: selectedTeamNum, // 선택된 팀 번호
+		const matchDealInfo = { // 선택된 팀 번호
 			mbNum: mbNum, // 매치 보드 번호
 			mdHomeNum: matchInfo.taNum,
 			mdAwayNum: selectedTeamNum,
 			mdAddress: matchInfo.mbAddressDetail,
-			taNum: selectedTeamNum,
 			mdTime: matchInfo.mbTime,
 			mdDate: matchInfo.mbDate,
 			mdType: matchInfo.mbType,
@@ -265,7 +263,7 @@ async function matchRequest() {
 		if (matchInfo.taNum == selectedTeamNum) {
 			alert('같은 팀은 매칭 할 수 없습니다');
 		} else {
-			const response = await fetch('/match-deal/insert', {
+			const response = await fetch('/math-deal-infos', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -278,7 +276,7 @@ async function matchRequest() {
 				console.error('오류 메시지:', errorMessage);
 			} else {
 				console.log(errorMessage);
-				alert(errorMessage.message);
+				alert(errorMessage.resultMsg);
 				location.reload();
 			}
 		}
