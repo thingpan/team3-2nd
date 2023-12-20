@@ -139,8 +139,8 @@ async function getHomeAjaxList(evt, page) {
 			html += `<td>${matchStatus.mdAddress}</td>`;
 			html += `<td>${matchStatus.taName}</td>`;
 			html += `<td>${matchStatus.mdDate}</td>`;
-			html += `<td><button class="btn btn-dark" onclick="doAcceptCheck('${matchStatus.taName}',${matchStatus.mdNum}, ${matchStatus.mdHomeNum}, ${matchStatus.mdAwayNum})">수락</button>
-		<button class="btn btn-white" onclick="doCancleCheck('${matchStatus.taName}',${matchStatus.mdNum})">거절</button></td>`;
+			html += `<td><button class="btn btn-dark" onclick="doAcceptCheck('${matchStatus.taName}',${matchStatus.mdNum}, ${matchStatus.mdHomeNum}, ${matchStatus.mdAwayNum}, ${matchStatus.mbNum})">수락</button>
+		<button class="btn btn-white" onclick="doCancleCheck('${matchStatus.taName}',${matchStatus.mdNum},${matchStatus.mbNum})">거절</button></td>`;
 			html += `<tr>`;
 		}
 	}
@@ -148,24 +148,25 @@ async function getHomeAjaxList(evt, page) {
 	document.querySelector('#table-body').innerHTML = html;
 }
 
-function doAcceptCheck(mdAwayName, mdNum, mdHomeNum, mdAwayNum) {
+function doAcceptCheck(mdAwayName, mdNum, mdHomeNum, mdAwayNum, mbNum) {
 	if (confirm(`${mdAwayName}과의 매칭을 수락 하시겠습니까?`) == true) {
-		doMatchAccept(mdNum, mdHomeNum, mdAwayNum);
+		doMatchAccept(mdNum, mdHomeNum, mdAwayNum, mbNum);
 	}
 }
 
-function doCancleCheck(mdAwayName, mdNum) {
+function doCancleCheck(mdAwayName, mdNum, mbNum) {
 	if (confirm(`${mdAwayName}과의 매칭을 거절 하시겠습니까?`) == true) {
-		doMatchDealUpdate(mdNum, '2');
+		doMatchDealUpdate(mdNum, '2', mbNum);
 	}
 }
 
-async function doMatchAccept(mdNum, mdHomeNum, mdAwayNum) {
+async function doMatchAccept(mdNum, mdHomeNum, mdAwayNum, mbNum) {
 	const body = {
 		mdNum: mdNum,
 		taHomeNum: mdHomeNum,
 		taAwayNum: mdAwayNum,
-		mrRequestStatus: '0'
+		mrRequestStatus: '0',
+		mbNum: mbNum
 	}
 	const res = await fetch(`/match-result-infos`, {
 		method: 'POST',
@@ -176,16 +177,17 @@ async function doMatchAccept(mdNum, mdHomeNum, mdAwayNum) {
 	});
 	const result = await res.json();
 	if (res.ok) {
-		doMatchDealUpdate(mdNum, '1')
+		doMatchDealUpdate(mdNum, '1', mbNum)
 	}
 	alert(result.resultMsg)
 	location.reload();
 }
 
-async function doMatchDealUpdate(mdNum, mdMatchStatus) {
+async function doMatchDealUpdate(mdNum, mdMatchStatus, mbNum) {
 	const body = {
 		mdNum: mdNum,
-		mdMatchStatus: mdMatchStatus
+		mdMatchStatus: mdMatchStatus,
+		mbNum: mbNum
 	}
 	const res = await fetch(`/match-result-infos`, {
 		method: 'PATCH',
