@@ -58,6 +58,13 @@ public class MatchDealInfoService {
     
     public MsgVO updateMatchDealInfoMdMatchStatus(MatchDealInfoVO matchDealInfoVO) {
     	MsgVO msgVO = new MsgVO();
+    	if(matchDealInfoVO.getMdMatchStatus().equals("1")) {
+    		if(matchDealInfoMapper.updateMatchDealInfoMdMatchStatus(matchDealInfoVO) == 1) {
+    			if(matchDealInfoMapper.updateMatchDealInfoRemainStatus(matchDealInfoVO) == 1) {
+    				return null;
+    			}
+    		}
+    	}
     	if(matchDealInfoMapper.updateMatchDealInfoMdMatchStatus(matchDealInfoVO) == 1) {
     		msgVO.setResultMsg("거절 성공");
     	}else {

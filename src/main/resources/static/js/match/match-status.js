@@ -70,29 +70,24 @@ async function getAwayAjaxList(evt, page) {
 	} else {
 		for (let matchStatus of pageInfos.list) {
 			let status;
-			let badgeStyle = '';
-
 			html += '<tr>';
 			html += `<td>${matchStatus.mdAddress}</td>`;
 			html += `<td>${matchStatus.taName}</td>`;
 			html += `<td>${matchStatus.mdDate}</td>`;
-
+			
 			if (matchStatus.mdMatchStatus == 0) {
 				status = '대기중';
-				badgeStyle = 'badge-waiting';
 			} else if (matchStatus.mdMatchStatus == 1) {
 				status = '수락';
-				badgeStyle = 'badge-accepted';
-			} else if (matchStatus.mdMatchStatus == 2) {
-				status = '거절';
-				badgeStyle = 'badge-rejected';
 			}
-
-			html += `<td><span class="align-middle ${badgeStyle}">${status}</span></td>`;
+			else if (matchStatus.mdMatchStatus == 2) {
+				status = '거절';
+			}
+			html += `<td>${status}</td>`;
 			html += '</tr>';
 		}
 	}
-		document.querySelector('#table-body').innerHTML = html;
+	document.querySelector('#table-body').innerHTML = html;
 }
 
 //토글이 홈일때 리스트 불러오기
@@ -144,33 +139,34 @@ async function getHomeAjaxList(evt, page) {
 			html += `<td>${matchStatus.mdAddress}</td>`;
 			html += `<td>${matchStatus.taName}</td>`;
 			html += `<td>${matchStatus.mdDate}</td>`;
-			html += `<td><button class="btn btn-dark" id="accept-button" onclick="doAcceptCheck('${matchStatus.taName}',${matchStatus.mdNum}, ${matchStatus.mdHomeNum}, ${matchStatus.mdAwayNum})">수락</button>
-		<button class="btn btn-white" id="refuse-button" onclick="doCancleCheck('${matchStatus.taName}',${matchStatus.mdNum})">거절</button></td>`;
-			html += `</tr>`;
+			html += `<td><button class="btn btn-dark" onclick="doAcceptCheck('${matchStatus.taName}',${matchStatus.mdNum}, ${matchStatus.mdHomeNum}, ${matchStatus.mdAwayNum}, ${matchStatus.mbNum})">수락</button>
+		<button class="btn btn-white" onclick="doCancleCheck('${matchStatus.taName}',${matchStatus.mdNum},${matchStatus.mbNum})">거절</button></td>`;
+			html += `<tr>`;
 		}
 	}
 
 	document.querySelector('#table-body').innerHTML = html;
 }
 
-function doAcceptCheck(mdAwayName, mdNum, mdHomeNum, mdAwayNum) {
+function doAcceptCheck(mdAwayName, mdNum, mdHomeNum, mdAwayNum, mbNum) {
 	if (confirm(`${mdAwayName}과의 매칭을 수락 하시겠습니까?`) == true) {
-		doMatchAccept(mdNum, mdHomeNum, mdAwayNum);
+		doMatchAccept(mdNum, mdHomeNum, mdAwayNum, mbNum);
 	}
 }
 
-function doCancleCheck(mdAwayName, mdNum) {
+function doCancleCheck(mdAwayName, mdNum, mbNum) {
 	if (confirm(`${mdAwayName}과의 매칭을 거절 하시겠습니까?`) == true) {
-		doMatchDealUpdate(mdNum, '2');
+		doMatchDealUpdate(mdNum, '2', mbNum);
 	}
 }
 
-async function doMatchAccept(mdNum, mdHomeNum, mdAwayNum) {
+async function doMatchAccept(mdNum, mdHomeNum, mdAwayNum, mbNum) {
 	const body = {
 		mdNum: mdNum,
 		taHomeNum: mdHomeNum,
 		taAwayNum: mdAwayNum,
-		mrRequestStatus: '0'
+		mrRequestStatus: '0',
+		mbNum: mbNum
 	}
 	const res = await fetch(`/match-result-infos`, {
 		method: 'POST',
@@ -181,16 +177,17 @@ async function doMatchAccept(mdNum, mdHomeNum, mdAwayNum) {
 	});
 	const result = await res.json();
 	if (res.ok) {
-		doMatchDealUpdate(mdNum, '1')
+		doMatchDealUpdate(mdNum, '1', mbNum)
 	}
 	alert(result.resultMsg)
 	location.reload();
 }
 
-async function doMatchDealUpdate(mdNum, mdMatchStatus) {
+async function doMatchDealUpdate(mdNum, mdMatchStatus, mbNum) {
 	const body = {
 		mdNum: mdNum,
-		mdMatchStatus: mdMatchStatus
+		mdMatchStatus: mdMatchStatus,
+		mbNum: mbNum
 	}
 	const res = await fetch(`/match-result-infos`, {
 		method: 'PATCH',

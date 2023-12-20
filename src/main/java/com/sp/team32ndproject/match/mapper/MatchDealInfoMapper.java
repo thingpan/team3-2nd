@@ -17,4 +17,6 @@ public interface MatchDealInfoMapper {
     List<MatchDealInfoVO> selectMatchDealInfosByAwayNumWithHelper(int taNum);
     //매치 딜 상태 업데이트
     int updateMatchDealInfoMdMatchStatus(MatchDealInfoVO matchDealInfoVO);
+    //매치 딜 상태 나머지 거절로 업데이트
+    int updateMatchDealInfoRemainStatus(MatchDealInfoVO matchDealInfoVO);
 }
