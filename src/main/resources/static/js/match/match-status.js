@@ -74,6 +74,7 @@ async function getAwayAjaxList(evt, page) {
 			html += `<td>${matchStatus.mdAddress}</td>`;
 			html += `<td>${matchStatus.taName}</td>`;
 			html += `<td>${matchStatus.mdDate}</td>`;
+			
 			if (matchStatus.mdMatchStatus == 0) {
 				status = '대기중';
 			} else if (matchStatus.mdMatchStatus == 1) {
@@ -83,7 +84,7 @@ async function getAwayAjaxList(evt, page) {
 				status = '거절';
 			}
 			html += `<td>${status}</td>`;
-			html += `<td>`;
+			html += '</tr>';
 		}
 	}
 	document.querySelector('#table-body').innerHTML = html;
