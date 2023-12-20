@@ -70,20 +70,25 @@ async function getAwayAjaxList(evt, page) {
 	} else {
 		for (let matchStatus of pageInfos.list) {
 			let status;
+			let badgeStyle = '';
+
 			html += '<tr>';
 			html += `<td>${matchStatus.mdAddress}</td>`;
 			html += `<td>${matchStatus.taName}</td>`;
 			html += `<td>${matchStatus.mdDate}</td>`;
-			
+
 			if (matchStatus.mdMatchStatus == 0) {
 				status = '대기중';
+				badgeStyle = 'badge-waiting';
 			} else if (matchStatus.mdMatchStatus == 1) {
 				status = '수락';
-			}
-			else if (matchStatus.mdMatchStatus == 2) {
+				badgeStyle = 'badge-accepted';
+			} else if (matchStatus.mdMatchStatus == 2) {
 				status = '거절';
+				badgeStyle = 'badge-rejected';
 			}
-			html += `<td>${status}</td>`;
+
+			html += `<td><span class="align-middle ${badgeStyle}">${status}</span></td>`;
 			html += '</tr>';
 		}
 	}
@@ -139,9 +144,9 @@ async function getHomeAjaxList(evt, page) {
 			html += `<td>${matchStatus.mdAddress}</td>`;
 			html += `<td>${matchStatus.taName}</td>`;
 			html += `<td>${matchStatus.mdDate}</td>`;
-			html += `<td><button class="btn btn-dark" onclick="doAcceptCheck('${matchStatus.taName}',${matchStatus.mdNum}, ${matchStatus.mdHomeNum}, ${matchStatus.mdAwayNum}, ${matchStatus.mbNum})">수락</button>
-		<button class="btn btn-white" onclick="doCancleCheck('${matchStatus.taName}',${matchStatus.mdNum},${matchStatus.mbNum})">거절</button></td>`;
-			html += `<tr>`;
+			html += `<td><button class="btn btn-dark" id="accept-button" onclick="doAcceptCheck('${matchStatus.taName}',${matchStatus.mdNum}, ${matchStatus.mdHomeNum}, ${matchStatus.mdAwayNum}, ${matchStatus.mbNum})">수락</button>
+		<button class="btn btn-white" id="refuse-button" onclick="doCancleCheck('${matchStatus.taName}',${matchStatus.mdNum},${matchStatus.mbNum})">거절</button></td>`;
+			html += `</tr>`;
 		}
 	}
 
