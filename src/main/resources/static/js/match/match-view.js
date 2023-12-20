@@ -6,11 +6,39 @@ let matchInfo;
 let teamList;
 let selectedTeamNum;
 let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
-const slideCount = slides.length;
+let slides;
+let slideCount;
+
+console.log('Slide Count:', slideCount);
+
 let slideInterval;
 
-window.addEventListener('load', async function() {
+function prevSlide() {
+	currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+	console.log(`Prev Slide: ${currentSlide}`);
+	showSlide(currentSlide);
+}
+
+function nextSlide() {
+	currentSlide = (currentSlide + 1) % slideCount;
+	console.log(`Next Slide: ${currentSlide}`);
+	showSlide(currentSlide);
+}
+
+function showSlide(n) {
+	console.log('current slide: ', n);
+	slides.forEach((slide, index) => {
+		slide.style.display = index === n ? 'block' : 'none';
+	});
+}
+
+window.addEventListener('load', async function () {
+	slides = document.querySelectorAll('.slide');
+	console.log("slides: ", slides);
+	slideCount = slides.length;
+
+	showSlide(currentSlide);
+
 	const res = await fetch(`/match-view/${mbNum}`);
 	matchInfo = await res.json();
 
@@ -63,83 +91,49 @@ window.addEventListener('load', async function() {
 		document.querySelector('.team-list').innerHTML += html;
 	}
 
-	console.log(matchInfo.matchPhotos);
-
 	matchPhotos = matchInfo.matchPhotos;
+	console.log("이건 무야:", matchPhotos);
+
 	let html = '';
 
-	function displaySlide(i) {
-		// matchPhotos 배열에서 현재 인덱스에 해당하는 사진 정보 가져오기
+	function displaySlide() {
 		const matchPhotos = matchInfo.matchPhotos;
 
-		// 슬라이드 HTML 생성
-		let html = `<section class="main-slide" id="main-slide${i}">`;
+		let html = `<section class="main-slide" id="main-slide">`;
 		html += `<div class="image-slider">`;
 		html += `<div class="slider">`;
 
-		// 각각의 슬라이드에 대한 HTML 생성
 		matchPhotos.forEach((matchPhoto, index) => {
 			console.log(`Image ${index + 1}: ${matchPhoto.mbpFilePath}`);
-			html += `<div class="slide" style="display: ${index === 0 ? 'block' : 'none'};">`;
-			html += `<div id="fileDiv${i + 1}">`;
-			html += `<img src="${matchPhoto.mbpFilePath}" style="width:100px" id="img${i + 1}">`;
+			html += `<div class="slide" style="display: ${index === currentSlide ? 'block' : 'none'};">`;
+			html += `<div id="fileDiv">`;
+			html += `<img src="${matchPhoto.mbpFilePath}" style="width:100%" id="img">`;
 			html += `</div>`;
 			html += `</div>`;
 		});
-console.log("Generated HTML:", html); // HTML 확인
+
 		html += `</div>`;
-		html += `<button id="prev-btn" class="prev-btn">&lt;</button>`;
-		html += `<button id="next-btn" class="next-btn">&gt;</button>`;
+		html += `<button onclick="prevSlide()" id="prev-btn" class="prev-btn">&lt;</button>`;
+		html += `<button onclick="nextSlide()" id="next-btn" class="next-btn">&gt;</button>`;
 		html += `</section>`;
 
 		document.querySelector('#match-pic').innerHTML = html;
-	}
-	function prevSlide() {
-		currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+
+		// slideCount 업데이트
+		slideCount = matchPhotos.length;
+
+		// slideCount가 정상적으로 출력되는지 확인
+		console.log('Slide Count:', slideCount);
+
+		// 이미지가 변경될 때 currentSlide에 맞게 슬라이드를 표시하도록 추가
 		showSlide(currentSlide);
 	}
 
-	function nextSlide() {
-		currentSlide = (currentSlide + 1) % slideCount;
-		console.log(`Next Slide: ${currentSlide}`);
-		showSlide(currentSlide);
-	}
-	// 함수: 현재 슬라이드를 보여주는 함수
-	function showSlide(n) {
-		slides.forEach((slide, index) => {
-			slide.style.display = index === n ? 'block' : 'none';  // 현재 슬라이드만 보이게 설정
-		});
-	}
 
+	displaySlide(currentSlide);
 
-	// 페이지 로드 시 슬라이드 표시
-	document.addEventListener('DOMContentLoaded', () => {
-		showSlide(currentSlide);
-		slideInterval = setInterval(nextSlide, 3000); // 3초마다 자동 슬라이드
-
-		const slidePrevBtn = document.querySelector('.prev-btn');
-		const slideNextBtn = document.querySelector('.next-btn');
-
-		// 이전 버튼 클릭 시 이전 슬라이드로 이동
-		slidePrevBtn.addEventListener('click', () => {
-			clearInterval(slideInterval); // 자동 슬라이드 중지
-			prevSlide();
-			slideInterval = setInterval(nextSlide, 3000);
-		});
-
-
-		slideNextBtn.addEventListener('click', () => {
-			clearInterval(slideInterval); // 자동 슬라이드 중지
-			nextSlide();
-			slideInterval = setInterval(nextSlide, 3000);
-		});
-	});
-
-
-
-
-	displaySlide();
 	document.querySelector('#match-pic').innerHTML += html;
+
 	const taNum = matchInfo.taNum;
 	console.log("이거멍미:", taNum);
 
@@ -181,7 +175,6 @@ console.log("Generated HTML:", html); // HTML 확인
 
 	var map = new kakao.maps.Map(mapContainer, mapOption);
 
-
 	// 마커가 표시될 위치입니다
 	var markerPosition = new kakao.maps.LatLng(matchInfo.mbMapY, matchInfo.mbMapX);
 
@@ -205,7 +198,6 @@ console.log("Generated HTML:", html); // HTML 확인
 	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 	infowindow.open(map, marker);
 })
-
 
 //팀 선택시 팀 번호 저장
 function selectedTeam(taNum, taName) {
@@ -240,10 +232,7 @@ function doMakePostMessageDiv() {
 }
 
 async function matchRequest() {
-
-
 	console.log("넌뭐냐", selectedTeamNum);
-
 	if (selectedTeamNum == undefined) {
 		alert('팀을 선택해 주세요!');
 	} else {
@@ -282,8 +271,6 @@ async function matchRequest() {
 				location.reload();
 			}
 		}
-
-
 	}
 }
 
