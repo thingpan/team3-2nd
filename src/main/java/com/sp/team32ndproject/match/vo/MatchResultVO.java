@@ -12,11 +12,12 @@ public class MatchResultVO {
     private int mdNum;
     private int taHomeNum;
     private int taAwayNum;
-    private String mrHomeScore;
-    private String mrAwayScore;
+    private int mrHomeScore; 
+    private int mrAwayScore;
     private int mrHomeMannerPoint;
     private int mrAwayMannerPoint;
-    private char mrRequestStatus;
+    private String mrRequestStatus;
+    private String mrWinLoose;
     private String mdDate;
     private String mdTime;
     private String mdAddress;

@@ -38,7 +38,7 @@ public class MatchDealInfoController {
     	return matchDealInfoService.selectMatchDealInfosByAwayNumWithHelper(matchDealInfoVO);
     }
     
-    @PatchMapping("/match-result-infos")
+    @PatchMapping("/match-deal-infos")
     public MsgVO updateMatchDealInfoMdMatchStatus(@RequestBody MatchDealInfoVO matchDealInfoVO) {
     	return matchDealInfoService.updateMatchDealInfoMdMatchStatus(matchDealInfoVO);
     }

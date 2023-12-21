@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,16 @@ public class MatchResultController {
     @GetMapping("/match-result-home-infos")
     public PageInfo<MatchResultVO> selectMatchResultInfoByHomeNum(MatchResultVO matchResultVO){
     	return matchResultService.selectMatchDealInfosByHomeNumWithHelper(matchResultVO);
+    }
+    
+    @GetMapping("/match-result-away-infos")
+    public PageInfo<MatchResultVO> selectMatchResultInfoByAwayNum(MatchResultVO matchResultVO){
+    	return matchResultService.selectMatchDealInfosByAwayNumWithHelper(matchResultVO);
+    }
+    
+    @PatchMapping("/match-result-infos")
+    public MsgVO updateMatchResultInfoFirst(@RequestBody MatchResultVO matchResultVO) {
+    	return matchResultService.updateMatchResultInfoFirst(matchResultVO);
     }
 }
 
