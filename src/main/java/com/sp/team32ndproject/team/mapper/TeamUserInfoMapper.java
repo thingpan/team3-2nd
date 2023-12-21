@@ -13,4 +13,5 @@ public interface TeamUserInfoMapper {
 	List<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO);
 	int deleteTeamUserInfo(int tuNum);
 	List<TeamUserInfoVO> selectTeamUsersByTaNum(int taNum);
+
 }

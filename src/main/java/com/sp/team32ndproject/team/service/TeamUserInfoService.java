@@ -42,6 +42,7 @@ public class TeamUserInfoService {
 		}
 
 	}
+
 	public PageInfo<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO) {
 		PageHelper.startPage(teamUserInfoVO.getPage(), teamUserInfoVO.getPageSize());
 		return new PageInfo<>(teamUserInfoMapper.selectTeamUserInfosWithHelper(teamUserInfoVO));
@@ -49,32 +50,31 @@ public class TeamUserInfoService {
 
 	public MsgVO deleteTeamUserInfo(int tuNum, int taNum, int uiNum) {
 		MsgVO msgVO = new MsgVO();
-		if(teamInfoMapper.selectAdminByUiNumAndTaNum(uiNum, taNum) != null) {
+		if (teamInfoMapper.selectAdminByUiNumAndTaNum(uiNum, taNum) != null) {
 			int result = teamUserInfoMapper.deleteTeamUserInfo(tuNum);
-			if(result == 1) {
+			if (result == 1) {
 				msgVO.setResultMsg("방출 성공!");
 				return msgVO;
-			}else {
+			} else {
 				msgVO.setResultMsg("방출 실패 다시 시도해 주세요!");
 				return msgVO;
 			}
-			
-		}else {
+
+		} else {
 			msgVO.setResultMsg("팀장만 방출 가능합니다!");
 			return msgVO;
 		}
-		
+
 	}
-	
+
 	public boolean checkTeamUserInfo(int taNum, int uiNum) {
 		List<TeamUserInfoVO> teamUserInfoVOList = teamUserInfoMapper.selectTeamUsersByTaNum(taNum);
-		for(TeamUserInfoVO teamUserInfoVO : teamUserInfoVOList) {
-			if(teamUserInfoVO.getUiNum() == uiNum) {
+		for (TeamUserInfoVO teamUserInfoVO : teamUserInfoVOList) {
+			if (teamUserInfoVO.getUiNum() == uiNum) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	
 }

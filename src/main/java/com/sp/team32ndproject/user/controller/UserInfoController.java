@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -53,15 +54,10 @@ public class UserInfoController {
 	}
 	
 	//유저 프로필 업데이트 컨트롤러
-	@PostMapping("/update-profile")
+	@PatchMapping("/update-profile")
     public int updateUserProfile(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String>request) {
          return  userInfoService.updateUserProfile(user.getUiNum(), request);
     }
 	
-	//명관아 지워라
-	@DeleteMapping("/user-info-delete")
-    public int deleteUser(@AuthenticationPrincipal UserInfoVO user) {
-         return  userInfoService.deleteUser(user);
-       
-    }
+
 }

@@ -598,7 +598,7 @@
 			async function updateProfile(profileData) {
 				try {
 					const response = await fetch('/update-profile', {
-						method: 'POST',
+						method: 'PATCH',
 						headers: {
 							'Content-Type': 'application/json',
 						},

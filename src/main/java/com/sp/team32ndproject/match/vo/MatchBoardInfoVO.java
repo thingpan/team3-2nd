@@ -27,6 +27,8 @@ public class MatchBoardInfoVO {
 	private String mbStatus;
 	private String mbDesc;
 	private String mbType;
+	private int taMannerPoint;
+	private int taPoint;
 	private MultipartFile file;
 	private List<MatchBoardPhotoInfoVO> matchPhotos;
 }

@@ -27,9 +27,4 @@
 		DELETE FROM TEAM_USER_INFO
 		WHERE TU_NUM = #{tuNum}
 	</delete>
-
-
-
-
-
 </mapper>
