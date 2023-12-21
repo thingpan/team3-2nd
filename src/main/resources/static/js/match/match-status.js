@@ -194,7 +194,7 @@ async function doMatchDealUpdate(mdNum, mdMatchStatus, mbNum) {
 		mdMatchStatus: mdMatchStatus,
 		mbNum: mbNum
 	}
-	const res = await fetch(`/match-result-infos`, {
+	const res = await fetch(`/match-deal-infos`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',

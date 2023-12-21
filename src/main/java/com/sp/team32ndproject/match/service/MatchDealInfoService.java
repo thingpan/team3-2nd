@@ -60,7 +60,7 @@ public class MatchDealInfoService {
     	MsgVO msgVO = new MsgVO();
     	if(matchDealInfoVO.getMdMatchStatus().equals("1")) {
     		if(matchDealInfoMapper.updateMatchDealInfoMdMatchStatus(matchDealInfoVO) == 1) {
-    			if(matchDealInfoMapper.updateMatchDealInfoRemainStatus(matchDealInfoVO) == 1) {
+    			if(matchDealInfoMapper.updateMatchDealInfoRemainStatus(matchDealInfoVO) > 0) {
     				return null;
     			}
     		}

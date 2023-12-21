@@ -18,11 +18,50 @@
 		SELECT MR.*, TA.TA_NAME, MD.MD_DATE, MD.MD_TIME,
 		MD.MD_ADDRESS
 		FROM MATCH_RESULT_INFO MR
-		INNER JOIN TEAM_INFO TA ON TA.TA_NUM = MR.TA_AWAY_NUM
+		INNER JOIN TEAM_INFO TA ON
+		TA.TA_NUM = MR.TA_AWAY_NUM
 		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM = MR.MD_NUM
-		WHERE MR.TA_HOME_NUM = 34
-		ORDER BY MR.MR_REQUEST_STATUS ASC, MR_NUM
+		WHERE MR.TA_HOME_NUM = #{taHomeNum}
+		ORDER BY MR.MR_REQUEST_STATUS ASC,
+		MR_NUM
 	</select>
+	
+	<select id="selectMatchDealInfosByAwayNumWithHelper"
+		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
+		SELECT MR.*, TA.TA_NAME, MD.MD_DATE, MD.MD_TIME,
+		MD.MD_ADDRESS
+		FROM MATCH_RESULT_INFO MR
+		INNER JOIN TEAM_INFO TA ON
+		TA.TA_NUM = MR.TA_HOME_NUM
+		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM =
+		MR.MD_NUM
+		WHERE MR.TA_AWAY_NUM = #{taAwayNum}
+		ORDER BY MR.MR_REQUEST_STATUS ASC,
+		MR_NUM
+	</select>
+
+	<update id="updateMatchResultInfoFirst" 
+		parameterType="com.sp.team32ndproject.match.vo.MatchResultVO">
+		UPDATE MATCH_RESULT_INFO
+		<set>
+			<if test="mrHomeScore != null and mrHomeScore != ''">
+				MR_HOME_SCORE = #{mrHomeScore},
+			</if>
+			<if test="mrAwayScore != null and mrAwayScore != ''">
+				MR_AWAY_SCORE = #{mrAwayScore},
+			</if>
+			<if test="mrAwayMannerPoint != null and mrAwayMannerPoint != ''">
+				MR_AWAY_MANNER_POINT = #{mrAwayMannerPoint},
+			</if>
+			<if test="mrHomeMannerPoint != null and mrHomeMannerPoint != ''">
+				MR_HOME_MANNER_POINT = #{mrHomeMannerPoint},
+			</if>
+			<if test="mrRequestStatus != null and mrRequestStatus != ''">
+				MR_REQUEST_STATUS = #{mrRequestStatus}
+			</if>
+		</set>
+		WHERE MR_NUM = #{mrNum}
+	</update>
 
 
 </mapper>

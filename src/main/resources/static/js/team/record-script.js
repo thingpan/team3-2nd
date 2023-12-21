@@ -1,4 +1,5 @@
 let matchData;
+let mrNum;
 const urlParams = new URLSearchParams(window.location.search);
 const taNum = urlParams.get('taNum');
 
@@ -58,23 +59,53 @@ async function getHomeAjaxList(evt, page) {
 	if (endBlock < pageBlock) {
 		pageHtml += `<li class="page-item"><a  class="page-link" aria-label="Next" href="javascript:void(0)" onclick="getTeamUserInfoList(event,${endBlock + 1})"><span aria-hidden="true">&raquo;</span></a></li>`;
 	}
-	
-	
+
+
 	document.querySelector('#pageDiv').innerHTML = pageHtml;
-	
+
 	//여기서 상태별로 화면에 다르게 보여야함
-	
+
 	let html = '';
 	if (pageInfos.list.length == 0) {
 		html += '<tr><td colspan="5">비어있는 리스트 입니다.</td></tr>';
 	} else {
 		for (let matchStatus of pageInfos.list) {
-			html += '<li>';
-			html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
-			html += `<span>${matchStatus.taName}</span>`;
-			html += `<span>${matchStatus.mdAddress}</span>`;
-			html += `<span><button class="btn btn-dark" id="accept-button" onclick="doAcceptCheck('${matchStatus.taName}',${matchStatus.mdNum}, ${matchStatus.mdHomeNum}, ${matchStatus.mdAwayNum}, ${matchStatus.mbNum})">경기종료</span></span>`;
-			html += `</li>`;
+			if (matchStatus.mrRequestStatus == '0') {
+				html += '<li>';
+				html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
+				html += `<span>${matchStatus.taName}</span>`;
+				html += `<span>${matchStatus.mdAddress}</span>`;
+				html += `<span><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">
+  						경기종료
+						</button></span>`;
+				html += `</li>`;
+			}
+			if (matchStatus.mrRequestStatus == '1') {
+				html += '<li>';
+				html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
+				html += `<span>${matchStatus.taName}</span>`;
+				html += `<span>${matchStatus.mdAddress}</span>`;
+				html += `<span>상대팀 수락 대기중</span>`;
+				html += `</li>`;
+			} if (matchStatus.mrRequestStatus == '2') {
+				html += '<li>';
+				html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
+				html += `<span>${matchStatus.taName}</span>`;
+				html += `<span>${matchStatus.mdAddress}</span>`;
+				html += `<span>거절됨 </span>`;
+				html += `<button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">다시입력</button>`;
+				html += `</li>`;
+			} if (matchStatus.mrRequestStatus == '3') {
+				//상태 검사
+				html += '<li>';
+				html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
+				html += `<span>${matchStatus.taName}</span>`;
+				html += `<span>${matchStatus.mdAddress}</span>`;
+				html += `<span>${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
+				html += `<span>${matchStatus.mrWinLoose}</span>`;
+				html += `</li>`;
+			}
+
 		}
 	}
 
@@ -91,7 +122,7 @@ async function getAwayAjaxList(evt, page) {
 		page = 1;
 	}
 
-	let url = `/match-result-home-infos?page=${page}&pageSize=${pageSize}&taHomeNum=${taNum}`;
+	let url = `/match-result-away-infos?page=${page}&pageSize=${pageSize}&taAwayNum=${taNum}`;
 	const res = await fetch(url);
 	const pageInfos = await res.json();
 	const totalCnt = pageInfos.total;
@@ -121,6 +152,125 @@ async function getAwayAjaxList(evt, page) {
 
 	document.querySelector('#pageDiv').innerHTML = pageHtml;
 
+	let html = '';
+	if (pageInfos.list.length == 0) {
+		html += '<tr><td colspan="5">비어있는 리스트 입니다.</td></tr>';
+	} else {
+		for (let matchStatus of pageInfos.list) {
+			if (matchStatus.mrRequestStatus == '0') {
+				html += '<li>';
+				html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
+				html += `<span>${matchStatus.taName}</span>`;
+				html += `<span>${matchStatus.mdAddress}</span>`;
+				html += `<span>상대팀 입력 대기중</span>`;
+				html += `</li>`;
+			}
+			if (matchStatus.mrRequestStatus == '1') {
+				html += '<li>';
+				html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
+				html += `<span>${matchStatus.taName}</span>`;
+				html += `<span>${matchStatus.mdAddress}</span>`;
+				html += `<span>${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
+				html += `<button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#mannerModal" onclick="saveMrNum(${matchStatus.mrNum})">수락</button>`;
+				html += `<button class="btn btn-dark" onclick="saveMrNum(${matchStatus.mrNum},1)">거절</button>`;
+				html += `</li>`;
+			} if (matchStatus.mrRequestStatus == '2') {
+				html += '<li>';
+				html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
+				html += `<span>${matchStatus.taName}</span>`;
+				html += `<span>${matchStatus.mdAddress}</span>`;
+				html += `<span>재입력 대기중 </span>`;
+				html += `</li>`;
+			} if (matchStatus.mrRequestStatus == '3') {
+				//상태 검사
+				html += '<li>';
+				html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
+				html += `<span>${matchStatus.taName}</span>`;
+				html += `<span>${matchStatus.mdAddress}</span>`;
+				html += `<span>${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
+				html += `<span>${matchStatus.mrWinLoose}</span>`;
+				html += `</li>`;
+			}
+
+		}
+	}
+	document.querySelector('#match-list').innerHTML = html;
+
+}
+
+function saveMrNum(mrNum, check) {
+	this.mrNum = mrNum;
+	console.log(mrNum);
+	if(check != null || check != undefined){
+		updateMatchResultCancle();
+	}
+}
+
+async function updateMatchResultCancle(){
+	let mrNum = this.mrNum;
+	const body = {
+		mrNum: mrNum,
+		mrRequestStatus: '2'
+	};
+	const res = await fetch(`/match-result-infos`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(body)
+	});
+	const result = await res.json();
+	alert(result.resultMsg)
+	location.reload();
+} 
+
+async function updateMatchResultAccept() {
+	let mrNum = this.mrNum;
+	let homeMannerPoint = document.querySelector('#mannerPointInput2').value;
+	console.log(homeMannerPoint);
+	const body = {
+		mrNum: mrNum,
+		mrHomeMannerPoint: homeMannerPoint,
+		mrRequestStatus: '3'
+	};
+	const res = await fetch(`/match-result-infos`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(body)
+	});
+	const result = await res.json();
+	alert(result.resultMsg)
+	location.reload();
+}
+
+
+
+
+async function updateFirstMatchResult() {
+	let homeScore = document.querySelector('#homeScoreInput').value;
+	let awayScore = document.querySelector('#awayScoreInput').value;
+	let awayMannerPoint = document.querySelector('#mannerPointInput').value;
+	let mrNum = this.mrNum;
+
+	const body = {
+		mrNum: mrNum,
+		mrHomeScore: homeScore,
+		mrAwayScore: awayScore,
+		mrAwayMannerPoint: awayMannerPoint,
+		mrRequestStatus: '1'
+	};
+	const res = await fetch(`/match-result-infos`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(body)
+	});
+	const result = await res.json();
+	alert(result.resultMsg)
+	location.reload();
 }
 
 window.addEventListener('load', getHomeAjaxList());
