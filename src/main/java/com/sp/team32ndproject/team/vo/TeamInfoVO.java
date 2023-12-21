@@ -15,6 +15,9 @@ public class TeamInfoVO {
 	private int taMannerPoint;
 	private int taPoint; 
 	private int taMatchCount;
+	private int taWinCnt;
+	private int taLooseCnt;
+	private int taDrawCnt;
 	private String taName;
 	private String taBoundarySido;
 	private String taBoundarySigungu;

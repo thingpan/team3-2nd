@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sp.team32ndproject.common.util.StringUtils;
+import com.sp.team32ndproject.match.vo.MatchResultVO;
 import com.sp.team32ndproject.team.mapper.TeamInfoMapper;
 import com.sp.team32ndproject.team.vo.TeamInfoVO;
 import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
@@ -34,7 +35,7 @@ public class TeamInfoService {
 
 	public int insertTeamInfo(TeamInfoVO team, UserInfoVO user) {
 		team.setUiNum(user.getUiNum());
-		if(team.getTaFile() != null) {
+		if (team.getTaFile() != null) {
 			MultipartFile file = team.getTaFile();
 			String originFileName = team.getTaFile().getOriginalFilename();
 			String extName = originFileName.substring(originFileName.lastIndexOf("."));
@@ -58,9 +59,9 @@ public class TeamInfoService {
 		}
 		return 0;
 	}
-	
+
 	public int updateTeamInfo(TeamInfoVO teamInfoVO) {
-		if(teamInfoVO.getTaFile() != null) {
+		if (teamInfoVO.getTaFile() != null) {
 			MultipartFile file = teamInfoVO.getTaFile();
 			String originFileName = teamInfoVO.getTaFile().getOriginalFilename();
 			String extName = originFileName.substring(originFileName.lastIndexOf("."));
@@ -109,10 +110,71 @@ public class TeamInfoService {
 		return teamInfoMapper.selectTeamUserInfo(uiNum);
 	}
 
-	
-
 	public TeamInfoVO selectTeamInfoByTaName(TeamInfoVO team) {
 		// TODO Auto-generated method stub
 		return teamInfoMapper.selectTeamInfoByTaName(team);
+	}
+
+	public void doUpdateHomeMatchResult(MatchResultVO matchResultVO) {
+		log.info("matchResultVO => {}", matchResultVO);
+		TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(matchResultVO.getTaHomeNum());
+		if (matchResultVO.getMrHomeScore() > matchResultVO.getMrAwayScore()) {
+			int pointResult = teamInfoVO.getTaPoint() + 3;
+			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
+			int matchWinCntResult = teamInfoVO.getTaWinCnt() + 1;
+			teamInfoVO.setTaPoint(pointResult);
+			teamInfoVO.setTaMannerPoint(matchResultVO.getMrHomeMannerPoint());
+			teamInfoVO.setTaMatchCount(matchCntResult);
+			teamInfoVO.setTaWinCnt(matchWinCntResult);
+		} else if (matchResultVO.getMrHomeScore() < matchResultVO.getMrAwayScore()) {
+			int pointResult = 0;
+			if (teamInfoVO.getTaPoint() > 3) {
+				pointResult = teamInfoVO.getTaPoint() - 3;
+			}
+			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
+			int matchLooseCntResult = teamInfoVO.getTaLooseCnt() + 1;
+			teamInfoVO.setTaPoint(pointResult);
+			teamInfoVO.setTaMannerPoint(matchResultVO.getMrHomeMannerPoint());
+			teamInfoVO.setTaMatchCount(matchCntResult);
+			teamInfoVO.setTaLooseCnt(matchLooseCntResult);
+		} else if (matchResultVO.getMrHomeScore() == matchResultVO.getMrAwayScore()) {
+			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
+			int matchDrawCntResult = teamInfoVO.getTaDrawCnt() + 1;
+			teamInfoVO.setTaMannerPoint(matchResultVO.getMrHomeMannerPoint());
+			teamInfoVO.setTaMatchCount(matchCntResult);
+			teamInfoVO.setTaLooseCnt(matchDrawCntResult);
+		}
+		teamInfoMapper.updateTeamInfoToHomeMatchResult(teamInfoVO);
+	}
+
+	public void doUpdateAwayMatchResult(MatchResultVO matchResultVO) {
+		TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(matchResultVO.getTaAwayNum());
+		if (matchResultVO.getMrHomeScore() < matchResultVO.getMrAwayScore()) {
+			int pointResult = teamInfoVO.getTaPoint() + 3;
+			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
+			int matchWinCntResult = teamInfoVO.getTaWinCnt() + 1;
+			teamInfoVO.setTaPoint(pointResult);
+			teamInfoVO.setTaMannerPoint(matchResultVO.getMrAwayMannerPoint());
+			teamInfoVO.setTaMatchCount(matchCntResult);
+			teamInfoVO.setTaWinCnt(matchWinCntResult);
+		} else if (matchResultVO.getMrHomeScore() > matchResultVO.getMrAwayScore()) {
+			int pointResult = 0;
+			if (teamInfoVO.getTaPoint() > 3) {
+				pointResult = teamInfoVO.getTaPoint() - 3;
+			}
+			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
+			int matchLooseCntResult = teamInfoVO.getTaLooseCnt() + 1;
+			teamInfoVO.setTaPoint(pointResult);
+			teamInfoVO.setTaMannerPoint(matchResultVO.getMrAwayMannerPoint());
+			teamInfoVO.setTaMatchCount(matchCntResult);
+			teamInfoVO.setTaLooseCnt(matchLooseCntResult);
+		} else if (matchResultVO.getMrHomeScore() == matchResultVO.getMrAwayScore()) {
+			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
+			int matchDrawCntResult = teamInfoVO.getTaDrawCnt() + 1;
+			teamInfoVO.setTaMannerPoint(matchResultVO.getMrAwayMannerPoint());
+			teamInfoVO.setTaMatchCount(matchCntResult);
+			teamInfoVO.setTaLooseCnt(matchDrawCntResult);
+		}
+		teamInfoMapper.updateTeamInfoToAwayMatchResult(teamInfoVO);
 	}
 }

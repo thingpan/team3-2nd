@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface MatchBoardInfoMapper {
 	int insertMatchInfo(MatchBoardInfoVO match);
+	int updateMatchBoardInfoMbStatus(int mbNum);
 	MatchBoardInfoVO selectMatchInfo(int mbNum);
 	List<MatchBoardInfoVO> selectMatchList();
 }

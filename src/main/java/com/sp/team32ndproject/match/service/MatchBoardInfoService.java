@@ -45,4 +45,8 @@ public class MatchBoardInfoService {
 		matchBoardInfoListVO.setMatchBoardList(matchBoardList);
 		return matchBoardInfoListVO;
 	}
+	
+	public int updateMatchBoardInfoMbStatus(int mbNum) {
+		return matchBoardInfoMapper.updateMatchBoardInfoMbStatus(mbNum);
+	}
 }

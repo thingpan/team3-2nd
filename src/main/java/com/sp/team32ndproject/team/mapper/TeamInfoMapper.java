@@ -22,5 +22,7 @@ public interface TeamInfoMapper {
 	TeamInfoVO selectTeamInfoByTaName(TeamInfoVO team);
     List<TeamInfoVO> selectTeamUserInfo(int uiNum);
     int updateTeamInfo(TeamInfoVO teamInfoVO);
+    int updateTeamInfoToHomeMatchResult(TeamInfoVO teamInfoVO);
+    int updateTeamInfoToAwayMatchResult(TeamInfoVO teamInfoVO);
 
 }

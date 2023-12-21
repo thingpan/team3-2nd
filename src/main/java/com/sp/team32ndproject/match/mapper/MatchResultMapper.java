@@ -1,5 +1,6 @@
 package com.sp.team32ndproject.match.mapper;
 
+import com.sp.team32ndproject.match.vo.MatchBoardInfoVO;
 import com.sp.team32ndproject.match.vo.MatchResultVO;
 
 import java.util.List;
@@ -15,5 +16,7 @@ public interface MatchResultMapper {
     List<MatchResultVO> selectMatchDealInfosByAwayNumWithHelper(MatchResultVO matchResultVO);
     //결과 업데이트
     int updateMatchResultInfoFirst (MatchResultVO matchResultVO);
+    //단일조회
+    MatchResultVO selectMatchResultInfo(MatchResultVO matchResultVO);
 }
 

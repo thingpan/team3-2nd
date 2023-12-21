@@ -126,6 +126,58 @@
 		</set>
 		WHERE TA_NUM = #{taNum};
 	</update>
+	
+	<update id="updateTeamInfoToHomeMatchResult"
+		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		UPDATE TEAM_INFO
+		<set>
+			<if test="taMatchCount != null and taMatchCount != ''">
+				TA_MATCH_COUNT = #{taMatchCount},
+			</if>
+			<if test="taPoint != null and taPoint != ''">
+				TA_POINT = #{taPoint},
+			</if>
+			<if test="taMannerPoint != null and taMannerPoint != ''">
+				TA_MANNER_POINT = #{taMannerPoint},
+			</if>
+			<if test="taWinCnt != null and taWinCnt != ''">
+				TA_WIN_CNT = #{taWinCnt},
+			</if>
+			<if test="taLooseCnt != null and taLooseCnt != ''">
+				TA_LOOSE_CNT = #{taLooseCnt},
+			</if>
+			<if test="taWinCnt != null and taWinCnt != ''">
+				TA_DRAW_CNT = #{taDrawCnt}
+			</if>
+		</set>
+		WHERE TA_NUM = #{taNum}
+	</update>
+	
+	<update id="updateTeamInfoToAwayMatchResult"
+		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		UPDATE TEAM_INFO
+		<set>
+			<if test="taMatchCount != null and taMatchCount != ''">
+				TA_MATCH_COUNT = #{taMatchCount},
+			</if>
+			<if test="taPoint != null and taPoint != ''">
+				TA_POINT = #{taPoint},
+			</if>
+			<if test="taMannerPoint != null and taMannerPoint != ''">
+				TA_MANNER_POINT = #{taMannerPoint},
+			</if>
+			<if test="taWinCnt != null and taWinCnt != ''">
+				TA_WIN_CNT = #{taWinCnt},
+			</if>
+			<if test="taLooseCnt != null and taLooseCnt != ''">
+				TA_LOOSE_CNT = #{taLooseCnt},
+			</if>
+			<if test="taWinCnt != null and taWinCnt != ''">
+				TA_DRAW_CNT = #{taDrawCnt}
+			</if>
+		</set>
+		WHERE TA_NUM = #{taNum}
+	</update>
 
 
 	<insert id="insertTeamInfo" useGeneratedKeys="true"

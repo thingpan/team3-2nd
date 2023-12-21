@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sp.team32ndproject.match.mapper.MatchResultMapper;
 import com.sp.team32ndproject.match.vo.MatchResultVO;
+import com.sp.team32ndproject.team.service.TeamInfoService;
 import com.sp.team32ndproject.team.vo.MsgVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MatchResultService {
 	@Autowired
 	private MatchResultMapper matchResultMapper;
+	@Autowired
+	private TeamInfoService teamInfoService;
 
 	public MsgVO insertMatchResult(MatchResultVO matchResultVO) {
 		MsgVO msgVO = new MsgVO();
@@ -77,6 +80,12 @@ public class MatchResultService {
 	public MsgVO updateMatchResultInfoFirst(MatchResultVO matchResultVO) {
 		MsgVO msgVO = new MsgVO();
 		if (matchResultMapper.updateMatchResultInfoFirst(matchResultVO) == 1) {
+			if(matchResultVO.getMrRequestStatus().equals("3")) {
+				log.info("matchBoardInfo => {}", matchResultMapper.selectMatchResultInfo(matchResultVO));
+				matchResultVO = matchResultMapper.selectMatchResultInfo(matchResultVO);
+				teamInfoService.doUpdateHomeMatchResult(matchResultVO);
+				teamInfoService.doUpdateAwayMatchResult(matchResultVO);
+			}
 			msgVO.setResultMsg("결과 입력 완료");
 		} else {
 			msgVO.setResultMsg("결과 입력 실패 다시 시도 해주세요");

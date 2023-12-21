@@ -41,7 +41,8 @@
 	</select>
 
 	<update id="updateMatchResultInfoFirst" 
-		parameterType="com.sp.team32ndproject.match.vo.MatchResultVO">
+		parameterType="com.sp.team32ndproject.match.vo.MatchResultVO"
+		useGeneratedKeys="true" keyColumn="MR_REQUEST_STATUS,TA_HOME_NUM" keyProperty="mrRequestStatus,taHomeNum">
 		UPDATE MATCH_RESULT_INFO
 		<set>
 			<if test="mrHomeScore != null and mrHomeScore != ''">
@@ -62,6 +63,12 @@
 		</set>
 		WHERE MR_NUM = #{mrNum}
 	</update>
+	
+	<select id="selectMatchResultInfo"
+		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
+		SELECT * FROM MATCH_RESULT_INFO
+		WHERE MR_NUM = #{mrNum}
+	</select>
 
 
 </mapper>

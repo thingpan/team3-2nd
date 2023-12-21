@@ -19,6 +19,8 @@ import java.util.Map;
 public class MatchDealInfoService {
     @Autowired
     private MatchDealInfoMapper matchDealInfoMapper;
+    @Autowired
+    private MatchBoardInfoService matchBoardInfoService;
 
     public MsgVO insertMatchDealInfo(MatchDealInfoVO matchDealInfoVO) {
     	MsgVO msgVO = new MsgVO();
@@ -63,6 +65,9 @@ public class MatchDealInfoService {
     			if(matchDealInfoMapper.updateMatchDealInfoRemainStatus(matchDealInfoVO) > 0) {
     				return null;
     			}
+				if(matchBoardInfoService.updateMatchBoardInfoMbStatus(matchDealInfoVO.getMbNum()) == 1) {
+					return null;
+				}
     		}
     	}
     	if(matchDealInfoMapper.updateMatchDealInfoMdMatchStatus(matchDealInfoVO) == 1) {
