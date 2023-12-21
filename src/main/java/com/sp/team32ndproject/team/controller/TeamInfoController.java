@@ -33,7 +33,8 @@ public class TeamInfoController {
 		log.info("team => {}", team);
 		return teamInfoService.insertTeamInfo(team, user);
 	}
-
+	
+	//내가 속한 팀 가져오기
 	@GetMapping("/my-team-infos")
 	public List<TeamInfoVO> selectTeamInfosByUiNum(@AuthenticationPrincipal UserInfoVO user) {
 		return teamInfoService.selectTeamInfosByUiNum(user.getUiNum());
@@ -46,13 +47,15 @@ public class TeamInfoController {
 		teamInfos.sort(Comparator.comparingInt(TeamInfoVO::getTaPoint).reversed());
 		return teamInfos;
 	}
-
+	
+	//팀 정보 가져오기
 	@GetMapping("/team-info")
 	public TeamInfoVO selectTeamInfoByTaNum(@RequestParam int taNum) {
 		log.info("taNum =>{}" ,taNum);
 		return teamInfoService.selectTeamInfoByTaNum(taNum); 
 	}
-
+	
+	//매치 신청 할때 매치글과 같은 타입으로 나의 팀 불러오기
 	@GetMapping("/my-team-infos-by-type/{taType}")
 	public List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(@PathVariable String taType,
 			@AuthenticationPrincipal UserInfoVO user) {
@@ -61,12 +64,14 @@ public class TeamInfoController {
 
 		return teamInfoService.selectTeamInfosByUiNumAndTaType(taType, user.getUiNum());
 	}
-
+	
+	//팀이름 중복검사
 	@PostMapping("/check-team-name")
 	public TeamInfoVO TeamInfoByTaName(@RequestBody TeamInfoVO team) {
 		return teamInfoService.selectTeamInfoByTaName(team);
 	}
-
+	
+	//내가 속한 팀 가져오기
 	@GetMapping("/team-user-info")
 	public List<TeamInfoVO> selectTeamUserInfo(@AuthenticationPrincipal UserInfoVO user) {
 		log.info("uiNum => {}", user);
@@ -74,6 +79,7 @@ public class TeamInfoController {
 
 	}
 	
+	//팀 정보 수정
 	@PutMapping("/team-info-update") 
 	public int updateTeamInfo(TeamInfoVO teamInfoVO) {
 		log.info("teamInfo => {}",teamInfoVO);

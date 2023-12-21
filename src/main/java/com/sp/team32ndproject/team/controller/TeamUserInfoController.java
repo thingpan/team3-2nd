@@ -25,21 +25,20 @@ public class TeamUserInfoController {
 
 	private final TeamUserInfoService teamUserInfoService;
 
+	//가입신청 수락 컨트롤러
 	@PostMapping("/team-user-add")
 	public int insertTeamUserInfo(@RequestBody TeamSignUserInfoVO teamSignUserInfoVO) {
 		return teamUserInfoService.insertTeamUserInfoToUser(teamSignUserInfoVO);
 	}
-
+	
+	//팀원 목록 헬퍼를 통해 가져오기
 	@GetMapping("/team-users/helper")
 	public PageInfo<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO) {
 		return teamUserInfoService.selectTeamUserInfosWithHelper(teamUserInfoVO);
 	}
-
-	@GetMapping("/team-user")
-	public PageInfo<TeamUserInfoVO> selectTeamUserInfos(TeamUserInfoVO teamUserInfoVO) {
-		return teamUserInfoService.selectTeamUserInfosWithHelper(teamUserInfoVO);
-	}
-
+	
+	
+	//팀원 방출
 	@DeleteMapping("/team-infos")
 	public MsgVO deleteTeamUserInfo(@RequestParam int tuNum, @RequestParam int taNum, @AuthenticationPrincipal UserInfoVO user) {
 		log.info("data param=>{}",taNum);

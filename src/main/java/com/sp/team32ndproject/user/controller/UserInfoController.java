@@ -25,34 +25,40 @@ import lombok.extern.slf4j.Slf4j;
 public class UserInfoController {
 
 	private final UserInfoService userInfoService;
-
+	
+	//폼태그 post 회원가입
 	@PostMapping("/join")
 	public int insertUserInfo(@RequestBody UserInfoVO user) {
 		log.info("user => {}", user);
 		return userInfoService.insertUserInfo(user);
 	}
-
-	@PostMapping("/check-id")
+	
+	//회원가입시 입력한 아이디가 중복되는지 확인
+	@PostMapping("/user-infos")
 	public UserInfoVO loadUserByUsername(@RequestBody UserInfoVO user) {
 		return userInfoService.doCheckUiId(user.getUiId());
 	}
-
+	
+	//uiNum으로 유저 정보 가져오기
 	@GetMapping("/user-info")
 	public UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
 		log.info("user=>{}", user);
 		return userInfoService.selectUserInfoByUiNum(user);
 	}
-
+	
+	//회원정보 수정시 비밀번호 확인
 	@PostMapping("/check-password")
 	public boolean checkPassword(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String> password) {
 		return userInfoService.checkPassword(user.getUiId(), password);
 	}
-
+	
+	//유저 프로필 업데이트 컨트롤러
 	@PostMapping("/update-profile")
     public int updateUserProfile(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String>request) {
          return  userInfoService.updateUserProfile(user.getUiNum(), request);
-       
     }
+	
+	//명관아 지워라
 	@DeleteMapping("/user-info-delete")
     public int deleteUser(@AuthenticationPrincipal UserInfoVO user) {
          return  userInfoService.deleteUser(user);

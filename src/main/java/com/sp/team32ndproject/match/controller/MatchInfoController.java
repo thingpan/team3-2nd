@@ -26,14 +26,16 @@ import lombok.extern.slf4j.Slf4j;
 public class MatchInfoController {
 
 	private final MatchBoardInfoService matchInfoService;
-
+	
+	//매치 글쓰기 인서트
 	@PostMapping("/match-infos")
 	@ResponseBody
 	public int insertMatchBoardInfo(MatchBoardInfoVO match) {
 		log.info("match => {}", match);
 		return matchInfoService.insertMatchInfo(match);
 	}
-
+	
+	//매치 상세뷰 정보 불러오기
 	@GetMapping("/match-view/{mbNum}")
 	public ResponseEntity<MatchBoardInfoVO> selectMatchBoardInfo(@PathVariable int mbNum) {
 		log.info("mbNum => {}", mbNum);
@@ -41,6 +43,7 @@ public class MatchInfoController {
 		return ResponseEntity.ok(matchInfo);
 	}
 
+	//매치 목록 불러오기
 	@GetMapping("/match-board")
 	public ResponseEntity<MatchBoardInfoListVO> getMatchList() {
 		MatchBoardInfoListVO matchBoardInfoListVO = matchInfoService.selectMatchList();

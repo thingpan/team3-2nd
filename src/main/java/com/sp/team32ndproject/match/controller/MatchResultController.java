@@ -22,22 +22,26 @@ import org.springframework.web.bind.annotation.RestController;
 public class MatchResultController {
     @Autowired
     private MatchResultService matchResultService;
-
+    
+    //매치 수락 했을때 테이블 인서트
     @PostMapping("/match-result-infos")
     public MsgVO insertMatchResult(@RequestBody MatchResultVO matchResultVO) {
        return matchResultService.insertMatchResult(matchResultVO);
     }
     
+    //나의팀이 홈팀인 매치 불러오기
     @GetMapping("/match-result-home-infos")
     public PageInfo<MatchResultVO> selectMatchResultInfoByHomeNum(MatchResultVO matchResultVO){
     	return matchResultService.selectMatchDealInfosByHomeNumWithHelper(matchResultVO);
     }
     
+    //나의팀이 어웨이팀인 매치 불러오기
     @GetMapping("/match-result-away-infos")
     public PageInfo<MatchResultVO> selectMatchResultInfoByAwayNum(MatchResultVO matchResultVO){
     	return matchResultService.selectMatchDealInfosByAwayNumWithHelper(matchResultVO);
     }
     
+    //경기 결과 입력 및 상태 업데이트
     @PatchMapping("/match-result-infos")
     public MsgVO updateMatchResultInfoFirst(@RequestBody MatchResultVO matchResultVO) {
     	return matchResultService.updateMatchResultInfoFirst(matchResultVO);
