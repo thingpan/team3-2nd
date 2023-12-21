@@ -204,16 +204,6 @@ function doMakePostMessageDiv() {
 	document.querySelector('#send-button').innerHTML = null;
 	document.querySelector('#send-button').innerHTML = `<button onclick="matchRequest()" class="btn btn-dark">신청하기</button>`;
 	document.querySelector('#post-message-info').innerHTML = null;
-	document.querySelector('#post-message-info').innerHTML += `
-			<hr><div>
-					<span id="post-message-info-oponentName"></span><span>팀 에게 궁금한 점을 물어보세요!</span>
-					</div>
-					<div>
-						<button type="button" class="btn btn-dark" data-bs-toggle="modal"
-							data-bs-target="#post-message-modal">
-							쪽지 보내기
-						</button>
-					</div>`
 }
 
 async function matchRequest() {
