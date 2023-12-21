@@ -152,9 +152,11 @@ async function getHomeAjaxList(evt, page) {
                     case '패배':
                         html += `<span style="color: #ff0000; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
                         html += `<span style="color: #ff0000; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
+                        break;
                     case '무승부':
                         html += `<span style="color: #FFB800; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
                         html += `<span style="color: #FFB800; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
+                        break;
                 }
 
                 function getMatchResultText(resultText) {
