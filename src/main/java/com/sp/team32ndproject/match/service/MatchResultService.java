@@ -1,5 +1,7 @@
 package com.sp.team32ndproject.match.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sp.team32ndproject.match.mapper.MatchResultMapper;
 import com.sp.team32ndproject.match.vo.MatchResultVO;
 import com.sp.team32ndproject.team.vo.MsgVO;
@@ -30,7 +32,8 @@ public class MatchResultService {
 		return msgVO;
 	}
 
-	public List<MatchResultVO> selectMatchResultInfoByHomeNum(MatchResultVO matchResultVO) {
-		return matchResultMapper.selectMatchResultInfoByHomeNum(matchResultVO);
+	public PageInfo<MatchResultVO> selectMatchDealInfosByHomeNumWithHelper(MatchResultVO matchResultVO) {
+		PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
+		return new PageInfo<>(matchResultMapper.selectMatchDealInfosByHomeNumWithHelper(matchResultVO));
 	}
 }

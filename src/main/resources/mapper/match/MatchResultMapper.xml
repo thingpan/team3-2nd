@@ -13,7 +13,16 @@
 		#{taAwayNum}, #{mrRequestStatus})
 	</insert>
 
-
+	<select id="selectMatchDealInfosByHomeNumWithHelper"
+		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
+		SELECT MR.*, TA.TA_NAME, MD.MD_DATE, MD.MD_TIME,
+		MD.MD_ADDRESS
+		FROM MATCH_RESULT_INFO MR
+		INNER JOIN TEAM_INFO TA ON TA.TA_NUM = MR.TA_AWAY_NUM
+		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM = MR.MD_NUM
+		WHERE MR.TA_HOME_NUM = 34
+		ORDER BY MR.MR_REQUEST_STATUS ASC, MR_NUM
+	</select>
 
 
 </mapper>

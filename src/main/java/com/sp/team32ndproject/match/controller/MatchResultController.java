@@ -1,5 +1,6 @@
 package com.sp.team32ndproject.match.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.sp.team32ndproject.match.service.MatchResultService;
 import com.sp.team32ndproject.match.vo.MatchResultVO;
 import com.sp.team32ndproject.team.vo.MsgVO;
@@ -26,11 +27,9 @@ public class MatchResultController {
        return matchResultService.insertMatchResult(matchResultVO);
     }
     
-    @GetMapping("/match-result-home-infos/{taNum}")
-    public List<MatchResultVO> selectMatchResultInfoByHomeNum(@PathVariable int taNum){
-    	MatchResultVO matchResultVO = new MatchResultVO();
-    	matchResultVO.setTaHomeNum(taNum);
-    	return matchResultService.selectMatchResultInfoByHomeNum(matchResultVO);
+    @GetMapping("/match-result-home-infos")
+    public PageInfo<MatchResultVO> selectMatchResultInfoByHomeNum(MatchResultVO matchResultVO){
+    	return matchResultService.selectMatchDealInfosByHomeNumWithHelper(matchResultVO);
     }
 }
 
