@@ -79,17 +79,19 @@ body {
     margin-top: 2rem;
 }
 
-.match-item {
+#match-item {
     display: flex;
     margin-left: auto;
     margin-right: auto;
     align-items: center;
     justify-content: space-around;
-    height: 90px;
+    width: 62rem;
+    height: 110px;
     border-radius: 10px;
     margin-bottom: 5px;
     text-align: center;
 }
+
 
 .match-date {
     flex-basis: 25%;
@@ -107,6 +109,34 @@ body {
 .match-status.not-started {
     background-color: #ccc;
     color: #fff;
+}
+
+#accept-button {
+    background-color: #111;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+}
+
+#refuse-button {
+    background-color: #111;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+}
+
+#accept-button:hover {
+    background-color: #0066FF;
+    color: #D9E5FF;
+    font-weight: 600;
+    border: none;
+}
+
+#refuse-button:hover {
+    background-color: #ff1200;
+    color: #FFE6E6;
+    font-weight: 600;
+    border: none;
 }
 
 .end-game-button {
