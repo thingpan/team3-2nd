@@ -54,42 +54,47 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 });
 
-// teamData 관련 코드
-document.addEventListener('DOMContentLoaded', function() {
-	console.log('Team Data:', teamData); // 콘솔에 출력
-
+document.addEventListener('DOMContentLoaded', function () {
 	const tbody = document.querySelector('.team-table tbody');
 	const sportFilter = document.querySelector('#sport-filter');
 
 	// 페이지 로드 시 기본적으로 축구 데이터 표시
-	const defaultSport = 'soccer';
-
-	sportFilter.value = defaultSport;
+	const defaultSport = '축구';
 
 	// 스포츠 필터 변경 시, 해당 스포츠 팀 데이터만 필터링하여 표시
-	sportFilter.addEventListener('change', () => {
+	sportFilter.addEventListener('change', async () => {
+		let i = 1;
 		const selectedSport = sportFilter.value;
 
-		// 해당 스포츠 데이터 필터링
-		const selectedSportTeams = teamData[selectedSport] || []; // 선택된 스포츠 데이터가 없을 경우 빈 배열로 기본 설정
+		try {
+			// 서버로부터 데이터 불러오기
+			const response = await fetch(`/team-infos`);
+			const selectedSportTeams = await response.json();
 
-		const top5Teams = selectedSportTeams.slice(0, 5);
+			console.log("selectedSportTeams", selectedSportTeams[0].taType);
 
-		// 테이블 비우기
-		tbody.innerHTML = '';
+			// 선택된 스포츠 데이터가 없을 경우 빈 배열로 기본 설정
+			const top5Teams = selectedSportTeams.slice(0, 5);
 
-		// 필터링된 데이터를 HTML에 추가
-		top5Teams.forEach((team) => {
-			const row = document.createElement('tr');
-			row.innerHTML = `
-        <td>${team.rank}</td>
-        <td>${team.type}</td>
-        <td>${team.name}</td>
-        <td>${team.location}</td>
-        <td>${team.points}</td>
-      `;
-			tbody.appendChild(row);
-		});
+			// 테이블 비우기링
+			tbody.innerHTML = '';
+
+			// 필터링된 데이터를 HTML에 추가
+			top5Teams.forEach((team) => {
+				const row = document.createElement('tr');
+				row.innerHTML = `
+                    <td>${i}</td>
+                    <td>${team.taType}</td>
+                    <td><a href="/page/team/record?taNum=${team.taNum}">${team.taName}</a></td>
+                    <td>${team.taBoundarySido}</td>
+                    <td>${team.taPoint}</td>
+                `;
+				tbody.appendChild(row);
+				i++;
+			});
+		} catch (error) {
+			console.error('Error fetching team data:', error);
+		}
 	});
 });
 

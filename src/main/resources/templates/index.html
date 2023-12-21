@@ -51,11 +51,11 @@
             <table class="team-table">
                 <div class="caption-content">
                     <span>팀 랭킹</span>
-                    <select id="sport-filter">
-                        <option value="soccer" selected>축구</option>
-                        <option value="baseball">야구</option>
-                        <option value="basketball">농구</option>
-                    </select>
+<!--                    <select id="sport-filter">-->
+<!--                        <option value="축구" selected>축구</option>-->
+<!--                        <option value="야구">야구</option>-->
+<!--                        <option value="농구">농구</option>-->
+<!--                    </select>-->
                 </div>
                 <thead>
                 <tr>
@@ -67,7 +67,7 @@
                 </tr>
                 </thead>
                 <!-- 데이터를 동적으로 받아오는 부분 -->
-                <tbody></tbody>
+                <tbody id="tBody"></tbody>
                 <div class="bottom-caption">
                     <a href="/page/team/team-rank" class="ranking-view-more">더보기 &gt;</a>
                 </div>
@@ -75,6 +75,73 @@
         </div>
     </div>
 </section>
+<script>
+    function addRow(tableBody, rank, taType, taName, taBoundarySido, taPoint, taNum) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+        <td>${rank}</td>
+        <td>${taType}</td>
+        <td><a href="/page/team/record?taNum=${taNum}">${taName}</a></td>
+        <td>${taBoundarySido}</td>
+        <td>${taPoint}</td>
+    `;
+        tableBody.appendChild(row);
+    }
+
+    async function performSearch() {
+        const rankRes = await fetch('/team-infos');
+        const teamData = await rankRes.json();
+
+        console.log('teamData:', teamData);
+        const upperBound = skill + 100;
+
+        const tableBody = document.getElementById("tBody");
+        tableBody.innerHTML = '';
+        let i = 1;
+
+        // 필터링된 데이터 상위 5개만 표시
+        const filteredData = teamData.filter((row) => {
+            const isSportMatch = sport === "" || row.taType === sport;
+            const isAreaMatch = area === "" || row.taBoundarySido === area;
+            const isSkillMatch = skill === 0 || (row.taPoint >= skill && row.taPoint <= upperBound);
+            const result = isSportMatch && isAreaMatch && isSkillMatch;
+            console.log('Row:', row, 'Result:', result);
+
+            return result;
+        });
+
+        // 상위 5개의 데이터만 반복하여 처리
+        for (const row of filteredData.slice(0, 5)) {
+            addRow(tableBody, i, row.taType, row.taName, row.taBoundarySido, row.taPoint, row.taNum);
+            i++;
+        }
+
+        console.log('Checking values:', 'Sport:', sport, 'Area:', area, 'Skill:', skill);
+    }
+
+    window.addEventListener('load', async function () {
+        const rankRes = await fetch('/team-infos');
+        teamData = await rankRes.json();
+
+        console.log('teamData:', teamData);
+
+        let html = '';
+        let i = 1;
+
+        // 상위 5개의 데이터만 반복하여 처리
+        for (const row of teamData.slice(0, 5)) {
+            html += '<tr>';
+            html += `<td>${i}</td>`;
+            html += `<td>${row.taType}</a></td>`;
+            html += `<td><a href="/page/team/record?taNum=${row.taNum}">${row.taName}</td>`;
+            html += `<td>${row.taBoundarySido}</td>`;
+            html += `<td>${row.taPoint}</td>`;
+            html += '</tr>';
+            i++;
+        }
+        document.querySelector('#tBody').innerHTML = html;
+    });
+</script>
 
 <!-- 매치 일정 영역 -->
 <section>
