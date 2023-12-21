@@ -32,7 +32,6 @@ public class MatchBoardInfoService {
 	}
 
 	public MatchBoardInfoVO selectMatchInfo(int mbNum) {
-
 		MatchBoardInfoVO matchBoardInfoVO = matchBoardInfoMapper.selectMatchInfo(mbNum);
 		List<MatchBoardPhotoInfoVO> files = matchBoardPhotoInfoService.selectMatchBoardInfo(mbNum);
 		matchBoardInfoVO.setMatchPhotos(files);
