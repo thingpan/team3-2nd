@@ -61,9 +61,9 @@ public class MatchResultService {
 				.selectMatchDealInfosByAwayNumWithHelper(matchResultVO);
 		for (int i = 0; i < selectHomeResults.size(); i++) {
 			if (selectHomeResults.get(i).getMrRequestStatus().equals("3")) {
-				if (selectHomeResults.get(i).getMrHomeScore() > selectHomeResults.get(i).getMrAwayScore()) {
+				if (selectHomeResults.get(i).getMrHomeScore() < selectHomeResults.get(i).getMrAwayScore()) {
 					selectHomeResults.get(i).setMrWinLoose("승리");
-				} else if (selectHomeResults.get(i).getMrHomeScore() < selectHomeResults.get(i).getMrAwayScore()) {
+				} else if (selectHomeResults.get(i).getMrHomeScore() > selectHomeResults.get(i).getMrAwayScore()) {
 					selectHomeResults.get(i).setMrWinLoose("패배");
 				} else {
 					selectHomeResults.get(i).setMrWinLoose("무승부");
