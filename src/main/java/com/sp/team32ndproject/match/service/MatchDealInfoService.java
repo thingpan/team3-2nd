@@ -62,12 +62,8 @@ public class MatchDealInfoService {
     	MsgVO msgVO = new MsgVO();
     	if(matchDealInfoVO.getMdMatchStatus().equals("1")) {
     		if(matchDealInfoMapper.updateMatchDealInfoMdMatchStatus(matchDealInfoVO) == 1) {
-    			if(matchDealInfoMapper.updateMatchDealInfoRemainStatus(matchDealInfoVO) > 0) {
-    				return null;
-    			}
-				if(matchBoardInfoService.updateMatchBoardInfoMbStatus(matchDealInfoVO.getMbNum()) == 1) {
-					return null;
-				}
+    			matchDealInfoMapper.updateMatchDealInfoRemainStatus(matchDealInfoVO);
+    			matchBoardInfoService.updateMatchBoardInfoMbStatus(matchDealInfoVO.getMbNum());
     		}
     	}
     	if(matchDealInfoMapper.updateMatchDealInfoMdMatchStatus(matchDealInfoVO) == 1) {

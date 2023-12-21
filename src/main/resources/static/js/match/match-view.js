@@ -68,6 +68,10 @@ window.addEventListener('load', async function () {
 	matchInfo = await res.json();
 
 	console.log("matchInfo", matchInfo);
+	if(matchInfo.mbStatus == 1 || matchInfo != null){
+		alert('신청 마감된 매치입니다.')
+		this.location.href = '/page/match/match-board';
+	}
 
 	matchPhotos = matchInfo.matchPhotos;
 
