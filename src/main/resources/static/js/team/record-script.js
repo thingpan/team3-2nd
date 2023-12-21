@@ -93,7 +93,7 @@ async function getHomeAjaxList(evt, page) {
 				html += `<span>${matchStatus.taName}</span>`;
 				html += `<span>${matchStatus.mdAddress}</span>`;
 				html += `<span>거절됨 </span>`;
-				html += `<button class="btn btn-dark">다시입력</button>`;
+				html += `<button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">다시입력</button>`;
 				html += `</li>`;
 			} if (matchStatus.mrRequestStatus == '3') {
 				//상태 검사

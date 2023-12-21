@@ -65,7 +65,7 @@
 		WHERE MD_NUM = #{mdNum}
 	</update>
 
-	<update id="updateMatchDealInfoRemainStatus"
+	<update id="updateMatchDealInfoRemainStatus" 
 		parameterType="com.sp.team32ndproject.match.vo.MatchDealInfoVO">
 		UPDATE MATCH_DEAL_INFO SET MD_MATCH_STATUS = 2
 		WHERE NOT MD_NUM = #{mbNum}
