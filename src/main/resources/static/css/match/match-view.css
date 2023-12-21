@@ -15,6 +15,25 @@
 	--p-font: 1rem;
 }
 
+.main-slide {
+	position: relative;
+	max-height: 450px;
+}
+
+#slider-container {
+	width: 70%; /* 전체 영역의 70% 사용 (공통) */
+	height: 410px;
+	margin: 0 auto;
+	overflow: hidden; /* 영역을 벗어나면 보이지 않게 */
+	border-radius: 20px;
+}
+
+/* 슬라이더 내 이미지 resize */
+img {
+	max-width: 100%;
+	height: auto;
+}
+
 .match-pic {
 	width: 100%;
 	text-align: center;

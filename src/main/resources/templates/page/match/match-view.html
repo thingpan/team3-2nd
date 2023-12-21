@@ -16,10 +16,15 @@
 </head>
 
 <body>
-
-
 	<div th:replace="/page/fragment/header.html :: f-head"></div>
-	<div class="match-pic" id="match-pic"><img src=""></div>
+
+	<div id="image-slider">
+		<button class="prev-btn" id="prev-btn">&lt;</button>
+		<div id="slider-container">
+		</div>
+		<button class="next-btn" id="next-btn">&gt;</button>
+	</div>
+
 	<div class="main">
 		<div class="info-main">
 			<b>주소 시간 날짜</b>

@@ -11,38 +11,65 @@ let slideCount;
 
 console.log('Slide Count:', slideCount);
 
-let slideInterval;
+document.addEventListener('DOMContentLoaded', function () {
+	const sliderContainer = document.getElementById('slider-container');
+	const prevBtn = document.getElementById('prev-btn');
+	const nextBtn = document.getElementById('next-btn');
 
-function prevSlide() {
-	currentSlide = (currentSlide - 1 + slideCount) % slideCount;
-	console.log(`Prev Slide: ${currentSlide}`);
-	showSlide(currentSlide);
-}
+	let currentSlide = 0;
 
-function nextSlide() {
-	currentSlide = (currentSlide + 1) % slideCount;
-	console.log(`Next Slide: ${currentSlide}`);
-	showSlide(currentSlide);
-}
+	function showSlide(n) {
+		const slides = document.querySelectorAll('#slider-container img');
+		slides.forEach((slide, index) => {
+			slide.style.display = index === n ? 'block' : 'none';
+		});
+	}
 
-function showSlide(n) {
-	console.log('current slide: ', n);
-	slides.forEach((slide, index) => {
-		slide.style.display = index === n ? 'block' : 'none';
-	});
-}
+	function prevSlide() {
+		currentSlide = (currentSlide - 1 + matchPhotos.length) % matchPhotos.length;
+		showSlide(currentSlide);
+	}
+
+	function nextSlide() {
+		currentSlide = (currentSlide + 1) % matchPhotos.length;
+		showSlide(currentSlide);
+	}
+
+	async function fetchMatchPhotos() {
+		const response = await fetch(`/match-view/${mbNum}`);
+		const matchPhoto = await response.json();
+		console.log("matchPhoto", matchPhoto);
+
+		const matchPhotos = matchPhoto.matchPhotos;
+		console.log("matchPhotos", matchPhotos);
+		return matchPhotos;
+	}
+
+	async function initializeSlider() {
+		const matchPhotos = await fetchMatchPhotos();
+
+		matchPhotos.forEach(photo => {
+			const img = document.createElement('img');
+			img.src = photo.mbpFilePath;
+			sliderContainer.appendChild(img);
+		});
+
+		showSlide(currentSlide);
+
+		prevBtn.addEventListener('click', prevSlide);
+		nextBtn.addEventListener('click', nextSlide);
+	}
+
+	initializeSlider();
+});
 
 window.addEventListener('load', async function () {
-	slides = document.querySelectorAll('.slide');
-	console.log("slides: ", slides);
-	slideCount = slides.length;
-
-	showSlide(currentSlide);
-
 	const res = await fetch(`/match-view/${mbNum}`);
 	matchInfo = await res.json();
 
 	console.log("matchInfo", matchInfo);
+
+	matchPhotos = matchInfo.matchPhotos;
 
 	const teamRes = await fetch(`/my-team-infos-by-type/${matchInfo.mbType}`);
 	teamList = await teamRes.json();
@@ -90,49 +117,6 @@ window.addEventListener('load', async function () {
 		}
 		document.querySelector('.team-list').innerHTML += html;
 	}
-
-	matchPhotos = matchInfo.matchPhotos;
-	console.log("이건 무야:", matchPhotos);
-
-	let html = '';
-
-	function displaySlide() {
-		const matchPhotos = matchInfo.matchPhotos;
-
-		let html = `<section class="main-slide" id="main-slide">`;
-		html += `<div class="image-slider">`;
-		html += `<div class="slider">`;
-
-		matchPhotos.forEach((matchPhoto, index) => {
-			console.log(`Image ${index + 1}: ${matchPhoto.mbpFilePath}`);
-			html += `<div class="slide" style="display: ${index === currentSlide ? 'block' : 'none'};">`;
-			html += `<div id="fileDiv">`;
-			html += `<img src="${matchPhoto.mbpFilePath}" style="width:100%" id="img">`;
-			html += `</div>`;
-			html += `</div>`;
-		});
-
-		html += `</div>`;
-		html += `<button onclick="prevSlide()" id="prev-btn" class="prev-btn">&lt;</button>`;
-		html += `<button onclick="nextSlide()" id="next-btn" class="next-btn">&gt;</button>`;
-		html += `</section>`;
-
-		document.querySelector('#match-pic').innerHTML = html;
-
-		// slideCount 업데이트
-		slideCount = matchPhotos.length;
-
-		// slideCount가 정상적으로 출력되는지 확인
-		console.log('Slide Count:', slideCount);
-
-		// 이미지가 변경될 때 currentSlide에 맞게 슬라이드를 표시하도록 추가
-		showSlide(currentSlide);
-	}
-
-
-	displaySlide(currentSlide);
-
-	document.querySelector('#match-pic').innerHTML += html;
 
 	const taNum = matchInfo.taNum;
 	console.log("이거멍미:", taNum);
@@ -198,6 +182,7 @@ window.addEventListener('load', async function () {
 	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 	infowindow.open(map, marker);
 })
+// *window 마지막 부분
 
 //팀 선택시 팀 번호 저장
 function selectedTeam(taNum, taName) {
