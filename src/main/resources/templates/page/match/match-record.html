@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="/css/team/team-apply.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
           rel="stylesheet">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
     <style>
         .team-photo img {
             width: 200px;
@@ -18,6 +20,20 @@
             position: relative;
             overflow: hidden;
             margin-bottom: 1rem;
+        }
+
+        .graph-box {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            background-color: #fdfdfd;
+            border: 2px black solid;
+            border-radius: 15px;
+            align-items: center;
+        }
+
+        #graphWrap {
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
@@ -32,18 +48,23 @@
             <span class="">전적: <span id="winCnt"></span>승 <span id="drawCnt"></span>무 <span id="looseCnt"></span>패</span>
         </div>
     </div>
+    <div class="graph-box">
+    <div class="graph"></div>
+    </div>
 </div>
 
 <div class="container odds-of-winning">
 
 </div>
 <script>
+    let teamInfoList;
+
     const urlParams = new URL(location.href).searchParams;
     const taNum = urlParams.get('taNum');
 
     const fetchTeamInfoList = async () => {
         const teamListRes = await fetch(`/team-info?taNum=${taNum}`);
-        const teamInfoList = await teamListRes.json();
+        teamInfoList = await teamListRes.json();
 
         document.querySelector('#winCnt').innerText = teamInfoList.taWinCnt;
         document.querySelector('#drawCnt').innerText = teamInfoList.taDrawCnt;
@@ -52,6 +73,50 @@
 
     // 호출된 함수 실행
     fetchTeamInfoList();
+
+    var w = 300, h = 300;
+    d3.select(".graph")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h)
+        .attr("id", "graphWrap");
+    var graphWrap = d3.select("#graphWrap");
+
+    var graphData = [7, 3, 2];
+    var pie = d3.pie();
+    var arc = d3.arc().innerRadius(0).outerRadius(100);
+    var colors = d3.scaleOrdinal()
+        .range(["#99baff", "#e3e3e3", "#ffb5b5"]);
+
+    var oneGraph = graphWrap.selectAll("path").data(pie(graphData));
+    oneGraph.enter()
+        .append("path")
+        .attr("class", "pie")
+        .attr("transform", "translate("+(w/2)+","+(h/2)+")")
+        .style("fill", function(d, i) {
+            return colors(graphData[i]);})
+        .transition()
+        .duration(1000)
+        .delay(function(d, i) {
+            return i * 1000;
+        })
+        .attrTween("d", function(d, i) {
+            var interpolate = d3.interpolate(
+                {startAngle : d.startAngle, endAngle : d.startAngle},
+                {startAngle : d.startAngle, endAngle : d.endAngle}
+            );
+            return function(t){
+                return arc(interpolate(t));
+            }
+        });
+
 </script>
-</body>
-</html>
+
+<!-- 부트스트랩 및 팝퍼, 제이쿼리 스크립트 추가 -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+
