@@ -37,7 +37,11 @@ window.addEventListener('load', async function () {
     document.querySelector('.record').innerText = winGames + '승 ' + drawGames + '무 ' + loseGames + '패';
 
     // 현재 승률 표시
-    document.querySelector('.odds').innerText = winRate.toFixed(2) + '%';
+    if (isNaN(winRate)) {
+        document.querySelector('.odds').innerText = '0%';
+    } else {
+        document.querySelector('.odds').innerText = winRate.toFixed(2) + '%';
+    }
 
     // SVG 요소 생성
     const svg = d3.select(".game-record-chart")
@@ -88,6 +92,7 @@ async function doSendObj() {
         alert(`${result.resultMsg}`);
     }
 }
+
 window.addEventListener('load', async function () {
     // 현재 URL에서 taNum을 가져오기
     const urlParams = new URLSearchParams(window.location.search);

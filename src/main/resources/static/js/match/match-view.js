@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	const sliderContainer = document.getElementById('slider-container');
 	const prevBtn = document.getElementById('prev-btn');
 	const nextBtn = document.getElementById('next-btn');
-	
-	
+
+
 
 	let currentSlide = 0;
 
@@ -77,7 +77,11 @@ window.addEventListener('load', async function() {
 	if (matchInfo.mbStatus == 1 || matchInfo == null || new Date(matchInfo.mbDate) < today) {
 		alert('신청 마감된 매치입니다.')
 		this.location.href = '/page/match/match-board';
+	}else if(matchInfo.activityStatus == 1){
+		alert('삭제된 매치입니다')
+		this.location.href = '/page/match/match-board';
 	}
+	
 
 	matchPhotos = matchInfo.matchPhotos;
 
@@ -133,16 +137,16 @@ window.addEventListener('load', async function() {
 
 	const teamListRes = await fetch(`/team-info?taNum=${taNum}`);
 	const teamInfoList = await teamListRes.json();
-	
+
 
 	const scoreValue = document.querySelector('#score-value');
 	const nameValue = document.querySelector('#taName');
 
 	const taName = teamInfoList.taName;
 	const teamPoint = teamInfoList.taPoint;
-	
+
 	if (teamInfoList.uiNum == document.querySelector('#matchViewUiNum').innerHTML) {
-		document.querySelector('#updateAndDeleteButton').innerHTML = '<button class="btn btn-dark">수정</button><button class="btn btn-dark">삭제</button>'
+		document.querySelector('#updateAndDeleteButton').innerHTML = '<button class="btn btn-dark">수정</button><button class="btn btn-dark" onclick="matchboarddelete()">삭제</button>'
 	}
 
 
@@ -224,7 +228,24 @@ function doMakePostMessageDiv() {
 	document.querySelector('#send-button').innerHTML = `<button onclick="matchRequest()" class="btn btn-dark">신청하기</button>`;
 	document.querySelector('#post-message-info').innerHTML = null;
 }
+async function matchboarddelete() {
+	const data ={
+		mbNum : mbNum
+	}
+	const response = await fetch(`/match-infos`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	});
+	const errorMessage = await response.json();
+	if(errorMessage == 1){
+		alert('삭제완료');
+		location.href = `/page/match/match-board`
+	}
 
+}
 async function matchRequest() {
 	console.log("넌뭐냐", selectedTeamNum);
 	if (selectedTeamNum == undefined) {

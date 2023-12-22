@@ -78,8 +78,21 @@
 <script>
     function addRow(tableBody, rank, taType, taName, taBoundarySido, taPoint, taNum) {
         const row = document.createElement('tr');
+
+        // 순위에 따라 메달 아이콘으로 변경
+        let medalIcon = '';
+        if (rank === 1) {
+            medalIcon = '🥇';
+        } else if (rank === 2) {
+            medalIcon = '🥈';
+        } else if (rank === 3) {
+            medalIcon = '🥉';
+        }
+
+        const rankDisplay = rank <= 3 ? medalIcon : rank;
+
         row.innerHTML = `
-        <td>${rank}</td>
+        <td>${rankDisplay}</td>
         <td>${taType}</td>
         <td><a href="/page/team/record?taNum=${taNum}">${taName}</a></td>
         <td>${taBoundarySido}</td>
@@ -131,7 +144,16 @@
         // 상위 5개의 데이터만 반복하여 처리
         for (const row of teamData.slice(0, 5)) {
             html += '<tr>';
-            html += `<td>${i}</td>`;
+            html += '<tr>';
+            if (i === 1) {
+                html += `<td>🥇</td>`;
+            } else if (i === 2) {
+                html += `<td>🥈</td>`;
+            } else if (i === 3) {
+                html += `<td>🥉</td>`;
+            } else {
+                html += `<td>${i}</td>`
+            }
             html += `<td>${row.taType}</a></td>`;
             html += `<td><a href="/page/team/record?taNum=${row.taNum}">${row.taName}</td>`;
             html += `<td>${row.taBoundarySido}</td>`;
