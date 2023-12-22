@@ -200,7 +200,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		console.log('showSchedule 호출');
 		const res = await fetch(`/match-board`);
 		const matchBoardInfos = await res.json();
-
 		const apiScheduleItems = matchBoardInfos.matchBoardList.map(matchBoardList => {
 			return {
 				mbNum: matchBoardList.mbNum,
