@@ -26,6 +26,7 @@
 	</div>
 
 	<div class="main">
+		<span id="matchViewUiNum" th:text="${#authentication.principal.uiNum}" style="display: none;"></span>
 		<div class="info-main">
 			<b>주소 시간 날짜</b>
 			<div class="address-time-date" style="margin-top: 10px;">
@@ -50,6 +51,10 @@
 			<hr>
 			<b>위치</b>
 			<div id="map" style="width:100%;height:350px;margin-top: 10px;margin-bottom: 10px;"></div>
+			<hr>
+			<div id="updateAndDeleteButton">
+				
+			</div>
 		</div>
 		<div class="send-info" id="send-info">
 			<b>팀 선택</b>
