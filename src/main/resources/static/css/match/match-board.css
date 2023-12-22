@@ -57,7 +57,7 @@ body {
 }
 
 .day {
-    width: 130px;
+    width: 160px;
     height: 70px;
     display: flex;
     flex-direction: column;
@@ -71,6 +71,7 @@ body {
 }
 
 .selected {
+    width: 160px;
     background-color: #111;
     color: #fff;
 }
