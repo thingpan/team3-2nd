@@ -32,4 +32,8 @@ public class MatchBoardInfoVO {
 	private int taPoint;
 	private MultipartFile file;
 	private List<MatchBoardPhotoInfoVO> matchPhotos;
+	private int page;
+	private int start;
+	private int end;
+	private int pageSize;
 }

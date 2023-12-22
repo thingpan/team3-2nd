@@ -78,7 +78,7 @@ img {
 }
 
 .team-table {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   border-collapse: collapse;
   position: relative;
@@ -94,7 +94,7 @@ img {
 
 .caption-content {
   margin: 2rem auto;
-  width: 80%;
+  width: 100%;
   display: flex;
   align-items: center;
   /*justify-content: center;*/
@@ -140,14 +140,14 @@ img {
 
 .bottom-caption a {
   top: 22rem;
-  margin-right: 8rem;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .team-table-wrapper {
   position: relative;
 
 }
-
 
 /* 매치 일정 영역 스타일 */
 .calendar-container {
@@ -173,7 +173,7 @@ img {
 }
 
 .day {
-  width: 130px;
+  width: 160px;
   height: 70px;
   display: flex;
   flex-direction: column;
@@ -187,6 +187,7 @@ img {
 }
 
 .selected {
+  width: 160px;
   background-color: #111;
   color: #fff;
 }

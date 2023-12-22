@@ -11,10 +11,12 @@ let slideCount;
 
 console.log('Slide Count:', slideCount);
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
 	const sliderContainer = document.getElementById('slider-container');
 	const prevBtn = document.getElementById('prev-btn');
 	const nextBtn = document.getElementById('next-btn');
+	
+	
 
 	let currentSlide = 0;
 
@@ -63,12 +65,16 @@ document.addEventListener('DOMContentLoaded', function () {
 	initializeSlider();
 });
 
-window.addEventListener('load', async function () {
+window.addEventListener('load', async function() {
 	const res = await fetch(`/match-view/${mbNum}`);
 	matchInfo = await res.json();
 
+
 	console.log("matchInfo", matchInfo);
-	if(matchInfo.mbStatus == 1 || matchInfo == null){
+	const today = new Date(); // 현재 날짜
+	today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간을 00:00:00으로 설정
+
+	if (matchInfo.mbStatus == 1 || matchInfo == null || new Date(matchInfo.mbDate) < today) {
 		alert('신청 마감된 매치입니다.')
 		this.location.href = '/page/match/match-board';
 	}
@@ -127,12 +133,20 @@ window.addEventListener('load', async function () {
 
 	const teamListRes = await fetch(`/team-info?taNum=${taNum}`);
 	const teamInfoList = await teamListRes.json();
+	
 
 	const scoreValue = document.querySelector('#score-value');
 	const nameValue = document.querySelector('#taName');
 
 	const taName = teamInfoList.taName;
 	const teamPoint = teamInfoList.taPoint;
+	
+	if (teamInfoList.uiNum == document.querySelector('#matchViewUiNum').innerHTML) {
+		document.querySelector('#updateAndDeleteButton').innerHTML = '<button class="btn btn-dark">수정</button><button class="btn btn-dark">삭제</button>'
+	}
+
+
+
 
 	nameValue.innerHTML = `${taName}`;
 	scoreValue.innerHTML = `${teamPoint}점`;
@@ -185,6 +199,7 @@ window.addEventListener('load', async function () {
 
 	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 	infowindow.open(map, marker);
+
 })
 // *window 마지막 부분
 

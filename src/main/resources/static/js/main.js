@@ -1,10 +1,10 @@
-// 팀 데이터 가져오기
-import teamData from '/js/mock/teamData.js';
-
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
 const slideCount = slides.length;
 let slideInterval;
+let selectedDate = new Date();
+let matchBoardInfos = null;
+let date;
 
 window.addEventListener('scroll', () => {
 	if (window.scrollY > 50) {
@@ -54,50 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-	const tbody = document.querySelector('.team-table tbody');
-	const sportFilter = document.querySelector('#sport-filter');
-
-	// 페이지 로드 시 기본적으로 축구 데이터 표시
-	const defaultSport = '축구';
-
-	// 스포츠 필터 변경 시, 해당 스포츠 팀 데이터만 필터링하여 표시
-	sportFilter.addEventListener('change', async () => {
-		let i = 1;
-		const selectedSport = sportFilter.value;
-
-		try {
-			// 서버로부터 데이터 불러오기
-			const response = await fetch(`/team-infos`);
-			const selectedSportTeams = await response.json();
-
-			console.log("selectedSportTeams", selectedSportTeams[0].taType);
-
-			// 선택된 스포츠 데이터가 없을 경우 빈 배열로 기본 설정
-			const top5Teams = selectedSportTeams.slice(0, 5);
-
-			// 테이블 비우기링
-			tbody.innerHTML = '';
-
-			// 필터링된 데이터를 HTML에 추가
-			top5Teams.forEach((team) => {
-				const row = document.createElement('tr');
-				row.innerHTML = `
-                    <td>${i}</td>
-                    <td>${team.taType}</td>
-                    <td><a href="/page/team/record?taNum=${team.taNum}">${team.taName}</a></td>
-                    <td>${team.taBoundarySido}</td>
-                    <td>${team.taPoint}</td>
-                `;
-				tbody.appendChild(row);
-				i++;
-			});
-		} catch (error) {
-			console.error('Error fetching team data:', error);
-		}
-	});
-});
-
 const calendar = document.querySelector('.calendar');
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -108,6 +64,21 @@ document.addEventListener('DOMContentLoaded', function() {
 	let selectedSport = null;
 	let selectedSido = null;
 	let selectedPoint = null;
+
+	async function fetchMatchBoardData() {
+		const res = await fetch(`/match-board`);
+		matchBoardInfos = await res.json();
+		console.log(matchBoardInfos);
+	}
+
+	// 초기 캘린더 업데이트 시에도 데이터를 가져오도록 수정
+	async function init() {
+		await fetchMatchBoardData();
+		updateCalendar(selectedDate);
+		showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
+	}
+
+	init();
 
 	// 캘린더 업데이트 함수
 	function updateCalendar(date) {
@@ -141,6 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				selectDate(dayDiv);
 				selectedDateDiv = dayDiv;
 
+				selectedDate = new Date(day);
+
 				showSchedule(day, selectedSport, selectedSido, selectedPoint);
 			}
 		}
@@ -165,8 +138,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// 이전 주 버튼 클릭 시 이벤트 리스너
 	calendarPrevBtn.addEventListener('click', () => {
-		currentDate.setDate(currentDate.getDate() - 7);
-		updateCalendar(currentDate);
+		const oneWeekAgo = new Date(selectedDate);
+		console.log("onWeekAgo", oneWeekAgo);
+		oneWeekAgo.setDate(selectedDate.getDate() - 7);
+
+		const today = new Date(); // 현재 날짜
+		today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간을 00:00:00으로 설정
+
+		if (oneWeekAgo < today) {
+			// 오늘 이전이면 버튼 비활성화
+			return;
+		}
+
+		selectedDate = oneWeekAgo;
+		updateCalendar(selectedDate);
 	});
 
 	// 다음 주 버튼 클릭 시 이벤트 리스너
@@ -379,10 +364,4 @@ async function showSchedule(date) {
 		});
 	}
 }
-
-// 페이지 로드 시 오늘 날짜의 테이블 자동 표시
-showSchedule(currentDate);
-
-// 초기 캘린더 업데이트
-updateCalendar(currentDate);
 

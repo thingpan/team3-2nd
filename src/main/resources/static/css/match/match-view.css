@@ -242,3 +242,9 @@ img {
   transform: translateY(-50%);
   z-index: 1;
 }
+
+#updateAndDeleteButton{
+	text-align: center;
+	display: flex;
+    justify-content: space-evenly;
+}
