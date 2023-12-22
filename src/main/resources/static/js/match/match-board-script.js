@@ -150,98 +150,108 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    // 일정 표시 함수
-    async function showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint, selectedsigungu) {
-        console.log('showSchedule 호출. Date: ', selectedDate);
-        console.log('Selected Sport: ', selectedSport);
-        console.log('Selected Sido: ', selectedSido);
-        console.log('selectedPoint: ', selectedPoint);
-        date = selectedDate;
-        console.log(date);
+  
+	// 일정 표시 함수
+	async function showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint, selectedsigungu) {
+		console.log('showSchedule 호출. Date: ', selectedDate);
+		console.log('Selected Sport: ', selectedSport);
+		console.log('Selected Sido: ', selectedSido);
+		console.log('selectedPoint: ', selectedPoint);
+		date = selectedDate;
+		console.log(date);
 
-        // matchBoardInfos가 null이면 데이터를 다시 가져옴
-        if (!matchBoardInfos) {
-            await fetchMatchBoardData();
-        }
+		// matchBoardInfos가 null이면 데이터를 다시 가져옴
+		if (!matchBoardInfos) {
+			await fetchMatchBoardData();
+		}
 
-        const apiScheduleItems = matchBoardInfos.matchBoardList.map(matchBoardList => {
-            return {
-                mbNum: matchBoardList.mbNum,
-                mbTime: matchBoardList.mbTime,
-                mbAddress: matchBoardList.mbAddress,
-                mbAddressDetail: matchBoardList.mbAddressDetail,
-                mbSido: matchBoardList.mbSido,
-                mbsigungu: matchBoardList.mbSigungu,
-                mbDate: new Date(matchBoardList.mbDate),
-                mbType: matchBoardList.mbType,
-                mbStatus: matchBoardList.mbStatus,
-                taMannerPoint: matchBoardList.taMannerPoint,
-                taPoint: matchBoardList.taPoint
-            };
-        });
+		const apiScheduleItems = matchBoardInfos.matchBoardList.map(matchBoardList => {
+			return {
+				mbNum: matchBoardList.mbNum,
+				mbTime: matchBoardList.mbTime,
+				mbAddress: matchBoardList.mbAddress,
+				mbAddressDetail: matchBoardList.mbAddressDetail,
+				mbSido: matchBoardList.mbSido,
+				mbsigungu: matchBoardList.mbSigungu,
+				mbDate: new Date(matchBoardList.mbDate),
+				mbType: matchBoardList.mbType,
+				mbStatus: matchBoardList.mbStatus,
+				taMannerPoint: matchBoardList.taMannerPoint,
+				taPoint: matchBoardList.taPoint
+			};
+		});
 
-        let filteredMatchBoards;
+		let filteredMatchBoards;
 
-        // 시간 순서로 배열 정렬
-        apiScheduleItems.sort((a, b) => {
-            const timeA = new Date(`2023-01-01 ${a.mbTime}`);
-            const timeB = new Date(`2023-01-01 ${b.mbTime}`);
-            return timeA - timeB;
-        });
+		// 시간 순서로 배열 정렬
+		apiScheduleItems.sort((a, b) => {
+			const timeA = new Date(`2023-01-01 ${a.mbTime}`);
+			const timeB = new Date(`2023-01-01 ${b.mbTime}`);
+			return timeA - timeB;
+		});
 
-        filteredMatchBoards = apiScheduleItems.filter(apiScheduleItem => {
-            const mbDate = new Date(apiScheduleItem.mbDate);
-            const skill = parseInt(document.getElementById("point").value);
-            const upperBound = skill + 100;
+		filteredMatchBoards = apiScheduleItems.filter(apiScheduleItem => {
+			const mbDate = new Date(apiScheduleItem.mbDate);
+			const skill = parseInt(document.getElementById("point").value);
+			const upperBound = skill + 100;
 
-            // 종목과 시도가 선택되었을 때만 해당 조건을 검사
-            const isSportMatch = !selectedSport || selectedSport === 'all' || apiScheduleItem.mbType === selectedSport;
-            // 시도가 2글자 초과인 경우, 앞의 2글자를 제외하고 나머지 글자만 가져옴
-            const isSidoMatch = !selectedSido || selectedSido === 'sido' || apiScheduleItem.mbSido.slice(0, 2) === selectedSido;
+			// 종목과 시도가 선택되었을 때만 해당 조건을 검사
+			const isSportMatch = !selectedSport || selectedSport === 'all' || apiScheduleItem.mbType === selectedSport;
+			// 시도가 2글자 초과인 경우, 앞의 2글자를 제외하고 나머지 글자만 가져옴
+			const isSidoMatch = !selectedSido || selectedSido === 'sido' || apiScheduleItem.mbSido.slice(0, 2) === selectedSido;
 
-            // 날짜만을 비교하도록 수정 (클릭한 날짜 대신에 선택된 날짜 사용)
-            const isDateMatch =
-                mbDate.getDate() === selectedDate.getDate() &&
-                mbDate.getMonth() === selectedDate.getMonth() &&
-                mbDate.getFullYear() === selectedDate.getFullYear();
+			// 날짜만을 비교하도록 수정 (클릭한 날짜 대신에 선택된 날짜 사용)
+			const isDateMatch =
+				mbDate.getDate() === selectedDate.getDate() &&
+				mbDate.getMonth() === selectedDate.getMonth() &&
+				mbDate.getFullYear() === selectedDate.getFullYear();
 
-            const isPointMatch = !selectedPoint || skill === '0' || (apiScheduleItem.taPoint >= skill && apiScheduleItem.taPoint <= upperBound);
+			const isPointMatch = !selectedPoint || skill === '0' || (apiScheduleItem.taPoint >= skill && apiScheduleItem.taPoint <= upperBound);
 
-            return isSportMatch && isSidoMatch && isDateMatch && isPointMatch;
-        });
+			console.log(selectedDate);
+			console.log(isSportMatch);
+			console.log(isSidoMatch);
+			console.log(isDateMatch);
+			console.log(isPointMatch);
+
+			return isSportMatch && isSidoMatch && isDateMatch && isPointMatch;
+		});
 
 
-        const scheduleTable = document.querySelector('#schedule');
-        scheduleTable.innerHTML = '';
+		const scheduleTable = document.querySelector('#schedule');
+		scheduleTable.innerHTML = '';
 
-        if (filteredMatchBoards.length === 0) {
-            const noScheduleMessage = document.createElement('div');
-            noScheduleMessage.classList.add('schedule-none');
-            noScheduleMessage.textContent = '경기 일정이 없습니다.';
+		if (filteredMatchBoards.length === 0) {
+			const noScheduleMessage = document.createElement('div');
+			noScheduleMessage.classList.add('schedule-none');
+			noScheduleMessage.textContent = '경기 일정이 없습니다.';
 
-            scheduleTable.appendChild(noScheduleMessage);
-        } else {
-            filteredMatchBoards.forEach(apiScheduleItem => {
-                const row = scheduleTable.insertRow();
+			scheduleTable.appendChild(noScheduleMessage);
+		} else {
+			filteredMatchBoards.forEach(apiScheduleItem => {
+				const row = scheduleTable.insertRow();
 
-                const sportIconsMap = {
-                    '축구': '⚽',
-                    '농구': '🏀',
-                    '야구': '⚾️'
-                };
+				const sportIconsMap = {
+					'축구': '⚽',
+					'농구': '🏀',
+					'야구': '⚾️'
+				};
 
-                // 시간과 스포츠 아이콘
-                const timeAndSportIconCell = row.insertCell();
-                const sportIcon = getSportIconByType(apiScheduleItem.mbType);
-                timeAndSportIconCell.innerHTML = `${apiScheduleItem.mbTime}${sportIcon}`;
+				// 시간과 스포츠 아이콘
+				const timeAndSportIconCell = row.insertCell();
+				const sportIcon = getSportIconByType(apiScheduleItem.mbType);
+				timeAndSportIconCell.innerHTML = `${apiScheduleItem.mbTime}${sportIcon}`;
 
-                function getSportIconByType(mbType) {
-                    return sportIconsMap[mbType];
-                }
+				function getSportIconByType(mbType) {
+					return sportIconsMap[mbType];
+				}
 
-                // 장소와 상태 뱃지 표시
-                const locationAndStatusCell = row.insertCell();
-                locationAndStatusCell.innerHTML = `[${apiScheduleItem.mbSido.slice(0, 2)}]
+				// 장소와 상태 뱃지 표시
+				const locationAndStatusCell = row.insertCell();
+				locationAndStatusCell.innerHTML = `[${apiScheduleItem.mbSido.slice(0, 2)}]
+				
+     
+
             <a class="match-board-title" style="color: #111; font-weight: 400; text-decoration: none" href="/page/match/match-view?mbNum=${apiScheduleItem.mbNum}">${apiScheduleItem.mbAddressDetail}</a> <br>`;
                 const teamPoint = row.insertCell();
                 teamPoint.innerHTML = `${apiScheduleItem.taPoint}`;

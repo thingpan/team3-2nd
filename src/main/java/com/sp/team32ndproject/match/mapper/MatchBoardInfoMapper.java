@@ -12,4 +12,6 @@ public interface MatchBoardInfoMapper {
 	int updateMatchBoardInfoMbStatus(int mbNum);
 	MatchBoardInfoVO selectMatchInfo(int mbNum);
 	List<MatchBoardInfoVO> selectMatchList();
+	int deleteMatchBoardInfoActivityStatus(MatchBoardInfoVO match);
+	List<MatchBoardInfoVO> selectMatchInfosByTaNum(int taNum);
 }

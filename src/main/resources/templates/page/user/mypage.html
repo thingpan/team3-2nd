@@ -593,26 +593,36 @@
 					uiEmail: uiEmail,
 					uiPwd: uiPwd
 				});
+
 			}
-
 			async function updateProfile(profileData) {
-				try {
-					const response = await fetch('/update-profile', {
-						method: 'PATCH',
-						headers: {
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify(profileData),
-					});
+			
+				const confirmations = confirm('계정을 수정하시겠습니까?');
 
-					if (response.ok) {
-						document.querySelector('.edit-profile-form').style.display = 'none';
-						alert('프로필이 업데이트 되었습니다.');
-					} else {
-						throw new Error('프로필 업데이트에 실패했습니다.');
+		
+				if (confirmations) {
+					try {
+						const response = await fetch('/update-profile', {
+							method: 'PATCH',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify(profileData),
+						});
+
+						if (response.ok) {
+							
+							document.querySelector('.edit-profile-form').style.display = 'none';
+							alert('프로필이 업데이트 되었습니다.');
+						} else {
+						
+							throw new Error('프로필 업데이트에 실패했습니다.');
+						}
+					} catch (error) {
+					
+						console.error('Error during profile update:', error);
+						alert('프로필 업데이트 중 오류가 발생했습니다.');
 					}
-				} catch (error) {
-					console.error('에러 발생: ', error);
 				}
 			}
 
