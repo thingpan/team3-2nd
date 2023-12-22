@@ -5,6 +5,8 @@ import java.util.List;
 import com.sp.team32ndproject.match.vo.MatchBoardInfoListVO;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sp.team32ndproject.match.mapper.MatchBoardInfoMapper;
 import com.sp.team32ndproject.match.vo.MatchBoardInfoVO;
 import com.sp.team32ndproject.match.vo.MatchBoardPhotoInfoVO;
@@ -44,8 +46,13 @@ public class MatchBoardInfoService {
 		matchBoardInfoListVO.setMatchBoardList(matchBoardList);
 		return matchBoardInfoListVO;
 	}
-	
+
 	public int updateMatchBoardInfoMbStatus(int mbNum) {
 		return matchBoardInfoMapper.updateMatchBoardInfoMbStatus(mbNum);
+	}
+
+	public PageInfo<MatchBoardInfoVO> selectMatchInfosByTaNum(MatchBoardInfoVO matchBoardInfoVO) {
+		PageHelper.startPage(matchBoardInfoVO.getPage(), matchBoardInfoVO.getPageSize());
+		return new PageInfo<>(matchBoardInfoMapper.selectMatchInfosByTaNum(matchBoardInfoVO.getTaNum()));
 	}
 }

@@ -1,52 +1,60 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <title>Insert title here</title>
+	<meta charset="utf-8">
+	<title>Insert title here</title>
 </head>
+
 <body th:fragment="f-side-bar">
-<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-<link href="/css/fragment/side-bar.css" rel="stylesheet">
-<div class="backdrop" id="backdrop"></div>
-<div class="l-navbar" id="navbar">
-    <nav class="nav">
-        <div>
-            <div class="nav__brand">
-                <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
-                <a href="/" class="nav__logo" style="text-decoration: none">MMIYC</a>
-            </div>
-            <div class="nav__list">
-                <a th:href="@{/page/team/record(taNum=${param.taNum})}" class="nav__link" style="color: #fff; text-decoration: none">
-                    <ion-icon name="flash-outline" class="nav__icon"></ion-icon>
-                    <span class="nav_name">전적</span>
-                </a>
-                <a th:href="@{/page/team/team-members(taNum=${param.taNum})}" class="nav__link" style="color: #fff; text-decoration: none">
-                    <ion-icon name="create-outline" class="nav__icon"></ion-icon>
-                    <span class="nav_name">팀원 목록</span>
-                </a>
+	<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+	<link href="/css/fragment/side-bar.css" rel="stylesheet">
+	<div class="backdrop" id="backdrop"></div>
+	<div class="l-navbar" id="navbar">
+		<nav class="nav">
+			<div>
+				<div class="nav__brand">
+					<ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+					<a href="/" class="nav__logo" style="text-decoration: none">MMIYC</a>
+				</div>
 
-                <a th:href="@{/page/match/match-status(taNum=${param.taNum})}" class="nav__link" style="color: #fff; text-decoration: none">
-                    <ion-icon name="checkmark-done-outline" class="nav__icon"></ion-icon>
-                    <span class="nav_name">매칭 현황</span>
-                </a>
+				<div class="nav__list">
+					<a th:href="@{/page/team/team-members(taNum=${param.taNum})}" class="nav__link"
+						style="color: #fff; text-decoration: none">
+						<ion-icon name="create-outline" class="nav__icon"></ion-icon>
+						<span class="nav_name">팀원 목록</span>
+					</a>
+					<a th:href="@{/page/team/team-apply(taNum=${param.taNum})}" class="nav__link"
+						style="color: #fff; text-decoration: none">
+						<ion-icon name="people-outline" class="nav__icon"></ion-icon>
+						<span class="nav_name">가입 신청인원</span>
+					</a>
+					<a th:href="@{/page/team/record(taNum=${param.taNum})}" class="nav__link"
+						style="color: #fff; text-decoration: none">
+						<ion-icon name="flash-outline" class="nav__icon"></ion-icon>
+						<span class="nav_name">전적</span>
+					</a>
 
-                <a th:href="@{/page/team/team-settings(taNum=${param.taNum})}" class="nav__link" style="color: #fff; text-decoration: none">
-                    <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
-                    <span class="nav_name">팀 설정</span>
-                </a>
-                
-                <a th:href="@{/page/team/team-match-list(taNum=${param.taNum})}" class="nav__link" style="color: #fff; text-decoration: none">
-                    <ion-icon name="list-outline" class="nav__icon"></ion-icon>
-                    <span class="nav_name">매치 작성 목록</span>
-                </a>
-            </div>
-            <a th:href="@{/page/team/team-apply(taNum=${param.taNum})}" class="nav__link" style="color: #fff; text-decoration: none">
-                <ion-icon name="people-outline" class="nav__icon"></ion-icon>
-                <span class="nav_name">가입 신청인원</span>
-            </a>
-        </div>
-    </nav>
-</div>
-<script src="/js/fragment/side-bar.js"></script>
+					<a th:href="@{/page/match/match-status(taNum=${param.taNum})}" class="nav__link"
+						style="color: #fff; text-decoration: none">
+						<ion-icon name="checkmark-done-outline" class="nav__icon"></ion-icon>
+						<span class="nav_name">매칭 현황</span>
+					</a>
+					<a th:href="@{/page/team/team-match-list(taNum=${param.taNum})}" class="nav__link"
+						style="color: #fff; text-decoration: none">
+						<ion-icon name="list-outline" class="nav__icon"></ion-icon>
+						<span class="nav_name">매치 작성 목록</span>
+					</a>
+					<a th:href="@{/page/team/team-settings(taNum=${param.taNum})}" class="nav__link"
+						style="color: #fff; text-decoration: none">
+						<ion-icon name="settings-outline" class="nav__icon"></ion-icon>
+						<span class="nav_name">팀 설정</span>
+					</a>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<script src="/js/fragment/side-bar.js"></script>
 </body>
+
 </html>

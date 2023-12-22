@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.github.pagehelper.PageInfo;
 import com.sp.team32ndproject.match.service.MatchBoardInfoService;
 import com.sp.team32ndproject.match.vo.MatchBoardInfoVO;
 import com.sp.team32ndproject.user.vo.UserInfoVO;
@@ -20,7 +23,7 @@ import com.sp.team32ndproject.user.vo.UserInfoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
+@RestController
 @Slf4j
 @RequiredArgsConstructor
 public class MatchInfoController {
@@ -29,7 +32,6 @@ public class MatchInfoController {
 	
 	//매치 글쓰기 인서트
 	@PostMapping("/match-infos")
-	@ResponseBody
 	public int insertMatchBoardInfo(MatchBoardInfoVO match) {
 		log.info("match => {}", match);
 		return matchInfoService.insertMatchInfo(match);
@@ -49,4 +51,11 @@ public class MatchInfoController {
 		MatchBoardInfoListVO matchBoardInfoListVO = matchInfoService.selectMatchList();
 		return ResponseEntity.ok(matchBoardInfoListVO);
 	}
-}
+	
+	//특정 팀 매치 목록 불러오기
+	@GetMapping("/match-infos") 
+	public PageInfo<MatchBoardInfoVO> selectMatchInfosByTaNum(MatchBoardInfoVO matchBoardInfoVO){
+		log.info("taNum=>{}", matchBoardInfoVO);
+			return matchInfoService.selectMatchInfosByTaNum(matchBoardInfoVO);
+		}
+	}
