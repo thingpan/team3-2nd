@@ -47,7 +47,7 @@
 	</update>
 	<update id="deleteMatchBoardInfoActivityStatus"
 		parameterType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
-		UPDATE MATCH_BOARD_INFO SET ACTIVITY_STATUS = 1
+		UPDATE MATCH_BOARD_INFO SET MB_ACTIVE_STATUS = 1
 		WHERE MB_NUM =
 		#{mbNum};
 	</update>
