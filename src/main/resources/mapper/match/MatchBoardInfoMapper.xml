@@ -25,9 +25,11 @@
 
 	<select id="selectMatchList"
 		resultType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
-		SELECT MBI.*,TM.TA_MANNER_POINT , TM.TA_POINT FROM
-		MATCH_BOARD_INFO MBI
-		INNER JOIN TEAM_INFO TM ON MBI.MB_NUM = TM.TA_NUM
+		SELECT MBI.*, TM.TA_MANNER_POINT,TM.TA_POINT
+		FROM MATCH_BOARD_INFO MBI
+		INNER
+		JOIN TEAM_INFO TM ON MBI.TA_NUM = TM.TA_NUM
+
 	</select>
 
 	<update id="updateMatchBoardInfoMbStatus"
