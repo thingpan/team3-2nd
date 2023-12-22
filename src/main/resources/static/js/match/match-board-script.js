@@ -133,7 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	// 일정 표시 함수
-	// 일정 표시 함수
 	async function showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint, selectedsigungu) {
 		console.log('showSchedule 호출. Date: ', selectedDate);
 		console.log('Selected Sport: ', selectedSport);

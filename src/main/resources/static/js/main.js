@@ -157,26 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	// 종목 선택 시 이벤트 리스너
-	const selectSport = document.querySelector('#sports');
-	if (selectSport) {
-		selectSport.addEventListener('change', () => {
-			selectedSport = selectSport.value;
-			showSchedule(currentDate, selectedSport, selectedSido, selectedPoint);
-		});
-	}
 
-	const selectSido = document.querySelector('#sido');
-	selectSido.addEventListener('change', () => {
-		selectedSido = selectSido.value;
-
-		showSchedule(currentDate, selectedSport, selectedSido, selectedPoint);
-	});
-
-	const inputPoint = document.querySelector('#point');
-	inputPoint.addEventListener('input', () => {
-		selectedPoint = inputPoint.value;
-		showSchedule(currentDate, selectedSport, selectedSido, selectedPoint);
-	});
 
 	// 초기 캘린더 업데이트
 	let currentDate = new Date();
