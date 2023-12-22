@@ -276,7 +276,8 @@
 			searchButton.disabled = true; // 버튼 비활성화
 			new daum.Postcode({
 				oncomplete: function (data) {
-					document.getElementById('uiAddress').value = data.address;
+					document.getElementById('uiAddress').value = data.address + ` (${data.buildingName})`;
+					console.log(data)
 					searchButton.disabled = false; // 검색이 완료되면 버튼 활성화
 				},
 				onclose: function (state) {
