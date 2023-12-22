@@ -1,158 +1,158 @@
 const calendar = document.querySelector('.calendar');
 let date;
 
-document.addEventListener('DOMContentLoaded', function () {
-    const calendarPrevBtn = document.querySelector('.calendar-button:first-of-type');
-    const calendarNextBtn = document.querySelector('.calendar-button:last-of-type');
+document.addEventListener('DOMContentLoaded', function() {
+	const calendarPrevBtn = document.querySelector('.calendar-button:first-of-type');
+	const calendarNextBtn = document.querySelector('.calendar-button:last-of-type');
 
-    let selectedDateDiv = null;
-    let selectedSport = null;
-    let selectedSido = null;
-    let selectedPoint = null;
-    let selectedDate = new Date();
+	let selectedDateDiv = null;
+	let selectedSport = null;
+	let selectedSido = null;
+	let selectedPoint = null;
+	let selectedDate = new Date();
 
-    let matchBoardInfos = null;
+	let matchBoardInfos = null;
 
-    async function fetchMatchBoardData() {
-        const res = await fetch(`/match-board`);
-        matchBoardInfos = await res.json();
-        console.log(matchBoardInfos);
-    }
+	async function fetchMatchBoardData() {
+		const res = await fetch(`/match-board`);
+		matchBoardInfos = await res.json();
+		console.log(matchBoardInfos);
+	}
 
-    // 초기 캘린더 업데이트 시에도 데이터를 가져오도록 수정
-    async function init() {
-        await fetchMatchBoardData();
-        updateCalendar(selectedDate);
-        showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
-    }
+	// 초기 캘린더 업데이트 시에도 데이터를 가져오도록 수정
+	async function init() {
+		await fetchMatchBoardData();
+		updateCalendar(selectedDate);
+		showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
+	}
 
-    init();
+	init();
 
-    // 캘린더 업데이트 함수
-    function updateCalendar(date) {
-        calendar.innerHTML = '';
+	// 캘린더 업데이트 함수
+	function updateCalendar(date) {
+		calendar.innerHTML = '';
 
-        // 주간 캘린더(7일) 표시
-        for (let i = 0; i <= 6; i++) {
-            const day = new Date(date);
-            day.setDate(date.getDate() + i);
+		// 주간 캘린더(7일) 표시
+		for (let i = 0; i <= 6; i++) {
+			const day = new Date(date);
+			day.setDate(date.getDate() + i);
 
-            const today = new Date(); // 현재 날짜
-            today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간을 00:00:00으로 설정
+			const today = new Date(); // 현재 날짜
+			today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간을 00:00:00으로 설정
 
-            // 현재 날짜와 비교하여 오늘 이후의 날짜만 표시
-            if (day < today) {
-                continue;
-            }
+			// 현재 날짜와 비교하여 오늘 이후의 날짜만 표시
+			if (day < today) {
+				continue;
+			}
 
-            const dayDiv = document.createElement('div');
-            dayDiv.classList.add('day');
+			const dayDiv = document.createElement('div');
+			dayDiv.classList.add('day');
 
-            const dayDate = day.getDate();
-            const dayName = day.toLocaleDateString('en-US', {weekday: 'short'});
-            dayDiv.textContent = `${dayDate}\n${dayName}`;
+			const dayDate = day.getDate();
+			const dayName = day.toLocaleDateString('en-US', { weekday: 'short' });
+			dayDiv.textContent = `${dayDate}\n${dayName}`;
 
-            dayDiv.addEventListener('click', () => {
-                if (selectedDateDiv) {
-                    selectedDateDiv.classList.remove('selected');
-                }
-                selectDate(dayDiv);
-                selectedDateDiv = dayDiv;
+			dayDiv.addEventListener('click', () => {
+				if (selectedDateDiv) {
+					selectedDateDiv.classList.remove('selected');
+				}
+				selectDate(dayDiv);
+				selectedDateDiv = dayDiv;
 
-                // 클릭한 날짜를 선택된 날짜로 업데이트
-                selectedDate = new Date(day);
+				// 클릭한 날짜를 선택된 날짜로 업데이트
+				selectedDate = new Date(day);
 
-                console.log('Clicked date:', selectedDate);
-                showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
-            });
+				console.log('Clicked date:', selectedDate);
+				showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
+			});
 
-            calendar.appendChild(dayDiv);
+			calendar.appendChild(dayDiv);
 
-            if (i === 0) {
-                selectDate(dayDiv);
-                selectedDateDiv = dayDiv;
+			if (i === 0) {
+				selectDate(dayDiv);
+				selectedDateDiv = dayDiv;
 
-                // 초기 선택일을 클릭한 날짜로 변경
-                selectedDate = new Date(day);
+				// 초기 선택일을 클릭한 날짜로 변경
+				selectedDate = new Date(day);
 
-                showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
-                console.log('Click on dayDiv. 날짜:', selectedDate);
-            }
-        }
-    }
+				showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
+				console.log('Click on dayDiv. 날짜:', selectedDate);
+			}
+		}
+	}
 
-    // 이벤트 리스너 함수
-    function onFilterChange() {
-        showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
-    }
+	// 이벤트 리스너 함수
+	function onFilterChange() {
+		showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
+	}
 
-    // 선택된 날짜에 대한 스타일을 적용하는 함수
-    function selectDate(selectedDate) {
-        const dayDivs = document.querySelectorAll('.day');
-        dayDivs.forEach((dayDiv) => {
-            dayDiv.classList.remove('selected');
-        });
+	// 선택된 날짜에 대한 스타일을 적용하는 함수
+	function selectDate(selectedDate) {
+		const dayDivs = document.querySelectorAll('.day');
+		dayDivs.forEach((dayDiv) => {
+			dayDiv.classList.remove('selected');
+		});
 
-        selectedDate.classList.add('selected');
-    }
+		selectedDate.classList.add('selected');
+	}
 
-    // 이벤트 리스너 등록
-    const selectSport = document.querySelector('#sports');
-    if (selectSport) {
-        selectSport.addEventListener('change', () => {
-            selectedSport = selectSport.value;
-            onFilterChange();
-        });
-    }
+	// 이벤트 리스너 등록
+	const selectSport = document.querySelector('#sports');
+	if (selectSport) {
+		selectSport.addEventListener('change', () => {
+			selectedSport = selectSport.value;
+			onFilterChange();
+		});
+	}
 
-    const selectSido = document.querySelector('#sido');
-    if (selectSido) {
-        selectSido.addEventListener('change', () => {
-            selectedSido = selectSido.value;
-            onFilterChange();
-        });
-    }
+	const selectSido = document.querySelector('#sido');
+	if (selectSido) {
+		selectSido.addEventListener('change', () => {
+			selectedSido = selectSido.value;
+			onFilterChange();
+		});
+	}
 
-    const inputPoint = document.querySelector('#point');
-    if (inputPoint) {
-        inputPoint.addEventListener('input', () => {
-            selectedPoint = inputPoint.value;
-            onFilterChange();
-        });
-    }
+	const inputPoint = document.querySelector('#point');
+	if (inputPoint) {
+		inputPoint.addEventListener('input', () => {
+			selectedPoint = inputPoint.value;
+			onFilterChange();
+		});
+	}
 
-    // 초기 캘린더 업데이트
-    let currentDate = new Date();
-    updateCalendar(currentDate);
+	// 초기 캘린더 업데이트
+	let currentDate = new Date();
+	updateCalendar(currentDate);
 
-    // 이전 주 버튼 클릭 시 이벤트 리스너
-    calendarPrevBtn.addEventListener('click', () => {
-        const oneWeekAgo = new Date(selectedDate);
-        oneWeekAgo.setDate(selectedDate.getDate() - 7);
+	// 이전 주 버튼 클릭 시 이벤트 리스너
+	calendarPrevBtn.addEventListener('click', () => {
+		const oneWeekAgo = new Date(selectedDate);
+		oneWeekAgo.setDate(selectedDate.getDate() - 7);
 
-        const today = new Date(); // 현재 날짜
-        today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간을 00:00:00으로 설정
+		const today = new Date(); // 현재 날짜
+		today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간을 00:00:00으로 설정
 
-        if (oneWeekAgo < today) {
-            // 오늘 이전이면 버튼 비활성화
-            return;
-        }
+		if (oneWeekAgo < today) {
+			// 오늘 이전이면 버튼 비활성화
+			return;
+		}
 
-        selectedDate = oneWeekAgo;
-        updateCalendar(selectedDate);
-    });
+		selectedDate = oneWeekAgo;
+		updateCalendar(selectedDate);
+	});
 
-// 다음 주 버튼 클릭 시 이벤트 리스너
-    calendarNextBtn.addEventListener('click', () => {
-        selectedDate.setDate(selectedDate.getDate() + 7);
-        updateCalendar(selectedDate);
-        showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
-    });
+	// 다음 주 버튼 클릭 시 이벤트 리스너
+	calendarNextBtn.addEventListener('click', () => {
+		selectedDate.setDate(selectedDate.getDate() + 7);
+		updateCalendar(selectedDate);
+		showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
+	});
 
 
-  
+
 	// 일정 표시 함수
-	async function showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint, selectedsigungu) {
+	async function showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint) {
 		console.log('showSchedule 호출. Date: ', selectedDate);
 		console.log('Selected Sport: ', selectedSport);
 		console.log('Selected Sido: ', selectedSido);
@@ -167,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		const apiScheduleItems = matchBoardInfos.matchBoardList.map(matchBoardList => {
 			return {
+				activityStatus: matchBoardList.activityStatus,
 				mbNum: matchBoardList.mbNum,
 				mbTime: matchBoardList.mbTime,
 				mbAddress: matchBoardList.mbAddress,
@@ -190,34 +191,37 @@ document.addEventListener('DOMContentLoaded', function () {
 			return timeA - timeB;
 		});
 
-		filteredMatchBoards = apiScheduleItems.filter(apiScheduleItem => {
-			const mbDate = new Date(apiScheduleItem.mbDate);
-			const skill = parseInt(document.getElementById("point").value);
-			const upperBound = skill + 100;
 
-			// 종목과 시도가 선택되었을 때만 해당 조건을 검사
-			const isSportMatch = !selectedSport || selectedSport === 'all' || apiScheduleItem.mbType === selectedSport;
-			// 시도가 2글자 초과인 경우, 앞의 2글자를 제외하고 나머지 글자만 가져옴
-			const isSidoMatch = !selectedSido || selectedSido === 'sido' || apiScheduleItem.mbSido.slice(0, 2) === selectedSido;
+			filteredMatchBoards = apiScheduleItems.filter(apiScheduleItem => {
+				
+				console.log("이거봐야도ㅔ",apiScheduleItem)
+				const mbDate = new Date(apiScheduleItem.mbDate);
+				const skill = parseInt(document.getElementById("point").value);
+				const upperBound = skill + 100;
 
-			// 날짜만을 비교하도록 수정 (클릭한 날짜 대신에 선택된 날짜 사용)
-			const isDateMatch =
-				mbDate.getDate() === selectedDate.getDate() &&
-				mbDate.getMonth() === selectedDate.getMonth() &&
-				mbDate.getFullYear() === selectedDate.getFullYear();
+				// 종목과 시도가 선택되었을 때만 해당 조건을 검사
+				const isSportMatch = !selectedSport || selectedSport === 'all' || apiScheduleItem.mbType === selectedSport;
+				// 시도가 2글자 초과인 경우, 앞의 2글자를 제외하고 나머지 글자만 가져옴
+				const isSidoMatch = !selectedSido || selectedSido === 'sido' || apiScheduleItem.mbSido.slice(0, 2) === selectedSido;
+				const isActivityStatus =apiScheduleItem.activityStatus == 0 
+				// 날짜만을 비교하도록 수정 (클릭한 날짜 대신에 선택된 날짜 사용)
+				const isDateMatch=
+					mbDate.getDate() === selectedDate.getDate() &&
+					mbDate.getMonth() === selectedDate.getMonth() &&
+					mbDate.getFullYear() === selectedDate.getFullYear();
 
-			const isPointMatch = !selectedPoint || skill === '0' || (apiScheduleItem.taPoint >= skill && apiScheduleItem.taPoint <= upperBound);
+				const isPointMatch = !selectedPoint || skill === '0' || (apiScheduleItem.taPoint >= skill && apiScheduleItem.taPoint <= upperBound);
+		
+				console.log(selectedDate);
+				console.log(isSportMatch);
+				console.log(isSidoMatch);
+				console.log(isDateMatch);
+				console.log(isPointMatch);
+				console.log("isActivityStatus :",isActivityStatus)
 
-			console.log(selectedDate);
-			console.log(isSportMatch);
-			console.log(isSidoMatch);
-			console.log(isDateMatch);
-			console.log(isPointMatch);
-
-			return isSportMatch && isSidoMatch && isDateMatch && isPointMatch;
-		});
-
-
+				return isSportMatch && isSidoMatch && isDateMatch && isPointMatch && isActivityStatus ;
+			});
+		
 		const scheduleTable = document.querySelector('#schedule');
 		scheduleTable.innerHTML = '';
 
@@ -253,32 +257,32 @@ document.addEventListener('DOMContentLoaded', function () {
      
 
             <a class="match-board-title" style="color: #111; font-weight: 400; text-decoration: none" href="/page/match/match-view?mbNum=${apiScheduleItem.mbNum}">${apiScheduleItem.mbAddressDetail}</a> <br>`;
-                const teamPoint = row.insertCell();
-                teamPoint.innerHTML = `${apiScheduleItem.taPoint}`;
+				const teamPoint = row.insertCell();
+				teamPoint.innerHTML = `${apiScheduleItem.taPoint}`;
 
-                // 상태 뱃지 표시
-                const statusCell = row.insertCell();
-                const statusBadge = document.createElement('span');
+				// 상태 뱃지 표시
+				const statusCell = row.insertCell();
+				const statusBadge = document.createElement('span');
 
-                // 상태에 따라 스타일을 지정
-                if (apiScheduleItem.mbStatus === "0") {
-                    statusBadge.textContent = '신청가능';
-                    statusBadge.style.backgroundColor = '#0066FF';
-                    statusBadge.style.color = '#FFFFFF';
-                    statusBadge.style.padding = '14px 37px';
-                } else if (apiScheduleItem.mbStatus === "1") {
-                    statusBadge.textContent = '마감';
-                    statusBadge.style.backgroundColor = '#D3D3D3';
-                    statusBadge.style.color = '#8F8F8F';
-                    statusBadge.style.padding = '14px 50px';
-                }
+				// 상태에 따라 스타일을 지정
+				if (apiScheduleItem.mbStatus === "0") {
+					statusBadge.textContent = '신청가능';
+					statusBadge.style.backgroundColor = '#0066FF';
+					statusBadge.style.color = '#FFFFFF';
+					statusBadge.style.padding = '14px 37px';
+				} else if (apiScheduleItem.mbStatus === "1") {
+					statusBadge.textContent = '마감';
+					statusBadge.style.backgroundColor = '#D3D3D3';
+					statusBadge.style.color = '#8F8F8F';
+					statusBadge.style.padding = '14px 50px';
+				}
 
-                statusBadge.style.borderRadius = '18px';
-                statusBadge.style.fontSize = '14px';
-                statusBadge.style.fontWeight = '500';
+				statusBadge.style.borderRadius = '18px';
+				statusBadge.style.fontSize = '14px';
+				statusBadge.style.fontWeight = '500';
 
-                statusCell.appendChild(statusBadge);
-            });
-        }
-    }
+				statusCell.appendChild(statusBadge);
+			});
+		}
+	}
 });
