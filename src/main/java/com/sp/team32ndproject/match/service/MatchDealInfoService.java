@@ -5,15 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.sp.team32ndproject.match.mapper.MatchDealInfoMapper;
 import com.sp.team32ndproject.match.vo.MatchDealInfoVO;
 import com.sp.team32ndproject.team.vo.MsgVO;
-import com.sp.team32ndproject.team.vo.TeamSignUserInfoVO;
-import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class MatchDealInfoService {

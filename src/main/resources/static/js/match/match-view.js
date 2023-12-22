@@ -281,7 +281,9 @@ async function matchRequest() {
 			} else {
 				console.log(errorMessage);
 				alert(errorMessage.resultMsg);
-				location.reload();
+
+				// 매치 신청이 완료되면 match-board 페이지로 이동
+				location.href = '/page/match/match-board';
 			}
 		}
 	}

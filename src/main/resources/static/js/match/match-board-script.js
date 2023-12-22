@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	async function fetchMatchBoardData() {
 		const res = await fetch(`/match-board`);
 		matchBoardInfos = await res.json();
-		console.log(matchBoardInfos);
+
+		console.log("matchBoardInfos", matchBoardInfos);
 	}
 
 	// 초기 캘린더 업데이트 시에도 데이터를 가져오도록 수정
@@ -61,8 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				// 클릭한 날짜를 선택된 날짜로 업데이트
 				selectedDate = new Date(day);
-
-				console.log('Clicked date:', selectedDate);
 				showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
 			});
 
@@ -76,10 +75,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				selectedDate = new Date(day);
 
 				showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
-				console.log('Click on dayDiv. 날짜:', selectedDate);
 			}
 		}
 	}
+
+	console.log('Clicked date:', selectedDate);
 
 	// 이벤트 리스너 함수
 	function onFilterChange() {
@@ -153,12 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// 일정 표시 함수
 	async function showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint) {
-		console.log('showSchedule 호출. Date: ', selectedDate);
-		console.log('Selected Sport: ', selectedSport);
-		console.log('Selected Sido: ', selectedSido);
-		console.log('selectedPoint: ', selectedPoint);
 		date = selectedDate;
-		console.log(date);
 
 		// matchBoardInfos가 null이면 데이터를 다시 가져옴
 		if (!matchBoardInfos) {
@@ -193,8 +188,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 			filteredMatchBoards = apiScheduleItems.filter(apiScheduleItem => {
-				
-				console.log("이거봐야도ㅔ",apiScheduleItem)
 				const mbDate = new Date(apiScheduleItem.mbDate);
 				const skill = parseInt(document.getElementById("point").value);
 				const upperBound = skill + 100;
@@ -211,14 +204,6 @@ document.addEventListener('DOMContentLoaded', function() {
 					mbDate.getFullYear() === selectedDate.getFullYear();
 
 				const isPointMatch = !selectedPoint || skill === '0' || (apiScheduleItem.taPoint >= skill && apiScheduleItem.taPoint <= upperBound);
-		
-				console.log(selectedDate);
-				console.log(isSportMatch);
-				console.log(isSidoMatch);
-				console.log(isDateMatch);
-				console.log(isPointMatch);
-				console.log("isActivityStatus :",isActivityStatus)
-
 				return isSportMatch && isSidoMatch && isDateMatch && isPointMatch && isActivityStatus ;
 			});
 		
