@@ -34,6 +34,11 @@
 			width: 184px;
 		}
 
+		#uiBirth {
+			height: 24px;
+			font-size: 8px;
+		}
+
 		.require-text {
 			color: red;
 		}
@@ -55,12 +60,6 @@
 			color: red;
 			margin-top: 3px;
 			font-size: 8px;
-		}
-
-		.filter-select {
-			padding: 2px;
-			border: 1px solid black;
-			border-radius: 5px;
 		}
 
 		#joinButton {
@@ -101,57 +100,14 @@
 
 			<div id="errorEmail" class="error-message"></div>
 
-			<label for="uiYear" style="font-size: 8px;">생년월일<span class="require-text"> *</span></label><br>
+			<label style="font-size: 8px;">생년월일<span class="require-text"> *</span></label><br>
 		</div>
-		<select id="uiYear" class="filter-select">
-			<option value="" selected>년도</option>
-		</select>
-		<script>
-			const currentYear = new Date().getFullYear();
-			const selectYear = document.getElementById("uiYear");
 
-			for (let year = 1900; year <= currentYear; year++) {
-				let option = document.createElement("option");
-				option.text = year;
-				option.value = year;
-				selectYear.appendChild(option);
-			}
-		</script>
+		<input type="date" id="uiBirth" placeholder="YYYY-MM-DD">
 
-		<select id="uiMonth" class="filter-select">
-			<option value="" selected>월</option>
-		</select>
-		<script>
-			const selectMonth = document.getElementById("uiMonth");
+		<div id="errorBirth" class="error-message"></div>
 
-			for (let month = 1; month <= 12; month++) {
-				let option = document.createElement("option");
-				let monthValue = month < 10 ? "0" + month : month;
-				option.text = monthValue;
-				option.value = monthValue;
-				selectMonth.appendChild(option);
-			}
-		</script>
-
-		<select id="uiDay" class="filter-select">
-			<option value="" selected>일</option>
-		</select>
-
-		<script>
-			const selectDay = document.getElementById("uiDay");
-
-			for (let day = 1; day <= 31; day++) {
-				let option = document.createElement("option");
-				let dayValue = day < 10 ? "0" + day : day;
-				option.text = dayValue;
-				option.value = dayValue;
-				selectDay.appendChild(option);
-			}
-		</script>
-		<div id="errorYear" class="error-message"></div>
-
-
-		<label for="uiYear" style="font-size: 8px;">주소<span class="require-text"> *</span></label><br>
+		<label style="font-size: 8px;">주소<span class="require-text"> *</span></label><br>
 		<input type="text" id="uiAddress" style="font-size: 8px;" placeholder="주소" readonly>
 		<div id="errorAddress" class="error-message"></div>
 		<button type="button" class="btn btn-dark" id="searchButton" style="font-size: 7px;"
@@ -213,10 +169,11 @@
 			const uiName = document.querySelector('#uiName').value;
 			const uiMobile = document.querySelector('#uiMobile').value
 			const uiAddress = document.querySelector('#uiAddress').value;
-			const selectedYear = document.getElementById('uiYear').value;
-			const selectedMonth = document.getElementById('uiMonth').value;
-			const selectedDay = document.getElementById('uiDay').value;
-			const uiBirth = `${selectedYear}${selectedMonth}${selectedDay}`;
+			// const selectedYear = document.getElementById('uiYear').value;
+			// const selectedMonth = document.getElementById('uiMonth').value;
+			// const selectedDay = document.getElementById('uiDay').value;
+			const uiBirth = (document.querySelector('#uiBirth').value).split('-').join('');
+			// const uiBirth  = uiBirth.split('-').join('');
 			const IdRegex = /^(?=.{8,})/;
 			const passwordRegex = /^(?=.*[!@#$%^&*])(?=.{8,})/;
 
@@ -270,11 +227,11 @@
 			} else {
 				document.getElementById('errorEmail').innerHTML = "";
 			}
-			if (!document.querySelector('#uiYear').value) {
-				document.getElementById('errorYear').innerHTML = "<span style='color: red;'>생년월일를 선택해주세요.</span>";
+			if(!document.querySelector('#uiBirth').value) {
+				document.querySelector('#errorBirth').innerHTML = "<span style='color: red;'>생년월일을 입력해주세요.</span>";
 				return;
 			} else {
-				document.getElementById('errorYear').innerHTML = "";
+				document.querySelector('#errorBirth').innerHTML = "";
 			}
 
 			if (!document.querySelector('#uiAddress').value) {
@@ -282,15 +239,13 @@
 				return;
 			} else {
 				document.getElementById('errorAddress').innerHTML = "";
+
 			} if (!passwordRegex.test(uiPwd)) {
 				document.getElementById('errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상이어야 하고,<br>특수문자가 하나 이상 포함되어야 합니다.</span>";
 				return;
 			} else {
 				document.getElementById('errorUiPwd').innerHTML = "";
 			}
-
-
-
 
 			const data = {
 				uiId: document.querySelector('#uiId').value,
@@ -314,7 +269,6 @@
 				alert(`회원가입이 완료되었습니다. 로그인 해주세요.`);
 				location.href = '/page/user/login';
 			}
-
 		}
 
 		function searchAddress() {
