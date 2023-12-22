@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
 window.addEventListener('load', async function () {
 	const res = await fetch(`/match-view/${mbNum}`);
 	matchInfo = await res.json();
-
+	
+	
 	console.log("matchInfo", matchInfo);
 	const today = new Date(); // 현재 날짜
 	today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간을 00:00:00으로 설정
