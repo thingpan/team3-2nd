@@ -45,7 +45,7 @@ public class SecurityBeanConfig {
 				.passwordParameter("uiPwd")
 				.loginProcessingUrl("/login")
 				.defaultSuccessUrl("/")
-				.failureUrl("/page/user/login"))
+				.failureUrl("/page/user/login?errorMsg=Plz check ID or PWD"))
 		.logout(logout -> logout
 				.logoutUrl("/auth/logout")
 				.logoutSuccessUrl("/page/user/login"));

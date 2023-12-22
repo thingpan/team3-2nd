@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
 window.addEventListener('load', async function () {
 	const res = await fetch(`/match-view/${mbNum}`);
 	matchInfo = await res.json();
-
+	
+	
 	console.log("matchInfo", matchInfo);
 	if(matchInfo.mbStatus == 1 || matchInfo == null){
 		alert('신청 마감된 매치입니다.')
