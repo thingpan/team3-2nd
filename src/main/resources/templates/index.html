@@ -71,62 +71,6 @@
     </div>
 </section>
 <script>
-    function addRow(tableBody, rank, taType, taName, taBoundarySido, taPoint, taNum) {
-        const row = document.createElement('tr');
-
-        // 순위에 따라 메달 아이콘으로 변경
-        let medalIcon = '';
-        if (rank === 1) {
-            medalIcon = '🥇';
-        } else if (rank === 2) {
-            medalIcon = '🥈';
-        } else if (rank === 3) {
-            medalIcon = '🥉';
-        }
-
-        const rankDisplay = rank <= 3 ? medalIcon : rank;
-
-        row.innerHTML = `
-        <td>${rankDisplay}</td>
-        <td>${taType}</td>
-        <td><a href="/page/match/match-record?taNum=${row.taNum}">${row.taName}</td>
-        <td>${taBoundarySido}</td>
-        <td>${taPoint}</td>
-    `;
-        tableBody.appendChild(row);
-    }
-
-    async function performSearch() {
-        const rankRes = await fetch('/team-infos');
-        const teamData = await rankRes.json();
-
-        console.log('teamData:', teamData);
-        const upperBound = skill + 100;
-
-        const tableBody = document.getElementById("tBody");
-        tableBody.innerHTML = '';
-        let i = 1;
-
-        // 필터링된 데이터 상위 5개만 표시
-        const filteredData = teamData.filter((row) => {
-            const isSportMatch = sport === "" || row.taType === sport;
-            const isAreaMatch = area === "" || row.taBoundarySido === area;
-            const isSkillMatch = skill === 0 || (row.taPoint >= skill && row.taPoint <= upperBound);
-            const result = isSportMatch && isAreaMatch && isSkillMatch;
-            console.log('Row:', row, 'Result:', result);
-
-            return result;
-        });
-
-        // 상위 5개의 데이터만 반복하여 처리
-        for (const row of filteredData.slice(0, 5)) {
-            addRow(tableBody, i, row.taType, row.taName, row.taBoundarySido, row.taPoint, row.taNum);
-            i++;
-        }
-
-        console.log('Checking values:', 'Sport:', sport, 'Area:', area, 'Skill:', skill);
-    }
-
     window.addEventListener('load', async function () {
         const rankRes = await fetch('/team-infos');
         teamData = await rankRes.json();
@@ -168,7 +112,6 @@
         <button id="cal-next-btn" class="calendar-button">&gt;</button>
     </div>
     <div class="filter">
-
 
     </div>
     <table class="schedule-table">

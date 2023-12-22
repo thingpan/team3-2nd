@@ -47,6 +47,13 @@ public class TeamInfoController {
 		teamInfos.sort(Comparator.comparingInt(TeamInfoVO::getTaPoint).reversed());
 		return teamInfos;
 	}
+
+	// 종목별 팀 순위
+	@GetMapping("/team-infos/{taType}")
+	public List<TeamInfoVO> selectTeamRankByTeamType(@PathVariable String taType) {
+		log.info("taType => {}", taType);
+		return teamInfoService.selectTeamRankByTeamType(taType);
+	}
 	
 	//팀 정보 가져오기
 	@GetMapping("/team-info")

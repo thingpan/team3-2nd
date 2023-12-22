@@ -106,6 +106,12 @@ public class TeamInfoService {
 		return teamInfoMapper.selectTeamInfosByUiNumAndTaType(teamInfoVO);
 	}
 
+	public List<TeamInfoVO> selectTeamRankByTeamType(String taType) {
+		TeamInfoVO teamInfoVO = new TeamInfoVO();
+		teamInfoVO.setTaType(taType);
+		return teamInfoMapper.selectTeamRankByTeamType(teamInfoVO);
+	}
+
 	public List<TeamInfoVO> selectTeamUserInfo(int uiNum) {
 		return teamInfoMapper.selectTeamUserInfo(uiNum);
 	}

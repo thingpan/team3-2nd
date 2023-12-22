@@ -19,6 +19,7 @@ public interface TeamInfoMapper {
 	TeamInfoVO selectAdminByUiNumAndTaNum(@Param("uiNum") int uiNum,@Param("taNum") int taNum);
 	TeamInfoVO selectTeamInfoByTaNum(int taNum);
 	List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(TeamInfoVO teamInfoVO);
+	List<TeamInfoVO> selectTeamRankByTeamType(TeamInfoVO teamInfoVO);
 	TeamInfoVO selectTeamInfoByTaName(TeamInfoVO team);
     List<TeamInfoVO> selectTeamUserInfo(int uiNum);
     int updateTeamInfo(TeamInfoVO teamInfoVO);

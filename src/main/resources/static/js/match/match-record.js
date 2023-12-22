@@ -40,7 +40,58 @@ window.addEventListener('load', async function () {
     if (isNaN(winRate)) {
         document.querySelector('.odds').innerText = '0%';
     } else {
-        document.querySelector('.odds').innerText = winRate.toFixed(2) + '%';
+        const formattedWinRate = winRate === 100 ? '100%' : winRate.toFixed(2) + '%';
+        document.querySelector('.odds').innerText = formattedWinRate;
+    }
+
+    // 랭킹 제목 업데이트
+    const rankTitleElement = document.querySelector('.game-ranks-title .all-title');
+    if (rankTitleElement) {
+        rankTitleElement.innerText = `${teamInfo.taType} 랭킹`;
+    } else {
+        console.error("랭킹 제목 업데이트 실패: 데이터를 찾을 수 없습니다.");
+    }
+
+    const taType = teamInfo.taType;
+    console.log("내 종목: ", taType);
+
+    const rankRes = await fetch('/team-infos');
+    const teamData = await rankRes.json();
+
+    console.log('teamData:', teamData);
+
+    async function getTeamRankByTypeAndDisplay(taType, taNum) {
+        const rankRes = await fetch(`/team-infos/${taType}`);
+        const teamInfos = await rankRes.json();
+
+        const teamInfo = teamInfos.find(team => team.taNum == taNum);
+
+        // 순위를 화면에 표시
+        const teamRank = teamInfo ? teamInfos.findIndex(team => team.taNum == taNum) + 1 : undefined;
+        const medalEmoji = teamRank && teamRank <= 3 ? getMedalEmoji(teamRank) : '😎';
+        const rankText = teamRank ? `${ordinalSuffix(teamRank)}위 ${medalEmoji}` : '순위 없음';
+        console.log("순위:", rankText);
+
+        // 순위를 화면에 표시
+        document.querySelector('.ranks').innerText = rankText;
+    }
+
+    await getTeamRankByTypeAndDisplay(taType, taNum);
+
+    function ordinalSuffix(i) {
+        return i;
+    }
+
+    function getMedalEmoji(rank) {
+        if (rank === 1) {
+            return '🥇';
+        } else if (rank === 2) {
+            return '🥈';
+        } else if (rank === 3) {
+            return '🥉';
+        } else {
+            return '😎';
+        }
     }
 
     // SVG 요소 생성
@@ -68,6 +119,11 @@ window.addEventListener('load', async function () {
         .attr("fill", function (d, i) {
             return colors[i];
         });
+
+    const userRes = await fetch(`/team-info?taNum=${taNum}`);
+    const user = await userRes.json();
+
+    document.querySelector('#team-name-modal').innerText = user.taName;
 });
 
 async function doSendObj() {
@@ -92,15 +148,3 @@ async function doSendObj() {
         alert(`${result.resultMsg}`);
     }
 }
-
-window.addEventListener('load', async function () {
-    // 현재 URL에서 taNum을 가져오기
-    const urlParams = new URLSearchParams(window.location.search);
-    const taNum = urlParams.get('taNum');
-
-
-    const userRes = await fetch(`/team-info?taNum=${taNum}`);
-    const user = await userRes.json();
-
-    document.querySelector('#team-name-modal').innerText = user.taName;
-});
