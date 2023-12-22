@@ -89,7 +89,7 @@
         row.innerHTML = `
         <td>${rankDisplay}</td>
         <td>${taType}</td>
-        <td><a href="/page/team/record?taNum=${taNum}">${taName}</a></td>
+        <td><a href="/page/match/match-record?taNum=${row.taNum}">${row.taName}</td>
         <td>${taBoundarySido}</td>
         <td>${taPoint}</td>
     `;
@@ -150,7 +150,7 @@
                 html += `<td>${i}</td>`
             }
             html += `<td>${row.taType}</a></td>`;
-            html += `<td><a href="/page/team/record?taNum=${row.taNum}">${row.taName}</td>`;
+            html += `<td><a href="/page/match/match-record?taNum=${row.taNum}">${row.taName}</td>`;
             html += `<td>${row.taBoundarySido}</td>`;
             html += `<td>${row.taPoint}</td>`;
             html += '</tr>';
