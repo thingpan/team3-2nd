@@ -267,7 +267,7 @@ async function matchRequest() {
 }
 
 function goTeamPage(obj) {
-	location.href = `/page/team/record?taNum=${obj.value}`;
+	location.href = `/page/match/match-record?taNum=${obj.value}`;
 }
 
 //쪽지 보내기

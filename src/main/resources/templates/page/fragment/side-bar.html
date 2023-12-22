@@ -19,6 +19,11 @@
 				</div>
 
 				<div class="nav__list">
+					<a th:href="@{/page/match/match-record(taNum=${param.taNum})}" class="nav__link"
+					   style="color: #fff; text-decoration: none">
+						<ion-icon name="information-circle-outline" class="nav__icon"></ion-icon>
+						<span class="nav_name">팀 경기 정보</span>
+					</a>
 					<a th:href="@{/page/team/team-members(taNum=${param.taNum})}" class="nav__link"
 						style="color: #fff; text-decoration: none">
 						<ion-icon name="create-outline" class="nav__icon"></ion-icon>
