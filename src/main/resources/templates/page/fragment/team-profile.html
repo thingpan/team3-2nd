@@ -2,82 +2,98 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
+	<meta charset="EUC-KR">
+	<title>Insert title here</title>
 </head>
 
 <body>
-    <div th:fragment="f-team-profile">
-        <div class="team-profile">
-            <div class="team-photo">
-				<div id="noImageText"style="display: none; margin-bottom:20%" >이미지 없음</div>
-                <img id="team-photo" style="border: 1px solid #ccc;">
-            </div>
-            <div class="score-badge">
-                <span id="team-name"></span>
-                <span id="score-value"></span>
-            </div>
-            <div>
-                <span id="team-introduce"></span>
-            </div>
-        </div>
-        <br>
-        <script>
-            window.addEventListener('load', async function () {
-                const urlParams = new URL(location.href).searchParams;
-                const taNum = urlParams.get('taNum');
-                const rankRes = await fetch(`/team-info?taNum=${taNum}`);
-                teamData = await rankRes.json();
-                document.querySelector('#team-name').innerText = teamData.taName;
+	<div th:fragment="f-team-profile">
+		<div class="team-profile">
+			<div class="team-photo">
+				<div id="noImageText" style="display: none; margin-bottom:20%">이미지 없음</div>
+				<img id="team-photo" style="border: 1px solid #ccc;">
+			</div>
+			<div class="score-badge">
+				<span id="team-name"></span>
+				<span id="score-value"></span>
+			</div>
+			<div>
+				<div class="progress-bar" style="background: aliceblue; border-radius: 5px; width: 180px;">
+					<div id="manners-progress" class="progress" style="background: dodgerblue;"></div>
+				</div>
+				<span id="current-score" style="margin-left: 10px;"></span>
+			</div>
+			<br>
+			<div>
+				<span id="team-introduce"></span>
+			</div>
+		</div>
+		<br>
+		<script>
+			window.addEventListener('load', async function () {
+				const urlParams = new URL(location.href).searchParams;
+				const taNum = urlParams.get('taNum');
+				const rankRes = await fetch(`/team-info?taNum=${taNum}`);
+				teamData = await rankRes.json();
+				document.querySelector('#team-name').innerText = teamData.taName;
 
-                const teamPhoto = document.querySelector('#team-photo');
-                const noImageText = document.querySelector('#noImageText');
+				const teamPhoto = document.querySelector('#team-photo');
+				const noImageText = document.querySelector('#noImageText');
 
-                if (teamData.taFilePath) {
-                    teamPhoto.src = teamData.taFilePath;
-                    teamPhoto.style.display='block'
-                    noImageText.style.display = 'none';
-                } else {
-					teamPhoto.src ='';
-                    teamPhoto.style.display = 'none';
-                    noImageText.style.display = 'block';
-                }
+				if (teamData.taFilePath) {
+					teamPhoto.src = teamData.taFilePath;
+					teamPhoto.style.display = 'block'
+					noImageText.style.display = 'none';
+				} else {
+					teamPhoto.src = '';
+					teamPhoto.style.display = 'none';
+					noImageText.style.display = 'block';
+				}
 
-                // 팀 소개 설정
-                document.querySelector('#team-introduce').innerText = teamData.taDesc;
-                document.querySelector('#score-value').innerText = teamData.taPoint;
-                const randomScore = teamData.taPoint;
+				// 팀 소개 설정
+				document.querySelector('#team-introduce').innerText = teamData.taDesc;
+				document.querySelector('#score-value').innerText = teamData.taPoint;
+				const randomScore = teamData.taPoint;
 
-                // 점수 출력
-                const scoreValue = document.querySelector('#score-value');
-                scoreValue.textContent = `${randomScore}점`;
+				// 점수 출력
+				const scoreValue = document.querySelector('#score-value');
+				scoreValue.textContent = `${randomScore}점`;
 
-                // 점수에 따라 배경색과 텍스트색 변경
-                if (randomScore <= 100) {
-                    scoreValue.style.backgroundColor = '#ececec';
-                    scoreValue.style.color = '#767676';
-                } else if (randomScore <= 200) {
-                    scoreValue.style.backgroundColor = '#ede0c4';
-                    scoreValue.style.color = '#825e01';
-                } else if (randomScore <= 300) {
-                    scoreValue.style.backgroundColor = '#fffbd5';
-                    scoreValue.style.color = '#ffb800';
-                } else if (randomScore <= 400) {
-                    scoreValue.style.backgroundColor = '#e6f0ff';
-                    scoreValue.style.color = '#0066ff';
-                } else {
-                    scoreValue.style.backgroundColor = '#f4e2ff';
-                    scoreValue.style.color = '#8200d2';
-                }
-            });
+				// 점수에 따라 배경색과 텍스트색 변경
+				if (randomScore <= 100) {
+					scoreValue.style.backgroundColor = '#ececec';
+					scoreValue.style.color = '#767676';
+				} else if (randomScore <= 200) {
+					scoreValue.style.backgroundColor = '#ede0c4';
+					scoreValue.style.color = '#825e01';
+				} else if (randomScore <= 300) {
+					scoreValue.style.backgroundColor = '#fffbd5';
+					scoreValue.style.color = '#ffb800';
+				} else if (randomScore <= 400) {
+					scoreValue.style.backgroundColor = '#e6f0ff';
+					scoreValue.style.color = '#0066ff';
+				} else {
+					scoreValue.style.backgroundColor = '#f4e2ff';
+					scoreValue.style.color = '#8200d2';
+				}
 
-            // 이미지 로딩 실패 시 호출되는 함수
-            function handleImageError() {
-                const noImageText = document.querySelector('#noImageText');
-                noImageText.style.display = 'block';
-            }
-        </script>
-    </div>
+				const mannersProgress = document.querySelector('#manners-progress');
+				const mannerPercent = teamData.taMannerPoint / teamData.taMatchCount;
+				mannersProgress.style.width = `${mannerPercent}%`;
+
+				// 현재 점수 표시
+				const currentScore = document.querySelector('#current-score');
+				currentScore.textContent = `매너점수 (${mannerPercent}/100)`;
+			});
+
+
+			// 이미지 로딩 실패 시 호출되는 함수
+			function handleImageError() {
+				const noImageText = document.querySelector('#noImageText');
+				noImageText.style.display = 'block';
+			}
+		</script>
+	</div>
 </body>
 
 </html>
