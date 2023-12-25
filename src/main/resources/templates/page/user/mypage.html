@@ -323,6 +323,7 @@
 			<hr>
 
 			<button type="button" id="save-profile" class="btn btn-dark" onclick="save()">완료</button>
+			<button type="button" id="save-profile" class="btn btn-dark" onclick="userdelete()">삭제</button>
 		</div>
 
 		<div id="change-email-popup"
@@ -406,64 +407,74 @@
 			}
 
 			async function changePasswordAndDisplay() {
-				const password = document.querySelector("#changecurrentpasswordinput").value;
+				// 현재 비밀번호, 새 비밀번호, 새 비밀번호 확인 등 필요한 정보 수집
+				const currentPassword = document.querySelector("#changecurrentpasswordinput").value;
 				const newPassword = document.querySelector("#newpassword").value;
 				const confirmNewPassword = document.getElementById("confirmnewpassword").value;
-				const confirmPassword = document.getElementById("confirmnewpassword")
-				const pPassword = confirmPassword.value;
-				const Inputpassword = document.querySelector("#password");
-				// Password validation
+				const confirmPasswordElement = document.getElementById("confirmnewpassword");
+				const confirmedPassword = confirmPasswordElement.value;
+				const inputPasswordElement = document.querySelector("#password");
+
+				// 비밀번호 유효성 검사
 				const passwordRegex = /^(?=.*[!@#$%^&*])(?=.{8,})/;
+
+				// 현재 비밀번호 확인을 위한 서버 요청
 				const response = await fetch('/check-password', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
 					},
-					body: JSON.stringify({password}),
+					body: JSON.stringify({password: currentPassword}),
 				});
 
-				const result = await response.json();
+				const isCurrentPasswordCorrect = await response.json();
 
-				if (result) {
-					alert("현재 비밀번호가 일치합니다!");
+
+				if (isCurrentPasswordCorrect) {
+
+					if (!passwordRegex.test(newPassword)) {
+						alert("8자 이상 특수문자를 포함해 입력해주세요.");
+						return;
+					}
+
+
+					if (newPassword === confirmNewPassword) {
+						inputPasswordElement.value = confirmedPassword;
+						alert("새 비밀번호와 확인이 일치합니다");
+						document.getElementById('change-password-popup').style.display = 'none';
+					} else {
+
+						alert("새 비밀번호와 확인이 일치하지 않습니다.");
+					}
 				} else {
-					alert("현재 비밀번호가 일치하지않습니다!");
-				}
-				if (!passwordRegex.test(newPassword)) {
-					alert("8자 이상 특수문자를 포함해 입력해주세요.");
-					return;
-				}
-				if (newPassword == confirmNewPassword) {
-					Inputpassword.value = pPassword;
-					alert("새 비밀번호와 확인이 일치합니다");
-					document.getElementById('change-password-popup').style.display = 'none';
-					return;
-				}
 
-				if (newPassword !== confirmNewPassword) {
-					alert("새 비밀번호와 확인이 일치하지 않습니다.");
-					return;
+					alert("현재 비밀번호가 일치하지 않습니다!");
 				}
-
 			}
+
 			async function userdelete() {
 				const confirmation = confirm('정말로 계정을 삭제하시겠습니까?');
 
 				if (confirmation) {
+
 					const response = await fetch(`/user-info-delete`, {
 						method: 'DELETE',
 					});
 
 					const result = await response.json();
 
-					if (result.success) {
-						alert('계정이 성공적으로 삭제되었습니다.');
-						location.reload();
+					if (result != null && result.success) {
+						alert(`${result.resultMsg}`);
+						location.href = '/page/user/login';
 					} else {
-						alert('계정 삭제에 실패했습니다.');
+						alert(`${result.resultMsg}`);
+						window.location.reload;
 					}
 				}
+
 			}
+
+
 
 			// Event listener for delete button
 			document.querySelectorAll('.delete-team-button').forEach(function (button) {
@@ -595,10 +606,10 @@
 
 			}
 			async function updateProfile(profileData) {
-			
+
 				const confirmations = confirm('계정을 수정하시겠습니까?');
 
-		
+
 				if (confirmations) {
 					try {
 						const response = await fetch('/update-profile', {
@@ -610,15 +621,15 @@
 						});
 
 						if (response.ok) {
-							
+
 							document.querySelector('.edit-profile-form').style.display = 'none';
 							alert('프로필이 업데이트 되었습니다.');
 						} else {
-						
+
 							throw new Error('프로필 업데이트에 실패했습니다.');
 						}
 					} catch (error) {
-					
+
 						console.error('Error during profile update:', error);
 						alert('프로필 업데이트 중 오류가 발생했습니다.');
 					}
@@ -755,11 +766,11 @@
 			}
 
 			const changeEmailPopup = document.getElementById('change-email-popup');
-			const confirmEmailChangeButton = document.getElementById('confirmemailchange');
-			const cancelEmailChangeButton = document.getElementById('cancelemailchange');
+			const confirmEmailChangeButton = document.getElementById('confirm-email-change');
+			const cancelEmailChangeButton = document.getElementById('cancel-email-change');
 
 			confirmEmailChangeButton.addEventListener('click', function () {
-				const newEmailInput = document.getElementById('newemail');
+				const newEmailInput = document.getElementById('newe-mail');
 				const newEmail = newEmailInput.value.trim();
 
 				changeEmailPopup.style.display = 'none';
@@ -771,27 +782,11 @@
 		</script>
 
 		<script>
-			const teamList = document.querySelector('.');
 			const editButton = document.getElementById('edit-button');
 			const editProfileForm = document.querySelector('.edit-profile-form');
 			const saveButton = document.getElementById('save-profile');
 
-			// 초기화 함수
-			function initializeTeamList(selectedSport) {
-				teamList.innerHTML = '';
-				if (selectedSport === '') {
-					profileData.forEach(data => {
-						const team = createTeamElement(data);
-						teamList.appendChild(team);
-					});
-				} else {
-					const filteredData = profileData.filter(data => data.data === selectedSport);
-					filteredData.forEach(data => {
-						const team = createTeamElement(data);
-						teamList.appendChild(team);
-					});
-				}
-			}
+
 			// 정보 수정 버튼 클릭 시 이벤트 리스너
 			editButton.addEventListener('click', function () {
 				editProfileForm.style.display = 'block';
@@ -802,8 +797,7 @@
 				editProfileForm.style.display = 'none';
 			});
 
-			// 페이지 로드 시 초기화 함수 호출
-			initializeTeamList('');
+
 		</script>
 
 		<script>

@@ -17,7 +17,19 @@
 		WHERE TU.TA_NUM = #{taNum}
 		ORDER BY TU_NUM
 	</select>
-	<select id="selectTeamUsersByTaNum" 
+	<select id="selectTeamUserInfos"
+		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
+		SELECT TU.TU_NUM, TU.UI_NUM, TU.TA_NUM, TU.TU_ROLE
+		FROM
+		TEAM_USER_INFO TU
+		INNER
+		JOIN USER_INFO UI ON TU.UI_NUM= UI.UI_NUM
+		WHERE
+		TU.TA_NUM = #{taNum}
+		ORDER BY TU_NUM
+
+	</select>
+	<select id="selectTeamUsersByTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
 		SELECT UI_NUM FROM TEAM_USER_INFO
 		WHERE TA_NUM = #{taNum};
@@ -27,4 +39,17 @@
 		DELETE FROM TEAM_USER_INFO
 		WHERE TU_NUM = #{tuNum}
 	</delete>
+	<delete id="deleteTeamUser"
+		parameterType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
+		DELETE FROM TEAM_USER_INFO
+		WHERE UI_NUM = #{uiNum} AND TA_NUM = #{taNum};
+
+	</delete>
+	<select id="TeamUserRole"
+		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
+		SELECT TU_ROLE
+		FROM TEAM_USER_INFO
+		WHERE UI_NUM = #{uiNum} AND TA_NUM = #{taNum}
+	</select>
+
 </mapper>

@@ -71,6 +71,6 @@
 		);
 	</insert>
 	<delete id="deleteUser" parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
-        DELETE FROM USER_INFO WHERE UI_ID = #{uiId}
+        DELETE FROM USER_INFO WHERE UI_NUM = #{uiNum}
     </delete>
 </mapper>

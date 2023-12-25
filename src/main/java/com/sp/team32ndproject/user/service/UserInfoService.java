@@ -3,13 +3,18 @@ package com.sp.team32ndproject.user.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.tools.DocumentationTool.Location;
+
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.sp.team32ndproject.team.vo.MsgVO;
 import com.sp.team32ndproject.user.controller.UserInfoController;
 import com.sp.team32ndproject.user.mapper.UserInfoMapper;
 import com.sp.team32ndproject.user.vo.UserInfoVO;
@@ -75,9 +80,20 @@ public class UserInfoService implements UserDetailsService {
 	    return userInfoMapper.updateUserProfile(userInfoVO);
 	}
 
-	public int deleteUser(@AuthenticationPrincipal UserInfoVO user) {
-		return userInfoMapper.deleteUser(user);
-		
+	@Transactional
+	public MsgVO deleteUser(@AuthenticationPrincipal UserInfoVO user) {
+	    MsgVO msgVO = new MsgVO();
+	    try {
+	        userInfoMapper.deleteUser(user.getUiNum());
+	        msgVO.setResultMsg("삭제가 완료되었습니다.");
+	        msgVO.setSuccess(true);
+	    } catch (DataIntegrityViolationException e) {
+	        msgVO.setResultMsg("팀에 속한팀이 있어서 팀 탈퇴가 불가능합니다.");
+	        msgVO.setSuccess(false);
+	    }
+	    return msgVO;
 	}
+
+
 
 }

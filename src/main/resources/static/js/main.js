@@ -168,6 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		const matchBoardInfos = await res.json();
 		const apiScheduleItems = matchBoardInfos.matchBoardList.map(matchBoardList => {
 			return {
+				activityStatus: matchBoardList.activityStatus,
 				mbNum: matchBoardList.mbNum,
 				mbTime: matchBoardList.mbTime,
 				mbAddress: matchBoardList.mbAddress,
@@ -176,6 +177,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				mbDate: new Date(matchBoardList.mbDate),
 				mbType: matchBoardList.mbType,
 				mbStatus: matchBoardList.mbStatus,
+				taMannerPoint: matchBoardList.taMannerPoint,
+				taPoint: matchBoardList.taPoint
 			};
 		});
 
@@ -189,9 +192,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			// 시도가 2글자 초과인 경우, 앞의 2글자를 제외하고 나머지 글자만 가져옴
 			const isSidoMatch = !selectedSido || selectedSido === 'sido' || apiScheduleItem.mbSido.slice(0, 2) === selectedSido;
 			const isDateMatch = mbDate.setHours(0, 0, 0, 0) === new Date(date).setHours(0, 0, 0, 0);
+			const isActivityStatus = apiScheduleItem.activityStatus == 0
 
 			// 모든 조건이 충족되어야 필터링
-			return isSportMatch && isSidoMatch && isDateMatch;
+			return isSportMatch && isSidoMatch && isDateMatch && isActivityStatus;
 		});
 
 		const scheduleTable = document.querySelector('#schedule');
@@ -229,6 +233,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				locationAndStatusCell.innerHTML = `[${apiScheduleItem.mbSido}]
         <a class="match-board-title" style="color: #111; font-weight: 400; text-decoration: none" href="/page/match/match-view?mbNum=${apiScheduleItem.mbNum}">${apiScheduleItem.mbAddressDetail}</a> <br>
     `;
+				const teamPoint = row.insertCell();
+				teamPoint.innerHTML = `${apiScheduleItem.taPoint}`;
 
 				// 상태 뱃지 표시
 				const statusCell = row.insertCell();
@@ -297,6 +303,9 @@ async function showSchedule(date) {
 				mbSido: matchBoard.mbSido,
 				mbDate: new Date(matchBoard.mbDate),
 				mbType: matchBoard.mbType,
+				taMannerPoint: matchBoardList.taMannerPoint,
+				activityStatus: matchBoardList.activityStatus,
+				taPoint: matchBoardList.taPoint
 			};
 
 			scheduleData.forEach((scheduleItem) => {

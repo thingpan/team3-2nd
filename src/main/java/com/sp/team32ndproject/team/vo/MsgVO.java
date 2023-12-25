@@ -9,4 +9,6 @@ import lombok.ToString;
 @ToString
 public class MsgVO {
 	private String resultMsg;
+	private boolean success;
+
 }
