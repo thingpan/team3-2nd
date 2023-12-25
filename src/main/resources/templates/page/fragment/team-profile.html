@@ -78,7 +78,8 @@
 				}
 
 				const mannersProgress = document.querySelector('#manners-progress');
-				const mannerPercent = teamData.taMannerPoint / teamData.taMatchCount;
+				// taMannerPoint가 참 값인지 확인; 그렇지 않으면 0으로 기본값 사용
+				const mannerPercent = teamData.taMannerPoint ? (teamData.taMannerPoint / teamData.taMatchCount) : 0;
 				mannersProgress.style.width = `${mannerPercent}%`;
 
 				// 현재 점수 표시
