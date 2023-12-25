@@ -20,6 +20,42 @@
 		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
 		crossorigin="anonymous"></script>
 </head>
+<style>
+	.range-container {
+		position: relative;
+		margin-top: 40px;
+		width: 100%;
+	}
+
+	.value-marker {
+		position: absolute;
+		height: 30px;
+		width: 50px;
+		background-color: #fff;
+		border-radius: 10px;
+		border: 3px solid #111111;
+		top: -30px;
+		transform-origin: 50% 50%;
+		transform: translateX(-50%);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: #111;
+		font-weight: bold;
+		font-size: 14px;
+	}
+
+	input[type="range"]::-webkit-slider-thumb {
+		border: 1.8px solid #010101;
+		height: 18px;
+		width: 18px;
+		border-radius: 50%;
+		background: #111;
+		cursor: pointer;
+		-webkit-appearance: none;
+		margin-top: -3.6px;
+	}
+</style>
 
 <body>
 	<div th:replace="/page/fragment/header.html :: f-head"></div>
@@ -40,8 +76,27 @@
 			<select id="sido" class="filter-select" >
 				<option value="sido">시/도</option>
 			</select>
-			<input type="range" min="0" max="1000" value="0" class="custom-range w-50 p-3" id="point" step="100">
-			<p class="form-label">팀 점수:<span id="value"></span></p>
+			<div class="range-container">
+				<input type="range" id="point" step="100" class="rate-input__range custom-range" min="0" max="1000" value="0">
+				<div class="value-marker" id="valueMarker">0</div>
+			</div>
+			<script>
+				const rangeInput = document.querySelector('#point');
+				const valueMarker = document.querySelector('#valueMarker');
+
+				// 초기 위치 설정
+				updateValueMarker();
+
+				rangeInput.addEventListener('input', function () {
+					updateValueMarker();
+				});
+
+				function updateValueMarker() {
+					const percent = (rangeInput.value - rangeInput.min) / (rangeInput.max - rangeInput.min) * 100;
+					valueMarker.style.left = `${percent}%`;
+					valueMarker.textContent = rangeInput.value;
+				}
+			</script>
 		</div>
 		<div class="schedule-none"></div>
 		<table class="schedule-table">

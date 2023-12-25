@@ -2,60 +2,55 @@
 <html lang="ko">
 
 <head>
-	<meta charset=UTF-8>
-	<title>팀장 권한 없음</title>
-	<style>
-		body {
-			background-color: #f4f4f4;
-			text-align: center;
-			margin: 0;
-			padding: 0;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			height: 100vh;
-		}
+    <meta charset=UTF-8>
+    <title>팀장 권한 없음</title>
+    <style>
+        body {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
-		.container {
-			background-color: #ffffff;
-			border-radius: 8px;
-			padding: 20px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		}
+        button {
+            background-color: #111;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+        }
 
-		h1 {
-			color: #e74c3c;
-			font-size: 30px;
-		}
+        button:hover {
+            background-color: #424242;
+            color: #fff;
+            font-weight: 600;
+        }
 
-		button {
-			background-color: #3498db;
-			color: #ffffff;
-			padding: 10px 20px;
-			border: none;
-			border-radius: 4px;
-			cursor: pointer;
-			font-size: 16px;
-		}
-
-		button:hover {
-			background-color: #2980b9;
-		}
-	</style>
+        p {
+            font-size: 18px;
+            color: #8f8f8f;
+        }
+    </style>
 </head>
 
 <body>
-	<div class="container">
-		<h1>팀장 권한 없음</h1>
-		<p>팀장 권한이 필요한 작업을 수행할 권한이 없습니다.</p>
-		<button onclick="goBack()">뒤로 가기</button>
-	</div>
+<div>
+    <h2>해당 서비스에 대한 사용 권한이 없습니다.</h2>
+    <p>팀장만 접근 가능한 페이지입니다. 다른 서비스를 이용해주세요.</p>
+    <button style="margin-top: 2rem" onclick="goBack()">이전 페이지로</button>
+</div>
 
-	<script>
-		function goBack() {
-			window.history.back();
-		}
-	</script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </body>
 
 </html>
