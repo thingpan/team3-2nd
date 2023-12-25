@@ -32,12 +32,12 @@ public class UserInfoController {
 	@PostMapping("/join")
 	public int insertUserInfo(@RequestBody UserInfoVO user) {
 		log.info("user => {}", user);
-		return userInfoService.insertUserInfo(user);
+		return userInfoService.insertUserInfo(user); 
 	}
 	
 	//회원가입시 입력한 아이디가 중복되는지 확인
 	@PostMapping("/user-infos")
-	public UserInfoVO loadUserByUsername(@RequestBody UserInfoVO user) {
+	public UserInfoVO doCheckUiId(@RequestBody UserInfoVO user) {
 		return userInfoService.doCheckUiId(user.getUiId());
 	}
 	

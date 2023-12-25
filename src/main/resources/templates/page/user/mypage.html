@@ -590,10 +590,6 @@
 				var uiEmail = document.getElementById("email").value;
 				var uiPwd = document.getElementById("password").value;
 
-				if (uiPwd === '') {
-					alert('비밀번호를 입력해주세요.');
-					return;
-				}
 
 				updateProfile({
 					uiName: uiName,
@@ -728,7 +724,7 @@
 			function openAddressSearchModal() {
 				new daum.Postcode({
 					oncomplete: function (data) {
-						const selectedAddress = data.address;
+						const selectedAddress = data.address +` (${data.buildingName})`;
 						const searchResults = document.getElementById('search-results')
 						const addressInput = document.getElementById('address');
 						addressInput.value = selectedAddress;
