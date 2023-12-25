@@ -3,6 +3,8 @@ package com.sp.team32ndproject.user.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.tools.DocumentationTool.Location;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -84,11 +86,14 @@ public class UserInfoService implements UserDetailsService {
 	    try {
 	        userInfoMapper.deleteUser(user.getUiNum());
 	        msgVO.setResultMsg("삭제가 완료되었습니다.");
+	        msgVO.setSuccess(true);
 	    } catch (DataIntegrityViolationException e) {
-	        msgVO.setResultMsg("팀에 속해있어서 탈퇴가 불가능합니다.");
+	        msgVO.setResultMsg("팀에 속한팀이 있어서 팀 탈퇴가 불가능합니다.");
+	        msgVO.setSuccess(false);
 	    }
 	    return msgVO;
 	}
+
 
 
 }

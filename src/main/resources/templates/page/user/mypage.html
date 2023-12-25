@@ -456,21 +456,25 @@
 				const confirmation = confirm('정말로 계정을 삭제하시겠습니까?');
 
 				if (confirmation) {
+
 					const response = await fetch(`/user-info-delete`, {
 						method: 'DELETE',
 					});
 
 					const result = await response.json();
 
-					if (result != null) {
-							alert(`${result.resultMsg}`);
-							location.href = '/page/user/login'
-						}
+					if (result != null && result.success) {
+						alert(`${result.resultMsg}`);
+						location.href = '/page/user/login';
 					} else {
-					alert(`${result.resultMsg}`);
+						alert(`${result.resultMsg}`);
+						window.location.reload;
 					}
 				}
-			
+
+			}
+
+
 
 			// Event listener for delete button
 			document.querySelectorAll('.delete-team-button').forEach(function (button) {
