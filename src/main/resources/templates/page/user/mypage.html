@@ -322,8 +322,8 @@
 				class="btn btn-dark">검색</button>
 			<hr>
 
-			<button type="button" id="save-profile" class="btn btn-dark" onclick="save()">완료</button><br>
-				<button type="button" id="save-profile" class="btn btn-dark" onclick="userdelete()">삭제</button>
+			<button type="button" id="save-profile" class="btn btn-dark" onclick="save()">완료</button>
+			<button type="button" id="save-profile" class="btn btn-dark" onclick="userdelete()">삭제</button>
 		</div>
 
 		<div id="change-email-popup"
@@ -429,25 +429,25 @@
 
 				const isCurrentPasswordCorrect = await response.json();
 
-				// 현재 비밀번호가 일치할 때
+
 				if (isCurrentPasswordCorrect) {
-					// 새 비밀번호의 유효성 검사
+
 					if (!passwordRegex.test(newPassword)) {
 						alert("8자 이상 특수문자를 포함해 입력해주세요.");
 						return;
 					}
 
-					// 새 비밀번호와 확인이 일치할 때
+
 					if (newPassword === confirmNewPassword) {
 						inputPasswordElement.value = confirmedPassword;
 						alert("새 비밀번호와 확인이 일치합니다");
 						document.getElementById('change-password-popup').style.display = 'none';
 					} else {
-						// 새 비밀번호와 확인이 일치하지 않을 때
+
 						alert("새 비밀번호와 확인이 일치하지 않습니다.");
 					}
 				} else {
-					// 현재 비밀번호가 일치하지 않을 때
+
 					alert("현재 비밀번호가 일치하지 않습니다!");
 				}
 			}
@@ -462,14 +462,15 @@
 
 					const result = await response.json();
 
-					if (result.success) {
-						alert('계정이 성공적으로 삭제되었습니다.');
-						location.reload();
+					if (result != null) {
+							alert(`${result.resultMsg}`);
+							location.href = '/page/user/login'
+						}
 					} else {
-						alert('계정 삭제에 실패했습니다.');
+					alert(`${result.resultMsg}`);
 					}
 				}
-			}
+			
 
 			// Event listener for delete button
 			document.querySelectorAll('.delete-team-button').forEach(function (button) {
@@ -761,11 +762,11 @@
 			}
 
 			const changeEmailPopup = document.getElementById('change-email-popup');
-			const confirmEmailChangeButton = document.getElementById('confirmemailchange');
-			const cancelEmailChangeButton = document.getElementById('cancelemailchange');
+			const confirmEmailChangeButton = document.getElementById('confirm-email-change');
+			const cancelEmailChangeButton = document.getElementById('cancel-email-change');
 
 			confirmEmailChangeButton.addEventListener('click', function () {
-				const newEmailInput = document.getElementById('newemail');
+				const newEmailInput = document.getElementById('newe-mail');
 				const newEmail = newEmailInput.value.trim();
 
 				changeEmailPopup.style.display = 'none';
@@ -777,27 +778,11 @@
 		</script>
 
 		<script>
-			const teamList = document.querySelector('.');
 			const editButton = document.getElementById('edit-button');
 			const editProfileForm = document.querySelector('.edit-profile-form');
 			const saveButton = document.getElementById('save-profile');
 
-			// 초기화 함수
-			function initializeTeamList(selectedSport) {
-				teamList.innerHTML = '';
-				if (selectedSport === '') {
-					profileData.forEach(data => {
-						const team = createTeamElement(data);
-						teamList.appendChild(team);
-					});
-				} else {
-					const filteredData = profileData.filter(data => data.data === selectedSport);
-					filteredData.forEach(data => {
-						const team = createTeamElement(data);
-						teamList.appendChild(team);
-					});
-				}
-			}
+
 			// 정보 수정 버튼 클릭 시 이벤트 리스너
 			editButton.addEventListener('click', function () {
 				editProfileForm.style.display = 'block';
@@ -808,8 +793,7 @@
 				editProfileForm.style.display = 'none';
 			});
 
-			// 페이지 로드 시 초기화 함수 호출
-			initializeTeamList('');
+
 		</script>
 
 		<script>

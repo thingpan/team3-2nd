@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sp.team32ndproject.team.vo.MsgVO;
 import com.sp.team32ndproject.user.service.UserInfoService;
 import com.sp.team32ndproject.user.vo.UserInfoVO;
 
@@ -57,6 +58,12 @@ public class UserInfoController {
 	@PatchMapping("/update-profile")
     public int updateUserProfile(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String>request) {
          return  userInfoService.updateUserProfile(user.getUiNum(), request);
+    }
+	//계정 삭제
+	@DeleteMapping("/user-info-delete")
+    public MsgVO deleteUser(@AuthenticationPrincipal UserInfoVO user) {
+         return  userInfoService.deleteUser(user);
+       
     }
 	
 

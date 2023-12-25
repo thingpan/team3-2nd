@@ -88,7 +88,6 @@
 			if (user && user.uiNum) {
 				return user.uiNum;
 			} else {
-				console.error('User information not available.');
 				return null;
 			}
 		}
@@ -122,7 +121,6 @@
 
 						if (result != null) {
 							alert(`${result.resultMsg}`);
-							location.reload();
 						}
 					}
 				}

@@ -49,7 +49,7 @@ public class TeamUserInfoController {
 		log.info("data param2 => {}", tuNum);
 		return teamUserInfoService.deleteTeamUserInfo(tuNum, taNum, user.getUiNum());
 	}
-
+	// 팀 탈퇴
 	@DeleteMapping("/team-user-delete")
 	public  MsgVO deleteTeamUser(@RequestParam int uiNum, @RequestParam int taNum, @RequestParam String tuRole) {
 		TeamUserInfoVO teamUserInfo = new TeamUserInfoVO();
@@ -59,7 +59,7 @@ public class TeamUserInfoController {
 
 		return teamUserInfoService.deleteTeamUser(teamUserInfo);
 	}
-
+	// 팀에 속해있는 내가 유저인지 어드민지 확인
 	@GetMapping("/get-user-role")
 	public TeamUserInfoVO getUserRole(@RequestParam("uiNum") int uiNum, @RequestParam("taNum") int taNum) {
 		TeamUserInfoVO teamUserInfo = new TeamUserInfoVO();
