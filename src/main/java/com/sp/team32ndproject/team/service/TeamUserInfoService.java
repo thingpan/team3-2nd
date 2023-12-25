@@ -77,4 +77,31 @@ public class TeamUserInfoService {
 		return false;
 	}
 
+	public MsgVO deleteTeamUser(TeamUserInfoVO teamUserInfo) {
+		MsgVO msgVO = new MsgVO();
+		String userRole = teamUserInfo.getTuRole();
+
+		if ("USER".equals(userRole)) {
+			int result = teamUserInfoMapper.deleteTeamUser(teamUserInfo);
+
+			if (result == 1) {
+				msgVO.setResultMsg("팀 탈퇴가 성공하였습니다.");
+				return msgVO;
+			} else {
+				msgVO.setResultMsg("팀 탈퇴가 실패하였습니다.");
+				return msgVO;
+			}
+		} else if ("ADMIN".equals(userRole)) {
+			msgVO.setResultMsg("팀장은 팀 탈퇴가 불가능합니다.");
+			return msgVO;
+		} else {
+			msgVO.setResultMsg("팀에 속하지 않습니다.");
+			return msgVO;
+		}
+	}
+
+	public TeamUserInfoVO getUserRole(TeamUserInfoVO teamUserInfo) {
+		return teamUserInfoMapper.TeamUserRole(teamUserInfo);
+	}
+
 }

@@ -26,6 +26,7 @@ public class UserInfoVO implements UserDetails {
 	private String uiArea;
 	private String uiCredat;
 	private String uiCretim;
+
 	private Collection<? extends GrantedAuthority> authorities;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
