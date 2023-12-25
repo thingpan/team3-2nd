@@ -2,119 +2,118 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=604cb758f63da64f7c5e72d8fd9c83d0&libraries=services,clusterer,drawing">
-		</script>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link
-		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
-		rel="stylesheet">
-	<link rel="stylesheet" href="/css/match/match-view.css">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=604cb758f63da64f7c5e72d8fd9c83d0&libraries=services,clusterer,drawing">
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
+            rel="stylesheet">
+    <link rel="stylesheet" href="/css/match/match-view.css">
 </head>
 
 <body>
-	<div th:replace="/page/fragment/header.html :: f-head"></div>
+<div th:replace="/page/fragment/header.html :: f-head"></div>
 
-	<div id="image-slider">
-		<button class="prev-btn" id="prev-btn">&lt;</button>
-		<div id="slider-container">
-		</div>
-		<button class="next-btn" id="next-btn">&gt;</button>
-	</div>
+<div id="image-slider">
+    <button class="prev-btn" id="prev-btn">&lt;</button>
+    <div id="slider-container">
+    </div>
+    <button class="next-btn" id="next-btn">&gt;</button>
+</div>
 
-	<div class="main">
-		<span id="matchViewUiNum" th:text="${#authentication.principal.uiNum}" style="display: none;"></span>
-		<div class="info-main">
-			<b>주소 시간 날짜</b>
-			<div class="address-time-date" style="margin-top: 10px;">
-				<p id="mbAddress"></p>
-				<p id="mbDate"></p>
-				<p id="mbTime"></p>
-				<span>구장가격 </span><span id="mbPay"></span><span> 원</span>
-			</div>
-			<hr>
-			<b>공지사항</b>
-			<div class="desc">
-				<span id="mbDesc"></span>
-			</div>
-			<hr>
-			<b>팀 정보</b>
-			<div class="team-info" onclick="goTeamPage(this)">
-				<div style="margin-bottom: 10px; margin-top: 10px;">
-					<span id="taName" style="margin-right: 10px;"></span><span id="score-value"></span>
-				</div>
-				<p>상세보기 ></p>
-			</div>
-			<hr>
-			<b>위치</b>
-			<div id="map" style="width:100%;height:350px;margin-top: 10px;margin-bottom: 10px;"></div>
-			<hr>
-			<div id="updateAndDeleteButton">
-				
-			</div>
-		</div>
-		<div class="send-info" id="send-info">
-			<b>팀 선택</b>
-			<div class="select-team">
-			</div>
-			<div class="team-list"></div>
-			<div class="send-button" id="send-button" style="margin-top: 20px;">
+<div class="main">
+    <span id="matchViewUiNum" th:text="${#authentication.principal.uiNum}" style="display: none;"></span>
+    <div class="info-main">
+        <b>주소 시간 날짜</b>
+        <div class="address-time-date" style="margin-top: 10px;">
+            <p id="mbAddress"></p>
+            <p id="mbDate"></p>
+            <p id="mbTime"></p>
+            <span>구장가격 </span><span id="formattedMbPay"></span><span> 원</span>
+        </div>
+        <hr>
+        <b>공지사항</b>
+        <div class="desc">
+            <span id="mbDesc"></span>
+        </div>
+        <hr>
+        <b>팀 정보</b>
+        <div class="team-info" onclick="goTeamPage(this)">
+            <div style="margin-bottom: 10px; margin-top: 10px;">
+                <span id="taName" style="margin-right: 10px;"></span><span id="score-value"></span>
+            </div>
+            <p>상세보기 ></p>
+        </div>
+        <hr>
+        <b>위치</b>
+        <div id="map" style="width:100%;height:350px;margin-top: 10px;margin-bottom: 10px;"></div>
+        <hr>
+        <div id="updateAndDeleteButton">
 
-			</div>
-			<div class="post-message-info" id="post-message-info">
+        </div>
+    </div>
+    <div class="send-info" id="send-info">
+        <b>팀 선택</b>
+        <div class="select-team">
+        </div>
+        <div class="team-list"></div>
+        <div class="send-button" id="send-button" style="margin-top: 20px;">
 
-			</div>
-		</div>
-	</div>
+        </div>
+        <div class="post-message-info" id="post-message-info">
 
-	<!-- Vertically centered modal -->
-	<div class="modal" tabindex="-1" id="post-message-modal">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">쪽지보내기</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<div>
-						<span>보내는 팀 : </span><span id="post-message-taName"></span>
-					</div>
-					<hr>
-					<div>
-						<span>받는 팀 : </span><span id="post-message-oponentName"></span>
-					</div>
-					<hr>
-					<div>
-						<p>보낼 내용</p>
-						<textarea class="form-control" id="post-message-textarea" cols="30" rows="15"></textarea>
-					</div>
+        </div>
+    </div>
+</div>
 
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-dark" onclick="sendPostMessage()">보내기</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script src="/js/match/match-view.js"></script>
+<div class="modal" tabindex="-1" id="post-message-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">쪽지보내기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <span>보내는 팀 : </span><span id="post-message-taName"></span>
+                </div>
+                <hr>
+                <div>
+                    <span>받는 팀 : </span><span id="post-message-oponentName"></span>
+                </div>
+                <hr>
+                <div>
+                    <p>보낼 내용</p>
+                    <textarea class="form-control" id="post-message-textarea" cols="30" rows="15"></textarea>
+                </div>
 
-	<script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" onclick="sendPostMessage()">보내기</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/match/match-view.js"></script>
+
+<script>
 
 
-		window.addEventListener('scroll', () => {
-			if (window.scrollY > 50) {
-				header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
-				header.style.transform = 'translateY(-100%)';
-			} else {
-				header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
-				header.style.transform = 'translateY(0)';
-			}
-		});
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
+            header.style.transform = 'translateY(0)';
+        }
+    });
 
-	</script>
+</script>
 </body>
 
 </html>
