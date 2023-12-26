@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sp.team32ndproject.team.service.TeamInfoService;
+import com.sp.team32ndproject.team.vo.MsgVO;
 import com.sp.team32ndproject.team.vo.TeamInfoVO;
 import com.sp.team32ndproject.user.vo.UserInfoVO;
 
@@ -73,9 +74,9 @@ public class TeamInfoController {
 	}
 	
 	//팀이름 중복검사
-	@PostMapping("/check-team-name")
-	public TeamInfoVO TeamInfoByTaName(@RequestBody TeamInfoVO team) {
-		return teamInfoService.selectTeamInfoByTaName(team);
+	@GetMapping("/check-team-name/{taName}")
+	public MsgVO TeamInfoByTaName(@PathVariable String taName) { 
+		return teamInfoService.selectTeamInfoByTaName(taName);
 	}
 	
 	//내가 속한 팀 가져오기

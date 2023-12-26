@@ -33,9 +33,9 @@ public class SecurityBeanConfig {
 	@Bean
 	SecurityFilterChain securityTeamPageFilterChain(HttpSecurity hs) throws Exception {
 		hs.authorizeHttpRequests((auth)-> auth
-				.antMatchers("/login","/join","/page/user/login","/page/user/join", "/", "/team-infos","/match-board")
+				.antMatchers("/auth/user-infos/*","/login","/join","/page/user/login","/page/user/join", "/", "/team-infos","/match-board")
 				.permitAll()
-				.antMatchers("/page/team/team-settings","/page/team/team-apply", "/page/match/match-status") 
+				.antMatchers("/page/team/team-settings","/page/team/team-apply", "/page/match/match-status", "/page/team/record") 
 				.access(new TeamParamAuthManager(teamInfoService)) 
 				.anyRequest()
 				.authenticated())

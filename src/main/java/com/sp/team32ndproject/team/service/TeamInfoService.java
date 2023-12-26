@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sp.team32ndproject.common.util.StringUtils;
 import com.sp.team32ndproject.match.vo.MatchResultVO;
 import com.sp.team32ndproject.team.mapper.TeamInfoMapper;
+import com.sp.team32ndproject.team.vo.MsgVO;
 import com.sp.team32ndproject.team.vo.TeamInfoVO;
 import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
 import com.sp.team32ndproject.user.mapper.UserInfoMapper;
@@ -116,9 +117,15 @@ public class TeamInfoService {
 		return teamInfoMapper.selectTeamUserInfo(uiNum);
 	}
 
-	public TeamInfoVO selectTeamInfoByTaName(TeamInfoVO team) {
-		// TODO Auto-generated method stub
-		return teamInfoMapper.selectTeamInfoByTaName(team);
+	public MsgVO selectTeamInfoByTaName(String taName) {
+		MsgVO msgVO = new MsgVO();
+		if (teamInfoMapper.selectTeamInfoByTaName(taName) != null) {
+			msgVO.setResultMsg("0");
+			
+		}else {
+			msgVO.setResultMsg("1");
+		}
+		return msgVO;
 	}
 
 	public void doUpdateHomeMatchResult(MatchResultVO matchResultVO) {

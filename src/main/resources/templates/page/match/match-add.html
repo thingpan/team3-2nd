@@ -191,7 +191,14 @@
                         mbSigungu = data.sigungu;
                         mbMapX = result.x;
                         mbMapY = result.y;
-                        document.querySelector('#address_detail').value = data.buildingName
+                        console.log(data.buildingName); 
+                        if (data.buildingName != '') {
+							document.querySelector('#address_detail').value = data.buildingName; 
+							document.querySelector('#address_detail').disabled = true; 
+						}else{
+							document.querySelector('#address_detail').disabled = false; 
+						}
+                        
                         console.log(data);
                         console.log(mdAddress, mbSido, mbSigungu, mbMapX, mbMapY)
                     }
