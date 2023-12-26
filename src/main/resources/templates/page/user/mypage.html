@@ -485,8 +485,8 @@
 			});
 
 			function changeEmailAndDisplay() {
-				const newEmailInput = document.getElementById('new-email');
-				const newEmail = newEmailInput.value.trim(); // Trim removes leading and trailing whitespaces
+				const newEmailInput = document.querySelector("#new-email");
+				const newEmail = newEmailInput.value.trim();
 
 				// Check if the new email is a valid email format
 				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -767,7 +767,7 @@
 			const cancelEmailChangeButton = document.getElementById('cancel-email-change');
 
 			confirmEmailChangeButton.addEventListener('click', function () {
-				const newEmailInput = document.getElementById('newe-mail');
+				const newEmailInput = document.getElementById('new-email');
 				const newEmail = newEmailInput.value.trim();
 
 				changeEmailPopup.style.display = 'none';
