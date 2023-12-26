@@ -25,6 +25,9 @@
 				</div>
 				<span id="current-score" style="margin-left: 10px;"></span>
 			</div>
+			<div id="teamSignBtn">
+
+			</div>
 			<br>
 			<div>
 				<span id="team-introduce"></span>
@@ -87,6 +90,14 @@
 				// 현재 점수 표시
 				const currentScore = document.querySelector('#current-score');
 				currentScore.textContent = `매너점수 (${mannerPercent} / 100)`;
+
+				//가입한 팀인지 확인
+				const res = await fetch(`/team-user-infos/${taNum}`)
+				const result = await res.json();
+				if (result == 1) {
+					document.querySelector('#teamSignBtn').innerHTML = `<button id="team-register-btn" data-toggle="modal" data-target="#membershipModal">가입신청</button>`
+				}
+
 			});
 
 			// 이미지 로딩 실패 시 호출되는 함수

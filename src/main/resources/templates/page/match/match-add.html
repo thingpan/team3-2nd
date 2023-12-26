@@ -234,7 +234,7 @@
     function removeFileInput(divId) {
         document.querySelector(`#${divId}`).remove();
         console.log(divId.slice(-1));
-        if (divId.slice(-1) == 2) {
+        if (divId.slice(-1) > 2) {
             let html = '<button onclick="addFileInput(this)" class="btn btn-dark">+</button>'
             document.querySelector('#fileDiv').insertAdjacentHTML('afterend', html)
         }

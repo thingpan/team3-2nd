@@ -104,4 +104,16 @@ public class TeamUserInfoService {
 		return teamUserInfoMapper.TeamUserRole(teamUserInfo);
 	}
 
+	public int getTeamUserInfos(int taNum, UserInfoVO user) {
+		TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
+		teamUserInfoVO.setUiNum(user.getUiNum());
+		teamUserInfoVO.setTaNum(taNum);
+		if (teamUserInfoMapper.TeamUserRole(teamUserInfoVO) != null) {
+			return 0;
+		} else {
+			return 1;
+		}
+
+	}
+
 }
