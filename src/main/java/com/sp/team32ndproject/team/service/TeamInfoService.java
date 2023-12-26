@@ -84,10 +84,6 @@ public class TeamInfoService {
 		return teamInfoMapper.selectTeamInfos(team);
 	}
 
-	public List<TeamInfoVO> selectTeamRank(TeamInfoVO team) {
-		return teamInfoMapper.selectTeamInfos(team);
-	}
-
 	public List<TeamInfoVO> selectTeamInfosByUiNum(int uiNum) {
 		return teamInfoMapper.selectTeamInfosByUiNum(uiNum);
 	}
@@ -196,4 +192,9 @@ public class TeamInfoService {
 		}
 		teamInfoMapper.updateTeamInfoToAwayMatchResult(teamInfoVO);
 	}
+
+	public List<TeamInfoVO> selectTeamRank(String taType, String taBoundarySido, Integer taPoint) {
+	       return teamInfoMapper.selectTeamRank(taType, taBoundarySido, taPoint);
+	}
+
 }

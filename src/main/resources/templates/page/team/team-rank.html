@@ -25,7 +25,7 @@
 	<div id="main">
 		<h3>팀 랭크</h3><br>
 		<div class="filter">
-			<select id="s" name="s" >
+			<select id="s" name="s">
 				<option value="">종목</option>
 				<option value="야구">야구</option>
 				<option value="축구">축구</option>
@@ -76,43 +76,28 @@
 				updateValueMarker();
 			});
 
+			document.getElementById('s').addEventListener('change', fetchData);
+			document.getElementById('sido').addEventListener('change', fetchData);
+			document.getElementById('point').addEventListener('input', fetchData)
+
 			function updateValueMarker() {
 				const percent = (rangeInput.value - rangeInput.min) / (rangeInput.max - rangeInput.min) * 100;
 				valueMarker.style.left = `${percent}%`;
 				valueMarker.textContent = rangeInput.value;
 			}
 
-			function addRow(tableBody, rank, taType, taName, taBoundarySido, taPoint, taNum) {
-				const row = document.createElement('tr');
+			async function fetchData() {
+				const selectedSport = document.getElementById('s').value;
+				const selectedSido = document.getElementById('sido').value;
+				const selectedPoint = rangeInput.value;
 
-				// 순위에 따라 메달 아이콘으로 변경
-				let medalIcon = '';
-				if (rank === 1) {
-					medalIcon = '🥇';
-				} else if (rank === 2) {
-					medalIcon = '🥈';
-				} else if (rank === 3) {
-					medalIcon = '🥉';
-				}
 
-				const rankDisplay = rank <= 3 ? medalIcon : rank;
+				console.log('Selected Sport:', selectedSport);
+				console.log('Selected Sido:', selectedSido);
+				console.log('Selected Point:', selectedPoint);
 
-				row.innerHTML = `
-        <td>${rankDisplay}</td>
-        <td>${taType}</td>
-        <td><a href="/page/team/record?taNum=${taNum}">${taName}</a></td>
-        <td>${taBoundarySido}</td>
-        <td>${taPoint}</td>
-    `;
-
-				tableBody.appendChild(row);
-			}
-			window.addEventListener('load', async function () {
-
-				const rankRes = await fetch('/team-infos');
-				teamData = await rankRes.json();
-
-				console.log('teamData:', teamData);
+				const rankRes = await fetch(`/team-infos?taType=${selectedSport}&taBoundarySido=${selectedSido}&taPoint=${selectedPoint}`);
+				const teamData = await rankRes.json();
 
 				let html = '';
 				let i = 1;
@@ -135,8 +120,9 @@
 					i++;
 				}
 				document.querySelector('#tBody').innerHTML = html;
-			});
+			}
 
+			window.addEventListener('load', fetchData);
 			window.addEventListener('scroll', () => {
 				if (window.scrollY > 50) {
 					header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김

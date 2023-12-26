@@ -34,10 +34,12 @@
 		AND TA_TYPE =
 		#{taType}
 	</select>
-	<select id="selectTeamRankByTeamType" resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+	<select id="selectTeamRankByTeamType"
+		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
 		WHERE TA_TYPE = #{taType}
-		ORDER BY TA_POINT DESC;
+		ORDER BY
+		TA_POINT DESC;
 	</select>
 	<select id="selectTeamUserInfo"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
@@ -52,8 +54,8 @@
 
 	<select id="selectTeamRank"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
-
 		SELECT
+		TA_NUM,
 		TA_TYPE,
 		TA_NAME,
 		TA_BOUNDARY_SIDO,
@@ -65,28 +67,16 @@
 				TA_TYPE = #{taType}
 			</if>
 			<if test="taBoundarySido != null and taBoundarySido != ''">
-				<if test="taType != null and taType != ''">
-					AND
-				</if>
-				TA_BOUNDARY_SIDO = #{taBoundarySido}
+				AND TA_BOUNDARY_SIDO = #{taBoundarySido}
 			</if>
-			<if test="taBoundarySigungu != null and taBoundarySigungu != ''">
-				<if
-					test="taType != null and taType != '' or taBoundarySido != null and taBoundarySido != ''">
-					AND
-				</if>
-				TA_BOUNDARY_SIGUNGU = #{taBoundarySigungu}
-			</if>
-			<if test="minPoint != null and maxPoint != null">
-				<if
-					test="taType != null and taType != '' or taBoundarySido != null and taBoundarySido != '' or taBoundarySigungu != null and taBoundarySigungu != ''">
-					AND
-				</if>
+			<if test="taPoint != null or taPoint != 0">
+				AND TA_POINT = #{taPoint}
 			</if>
 		</where>
 		ORDER BY TA_POINT DESC
 		LIMIT 20;
 	</select>
+
 	<select id="selectTeamInfoByTaName"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
@@ -131,7 +121,7 @@
 		</set>
 		WHERE TA_NUM = #{taNum};
 	</update>
-	
+
 	<update id="updateTeamInfoToHomeMatchResult"
 		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		UPDATE TEAM_INFO
@@ -157,7 +147,7 @@
 		</set>
 		WHERE TA_NUM = #{taNum}
 	</update>
-	
+
 	<update id="updateTeamInfoToAwayMatchResult"
 		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		UPDATE TEAM_INFO
