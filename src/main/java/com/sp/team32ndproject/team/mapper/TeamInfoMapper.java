@@ -20,7 +20,7 @@ public interface TeamInfoMapper {
 	TeamInfoVO selectTeamInfoByTaNum(int taNum);
 	List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(TeamInfoVO teamInfoVO);
 	List<TeamInfoVO> selectTeamRankByTeamType(TeamInfoVO teamInfoVO);
-	TeamInfoVO selectTeamInfoByTaName(TeamInfoVO team);
+	TeamInfoVO selectTeamInfoByTaName(String taName);
     List<TeamInfoVO> selectTeamUserInfo(int uiNum);
     int updateTeamInfo(TeamInfoVO teamInfoVO);
     int updateTeamInfoToHomeMatchResult(TeamInfoVO teamInfoVO);
