@@ -110,8 +110,8 @@
 	<script type="module" src="/js/match/match-board-script.js"></script>
 	<script src="/js/mock/region.js"></script>
 	<script>
-		var slider = document.getElementById("point");
-		var output = document.getElementById("valueMarker");
+		var slider = document.querySelector("#point");
+		var output = document.querySelector("#valueMarker");
 		output.innerHTML = slider.value;
 
 		slider.oninput = function () {

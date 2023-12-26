@@ -76,7 +76,7 @@
 
 	<div th:replace="/page/fragment/side-bar.html :: f-side-bar"></div>
 	<script>
-		const teamNameInput = document.getElementById("checkTeamNameInModal");
+		const teamNameInput = document.querySelector("#checkTeamNameInModal");
 
 		// 입력 이벤트에 대한 이벤트 리스너를 추가
 		teamNameInput.addEventListener('input', function () {
@@ -93,8 +93,8 @@
 			}
 		});
 		function limitTeamNameLength() {
-			var teamNameInput = document.getElementById("checkTeamNameInModal");
-			var errorDiv = document.getElementById("errorTaName");
+			var teamNameInput = document.querySelector("#checkTeamNameInModal");
+			var errorDiv = document.querySelector("#errorTaName");
 
 			// 팀 이름이 5글자를 초과하면 초과 부분을 잘라내고 오류 메시지 표시
 			if (teamNameInput.value.length > 5) {
@@ -184,9 +184,9 @@
 						const file = teamImgFile.files[0];
 						formData.append('taFile', file);
 					}
-					const taName = document.getElementById('teamName').value;
-					const taDesc = document.getElementById('teamIntro').value;
-					const taStatus = document.getElementById('jobStatus').value;
+					const taName = document.querySelector('#teamName').value;
+					const taDesc = document.querySelector('#teamIntro').value;
+					const taStatus = document.querySelector('#jobStatus').value;
 					formData.append('taNum', taNum);
 					formData.append('taName', taName);
 					formData.append('taDesc', taDesc);
@@ -213,8 +213,8 @@
 
 		// 선택한 이미지를 미리보기하는 함수
 		function previewImage(input) {
-			var preview = document.getElementById('preview');
-			var noImageText = document.getElementById('noImageText');
+			var preview = document.querySelector('#preview');
+			var noImageText = document.querySelector('#noImageText');
 			var file = input.files[0];
 			var reader = new FileReader();
 

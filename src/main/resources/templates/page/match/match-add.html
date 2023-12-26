@@ -147,7 +147,7 @@
 
 
     //카카오 지도 부분
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    var mapContainer = document.querySelector('#map'), // 지도를 표시할 div
         mapOption = {
             center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
             level: 5 // 지도의 확대 레벨
@@ -169,7 +169,7 @@
             oncomplete: function (data) {
                 var addr = data.address; // 최종 주소 변수
                 // 주소 정보를 해당 필드에 넣는다.
-                document.getElementById("sample5_address").value = addr;
+                document.querySelector("#sample5_address").value = addr;
                 // 주소로 상세 정보를 검색
                 geocoder.addressSearch(data.address, function (results, status) {
                     // 정상적으로 검색이 완료됐으면
