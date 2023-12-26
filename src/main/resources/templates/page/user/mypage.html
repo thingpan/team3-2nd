@@ -169,7 +169,7 @@
 
 			function cancelCurrentPassword() {
 				$('#current-password-modal').modal('hide');
-				document.getElementById('current-password-input').value = '';
+				document.querySelector('#current-password-input').value = '';
 
 				// Hide the user information section
 				document.querySelector('.edit-profile-form').style.display = 'none';
@@ -194,7 +194,7 @@
 
 			// 파일 업로드 함수 - 팀 사진
 			function uploadTeamImage() {
-				const fileInput = document.getElementById('team-file-input');
+				const fileInput = document.querySelector('#team-file-input');
 				const teamImage = document.querySelector('.profile-image');
 				const file = fileInput.files[0];
 				if (file) {
@@ -374,48 +374,48 @@
 
 		<script>
 			function openPhoneNumberPopup() {
-				document.getElementById('phonePopup').style.display = 'block';
+				document.querySelector('#phonePopup').style.display = 'block';
 			}
 
 			function openChangeBirthPopup() {
-				document.getElementById('birthPopup').style.display = 'block';
+				document.querySelector('#birthPopup').style.display = 'block';
 			}
 
 			function changePhoneNumber() {
-				var newPhone = document.getElementById('new-phone').value;
+				var newPhone = document.querySelector('#new-phone').value;
 				if (newPhone.length === 11 && !isNaN(newPhone)) {
-					document.getElementById('phone').value = newPhone;
-					closePopup('phonePopup');
+					document.querySelector('#phone').value = newPhone;
+					closePopup('#phonePopup');
 				} else {
 					alert('올바른 전화번호를 입력하세요.');
 				}
 			}
 
 			function changeBirthdate() {
-				var newBirth = document.getElementById('new-birth').value;
+				var newBirth = document.querySelector('#new-birth').value;
 				if (newBirth.length === 8 && !isNaN(newBirth)) {
-					document.getElementById('date').value = newBirth;
-					closePopup('birthPopup');
+					document.querySelector('#date').value = newBirth;
+					closePopup('#birthPopup');
 				} else {
 					alert('올바른 생년월일을 입력하세요.');
 				}
 			}
 
 			function cancelPopup() {
-				closePopup('phonePopup');
-				closePopup('birthPopup');
+				closePopup('#phonePopup');
+				closePopup('#birthPopup');
 			}
 
 			function closePopup(popupId) {
-				document.getElementById(popupId).style.display = 'none';
+				document.querySelector(popupId).style.display = 'none';
 			}
 
 			async function changePasswordAndDisplay() {
 				// 현재 비밀번호, 새 비밀번호, 새 비밀번호 확인 등 필요한 정보 수집
 				const currentPassword = document.querySelector("#changecurrentpasswordinput").value;
 				const newPassword = document.querySelector("#newpassword").value;
-				const confirmNewPassword = document.getElementById("confirmnewpassword").value;
-				const confirmPasswordElement = document.getElementById("confirmnewpassword");
+				const confirmNewPassword = document.querySelector("#confirmnewpassword").value;
+				const confirmPasswordElement = document.querySelector("#confirmnewpassword");
 				const confirmedPassword = confirmPasswordElement.value;
 				const inputPasswordElement = document.querySelector("#password");
 
@@ -445,7 +445,7 @@
 					if (newPassword === confirmNewPassword) {
 						inputPasswordElement.value = confirmedPassword;
 						alert("새 비밀번호와 확인이 일치합니다");
-						document.getElementById('change-password-popup').style.display = 'none';
+						document.querySelector('#change-password-popup').style.display = 'none';
 					} else {
 
 						alert("새 비밀번호와 확인이 일치하지 않습니다.");
@@ -505,10 +505,10 @@
 					return;
 				}
 
-				const displayedEmailInput = document.getElementById('email');
+				const displayedEmailInput = document.querySelector('#email');
 				displayedEmailInput.value = newEmail;
 
-				document.getElementById('change-email-popup').style.display = 'none';
+				document.querySelector('#change-email-popup').style.display = 'none';
 			}
 
 			let teamData;
@@ -587,12 +587,12 @@
 			}
 
 			function save() {
-				var uiName = document.getElementById("user-name").value;
-				var uiAddress = document.getElementById("address").value;
-				var uiBirth = document.getElementById("date").value;
-				var uiPhoneNum = document.getElementById("phone").value;
-				var uiEmail = document.getElementById("email").value;
-				var uiPwd = document.getElementById("password").value;
+				var uiName = document.querySelector("#user-name").value;
+				var uiAddress = document.querySelector("#address").value;
+				var uiBirth = document.querySelector("#date").value;
+				var uiPhoneNum = document.querySelector("#phone").value;
+				var uiEmail = document.querySelector("#email").value;
+				var uiPwd = document.querySelector("#password").value;
 
 
 				updateProfile({
@@ -647,7 +647,7 @@
 				document.querySelector('#user-name').value = user.uiName;
 			});
 
-			const teamNameInput = document.getElementById('recipient-name');
+			const teamNameInput = document.querySelector('#recipient-name');
 
 			// 입력 이벤트에 대한 이벤트 리스너를 추가
 			teamNameInput.addEventListener('input', function () {
@@ -668,8 +668,8 @@
 		<script>
 			// 팀 이름 길이 제한 함수
 			function limitTeamNameLength() {
-				var teamNameInput = document.getElementById("recipient-name");
-				var errorDiv = document.getElementById("errorTaName");
+				var teamNameInput = document.querySelector("#recipient-name");
+				var errorDiv = document.querySelector("#errorTaName");
 
 				// 팀 이름이 5글자를 초과하면 초과 부분을 잘라내고 오류 메시지 표시
 				if (teamNameInput.value.length > 5) {
@@ -687,10 +687,10 @@
 				const taName = document.querySelector('#recipient-name').value;
 
 				if (!taName) {
-					document.getElementById('errorTaName').innerHTML = "<span style='color: red;'>팀 이름을 입력해주세요.</span>";
+					document.querySelector('#errorTaName').innerHTML = "<span style='color: red;'>팀 이름을 입력해주세요.</span>";
 					return;
 				} else {
-					document.getElementById('errorTaName').innerHTML = "";
+					document.querySelector('#errorTaName').innerHTML = "";
 				}
 				const data = {
 					taName: taName
@@ -700,23 +700,23 @@
 				const result = await res.json();
 
 				if (result.resultMsg == "0") {
-					document.getElementById('errorTaName').innerHTML = `<span style='color: red;'>이미 사용중인 이름입니다</span>`;
+					document.querySelector('#errorTaName').innerHTML = `<span style='color: red;'>이미 사용중인 이름입니다</span>`;
 				} else {
-					document.getElementById('errorTaName').innerHTML = `<span style='color: green;'>사용 가능한 이름입니다</span>`;
+					document.querySelector('#errorTaName').innerHTML = `<span style='color: green;'>사용 가능한 이름입니다</span>`;
 				}
 
 			}
 
 			function openChangePasswordPopup() {
 
-				document.getElementById('change-password-popup').style.display = 'block';
+				document.querySelector('#change-password-popup').style.display = 'block';
 
 			}
-			document.getElementById('cancel-password-change').addEventListener('click', function () {
-				document.getElementById('change-password-popup').style.display = 'none';
+			document.querySelector('#cancel-password-change').addEventListener('click', function () {
+				document.querySelector('#change-password-popup').style.display = 'none';
 			});
 			function profile() {
-				var image = document.getElementById('image');
+				var image = document.querySelector('#image');
 				var source = image.src;
 				window.open(source);
 			}
@@ -730,8 +730,8 @@
 						} else {
 							selectedAddress = data.address
 						}
-						const searchResults = document.getElementById('search-results')
-						const addressInput = document.getElementById('address');
+						const searchResults = document.querySelector('#search-results')
+						const addressInput = document.querySelector('#address');
 						addressInput.value = selectedAddress;
 					}
 				}).open();
@@ -746,32 +746,32 @@
 		<script>
 			function openChangeEmailPopup() {
 
-				document.getElementById('change-email-popup').style.display = 'block';
+				document.querySelector('#change-email-popup').style.display = 'block';
 
 			}
-			document.getElementById('cancel-email-change').addEventListener('click', function () {
+			document.querySelector('#cancel-email-change').addEventListener('click', function () {
 
-				document.getElementById('change-email-popup').style.display = 'none';
+				document.querySelector('#change-email-popup').style.display = 'none';
 			});
 
-			document.getElementById('confirm-email-change').addEventListener('click', function () {
+			document.querySelector('#confirm-email-change').addEventListener('click', function () {
 
-				document.getElementById('change-email-popup').style.display = 'none';
+				document.querySelector('#change-email-popup').style.display = 'none';
 
 			});
 
 			function closeProfilePopup() {
 				// 모달 창 닫기
-				document.getElementById('overlay').style.display = 'none';
-				document.getElementById('profileModal').style.display = 'none';
+				document.querySelector('#overlay').style.display = 'none';
+				document.querySelector('#profileModal').style.display = 'none';
 			}
 
-			const changeEmailPopup = document.getElementById('change-email-popup');
-			const confirmEmailChangeButton = document.getElementById('confirm-email-change');
-			const cancelEmailChangeButton = document.getElementById('cancel-email-change');
+			const changeEmailPopup = document.querySelector('#change-email-popup');
+			const confirmEmailChangeButton = document.querySelector('#confirm-email-change');
+			const cancelEmailChangeButton = document.querySelector('#cancel-email-change');
 
 			confirmEmailChangeButton.addEventListener('click', function () {
-				const newEmailInput = document.getElementById('new-email');
+				const newEmailInput = document.querySelector('#new-email');
 				const newEmail = newEmailInput.value.trim();
 
 				changeEmailPopup.style.display = 'none';
@@ -783,9 +783,9 @@
 		</script>
 
 		<script>
-			const editButton = document.getElementById('edit-button');
+			const editButton = document.querySelector('#edit-button');
 			const editProfileForm = document.querySelector('.edit-profile-form');
-			const saveButton = document.getElementById('save-profile');
+			const saveButton = document.querySelector('#save-profile');
 
 
 			// 정보 수정 버튼 클릭 시 이벤트 리스너
