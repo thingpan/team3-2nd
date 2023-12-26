@@ -2,90 +2,102 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/team/team-rank.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
-            rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/css/team/team-rank.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
+		rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+		crossorigin="anonymous"></script>
 </head>
 
 <body>
-<div th:replace="/page/fragment/header.html :: f-head"></div>
-<div id="main">
-    <h3>팀 랭크</h3><br>
-    <div class="content-container">
-        <select id="s" name="s">
-            <option value="">종목</option>
-            <option value="야구">야구</option>
-            <option value="축구">축구</option>
-            <option value="농구">농구</option>
-        </select>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <select id="sido" name="sido">
-            <option value="">지역</option>
-        </select>
-        <script src="/js/mock/region.js"></script>
-    
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<div th:replace="/page/fragment/header.html :: f-head"></div>
+	<div id="main">
+		<h3>팀 랭크</h3><br>
+		<div class="filter">
+			<select id="s" name="s" >
+				<option value="">종목</option>
+				<option value="야구">야구</option>
+				<option value="축구">축구</option>
+				<option value="농구">농구</option>
+			</select>
 
-        <input type="range" min="0" max="1000" value="0" class="custom-range w-50 p-3" id="myRange" step="100">
-        <p class="form-label">팀 점수:<span id="value"></span></p>
-
-        <button type="button" id="search-button" onclick="performSearch()" class="btn btn-dark">검색</button>
-    </div>
-
-    <table id="teamTable">
-
-        <thead>
-        <tr>
-            <th>순위</th>
-            <th>종목</th>
-            <th>팀</th>
-            <th>지역</th>
-            <th>포인트</th>
-        </tr>
-        </thead>
-
-        <tbody id="tBody">
-
-        </tbody>
-    </table>
-    <div id="rankpageDiv"></div>
-
-</div>
-<script>
+			<select id="sido" name="sido">
+				<option value="">시/도</option>
+			</select>
+			<script src="/js/mock/region.js"></script>
 
 
-    var slider = document.getElementById("myRange");
-    var output = document.getElementById("value");
-    output.innerHTML = slider.value;
 
-    slider.oninput = function () {
-        output.innerHTML = this.value;
-    }
+			<div class="range-container">
+				<input type="range" id="point" step="100" class="rate-input__range custom-range" min="0" max="1000"
+					value="0">
+				<div class="value-marker" id="valueMarker">0</div>
+			</div>
 
-    function addRow(tableBody, rank, taType, taName, taBoundarySido, taPoint, taNum) {
-        const row = document.createElement('tr');
+			<table id="teamTable">
 
-        // 순위에 따라 메달 아이콘으로 변경
-        let medalIcon = '';
-        if (rank === 1) {
-            medalIcon = '🥇';
-        } else if (rank === 2) {
-            medalIcon = '🥈';
-        } else if (rank === 3) {
-            medalIcon = '🥉';
-        }
+				<thead>
+					<tr>
+						<th>순위</th>
+						<th>종목</th>
+						<th>팀</th>
+						<th>지역</th>
+						<th>포인트</th>
+					</tr>
+				</thead>
 
-        const rankDisplay = rank <= 3 ? medalIcon : rank;
+				<tbody id="tBody">
 
-        row.innerHTML = `
+				</tbody>
+			</table>
+			<div id="rankpageDiv"></div>
+
+		</div>
+		<script>
+
+			const rangeInput = document.querySelector('#point');
+			const valueMarker = document.querySelector('#valueMarker');
+
+			// 초기 위치 설정
+			updateValueMarker();
+
+			rangeInput.addEventListener('input', function () {
+				updateValueMarker();
+			});
+
+			function updateValueMarker() {
+				const percent = (rangeInput.value - rangeInput.min) / (rangeInput.max - rangeInput.min) * 100;
+				valueMarker.style.left = `${percent}%`;
+				valueMarker.textContent = rangeInput.value;
+			}
+
+			function addRow(tableBody, rank, taType, taName, taBoundarySido, taPoint, taNum) {
+				const row = document.createElement('tr');
+
+				// 순위에 따라 메달 아이콘으로 변경
+				let medalIcon = '';
+				if (rank === 1) {
+					medalIcon = '🥇';
+				} else if (rank === 2) {
+					medalIcon = '🥈';
+				} else if (rank === 3) {
+					medalIcon = '🥉';
+				}
+
+				const rankDisplay = rank <= 3 ? medalIcon : rank;
+
+				row.innerHTML = `
         <td>${rankDisplay}</td>
         <td>${taType}</td>
         <td><a href="/page/team/record?taNum=${taNum}">${taName}</a></td>
@@ -93,96 +105,48 @@
         <td>${taPoint}</td>
     `;
 
-        tableBody.appendChild(row);
-    }
+				tableBody.appendChild(row);
+			}
+			window.addEventListener('load', async function () {
 
-    async function performSearch() {
-        const sport = document.getElementById("s").value;
-        console.log('선택된 종목:', sport);
-        const area = document.getElementById("sido").value;
-        const skill = parseInt(document.getElementById("myRange").value);
+				const rankRes = await fetch('/team-infos');
+				teamData = await rankRes.json();
 
-        console.log('Sport:', sport);
-        console.log('Area:', area);
-        console.log('Skill:', skill);
+				console.log('teamData:', teamData);
 
+				let html = '';
+				let i = 1;
+				for (const row of teamData) {
+					html += '<tr>';
+					if (i === 1) {
+						html += `<td>🥇</td>`;
+					} else if (i === 2) {
+						html += `<td>🥈</td>`;
+					} else if (i === 3) {
+						html += `<td>🥉</td>`;
+					} else {
+						html += `<td>${i}</td>`
+					}
+					html += `<td>${row.taType}</a></td>`;
+					html += `<td><a href="/page/match/match-record?taNum=${row.taNum}">${row.taName}</td>`;
+					html += `<td>${row.taBoundarySido}</td>`;
+					html += `<td>${row.taPoint}</td>`;
+					html += '</tr>';
+					i++;
+				}
+				document.querySelector('#tBody').innerHTML = html;
+			});
 
-        const rankRes = await fetch('/team-infos');
-        const teamData = await rankRes.json();
-
-        console.log('teamData:', teamData);
-        const upperBound = skill + 100;
-
-        // 디버깅을 위한 로그 추가
-        console.log('Before filtering:', teamData);
-
-        const filteredData = teamData.filter((row) => {
-            const isSportMatch = sport === "" || row.taType === sport;
-            const isAreaMatch = area === "" || row.taBoundarySido === area;
-            const isSkillMatch = skill === 0 || (row.taPoint >= skill && row.taPoint <= upperBound);
-
-            const result = isSportMatch && isAreaMatch && isSkillMatch;
-
-
-            console.log('Row:', row, 'Result:', result);
-
-            return result;
-        });
-
-
-        console.log('After filtering:', filteredData);
-
-        const tableBody = document.getElementById("tBody");
-        tableBody.innerHTML = '';
-        let i = 1;
-        filteredData.forEach((row) => {
-            addRow(tableBody, i, row.taType, row.taName, row.taBoundarySido, row.taPoint, row.taNum);
-            i++;
-        });
-        console.log('Checking values:', 'Sport:', sport, 'Area:', area, 'Skill:', skill);
-    }
-
-
-    window.addEventListener('load', async function () {
-
-        const rankRes = await fetch('/team-infos');
-        teamData = await rankRes.json();
-
-        console.log('teamData:', teamData);
-
-        let html = '';
-        let i = 1;
-        for (const row of teamData) {
-            html += '<tr>';
-            if (i === 1) {
-                html += `<td>🥇</td>`;
-            } else if (i === 2) {
-                html += `<td>🥈</td>`;
-            } else if (i === 3) {
-                html += `<td>🥉</td>`;
-            } else {
-                html += `<td>${i}</td>`
-            }
-            html += `<td>${row.taType}</a></td>`;
-            html += `<td><a href="/page/match/match-record?taNum=${row.taNum}">${row.taName}</td>`;
-            html += `<td>${row.taBoundarySido}</td>`;
-            html += `<td>${row.taPoint}</td>`;
-            html += '</tr>';
-            i++;
-        }
-        document.querySelector('#tBody').innerHTML = html;
-    });
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
-            header.style.transform = 'translateY(-100%)';
-        } else {
-            header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
-            header.style.transform = 'translateY(0)';
-        }
-    });
-</script>
+			window.addEventListener('scroll', () => {
+				if (window.scrollY > 50) {
+					header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
+					header.style.transform = 'translateY(-100%)';
+				} else {
+					header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
+					header.style.transform = 'translateY(0)';
+				}
+			});
+		</script>
 
 </body>
 
