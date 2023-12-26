@@ -272,11 +272,15 @@
 			<div class="team-section">
 				<h3>소속팀</h3>
 				<div class="team-buttons">
-					<img src='/imgs/basketball.png' id="basketball" onclick="selectTeamType(this)"
-						style="margin-right: 5px;" data-value="농구">
-					<img src='/imgs/baseball.png' id="baseball" onclick="selectTeamType(this)" data-value="야구">
-					<img src='/imgs/soccerball.png' id="soccer" onclick="selectTeamType(this)" style="margin-left: 5px;"
-						data-value="축구">
+					<div style="float: left;">
+						<button id="basketball" onclick="selectTeamType(this)" data-value="농구"><img src="/imgs/basketball.png"></img></button>
+					</div>
+					<div style="float: left;">
+						<button id="baseball" onclick="selectTeamType(this)" data-value="야구"><img src="/imgs/baseball.png"></img></button>
+					</div>
+					<div style="float: left;">
+						<button id="soccerball" onclick="selectTeamType(this)" data-value="축구"><img src="/imgs/soccerball.png"></img></button>
+					</div>
 					<div id="team-list"></div>
 				</div>
 			</div>
@@ -323,7 +327,7 @@
 			<hr>
 
 			<button type="button" id="save-profile" class="btn btn-dark" onclick="save()">완료</button>
-			<button type="button" id="save-profile" class="btn btn-dark" onclick="userdelete()">삭제</button>
+			<button type="button" id="delete-profile" class="btn btn-dark" onclick="userdelete()">삭제</button>
 		</div>
 
 		<div id="change-email-popup"
@@ -720,7 +724,7 @@
 			function openAddressSearchModal() {
 				new daum.Postcode({
 					oncomplete: function (data) {
-						let selectedAddress ;
+						let selectedAddress;
 						if (data.buildingName != "") {
 							selectedAddress = data.address + ` (${data.buildingName})`;
 						} else {
