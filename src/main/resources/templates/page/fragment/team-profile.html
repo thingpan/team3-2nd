@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<meta charset="EUC-KR">
+	<meta charset="UTF-8">
 	<title>Insert title here</title>
 </head>
 
@@ -84,9 +84,8 @@
 
 				// 현재 점수 표시
 				const currentScore = document.querySelector('#current-score');
-				currentScore.textContent = `매너점수 (${mannerPercent}/100)`;
+				currentScore.textContent = `매너점수 (${mannerPercent} / 100)`;
 			});
-
 
 			// 이미지 로딩 실패 시 호출되는 함수
 			function handleImageError() {

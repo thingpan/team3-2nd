@@ -244,12 +244,17 @@ async function matchboarddelete() {
         },
         body: JSON.stringify(data),
     });
-    const errorMessage = await response.json();
-    if (errorMessage == 1) {
-        alert('삭제완료');
-        location.href = `/page/match/match-board`
-    }
 
+    const userConfirmed = window.confirm('매치글을 삭제하시겠습니까?');
+
+    if (userConfirmed) {
+        const errorMessage = await response.json();
+
+        if (errorMessage === 1) {
+            alert('삭제가 완료되었습니다.');
+            location.href = '/page/match/match-board';
+        }
+    }
 }
 
 async function matchRequest() {
