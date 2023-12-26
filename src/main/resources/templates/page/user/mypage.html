@@ -465,10 +465,10 @@
 
 					if (result != null && result.success) {
 						alert(`${result.resultMsg}`);
-						location.href = '/page/user/login';
+						location.href = '/auth/logout';
 					} else {
 						alert(`${result.resultMsg}`);
-						window.location.reload;
+						location.reload;
 					}
 				}
 
