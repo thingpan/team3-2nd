@@ -402,7 +402,7 @@ async function updateFirstMatchResult() {
     location.reload();
 }
 
-window.addEventListener('load', getHomeAjaxList());
+window.addEventListener('load', getHomeAjaxList);
 
 
 /* 

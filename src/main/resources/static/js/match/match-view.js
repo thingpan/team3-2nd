@@ -94,13 +94,16 @@ window.addEventListener('load', async function () {
     const today = new Date(); // 현재 날짜
     today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간을 00:00:00으로 설정
 
-    if (matchInfo.mbStatus == 1 || matchInfo == null || new Date(matchInfo.mbDate) < today) {
+    if (matchInfo.mbStatus == 1 || matchInfo == null) {
         alert('신청 마감된 매치입니다.')
         this.location.href = '/page/match/match-board';
     } else if (matchInfo.activityStatus == 1) {
         alert('삭제된 매치입니다')
         this.location.href = '/page/match/match-board';
-    }
+    }else if(new Date(matchInfo.mbDate) < today){
+        alert('기간이 지난 매치입니다')
+        this.location.href = '/page/match/match-board';
+	}
 
     function addCommas(number) {
         const numericValue = number.toString().replace(/[^\d]/g, ''); // 문자열로 변환 후 숫자 이외의 문자 제거

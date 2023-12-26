@@ -5,7 +5,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const taNum = urlParams.get('taNum');
 
-async function getTeamMatchList(evt,page) {
+async function getTeamMatchList(evt, page) {
 	if (!page) {
 		page = 1;
 	}
@@ -41,22 +41,29 @@ async function getTeamMatchList(evt,page) {
 	document.querySelector('#pageDiv').innerHTML = pageHtml;
 	let html = '';
 	for (let matchinfo of pageInfos.list) {
-		let mbCredat = matchinfo.mbCredat;
-		var mbCredatParsing = [mbCredat.slice(0, 4), "-", mbCredat.slice(4, 6), "-", mbCredat.slice(6, 8)].join('')
-		
-		html += `<tr onclick="doGoMatchViewPage(${matchinfo.mbNum})">`;
-		html += `<td>${matchinfo.mbAddressDetail}</td>`;
-		html += `<td>${matchinfo.mbDate} | ${matchinfo.mbTime}</td>`;
-		html += `<td>${mbCredatParsing}</td>`;
-		html += `<td>${matchinfo.mbAddress}</td>`;
-		html += `<td>${matchinfo.mbStatus}</td>`;
-		html += '</tr>';
+		if (matchinfo.activityStatus != '1') {
+			let mbCredat = matchinfo.mbCredat;
+			var mbCredatParsing = [mbCredat.slice(0, 4), "-", mbCredat.slice(4, 6), "-", mbCredat.slice(6, 8)].join('')
+
+			html += `<tr onclick="doGoMatchViewPage(${matchinfo.mbNum})">`;
+			html += `<td>${matchinfo.mbAddressDetail}</td>`;
+			html += `<td>${matchinfo.mbDate} | ${matchinfo.mbTime}</td>`;
+			html += `<td>${mbCredatParsing}</td>`;
+			html += `<td>${matchinfo.mbAddress}</td>`;
+			if(matchinfo.mbStatus == 1){
+				html += `<td>신청마감</td>`;
+			}else{
+				html += `<td>모집중</td>`;
+			}
+			
+			html += '</tr>';
+		}
 	}
 	document.querySelector('#team-user-list-info').innerHTML = html;
 
 }
 
-function doGoMatchViewPage(mbNum){
+function doGoMatchViewPage(mbNum) {
 	location.href = `/page/match/match-view?mbNum=${mbNum}`;
 }
 
