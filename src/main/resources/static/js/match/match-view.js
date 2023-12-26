@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
 
+    // matchPhotos = matchInfo.matchPhotos;
+
     let currentSlide = 0;
 
     function showSlide(n) {
@@ -48,17 +50,32 @@ document.addEventListener('DOMContentLoaded', function () {
     async function initializeSlider() {
         const matchPhotos = await fetchMatchPhotos();
 
-        matchPhotos.forEach(photo => {
+        if (matchPhotos.length === 0) {
+            console.log(matchPhotos.length);가
+            // 이미지가 없을 경우 기본 이미지 추가
             const img = document.createElement('img');
-            img.src = photo.mbpFilePath;
+            img.src = '/imgs/no-image.jpg';
             sliderContainer.appendChild(img);
-        });
+        } else {
+            matchPhotos.forEach(photo => {
+                const img = document.createElement('img');
 
-        showSlide(currentSlide);
+                if (photo.mbpFilePath) {
+                    img.src = photo.mbpFilePath;
+                } else {
+                    img.src = '/imgs/no-image.jpg';
+                }
 
-        prevBtn.addEventListener('click', prevSlide);
-        nextBtn.addEventListener('click', nextSlide);
+                sliderContainer.appendChild(img);
+            });
+
+            showSlide(currentSlide);
+
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+        }
     }
+
 
     initializeSlider();
 });
