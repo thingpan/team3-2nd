@@ -27,20 +27,11 @@
             <option value="농구">농구</option>
         </select>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <select id="s2" name="s2">
+        <select id="sido" name="sido">
             <option value="">지역</option>
         </select>
         <script src="/js/mock/region.js"></script>
-        <script type="module">
-            // 시/도 옵션 추가
-            const sidoSelect = document.querySelector('#s2');
-
-            for (let key in address) {
-                let option = document.createElement('option');
-                option.text = key;
-                sidoSelect.add(option);
-            }
-        </script>
+    
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
         <input type="range" min="0" max="1000" value="0" class="custom-range w-50 p-3" id="myRange" step="100">
@@ -108,7 +99,7 @@
     async function performSearch() {
         const sport = document.getElementById("s").value;
         console.log('선택된 종목:', sport);
-        const area = document.getElementById("s2").value;
+        const area = document.getElementById("sido").value;
         const skill = parseInt(document.getElementById("myRange").value);
 
         console.log('Sport:', sport);
