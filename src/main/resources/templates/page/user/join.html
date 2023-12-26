@@ -139,13 +139,15 @@
 			// 서버로 아이디 중복 확인 요청
 			const res = await fetch(`/auth/user-infos/${uiId}`);
 
-			console.log(res);
-			document.getElementById('errorUiId').innerHTML = "<span style='color: green;'>사용 가능한 아이디입니다.</span>";
-			isIdChecked = true;
+
 			const result = await res.json();
-			if (result) {
+			if (result.resultMsg == 1) {
 				document.getElementById('errorUiId').innerHTML = "<span style='color: red;'>이미 사용 중인 아이디입니다.</span>";
 				isIdChecked = false;
+			} else {
+				console.log(res);
+				document.getElementById('errorUiId').innerHTML = "<span style='color: green;'>사용 가능한 아이디입니다.</span>";
+				isIdChecked = true;
 			}
 		}
 
@@ -269,7 +271,7 @@
 				oncomplete: function (data) {
 					if (data.buildingName != "") {
 						document.getElementById('uiAddress').value = data.address + ` (${data.buildingName})`;
-					}else{
+					} else {
 						document.getElementById('uiAddress').value = data.address
 					}
 					console.log(data)
