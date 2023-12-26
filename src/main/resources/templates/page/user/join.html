@@ -266,7 +266,7 @@
 			searchButton.disabled = true; // 버튼 비활성화
 			new daum.Postcode({
 				oncomplete: function (data) {
-					if (data.buildingName != null && data.buildingName != undefined) {
+					if (data.buildingName != "") {
 						document.getElementById('uiAddress').value = data.address + ` (${data.buildingName})`;
 					}else{
 						document.getElementById('uiAddress').value = data.address

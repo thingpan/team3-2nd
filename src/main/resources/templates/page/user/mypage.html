@@ -694,13 +694,13 @@
 				const res = await fetch(`/check-team-name/${taName}`);
 				isNameChecked = true;
 				const result = await res.json();
-				
+
 				if (result.resultMsg == "0") {
 					document.getElementById('errorTaName').innerHTML = `<span style='color: red;'>이미 사용중인 이름입니다</span>`;
-				}else{
+				} else {
 					document.getElementById('errorTaName').innerHTML = `<span style='color: green;'>사용 가능한 이름입니다</span>`;
 				}
-				
+
 			}
 
 			function openChangePasswordPopup() {
@@ -720,7 +720,12 @@
 			function openAddressSearchModal() {
 				new daum.Postcode({
 					oncomplete: function (data) {
-						const selectedAddress = data.address +` (${data.buildingName})`;
+						let selectedAddress ;
+						if (data.buildingName != "") {
+							selectedAddress = data.address + ` (${data.buildingName})`;
+						} else {
+							selectedAddress = data.address
+						}
 						const searchResults = document.getElementById('search-results')
 						const addressInput = document.getElementById('address');
 						addressInput.value = selectedAddress;

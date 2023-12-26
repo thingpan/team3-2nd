@@ -192,11 +192,11 @@
                         mbMapX = result.x;
                         mbMapY = result.y;
                         console.log(data.buildingName); 
-                        if (data.buildingName != null || data.buildingName != undefined || data.buildingName != '') {
+                        if (data.buildingName != '') {
 							document.querySelector('#address_detail').value = data.buildingName; 
-							document.querySelector('#address_detail').disabled = false; 
-						}else{
 							document.querySelector('#address_detail').disabled = true; 
+						}else{
+							document.querySelector('#address_detail').disabled = false; 
 						}
                         
                         console.log(data);
