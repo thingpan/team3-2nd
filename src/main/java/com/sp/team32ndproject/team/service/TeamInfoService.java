@@ -117,13 +117,14 @@ public class TeamInfoService {
 		MsgVO msgVO = new MsgVO();
 		if (teamInfoMapper.selectTeamInfoByTaName(taName) != null) {
 			msgVO.setResultMsg("0");
-			
-		}else {
+
+		} else {
 			msgVO.setResultMsg("1");
 		}
 		return msgVO;
 	}
-	//여기 매너포인트 수정
+
+	// 여기 매너포인트 수정
 	public void doUpdateHomeMatchResult(MatchResultVO matchResultVO) {
 		log.info("matchResultVO => {}", matchResultVO);
 		TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(matchResultVO.getTaHomeNum());
@@ -194,7 +195,7 @@ public class TeamInfoService {
 	}
 
 	public List<TeamInfoVO> selectTeamRank(String taType, String taBoundarySido, Integer taPoint) {
-	       return teamInfoMapper.selectTeamRank(taType, taBoundarySido, taPoint);
+		return teamInfoMapper.selectTeamRank(taType, taBoundarySido, taPoint);
 	}
 
 }

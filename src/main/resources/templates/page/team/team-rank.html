@@ -76,9 +76,9 @@
 				updateValueMarker();
 			});
 
-			document.getElementById('s').addEventListener('change', fetchData);
-			document.getElementById('sido').addEventListener('change', fetchData);
-			document.getElementById('point').addEventListener('input', fetchData)
+			document.querySelector('#s').addEventListener('change', fetchData);
+			document.querySelector('#sido').addEventListener('change', fetchData);
+			document.querySelector('#point').addEventListener('input', fetchData)
 
 			function updateValueMarker() {
 				const percent = (rangeInput.value - rangeInput.min) / (rangeInput.max - rangeInput.min) * 100;
@@ -87,8 +87,8 @@
 			}
 
 			async function fetchData() {
-				const selectedSport = document.getElementById('s').value;
-				const selectedSido = document.getElementById('sido').value;
+				const selectedSport = document.querySelector('#s').value;
+				const selectedSido = document.querySelector('#sido').value;
 				const selectedPoint = rangeInput.value;
 
 
