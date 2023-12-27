@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const matchPhotos = await fetchMatchPhotos();
 
         if (matchPhotos.length === 0) {
-            console.log(matchPhotos.length);가
+            console.log(matchPhotos.length);
             // 이미지가 없을 경우 기본 이미지 추가
             const img = document.createElement('img');
             img.src = '/imgs/no-image.jpg';
