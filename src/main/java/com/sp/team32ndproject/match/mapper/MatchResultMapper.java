@@ -18,5 +18,8 @@ public interface MatchResultMapper {
     int updateMatchResultInfoFirst (MatchResultVO matchResultVO);
     //단일조회
     MatchResultVO selectMatchResultInfo(MatchResultVO matchResultVO);
+    
+    List<MatchResultVO> selectMatchDealInfosWithHelper(MatchResultVO matchResultVO);
+    
 }
 

@@ -13,6 +13,22 @@
 		#{taAwayNum}, #{mrRequestStatus})
 	</insert>
 
+
+
+	<select id="selectMatchDealInfosWithHelper"
+		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
+		SELECT MR.*, MD.MD_DATE, MD.MD_TIME, MD.MD_ADDRESS FROM
+		MATCH_RESULT_INFO MR
+		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM =
+		MR.MD_NUM
+		WHERE TA_HOME_NUM = #{taHomeNum}
+		OR TA_AWAY_NUM = #{taAwayNum}
+		ORDER BY
+		MR.MR_REQUEST_STATUS ASC,
+		MD_DATE, MD_TIME
+	</select>
+
+
 	<select id="selectMatchDealInfosByHomeNumWithHelper"
 		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
 		SELECT MR.*, TA.TA_NAME, MD.MD_DATE, MD.MD_TIME,
@@ -20,12 +36,14 @@
 		FROM MATCH_RESULT_INFO MR
 		INNER JOIN TEAM_INFO TA ON
 		TA.TA_NUM = MR.TA_AWAY_NUM
-		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM = MR.MD_NUM
+		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM =
+		MR.MD_NUM
 		WHERE MR.TA_HOME_NUM = #{taHomeNum}
-		ORDER BY MR.MR_REQUEST_STATUS ASC,
-		MR_NUM
+		ORDER BY
+		MR.MR_REQUEST_STATUS ASC,
+		MD_DATE, MD_TIME
 	</select>
-	
+
 	<select id="selectMatchDealInfosByAwayNumWithHelper"
 		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
 		SELECT MR.*, TA.TA_NAME, MD.MD_DATE, MD.MD_TIME,
@@ -36,13 +54,15 @@
 		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM =
 		MR.MD_NUM
 		WHERE MR.TA_AWAY_NUM = #{taAwayNum}
-		ORDER BY MR.MR_REQUEST_STATUS ASC,
-		MR_NUM
+		ORDER BY
+		MR.MR_REQUEST_STATUS ASC,
+		MD_DATE, MD_TIME
 	</select>
 
-	<update id="updateMatchResultInfoFirst" 
+	<update id="updateMatchResultInfoFirst"
 		parameterType="com.sp.team32ndproject.match.vo.MatchResultVO"
-		useGeneratedKeys="true" keyColumn="MR_REQUEST_STATUS,TA_HOME_NUM" keyProperty="mrRequestStatus,taHomeNum">
+		useGeneratedKeys="true" keyColumn="MR_REQUEST_STATUS,TA_HOME_NUM"
+		keyProperty="mrRequestStatus,taHomeNum">
 		UPDATE MATCH_RESULT_INFO
 		<set>
 			<if test="mrHomeScore != null and mrHomeScore != ''">
@@ -63,7 +83,7 @@
 		</set>
 		WHERE MR_NUM = #{mrNum}
 	</update>
-	
+
 	<select id="selectMatchResultInfo"
 		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
 		SELECT * FROM MATCH_RESULT_INFO

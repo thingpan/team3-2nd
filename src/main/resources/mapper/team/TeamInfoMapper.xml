@@ -10,7 +10,7 @@
 
 	<select id="selectTaTypeMatchBoardInfoByTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
-		SELECT TA_TYPE FROM TEAM_INFO
+		SELECT TA_TYPE, TA_NAME FROM TEAM_INFO
 		WHERE TA_NUM = #{taNum}
 
 	</select>

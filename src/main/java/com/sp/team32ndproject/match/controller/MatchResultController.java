@@ -34,6 +34,12 @@ public class MatchResultController {
     	return matchResultService.selectMatchDealInfosByAwayNumWithHelper(matchResultVO);
     }
     
+    //전체 불러오기
+    @GetMapping("/match-result-infos")
+    public PageInfo<MatchResultVO> selectMatchResultInfos(MatchResultVO matchResultVO){
+    	return matchResultService.selectMatchResultInfos(matchResultVO);
+    }
+    
     //경기 결과 입력 및 상태 업데이트
     @PatchMapping("/match-result-infos")
     public MsgVO updateMatchResultInfoFirst(@RequestBody MatchResultVO matchResultVO) {
