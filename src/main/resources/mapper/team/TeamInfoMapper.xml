@@ -69,7 +69,7 @@
 			<if test="taBoundarySido != null and taBoundarySido != ''">
 				AND TA_BOUNDARY_SIDO = #{taBoundarySido}
 			</if>
-			<if test="taPoint != null or taPoint != 0">
+			<if test="taPoint != null and taPoint != 0">
 				AND TA_POINT = #{taPoint}
 			</if>
 		</where>
