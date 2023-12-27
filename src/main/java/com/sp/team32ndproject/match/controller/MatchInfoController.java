@@ -43,7 +43,7 @@ public class MatchInfoController {
 		MatchBoardInfoListVO matchBoardInfoListVO = matchInfoService.selectMatchList();
 		return matchBoardInfoListVO;
 	}
-
+	//매치 글쓰기 삭제
 	@PatchMapping("/match-infos")
 	public int deleteMatchInfoBoard(@RequestBody MatchBoardInfoVO match) {
 		return matchInfoService.deleteMatchBoardInfoActivityStatus(match);
