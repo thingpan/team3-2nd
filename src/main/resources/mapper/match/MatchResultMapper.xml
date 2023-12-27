@@ -25,7 +25,7 @@
 		OR TA_AWAY_NUM = #{taAwayNum}
 		ORDER BY
 		MR.MR_REQUEST_STATUS ASC,
-		MR_NUM
+		MD_DATE, MD_TIME
 	</select>
 
 
@@ -41,7 +41,7 @@
 		WHERE MR.TA_HOME_NUM = #{taHomeNum}
 		ORDER BY
 		MR.MR_REQUEST_STATUS ASC,
-		MR_NUM
+		MD_DATE, MD_TIME
 	</select>
 
 	<select id="selectMatchDealInfosByAwayNumWithHelper"
@@ -56,7 +56,7 @@
 		WHERE MR.TA_AWAY_NUM = #{taAwayNum}
 		ORDER BY
 		MR.MR_REQUEST_STATUS ASC,
-		MR_NUM
+		MD_DATE, MD_TIME
 	</select>
 
 	<update id="updateMatchResultInfoFirst"
