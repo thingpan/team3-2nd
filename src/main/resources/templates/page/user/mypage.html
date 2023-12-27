@@ -273,13 +273,16 @@
 				<h3>소속팀</h3>
 				<div class="team-buttons">
 					<div style="float: left;">
-						<button id="basketball" onclick="selectTeamType(this)" data-value="농구"><img src="/imgs/basketball.png"></img></button>
+						<button id="basketball" onclick="selectTeamType(this)" data-value="농구"><img
+								src="/imgs/basketball.png"></img></button>
 					</div>
 					<div style="float: left;">
-						<button id="baseball" onclick="selectTeamType(this)" data-value="야구"><img src="/imgs/baseball.png"></img></button>
+						<button id="baseball" onclick="selectTeamType(this)" data-value="야구"><img
+								src="/imgs/baseball.png"></img></button>
 					</div>
 					<div style="float: left;">
-						<button id="soccerball" onclick="selectTeamType(this)" data-value="축구"><img src="/imgs/soccerball.png"></img></button>
+						<button id="soccerball" onclick="selectTeamType(this)" data-value="축구"><img
+								src="/imgs/soccerball.png"></img></button>
 					</div>
 					<div id="team-list"></div>
 				</div>
@@ -295,7 +298,7 @@
 			<input type="text" id="user-name" readonly>
 			<hr>
 			<label for="email">이메일 :</label>
-			<input type="text" id="email" >
+			<input type="text" id="email" placeholder="변경하려는 이메일을 입력해주세요.">
 			<hr>
 			<label for="password">비밀번호 :</label>
 			<input type="password" id="password" name="password" readonly>
@@ -303,7 +306,7 @@
 				변경</button>
 			<hr>
 			<label for="phone">전화번호 :</label>
-			<input type="text" id="phone" >
+			<input type="tel" id="phone">
 			<hr>
 			<label for="year">생년월일 :</label>
 			<input type="text" id="date" name="date">
@@ -329,6 +332,7 @@
 				class="btn btn-dark">확인</button>
 			<button type="button" id="cancel-password-change" class="btn btn-dark">취소</button>
 		</div>
+		
 		<script>
 			async function changePasswordAndDisplay() {
 				// 현재 비밀번호, 새 비밀번호, 새 비밀번호 확인 등 필요한 정보 수집
@@ -649,4 +653,5 @@
 			});
 		</script>
 </body>
+
 </html>
