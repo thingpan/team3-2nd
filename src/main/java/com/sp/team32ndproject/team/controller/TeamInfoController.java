@@ -34,21 +34,20 @@ public class TeamInfoController {
 		log.info("team => {}", team);
 		return teamInfoService.insertTeamInfo(team, user);
 	}
-	
-	//내가 속한 팀 가져오기
+
+	// 내가 속한 팀 가져오기
 	@GetMapping("/my-team-infos")
 	public List<TeamInfoVO> selectTeamInfosByUiNum(@AuthenticationPrincipal UserInfoVO user) {
 		return teamInfoService.selectTeamInfosByUiNum(user.getUiNum());
 	}
 
 	// 팀 랭크
-	  @GetMapping("/team-infos")
-	    public List<TeamInfoVO> selectTeamRank(
-	            @RequestParam(value = "taType", required = false) String taType,
-	            @RequestParam(value = "taBoundarySido", required = false) String taBoundarySido,
-	            @RequestParam(value = "taPoint", required = false) Integer taPoint) {
-	        return teamInfoService.selectTeamRank(taType, taBoundarySido, taPoint);
-	    }
+	@GetMapping("/team-infos")
+	public List<TeamInfoVO> selectTeamRank(@RequestParam(value = "taType", required = false) String taType,
+			@RequestParam(value = "taBoundarySido", required = false) String taBoundarySido,
+			@RequestParam(value = "taPoint", required = false) Integer taPoint) {
+		return teamInfoService.selectTeamRank(taType, taBoundarySido, taPoint);
+	}
 
 	// 종목별 팀 순위
 	@GetMapping("/team-infos/{taType}")
@@ -56,15 +55,15 @@ public class TeamInfoController {
 		log.info("taType => {}", taType);
 		return teamInfoService.selectTeamRankByTeamType(taType);
 	}
-	
-	//팀 정보 가져오기
+
+	// 팀 정보 가져오기
 	@GetMapping("/team-info")
-	public TeamInfoVO selectTeamInfoByTaNum(@RequestParam int taNum) {
+	public TeamInfoVO selectTeamInfoByTaNum(@RequestParam int taNum, @AuthenticationPrincipal UserInfoVO user) {
 		log.info("taNum =>{}" ,taNum);
-		return teamInfoService.selectTeamInfoByTaNum(taNum); 
+		return teamInfoService.selectTeamInfoByTaNum(taNum, user); 
 	}
-	
-	//매치 신청 할때 매치글과 같은 타입으로 나의 팀 불러오기
+
+	// 매치 신청 할때 매치글과 같은 타입으로 나의 팀 불러오기
 	@GetMapping("/my-team-infos-by-type/{taType}")
 	public List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(@PathVariable String taType,
 			@AuthenticationPrincipal UserInfoVO user) {
@@ -73,25 +72,25 @@ public class TeamInfoController {
 
 		return teamInfoService.selectTeamInfosByUiNumAndTaType(taType, user.getUiNum());
 	}
-	
-	//팀이름 중복검사
+
+	// 팀이름 중복검사
 	@GetMapping("/check-team-name/{taName}")
-	public MsgVO TeamInfoByTaName(@PathVariable String taName) { 
+	public MsgVO TeamInfoByTaName(@PathVariable String taName) {
 		return teamInfoService.selectTeamInfoByTaName(taName);
 	}
-	
-	//내가 속한 팀 가져오기
+
+	// 내가 속한 팀 가져오기
 	@GetMapping("/team-user-info")
 	public List<TeamInfoVO> selectTeamUserInfo(@AuthenticationPrincipal UserInfoVO user) {
 		log.info("uiNum => {}", user);
 		return teamInfoService.selectTeamUserInfo(user.getUiNum());
 
 	}
-	
-	//팀 정보 수정
-	@PutMapping("/team-info-update") 
+
+	// 팀 정보 수정
+	@PutMapping("/team-info-update")
 	public int updateTeamInfo(TeamInfoVO teamInfoVO) {
-		log.info("teamInfo => {}",teamInfoVO);
+		log.info("teamInfo => {}", teamInfoVO);
 		return teamInfoService.updateTeamInfo(teamInfoVO);
 	}
 }

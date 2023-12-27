@@ -26,5 +26,6 @@ public class TeamInfoVO {
 	private String taType;
 	private String taFilePath;
 	private String taFileName;
+	private String taSignStatus;
 	private MultipartFile taFile;
 }

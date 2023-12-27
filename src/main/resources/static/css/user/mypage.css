@@ -72,6 +72,9 @@ button {
 	display: inline-block;
 	margin: 0 auto;
 	width: 400px;
+	border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 #sex {
@@ -123,10 +126,16 @@ button {
 
 #phone {
 	width: 265px;
+	border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 #date {
 	width: 265px;
+	border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 #search-address {

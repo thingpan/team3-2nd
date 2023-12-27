@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sp.team32ndproject.common.util.StringUtils;
 import com.sp.team32ndproject.match.vo.MatchResultVO;
 import com.sp.team32ndproject.team.mapper.TeamInfoMapper;
+import com.sp.team32ndproject.team.mapper.TeamSignUserInfoMapper;
 import com.sp.team32ndproject.team.vo.MsgVO;
 import com.sp.team32ndproject.team.vo.TeamInfoVO;
 import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
@@ -33,6 +34,7 @@ public class TeamInfoService {
 	private final TeamUserInfoService teamUserInfoService;
 	@Value("${upload.file-path}")
 	private String uploadFilePath;
+	private final TeamSignUserInfoMapper teamSignUserInfoMapper;
 
 	public int insertTeamInfo(TeamInfoVO team, UserInfoVO user) {
 		team.setUiNum(user.getUiNum());
@@ -92,8 +94,15 @@ public class TeamInfoService {
 		return teamInfoMapper.selectAdminByUiNumAndTaNum(uiNum, taNum);
 	}
 
-	public TeamInfoVO selectTeamInfoByTaNum(int taNum) {
-		return teamInfoMapper.selectTeamInfoByTaNum(taNum);
+	public TeamInfoVO selectTeamInfoByTaNum(int taNum, UserInfoVO user) {
+		TeamInfoVO teamInfoVO = new TeamInfoVO();
+		teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(taNum);
+		if(teamSignUserInfoMapper.selectTeamSignUserInfoByUiNumAndTaNum(user.getUiNum(), taNum) != null) {
+			teamInfoVO.setTaSignStatus("1");
+		}else {
+			teamInfoVO.setTaSignStatus("0");
+		}
+		return teamInfoVO;
 	}
 
 	public List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(String taType, int uiNum) {
@@ -117,13 +126,14 @@ public class TeamInfoService {
 		MsgVO msgVO = new MsgVO();
 		if (teamInfoMapper.selectTeamInfoByTaName(taName) != null) {
 			msgVO.setResultMsg("0");
-			
-		}else {
+
+		} else {
 			msgVO.setResultMsg("1");
 		}
 		return msgVO;
 	}
-	//여기 매너포인트 수정
+
+	// 여기 매너포인트 수정
 	public void doUpdateHomeMatchResult(MatchResultVO matchResultVO) {
 		log.info("matchResultVO => {}", matchResultVO);
 		TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(matchResultVO.getTaHomeNum());
@@ -194,7 +204,7 @@ public class TeamInfoService {
 	}
 
 	public List<TeamInfoVO> selectTeamRank(String taType, String taBoundarySido, Integer taPoint) {
-	       return teamInfoMapper.selectTeamRank(taType, taBoundarySido, taPoint);
+		return teamInfoMapper.selectTeamRank(taType, taBoundarySido, taPoint);
 	}
 
 }

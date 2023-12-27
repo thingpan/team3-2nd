@@ -20,46 +20,82 @@
 
 				<div class="nav__list">
 					<a th:href="@{/page/match/match-record(taNum=${param.taNum})}" class="nav__link"
-					   style="color: #fff; text-decoration: none">
+						style="color: #fff; text-decoration: none">
 						<ion-icon name="information-circle-outline" class="nav__icon"></ion-icon>
 						<span class="nav_name">팀 경기 정보</span>
-					</a>
-					<a th:href="@{/page/team/team-members(taNum=${param.taNum})}" class="nav__link"
-						style="color: #fff; text-decoration: none">
-						<ion-icon name="create-outline" class="nav__icon"></ion-icon>
-						<span class="nav_name">팀원 목록</span>
-					</a>
-					<a th:href="@{/page/team/team-apply(taNum=${param.taNum})}" class="nav__link"
-						style="color: #fff; text-decoration: none">
-						<ion-icon name="people-outline" class="nav__icon"></ion-icon>
-						<span class="nav_name">가입 신청인원</span>
-					</a>
-					<a th:href="@{/page/team/record(taNum=${param.taNum})}" class="nav__link"
-						style="color: #fff; text-decoration: none">
-						<ion-icon name="flash-outline" class="nav__icon"></ion-icon>
-						<span class="nav_name">전적</span>
-					</a>
-
-					<a th:href="@{/page/match/match-status(taNum=${param.taNum})}" class="nav__link"
-						style="color: #fff; text-decoration: none">
-						<ion-icon name="checkmark-done-outline" class="nav__icon"></ion-icon>
-						<span class="nav_name">매칭 현황</span>
 					</a>
 					<a th:href="@{/page/team/team-match-list(taNum=${param.taNum})}" class="nav__link"
 						style="color: #fff; text-decoration: none">
 						<ion-icon name="list-outline" class="nav__icon"></ion-icon>
 						<span class="nav_name">매치 작성 목록</span>
 					</a>
-					<a th:href="@{/page/team/team-settings(taNum=${param.taNum})}" class="nav__link"
+					<a th:href="@{/page/team/team-members(taNum=${param.taNum})}" class="nav__link"
 						style="color: #fff; text-decoration: none">
-						<ion-icon name="settings-outline" class="nav__icon"></ion-icon>
-						<span class="nav_name">팀 설정</span>
+						<ion-icon name="create-outline" class="nav__icon"></ion-icon>
+						<span class="nav_name">팀원 목록</span>
 					</a>
+					<div id="slide" style="display:block;">
+						<a th:href="@{/page/team/team-apply(taNum=${param.taNum})}" class="nav__link"
+							style="color: #fff; text-decoration: none">
+							<ion-icon name="people-outline" class="nav__icon"></ion-icon>
+							<span class="nav_name">가입 신청인원</span>
+						</a>
+						<a th:href="@{/page/team/record(taNum=${param.taNum})}" class="nav__link"
+							style="color: #fff; text-decoration: none">
+							<ion-icon name="flash-outline" class="nav__icon"></ion-icon>
+							<span class="nav_name">전적</span>
+						</a>
+
+						<a th:href="@{/page/match/match-status(taNum=${param.taNum})}" class="nav__link"
+							style="color: #fff; text-decoration: none">
+							<ion-icon name="checkmark-done-outline" class="nav__icon"></ion-icon>
+							<span class="nav_name">매칭 현황</span>
+						</a>
+						<a th:href="@{/page/team/team-settings(taNum=${param.taNum})}" class="nav__link"
+							style="color: #fff; text-decoration: none">
+							<ion-icon name="settings-outline" class="nav__icon"></ion-icon>
+							<span class="nav_name">팀 설정</span>
+						</a>
+					</div>
 				</div>
 			</div>
-		</nav>
+	</div>
+	</nav>
 	</div>
 	<script src="/js/fragment/side-bar.js"></script>
+	<script>
+		async function getSessionUiNum() {
+
+			const res = await fetch('/user-info');
+			const user = await res.json();
+
+			if (user && user.uiNum) {
+				return user.uiNum;
+			} else {
+				return null;
+			}
+		}
+		window.addEventListener('load', async function () {
+			try {
+				const urlParams = new URL(location.href).searchParams;
+				const taNum = urlParams.get('taNum');
+				const uiNum = await getSessionUiNum();
+				const res = await fetch(`/get-user-role?uiNum=${uiNum}&taNum=${taNum}`);
+				const userRole = await res.json();
+				if (userRole && userRole.tuRole === "USER") {
+					document.querySelector('#slide').style.display = 'none';
+					return userRole.tuRole
+				} else if (userRole && userRole.tuRole === "ADMIN") {
+					return userRole.tuRole
+				}
+				else if (userRole === null) {
+					document.querySelector('#slide').style.display = 'none';
+				}
+			} catch (error) {
+				document.querySelector('#slide').style.display = 'none';
+			}
+		});
+	</script>
 </body>
 
 </html>
