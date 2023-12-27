@@ -66,12 +66,13 @@
 				</div>
 				<span id="current-score" style="margin-left: 10px;"></span>
 			</div>
-			<div id="teamSignBtn">
-				<button id="team-register-btn" onclick="teamSignRequest()">가입신청</button>
-			</div>
 			<br>
 			<div>
 				<span id="team-introduce"></span>
+			</div>
+			<br>
+			<div id="teamSignBtn">
+				<button id="team-register-btn" onclick="teamSignRequest()">가입신청</button>
 			</div>
 		</div>
 		<br>
@@ -145,7 +146,7 @@
 					document.querySelector('#teamSignBtn').innerHTML = '';
 				}
 				if (teamData.taSignStatus == 1) {
-					document.querySelector('#teamSignBtn').innerHTML = '<sapn>가입신청 대기중</span>'
+					document.querySelector('#teamSignBtn').innerHTML = '<span style="color: red;">가입신청 대기 중</span>'
 				}
 
 			}
