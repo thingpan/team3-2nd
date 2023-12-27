@@ -61,7 +61,7 @@ public class TeamInfoController {
 	public TeamInfoVO selectTeamInfoByTaNum(@RequestParam int taNum, @AuthenticationPrincipal UserInfoVO user) {
 		log.info("taNum =>{}" ,taNum);
 		return teamInfoService.selectTeamInfoByTaNum(taNum, user); 
-
+	}
 
 	// 매치 신청 할때 매치글과 같은 타입으로 나의 팀 불러오기
 	@GetMapping("/my-team-infos-by-type/{taType}")
