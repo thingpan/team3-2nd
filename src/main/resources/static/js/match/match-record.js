@@ -120,31 +120,9 @@ window.addEventListener('load', async function () {
             return colors[i];
         });
 
-    const userRes = await fetch(`/team-info?taNum=${taNum}`);
-    const user = await userRes.json();
 
-    document.querySelector('#team-name-modal').innerText = user.taName;
+
+    
 });
 
-async function doSendObj() {
-    //타임리프 안돼서 일단 ㅠㅠ
-    const urlParams = new URL(location.href).searchParams;
-    const taNum = urlParams.get('taNum');
-    const obj = {
-        taNum: taNum
-    }
-    const res = await fetch('/team-sign-user-add', {
-        method: 'POST',
-        body: JSON.stringify(obj),
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-        }
-    });
-    const result = await res.json();
 
-    console.log(result);
-    if (result) {
-        window.location.reload();
-        alert(`${result.resultMsg}`);
-    }
-}
