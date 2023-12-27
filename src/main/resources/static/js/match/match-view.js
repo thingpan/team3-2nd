@@ -12,9 +12,9 @@ let slideCount;
 console.log('Slide Count:', slideCount);
 
 document.addEventListener('DOMContentLoaded', function () {
-    const sliderContainer = document.getElementById('slider-container');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
+    const sliderContainer = document.querySelector('#slider-container');
+    const prevBtn = document.querySelector('#prev-btn');
+    const nextBtn = document.querySelector('#next-btn');
 
     // matchPhotos = matchInfo.matchPhotos;
 
@@ -197,7 +197,7 @@ window.addEventListener('load', async function () {
     }
 
     // 지도파트!!
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    var mapContainer = document.querySelector('#map'), // 지도를 표시할 div
         mapOption = {
             center: new kakao.maps.LatLng(matchInfo.mbMapY, matchInfo.mbMapX), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨

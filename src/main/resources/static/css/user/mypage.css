@@ -29,33 +29,26 @@
 
 .team-list {
 	justify-content: right;
-	/* ê°?ë¡? ???¬ì?? ?¤ë¥¸ìª½ì?¼ë? ?¤ì?? */
 }
 
 #team-list td {
 	text-align: center;
 	margin: 10px;
-	/* ?? ê°??? ê°?ê²? ì¡°ì?? */
 }
 
 .team-info img {
 	max-width: 100px;
-	/* ?´ë?¸ì? ìµ??? ??ë¹? ?¤ì?? */
 	max-height: 100px;
-	/* ?´ë?¸ì? ìµ??? ???? ?¤ì?? */
 	margin-right: 10px;
-	/* ?´ë?¸ì??? ???¤í?? ê°??? ê°?ê²? ì¡°ì?? */
 }
 
 label {
 	width: 80px;
-	/* Adjust the width as needed */
 	text-align: left;
 }
 
 button {
 	margin-left: 85px;
-	/* Adjust the margin as needed */
 }
 
 #password {
@@ -145,14 +138,11 @@ button {
 	display: flex;
 	flex-wrap: wrap;
 	margin-right: 30%;
-	/* Add this line */
 	justify-content: flex-start;
-	/* Add this line */
 }
 
 .additional-content {
 	margin-top: 20px;
-	/* Add additional styling as needed */
 }
 
 .action-buttonss {
@@ -161,7 +151,6 @@ button {
 	width: 100%;
 }
 
-/* Style for the profile image (replace this with your actual styles) */
 #profile-image {
 	width: 100px;
 	height: 100px;
@@ -192,10 +181,8 @@ button {
 	margin-top: 20px;
 	display: inline-block;
 	float: left;
-	/* ?¼ìª½?¼ë? ë°°ì? */
 }
 
-/* ì¶?ê°??? ë¶?ë¶? */
 .team {
 	margin: 10px;
 	text-align: center;
@@ -319,12 +306,10 @@ input[type=button]:hover {
 
 .info.box#domain-list {
 	margin-bottom: 10px;
-	/* ?????? ê°?ê²©ì?¼ë? ì¡°ì?? */
 }
 
 .edit-profile-form.info {
 	margin-bottom: 20px;
-	/* ê°?ê²? ì¡°ì?? */
 }
 
 .edit-profile-form .label-data-container {
@@ -335,7 +320,6 @@ input[type=button]:hover {
 
 .edit-profile-form label {
 	margin-right: 10px;
-	/* ???´ë?ê³? ?°ì?´í?? ê°? ê°?ê²? ì¡°ì?? */
 }
 
 h4 {
@@ -390,19 +374,16 @@ select {
 	width: 100%;
 }
 
-/* ì¶?ê°??? ?¤í????: ëª¨ë?? ???¤í?¸ë?? ?¼ìª½?¼ë? ???? */
 .modal-body form div .modal-title-text,
 .modal-body form div p {
 	text-align: left;
 }
 
-/* ì¶?ê°??? ?¤í????: ë³???ë¥? ???¤í?? ???? ???? */
 .modal-body form div p {
 	display: inline-block;
 	margin-left: 5px;
 }
 
-/* ì¶?ê°??? ?¤í????: ì¢?ëª©ì?? ê°?ë¡?ë¡? ???? */
 .modal-body form div .sports-section {
 	display: flex;
 	gap: 10px;
@@ -543,4 +524,20 @@ select {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 5px;
+}
+
+.team-buttons button {
+	margin-left: 0.5em;
+	margin-right: 0.3em;
+	height: 50px;
+	width: 50px;
+	border-radius: 100px;
+	border: none;
+}
+
+.team-buttons button:hover {
+	background-color: var(--black-color);
+	font-size: var(--p-font);
+	content: 'test';
+
 }

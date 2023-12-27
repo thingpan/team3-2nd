@@ -84,10 +84,6 @@ public class TeamInfoService {
 		return teamInfoMapper.selectTeamInfos(team);
 	}
 
-	public List<TeamInfoVO> selectTeamRank(TeamInfoVO team) {
-		return teamInfoMapper.selectTeamInfos(team);
-	}
-
 	public List<TeamInfoVO> selectTeamInfosByUiNum(int uiNum) {
 		return teamInfoMapper.selectTeamInfosByUiNum(uiNum);
 	}
@@ -127,7 +123,7 @@ public class TeamInfoService {
 		}
 		return msgVO;
 	}
-
+	//여기 매너포인트 수정
 	public void doUpdateHomeMatchResult(MatchResultVO matchResultVO) {
 		log.info("matchResultVO => {}", matchResultVO);
 		TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(matchResultVO.getTaHomeNum());
@@ -135,8 +131,9 @@ public class TeamInfoService {
 			int pointResult = teamInfoVO.getTaPoint() + 3;
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchWinCntResult = teamInfoVO.getTaWinCnt() + 1;
+			int matchMannerPoint = teamInfoVO.getTaMannerPoint() + matchResultVO.getMrHomeMannerPoint();
 			teamInfoVO.setTaPoint(pointResult);
-			teamInfoVO.setTaMannerPoint(matchResultVO.getMrHomeMannerPoint());
+			teamInfoVO.setTaMannerPoint(matchMannerPoint);
 			teamInfoVO.setTaMatchCount(matchCntResult);
 			teamInfoVO.setTaWinCnt(matchWinCntResult);
 		} else if (matchResultVO.getMrHomeScore() < matchResultVO.getMrAwayScore()) {
@@ -146,14 +143,16 @@ public class TeamInfoService {
 			}
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchLooseCntResult = teamInfoVO.getTaLooseCnt() + 1;
+			int matchMannerPoint = teamInfoVO.getTaMannerPoint() + matchResultVO.getMrHomeMannerPoint();
 			teamInfoVO.setTaPoint(pointResult);
-			teamInfoVO.setTaMannerPoint(matchResultVO.getMrHomeMannerPoint());
+			teamInfoVO.setTaMannerPoint(matchMannerPoint);
 			teamInfoVO.setTaMatchCount(matchCntResult);
 			teamInfoVO.setTaLooseCnt(matchLooseCntResult);
 		} else if (matchResultVO.getMrHomeScore() == matchResultVO.getMrAwayScore()) {
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchDrawCntResult = teamInfoVO.getTaDrawCnt() + 1;
-			teamInfoVO.setTaMannerPoint(matchResultVO.getMrHomeMannerPoint());
+			int matchMannerPoint = teamInfoVO.getTaMannerPoint() + matchResultVO.getMrHomeMannerPoint();
+			teamInfoVO.setTaMannerPoint(matchMannerPoint);
 			teamInfoVO.setTaMatchCount(matchCntResult);
 			teamInfoVO.setTaLooseCnt(matchDrawCntResult);
 		}
@@ -166,8 +165,9 @@ public class TeamInfoService {
 			int pointResult = teamInfoVO.getTaPoint() + 3;
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchWinCntResult = teamInfoVO.getTaWinCnt() + 1;
+			int matchMannerPoint = teamInfoVO.getTaMannerPoint() + matchResultVO.getMrAwayMannerPoint();
 			teamInfoVO.setTaPoint(pointResult);
-			teamInfoVO.setTaMannerPoint(matchResultVO.getMrAwayMannerPoint());
+			teamInfoVO.setTaMannerPoint(matchMannerPoint);
 			teamInfoVO.setTaMatchCount(matchCntResult);
 			teamInfoVO.setTaWinCnt(matchWinCntResult);
 		} else if (matchResultVO.getMrHomeScore() > matchResultVO.getMrAwayScore()) {
@@ -177,17 +177,24 @@ public class TeamInfoService {
 			}
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchLooseCntResult = teamInfoVO.getTaLooseCnt() + 1;
+			int matchMannerPoint = teamInfoVO.getTaMannerPoint() + matchResultVO.getMrAwayMannerPoint();
 			teamInfoVO.setTaPoint(pointResult);
-			teamInfoVO.setTaMannerPoint(matchResultVO.getMrAwayMannerPoint());
+			teamInfoVO.setTaMannerPoint(matchMannerPoint);
 			teamInfoVO.setTaMatchCount(matchCntResult);
 			teamInfoVO.setTaLooseCnt(matchLooseCntResult);
 		} else if (matchResultVO.getMrHomeScore() == matchResultVO.getMrAwayScore()) {
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchDrawCntResult = teamInfoVO.getTaDrawCnt() + 1;
-			teamInfoVO.setTaMannerPoint(matchResultVO.getMrAwayMannerPoint());
+			int matchMannerPoint = teamInfoVO.getTaMannerPoint() + matchResultVO.getMrAwayMannerPoint();
+			teamInfoVO.setTaMannerPoint(matchMannerPoint);
 			teamInfoVO.setTaMatchCount(matchCntResult);
 			teamInfoVO.setTaLooseCnt(matchDrawCntResult);
 		}
 		teamInfoMapper.updateTeamInfoToAwayMatchResult(teamInfoVO);
 	}
+
+	public List<TeamInfoVO> selectTeamRank(String taType, String taBoundarySido, Integer taPoint) {
+	       return teamInfoMapper.selectTeamRank(taType, taBoundarySido, taPoint);
+	}
+
 }

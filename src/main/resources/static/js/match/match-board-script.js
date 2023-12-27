@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			filteredMatchBoards = apiScheduleItems.filter(apiScheduleItem => {
 				const mbDate = new Date(apiScheduleItem.mbDate);
-				const skill = parseInt(document.getElementById("point").value);
+				const skill = parseInt(document.querySelector("#point").value);
 				const upperBound = skill + 100;
 
 				// 종목과 시도가 선택되었을 때만 해당 조건을 검사

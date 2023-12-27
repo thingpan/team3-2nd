@@ -42,12 +42,13 @@ public class TeamInfoController {
 	}
 
 	// 팀 랭크
-	@GetMapping("/team-infos")
-	public List<TeamInfoVO> selectTeamRank(TeamInfoVO team) {
-		List<TeamInfoVO> teamInfos = teamInfoService.selectTeamInfos(team);
-		teamInfos.sort(Comparator.comparingInt(TeamInfoVO::getTaPoint).reversed());
-		return teamInfos;
-	}
+	  @GetMapping("/team-infos")
+	    public List<TeamInfoVO> selectTeamRank(
+	            @RequestParam(value = "taType", required = false) String taType,
+	            @RequestParam(value = "taBoundarySido", required = false) String taBoundarySido,
+	            @RequestParam(value = "taPoint", required = false) Integer taPoint) {
+	        return teamInfoService.selectTeamRank(taType, taBoundarySido, taPoint);
+	    }
 
 	// 종목별 팀 순위
 	@GetMapping("/team-infos/{taType}")

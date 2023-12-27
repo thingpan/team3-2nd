@@ -124,28 +124,30 @@
 			const IdRegex = /^(?=.{8,})/;
 
 			if (!uiId) {
-				document.getElementById('errorUiId').innerHTML = "<span style='color: red;'>아이디를 입력해주세요.</span>";
+				document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>아이디를 입력해주세요.</span>";
 				return;
 			} else {
-				document.getElementById('errorUiId').innerHTML = "";
+				document.querySelector('#errorUiId').innerHTML = "";
 			}
 			if (!IdRegex.test(uiId)) {
-				document.getElementById('errorUiId').innerHTML = "<span style='color: red;'>아이디는 8자 이상이어야 합니다.</span>";
+				document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>아이디는 8자 이상이어야 합니다.</span>";
 				return;
 			} else {
-				document.getElementById('errorUiId').innerHTML = "";
+				document.querySelector('#errorUiId').innerHTML = "";
 			}
 
 			// 서버로 아이디 중복 확인 요청
 			const res = await fetch(`/auth/user-infos/${uiId}`);
 
-			console.log(res);
-			document.getElementById('errorUiId').innerHTML = "<span style='color: green;'>사용 가능한 아이디입니다.</span>";
-			isIdChecked = true;
+
 			const result = await res.json();
-			if (result) {
-				document.getElementById('errorUiId').innerHTML = "<span style='color: red;'>이미 사용 중인 아이디입니다.</span>";
+			if (result.resultMsg == 1) {
+				document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>이미 사용 중인 아이디입니다.</span>";
 				isIdChecked = false;
+			} else {
+				console.log(res);
+				document.querySelector('#errorUiId').innerHTML = "<span style='color: green;'>사용 가능한 아이디입니다.</span>";
+				isIdChecked = true;
 			}
 		}
 
@@ -160,9 +162,9 @@
 			const uiName = document.querySelector('#uiName').value;
 			const uiMobile = document.querySelector('#uiMobile').value
 			const uiAddress = document.querySelector('#uiAddress').value;
-			// const selectedYear = document.getElementById('uiYear').value;
-			// const selectedMonth = document.getElementById('uiMonth').value;
-			// const selectedDay = document.getElementById('uiDay').value;
+			// const selectedYear = document.querySelector('uiYear').value;
+			// const selectedMonth = document.querySelector('uiMonth').value;
+			// const selectedDay = document.querySelector('uiDay').value;
 			const uiBirth = (document.querySelector('#uiBirth').value).split('-').join('');
 			// const uiBirth  = uiBirth.split('-').join('');
 			const IdRegex = /^(?=.{8,})/;
@@ -178,45 +180,45 @@
 
 
 			if (!uiId) {
-				document.getElementById('errorUiId').innerHTML = "<span style='color: red;'>아이디를 입력해주세요.</span>";
+				document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>아이디를 입력해주세요.</span>";
 				return;
 			} else {
-				document.getElementById('errorUiId').innerHTML = "";
+				document.querySelector('#errorUiId').innerHTML = "";
 			}
 
 			if (uiPwd.length < 8 || uiPwd.length > 20) {
-				document.getElementById('errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상 20자 이하여야 합니다.</span>";
+				document.querySelector('#errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상 20자 이하여야 합니다.</span>";
 				return;
 			} else {
-				document.getElementById('errorUiPwd').innerHTML = "";
+				document.querySelector('#errorUiPwd').innerHTML = "";
 			}
 
 			if (uiPwd !== uiPwdConfirm) {
-				document.getElementById('errorUiPwdConfirm').innerHTML = "<span style='color: red;'>비밀번호가 일치하지 않습니다.</span>";
+				document.querySelector('#errorUiPwdConfirm').innerHTML = "<span style='color: red;'>비밀번호가 일치하지 않습니다.</span>";
 				return;
 			} else {
-				document.getElementById('errorUiPwdConfirm').innerHTML = "";
+				document.querySelector('#errorUiPwdConfirm').innerHTML = "";
 			}
 
 			if (!uiName) {
-				document.getElementById('errorUiName').innerHTML = "<span style='color: red; font-size: 8px;'>이름을 입력해주세요.</span>";
+				document.querySelector('#errorUiName').innerHTML = "<span style='color: red; font-size: 8px;'>이름을 입력해주세요.</span>";
 				return;
 			} else {
-				document.getElementById('errorUiName').innerHTML = "";
+				document.querySelector('#errorUiName').innerHTML = "";
 			}
 
 			if (!document.querySelector('#uiMobile').value) {
-				document.getElementById('errorUiMobile').innerHTML = "<span style='color: red;'>전화번호를 입력해주세요.</span>";
+				document.querySelector('#errorUiMobile').innerHTML = "<span style='color: red;'>전화번호를 입력해주세요.</span>";
 				return;
 			} else {
-				document.getElementById('errorUiMobile').innerHTML = "";
+				document.querySelector('#errorUiMobile').innerHTML = "";
 			}
 
 			if (!document.querySelector('#uiEmail').value) {
-				document.getElementById('errorEmail').innerHTML = "<span style='color: red;'>이메일을 입력해주세요.</span>";
+				document.querySelector('#errorEmail').innerHTML = "<span style='color: red;'>이메일을 입력해주세요.</span>";
 				return;
 			} else {
-				document.getElementById('errorEmail').innerHTML = "";
+				document.querySelector('#errorEmail').innerHTML = "";
 			}
 			if (!document.querySelector('#uiBirth').value) {
 				document.querySelector('#errorBirth').innerHTML = "<span style='color: red;'>생년월일을 입력해주세요.</span>";
@@ -226,16 +228,16 @@
 			}
 
 			if (!document.querySelector('#uiAddress').value) {
-				document.getElementById('errorAddress').innerHTML = "<span style='color: red;'>주소를 입력해주세요.</span>";
+				document.querySelector('#errorAddress').innerHTML = "<span style='color: red;'>주소를 입력해주세요.</span>";
 				return;
 			} else {
-				document.getElementById('errorAddress').innerHTML = "";
+				document.querySelector('#errorAddress').innerHTML = "";
 
 			} if (!passwordRegex.test(uiPwd)) {
-				document.getElementById('errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상이어야 하고,<br>특수문자가 하나 이상 포함되어야 합니다.</span>";
+				document.querySelector('#errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상이어야 하고,<br>특수문자가 하나 이상 포함되어야 합니다.</span>";
 				return;
 			} else {
-				document.getElementById('errorUiPwd').innerHTML = "";
+				document.querySelector('#errorUiPwd').innerHTML = "";
 			}
 
 			const data = {
@@ -263,14 +265,14 @@
 		}
 
 		function searchAddress() {
-			const searchButton = document.getElementById('searchButton');
+			const searchButton = document.querySelector('#searchButton');
 			searchButton.disabled = true; // 버튼 비활성화
 			new daum.Postcode({
 				oncomplete: function (data) {
 					if (data.buildingName != "") {
-						document.getElementById('uiAddress').value = data.address + ` (${data.buildingName})`;
-					}else{
-						document.getElementById('uiAddress').value = data.address
+						document.querySelector('#uiAddress').value = data.address + ` (${data.buildingName})`;
+					} else {
+						document.querySelector('#uiAddress').value = data.address
 					}
 					console.log(data)
 					searchButton.disabled = false; // 검색이 완료되면 버튼 활성화

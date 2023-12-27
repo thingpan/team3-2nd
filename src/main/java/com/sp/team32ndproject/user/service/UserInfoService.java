@@ -44,8 +44,14 @@ public class UserInfoService implements UserDetailsService {
 		return userInfoMapper.insertUserInfo(user);
 	}
 
-	public UserInfoVO doCheckUiId(String uiId) {
-		return userInfoMapper.selectUserInfoByUiId(uiId);
+	public MsgVO doCheckUiId(String uiId) {
+		MsgVO msgVO = new MsgVO();
+		if(userInfoMapper.selectUserInfoByUiId(uiId) != null) {
+			msgVO.setResultMsg("1");
+		}else {
+			msgVO.setResultMsg("0");
+		}
+		return msgVO;
 	}
 
 	public UserInfoVO selectUserInfoByUiId(String uiId) {

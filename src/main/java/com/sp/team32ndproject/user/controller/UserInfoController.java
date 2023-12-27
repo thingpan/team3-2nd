@@ -37,7 +37,7 @@ public class UserInfoController {
 	
 	//회원가입시 입력한 아이디가 중복되는지 확인
 	@GetMapping("/auth/user-infos/{uiId}")
-	public UserInfoVO doCheckUiId(@PathVariable String uiId) {
+	public MsgVO doCheckUiId(@PathVariable String uiId) {
 		return userInfoService.doCheckUiId(uiId);
 	}
 	
