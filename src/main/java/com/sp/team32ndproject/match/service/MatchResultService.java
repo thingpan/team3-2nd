@@ -1,5 +1,7 @@
 package com.sp.team32ndproject.match.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sp.team32ndproject.match.mapper.MatchResultMapper;
 import com.sp.team32ndproject.match.vo.MatchResultVO;
+import com.sp.team32ndproject.team.mapper.TeamInfoMapper;
 import com.sp.team32ndproject.team.service.TeamInfoService;
 import com.sp.team32ndproject.team.vo.MsgVO;
+import com.sp.team32ndproject.team.vo.TeamInfoVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,6 +25,8 @@ public class MatchResultService {
 	private MatchResultMapper matchResultMapper;
 	@Autowired
 	private TeamInfoService teamInfoService;
+	@Autowired
+	private TeamInfoMapper teamInfoMapper;
 
 	public MsgVO insertMatchResult(MatchResultVO matchResultVO) {
 		MsgVO msgVO = new MsgVO();
@@ -60,27 +66,64 @@ public class MatchResultService {
 
 	public PageInfo<MatchResultVO> selectMatchDealInfosByAwayNumWithHelper(MatchResultVO matchResultVO) {
 		PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
-		List<MatchResultVO> selectHomeResults = matchResultMapper
+		List<MatchResultVO> selectAwayResults = matchResultMapper
 				.selectMatchDealInfosByAwayNumWithHelper(matchResultVO);
-		for (int i = 0; i < selectHomeResults.size(); i++) {
-			if (selectHomeResults.get(i).getMrRequestStatus().equals("3")) {
-				if (selectHomeResults.get(i).getMrHomeScore() < selectHomeResults.get(i).getMrAwayScore()) {
-					selectHomeResults.get(i).setMrWinLoose("승리");
-				} else if (selectHomeResults.get(i).getMrHomeScore() > selectHomeResults.get(i).getMrAwayScore()) {
-					selectHomeResults.get(i).setMrWinLoose("패배");
+		for (int i = 0; i < selectAwayResults.size(); i++) {
+			if (selectAwayResults.get(i).getMrRequestStatus().equals("3")) {
+				if (selectAwayResults.get(i).getMrHomeScore() < selectAwayResults.get(i).getMrAwayScore()) {
+					selectAwayResults.get(i).setMrWinLoose("승리");
+				} else if (selectAwayResults.get(i).getMrHomeScore() > selectAwayResults.get(i).getMrAwayScore()) {
+					selectAwayResults.get(i).setMrWinLoose("패배");
 				} else {
-					selectHomeResults.get(i).setMrWinLoose("무승부");
+					selectAwayResults.get(i).setMrWinLoose("무승부");
 				}
 			}
 		}
 
-		return new PageInfo<>(selectHomeResults);
+		return new PageInfo<>(selectAwayResults);
+	}
+
+	public PageInfo<MatchResultVO> selectMatchResultInfos(MatchResultVO matchResultVO) {
+		int taNum = matchResultVO.getTaHomeNum();
+		TeamInfoVO teamInfoVO = new TeamInfoVO();
+		PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
+		List<MatchResultVO> allList = matchResultMapper.selectMatchDealInfosWithHelper(matchResultVO);
+
+		for (int i = 0; i < allList.size(); i++) {
+			if (allList.get(i).getTaHomeNum() == taNum) {
+				teamInfoVO = teamInfoMapper.selectTaTypeMatchBoardInfoByTaNum(allList.get(i).getTaAwayNum());
+				allList.get(i).setTaName(teamInfoVO.getTaName());
+				if (allList.get(i).getMrRequestStatus().equals("3")) {
+					if (allList.get(i).getMrHomeScore() > allList.get(i).getMrAwayScore()) {
+						allList.get(i).setMrWinLoose("승리");
+					} else if (allList.get(i).getMrHomeScore() < allList.get(i).getMrAwayScore()) {
+						allList.get(i).setMrWinLoose("패배");
+					} else {
+						allList.get(i).setMrWinLoose("무승부");
+					}
+				}
+
+			} else {
+				teamInfoVO = teamInfoMapper.selectTaTypeMatchBoardInfoByTaNum(allList.get(i).getTaAwayNum());
+				allList.get(i).setTaName(teamInfoVO.getTaName());
+				if (allList.get(i).getMrRequestStatus().equals("3")) {
+					if (allList.get(i).getMrHomeScore() < allList.get(i).getMrAwayScore()) {
+						allList.get(i).setMrWinLoose("승리");
+					} else if (allList.get(i).getMrHomeScore() > allList.get(i).getMrAwayScore()) {
+						allList.get(i).setMrWinLoose("패배");
+					} else {
+						allList.get(i).setMrWinLoose("무승부");
+					}
+				}
+			}
+		}
+		return new PageInfo<>(allList);
 	}
 
 	public MsgVO updateMatchResultInfoFirst(MatchResultVO matchResultVO) {
 		MsgVO msgVO = new MsgVO();
 		if (matchResultMapper.updateMatchResultInfoFirst(matchResultVO) == 1) {
-			if(matchResultVO.getMrRequestStatus().equals("3")) {
+			if (matchResultVO.getMrRequestStatus().equals("3")) {
 				log.info("matchBoardInfo => {}", matchResultMapper.selectMatchResultInfo(matchResultVO));
 				matchResultVO = matchResultMapper.selectMatchResultInfo(matchResultVO);
 				teamInfoService.doUpdateHomeMatchResult(matchResultVO);
