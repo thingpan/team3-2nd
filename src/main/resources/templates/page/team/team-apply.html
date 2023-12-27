@@ -84,10 +84,10 @@
 				const result = await res.json();
 				if (result) {
 					alert('수락 성공');
-					location.reload();
+					getTeamSignUserInfoList();
 				} else {
 					alert('수락 실패 다시 시도해 주세요');
-					location.reload();
+					getTeamSignUserInfoList();
 				}
 			} else {
 				return false;
@@ -110,10 +110,10 @@
 				const result = await res.json();
 				if (result) {
 					alert('거절 성공');
-					location.reload();
+					getTeamSignUserInfoList();
 				} else {
 					alert('거절 실패 다시 시도해 주세요');
-					location.reload();
+					getTeamSignUserInfoList();
 				}
 			} else {
 				return false;
