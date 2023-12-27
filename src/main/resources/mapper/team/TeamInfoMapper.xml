@@ -74,7 +74,7 @@
 			</if>
 		</where>
 		ORDER BY TA_POINT DESC
-		LIMIT 20;
+		LIMIT 100;
 	</select>
 
 	<select id="selectTeamInfoByTaName"

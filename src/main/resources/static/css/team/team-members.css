@@ -83,3 +83,7 @@ body {
 #team-user-list-head th {
 	background-color: var(--btn-gray-color);
 }
+
+#team-user-list-info td {
+	vertical-align: middle;
+}
