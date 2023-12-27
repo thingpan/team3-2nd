@@ -165,6 +165,8 @@
 			}
 
 			async function doSendObj() {
+				const urlParams = new URL(location.href).searchParams;
+				const taNum = urlParams.get('taNum');
 				//타임리프 안돼서 일단 ㅠㅠ 
 				const obj = {
 					taNum: taNum
