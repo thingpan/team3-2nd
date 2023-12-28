@@ -1,5 +1,6 @@
 package com.sp.team32ndproject.team.service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sp.team32ndproject.match.mapper.MatchBoardInfoMapper;
+import com.sp.team32ndproject.match.vo.MatchBoardInfoVO;
 import com.sp.team32ndproject.team.mapper.TeamInfoMapper;
 import com.sp.team32ndproject.team.mapper.TeamSignUserInfoMapper;
 import com.sp.team32ndproject.team.mapper.TeamUserInfoMapper;
@@ -25,6 +28,7 @@ public class TeamUserInfoService {
 	private final TeamUserInfoMapper teamUserInfoMapper;
 	private final TeamSignUserInfoMapper teamSignUserInfoMapper;
 	private final TeamInfoMapper teamInfoMapper;
+	private final MatchBoardInfoMapper matchBoardInfoMapper;
 
 	// 팀 만들때
 	public int insertTeamUserInfo(TeamUserInfoVO teamUserInfoVO) {
@@ -101,6 +105,12 @@ public class TeamUserInfoService {
 				int result = teamUserInfoMapper.deleteTeamUser(teamUserInfo);
 				if (result == 1) {
 					int updateResult =teamInfoMapper.updateTeamTaActiveStatusInfo(taNum);
+					if(updateResult == 1) {
+						List<MatchBoardInfoVO> matchBoardInfoVOs = matchBoardInfoMapper.selectMatchInfosByTaNum(taNum);
+						for(MatchBoardInfoVO matchBoardInfoVO : matchBoardInfoVOs) {
+							matchBoardInfoMapper.deleteMatchBoardInfoActivityStatus(matchBoardInfoVO);
+						}
+					}
 					msgVO.setResultMsg("팀 탈퇴가 성공하였습니다.");
 					return msgVO;
 				}

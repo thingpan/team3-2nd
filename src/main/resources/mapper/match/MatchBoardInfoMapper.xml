@@ -33,6 +33,8 @@
 
 	</select>
 
+
+
 	<select id="selectMatchInfosByTaNum"
 		resultType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
 		SELECT * FROM MATCH_BOARD_INFO
@@ -44,7 +46,7 @@
 		UPDATE MATCH_BOARD_INFO SET MB_STATUS = 1
 		WHERE MB_NUM =
 		#{mbNum}
-		
+
 	</update>
 	<update id="deleteMatchBoardInfoActivityStatus"
 		parameterType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
@@ -53,7 +55,7 @@
 		MB_NUM =
 		#{mbNum};
 	</update>
-	<update id="updateMatchBoardInfo" 
+	<update id="updateMatchBoardInfo"
 		parameterType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
 		UPDATE MATCH_BOARD_INFO SET TA_NUM = #{taNum},
 		MB_ADDRESS = #{mbAddress},
@@ -67,7 +69,8 @@
 		MB_DESC= #{mbDate},
 		MB_PAY = #{mbPay},
 		MB_TYPE= #{mbType}
-		WHERE MB_NUM = #{mbNum}
+		WHERE MB_NUM =
+		#{mbNum}
 
 	</update>
 </mapper>

@@ -164,7 +164,7 @@ public class TeamInfoService {
 			int matchMannerPoint = teamInfoVO.getTaMannerPoint() + matchResultVO.getMrHomeMannerPoint();
 			teamInfoVO.setTaMannerPoint(matchMannerPoint);
 			teamInfoVO.setTaMatchCount(matchCntResult);
-			teamInfoVO.setTaLooseCnt(matchDrawCntResult);
+			teamInfoVO.setTaDrawCnt(matchDrawCntResult);
 		}
 		teamInfoMapper.updateTeamInfoToHomeMatchResult(teamInfoVO);
 	}
@@ -198,7 +198,7 @@ public class TeamInfoService {
 			int matchMannerPoint = teamInfoVO.getTaMannerPoint() + matchResultVO.getMrAwayMannerPoint();
 			teamInfoVO.setTaMannerPoint(matchMannerPoint);
 			teamInfoVO.setTaMatchCount(matchCntResult);
-			teamInfoVO.setTaLooseCnt(matchDrawCntResult);
+			teamInfoVO.setTaDrawCnt(matchDrawCntResult);
 		}
 		teamInfoMapper.updateTeamInfoToAwayMatchResult(teamInfoVO);
 	}
