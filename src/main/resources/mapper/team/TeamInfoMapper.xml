@@ -72,7 +72,7 @@
 				AND TA_BOUNDARY_SIDO = #{taBoundarySido}
 			</if>
 			<if test="taPoint != null and taPoint != 0">
-				AND TA_POINT = #{taPoint}
+				AND TA_POINT > #{taPoint}
 			</if>
 			and not ta_active_status = 1
 		</where>
