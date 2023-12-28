@@ -187,7 +187,7 @@ window.addEventListener('load', async function () {
     const teamPoint = teamInfoList.taPoint;
 
     if (teamInfoList.uiNum == document.querySelector('#matchViewUiNum').innerHTML) {
-        document.querySelector('#updateAndDeleteButton').innerHTML = '<button class="btn btn-dark" onclick="doGoUpdatePage()">수정</button><button class="btn btn-dark" onclick="matchboarddelete()">삭제</button>'
+        document.querySelector('#updateAndDeleteButton').innerHTML = '<button class="btn btn-dark" id="modifyBtn" onclick="doGoUpdatePage()">수정</button><button class="btn btn-dark" id="deleteBtn" onclick="matchboarddelete()">삭제</button>'
     }
 
     nameValue.innerHTML = `${taName}`;

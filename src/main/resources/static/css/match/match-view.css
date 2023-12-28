@@ -240,6 +240,10 @@ img {
 
 #updateAndDeleteButton{
 	text-align: center;
-	display: flex;
-    justify-content: space-evenly;
+	/*display: flex;*/
+	/*justify-content: space-evenly;*/
+}
+
+#modifyBtn + #deleteBtn {
+	margin-left: 0.5rem;
 }
