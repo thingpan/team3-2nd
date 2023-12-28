@@ -74,8 +74,9 @@
 			<if test="taPoint != null and taPoint != 0">
 				AND TA_POINT = #{taPoint}
 			</if>
+			and not ta_active_status = 1
 		</where>
-		where not ta_active_status = 1
+		
 		ORDER BY TA_POINT DESC
 		LIMIT 100;
 	</select>
