@@ -3,6 +3,7 @@ package com.sp.team32ndproject.team.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -77,27 +78,38 @@ public class TeamUserInfoService {
 		return false;
 	}
 
-	public MsgVO deleteTeamUser(TeamUserInfoVO teamUserInfo) {
+	public MsgVO deleteTeamUser(@RequestParam int taNum, TeamUserInfoVO teamUserInfo) {
 		MsgVO msgVO = new MsgVO();
+		List<TeamUserInfoVO> teamUserInfoVO = teamUserInfoMapper.selectTeamByTaNum(taNum);
 		String userRole = teamUserInfo.getTuRole();
-
 		if ("USER".equals(userRole)) {
-			int result = teamUserInfoMapper.deleteTeamUser(teamUserInfo);
-
-			if (result == 1) {
-				msgVO.setResultMsg("팀 탈퇴가 성공하였습니다.");
-				return msgVO;
-			} else {
-				msgVO.setResultMsg("팀 탈퇴가 실패하였습니다.");
-				return msgVO;
+			if (teamUserInfoVO.size() > 1) {
+				int result = teamUserInfoMapper.deleteTeamUser(teamUserInfo);
+				if (result == 1) {
+					msgVO.setResultMsg("팀 탈퇴가 성공하였습니다.");
+					return msgVO;
+				} else {
+					msgVO.setResultMsg("팀 탈퇴가 실패하였습니다.");
+					return msgVO;
+				}
 			}
 		} else if ("ADMIN".equals(userRole)) {
-			msgVO.setResultMsg("팀장은 팀 탈퇴가 불가능합니다.");
-			return msgVO;
+			if (teamUserInfoVO.size() > 1) {
+				msgVO.setResultMsg("팀에 소속된 팀원이 있어서 불가능합니다.");
+				return msgVO;
+			} else if (teamUserInfoVO.size() == 1) {
+				int result = teamUserInfoMapper.deleteTeamUser(teamUserInfo);
+				if (result == 1) {
+					int updateResult =teamInfoMapper.updateTeamTaActiveStatusInfo(taNum);
+					msgVO.setResultMsg("팀 탈퇴가 성공하였습니다.");
+					return msgVO;
+				}
+			}
 		} else {
 			msgVO.setResultMsg("팀에 속하지 않습니다.");
 			return msgVO;
 		}
+		return msgVO;
 	}
 
 	public TeamUserInfoVO getUserRole(TeamUserInfoVO teamUserInfo) {

@@ -10,7 +10,7 @@
 
 	<select id="selectTaTypeMatchBoardInfoByTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
-		SELECT TA_TYPE, TA_NAME FROM TEAM_INFO
+		SELECT TA_TYPE, TA_NAME, TA_ACTIVE_STATUS FROM TEAM_INFO
 		WHERE TA_NUM = #{taNum}
 
 	</select>
@@ -73,6 +73,7 @@
 				AND TA_POINT = #{taPoint}
 			</if>
 		</where>
+		where not ta_active_status = 1
 		ORDER BY TA_POINT DESC
 		LIMIT 100;
 	</select>
@@ -191,4 +192,9 @@
 		#{taDesc},#{taType},#{taFilePath},#{taFileName}
 		);
 	</insert>
+	<update id="updateTeamTaActiveStatusInfo"
+		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		UPDATE TEAM_INFO SET TA_ACTIVE_STATUS=1
+		WHERE TA_NUM=#{TA_NUM}
+	</update>
 </mapper>

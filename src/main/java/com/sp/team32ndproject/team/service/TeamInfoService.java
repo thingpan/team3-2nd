@@ -207,4 +207,6 @@ public class TeamInfoService {
 		return teamInfoMapper.selectTeamRank(taType, taBoundarySido, taPoint);
 	}
 
+
+
 }

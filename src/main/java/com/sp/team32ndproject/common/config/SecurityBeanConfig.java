@@ -7,7 +7,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.sp.team32ndproject.common.checker.TeamInfoAuthManager;
 import com.sp.team32ndproject.common.checker.TeamParamAuthManager;
+import com.sp.team32ndproject.team.mapper.TeamInfoMapper;
 import com.sp.team32ndproject.team.service.TeamInfoService;
 import com.sp.team32ndproject.user.service.UserInfoService;
 
@@ -20,6 +22,8 @@ public class SecurityBeanConfig {
 	private UserInfoService userInfoService;
 	@Autowired
 	private TeamInfoService teamInfoService;
+	@Autowired
+	private TeamInfoMapper teamInfoMapper;
 
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() { // static 안에 있는 css등등 필요한 애들은 webServer딴에서 이그노어 해줘야 해서 일케 함
@@ -36,7 +40,9 @@ public class SecurityBeanConfig {
 				.antMatchers("/auth/user-infos/*","/login","/join","/page/user/login","/page/user/join", "/", "/team-infos","/match-board")
 				.permitAll()
 				.antMatchers("/page/team/team-settings","/page/team/team-apply", "/page/match/match-status", "/page/team/record") 
-				.access(new TeamParamAuthManager(teamInfoService)) 
+				.access(new TeamParamAuthManager(teamInfoService))
+				.antMatchers("/page/team/**") 
+				.access(new TeamInfoAuthManager(teamInfoMapper))
 				.anyRequest()
 				.authenticated())
 		.formLogin(formLogin -> formLogin 

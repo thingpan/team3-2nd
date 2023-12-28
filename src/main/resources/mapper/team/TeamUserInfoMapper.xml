@@ -34,6 +34,11 @@
 		SELECT UI_NUM FROM TEAM_USER_INFO
 		WHERE TA_NUM = #{taNum};
 	</select>
+	<select id="selectTeamByTaNum"
+		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
+		SELECT * FROM TEAM_USER_INFO
+		WHERE TA_NUM = #{taNum};
+	</select>
 	<delete id="deleteTeamUserInfo"
 		parameterType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
 		DELETE FROM TEAM_USER_INFO
@@ -42,14 +47,16 @@
 	<delete id="deleteTeamUser"
 		parameterType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
 		DELETE FROM TEAM_USER_INFO
-		WHERE UI_NUM = #{uiNum} AND TA_NUM = #{taNum};
+		WHERE UI_NUM = #{uiNum} AND
+		TA_NUM = #{taNum};
 
 	</delete>
 	<select id="TeamUserRole"
 		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
 		SELECT TU_ROLE
 		FROM TEAM_USER_INFO
-		WHERE UI_NUM = #{uiNum} AND TA_NUM = #{taNum}
+		WHERE UI_NUM = #{uiNum}
+		AND TA_NUM = #{taNum}
 	</select>
 
 </mapper>

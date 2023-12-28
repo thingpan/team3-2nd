@@ -136,13 +136,13 @@
 
 						if (result != null) {
 							alert(`${result.resultMsg}`);
+							location.href='/page/user/mypage'
 							getTeamUserInfoList();
 						}
 					}
 				}
 			} catch (error) {
-				alert('팀에 속하지 않습니다.');
-				location.reload();
+				alert('팀에 속하지 않습니다.'); 
 			}
 		}
 
