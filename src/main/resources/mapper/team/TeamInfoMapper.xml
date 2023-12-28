@@ -33,8 +33,6 @@
 		WHERE UI_NUM = #{uiNum}
 		AND TA_TYPE =
 		#{taType}
-		where not ta_active_status = 1
-
 	</select>
 	<select id="selectTeamRankByTeamType"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
