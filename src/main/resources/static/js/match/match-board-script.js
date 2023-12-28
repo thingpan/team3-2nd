@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		// 필터링된 매치 목록 (mbStatus 0 또는 1인 것만 포함)
 		filteredMatchBoards = apiScheduleItems.filter(apiScheduleItem => {
 			const mbDate = new Date(apiScheduleItem.mbDate);
-			const skill = parseInt(document.querySelector("#point").value);
+			const skill = parseInt(document.querySelector("#point").value) || 0;
 			const upperBound = skill + 100;
 
 			console.log('apiScheduleItem.activityStatus:', apiScheduleItem.activityStatus);
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				mbDate.getMonth() === selectedDate.getMonth() &&
 				mbDate.getFullYear() === selectedDate.getFullYear();
 			const isActivityStatus = apiScheduleItem.activityStatus == 0
-			const isPointMatch = !selectedPoint || skill === '0' || (apiScheduleItem.taPoint >= skill && apiScheduleItem.taPoint <= upperBound);
+			const isPointMatch = !selectedPoint || skill === 0 || (apiScheduleItem.taPoint >= skill && apiScheduleItem.taPoint <= upperBound);
 			const isDeadlineMatch = !deadlineCheckbox.checked || apiScheduleItem.mbStatus !== "1";
 
 			return isSportMatch && isSidoMatch && isDateMatch && isPointMatch && isDeadlineMatch&&isActivityStatus;
