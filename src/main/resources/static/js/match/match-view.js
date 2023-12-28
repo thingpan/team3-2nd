@@ -240,10 +240,6 @@ function selectedTeam(taNum, taName) {
     document.querySelector(`#team${taNum}`).style.backgroundColor = "black";
     doMakePostMessageDiv();
     selectedTeamNum = taNum;
-
-    document.querySelector('#post-message-oponentName').innerHTML = oponentTaName;
-    document.querySelector('#post-message-info-oponentName').innerHTML = oponentTaName;
-    document.querySelector('#post-message-taName').innerHTML = taName;
 }
 
 //쪽지 보내기 div 생성
