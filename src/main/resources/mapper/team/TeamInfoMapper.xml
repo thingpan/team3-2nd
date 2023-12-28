@@ -144,7 +144,7 @@
 			<if test="taLooseCnt != null and taLooseCnt != ''">
 				TA_LOOSE_CNT = #{taLooseCnt},
 			</if>
-			<if test="taWinCnt != null and taWinCnt != ''">
+			<if test="taDrawCnt != null and taDrawCnt != ''">
 				TA_DRAW_CNT = #{taDrawCnt}
 			</if>
 		</set>
@@ -170,7 +170,7 @@
 			<if test="taLooseCnt != null and taLooseCnt != ''">
 				TA_LOOSE_CNT = #{taLooseCnt},
 			</if>
-			<if test="taWinCnt != null and taWinCnt != ''">
+			<if test="taDrawCnt != null and taDrawCnt != ''">
 				TA_DRAW_CNT = #{taDrawCnt}
 			</if>
 		</set>

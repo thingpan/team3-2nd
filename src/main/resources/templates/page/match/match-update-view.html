@@ -328,7 +328,7 @@
 			});
 
 			const result = await res.json();
-			if (result != 0) {
+			if (result > 1) {
 				alert('등록 성공');
 				location.href = '/page/match/match-board';
 			} else {
