@@ -123,6 +123,12 @@
 	scroll-behavior: smooth;
 }
 
+input::-webkit-inner-spin-button {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+
 .remove-btn {
 	margin-right: 5px;
 }

@@ -230,9 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 
 		// 체크박스를 비활성화할지 여부를 결정
-		isCheckboxDisabled = filteredMatchBoards.length === 0 && (deadlineCheckbox.checked || filteredMatchBoards.length === 0);
-
-
+		isCheckboxDisabled = filteredMatchBoards.length === 0 && !deadlineCheckbox.checked;
 
 		const scheduleTable = document.querySelector('#schedule');
 		scheduleTable.innerHTML = '';
