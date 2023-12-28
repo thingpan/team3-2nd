@@ -33,6 +33,8 @@
 		WHERE UI_NUM = #{uiNum}
 		AND TA_TYPE =
 		#{taType}
+		where not ta_active_status = 1
+
 	</select>
 	<select id="selectTeamRankByTeamType"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
@@ -192,8 +194,9 @@
 		#{taDesc},#{taType},#{taFilePath},#{taFileName}
 		);
 	</insert>
-	<update id="updateTeamTaActiveStatusInfo"	parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
-	UPDATE TEAM_INFO SET TA_ACTIVE_STATUS=1
-	WHERE TA_NUM=#{TA_NUM}
+	<update id="updateTeamTaActiveStatusInfo"
+		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		UPDATE TEAM_INFO SET TA_ACTIVE_STATUS=1
+		WHERE TA_NUM=#{TA_NUM}
 	</update>
 </mapper>
