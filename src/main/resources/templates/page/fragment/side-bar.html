@@ -31,13 +31,13 @@
 					</a>
 					<a th:href="@{/page/team/team-members(taNum=${param.taNum})}" class="nav__link"
 						style="color: #fff; text-decoration: none">
-						<ion-icon name="create-outline" class="nav__icon"></ion-icon>
+						<ion-icon name="people-outline" class="nav__icon"></ion-icon>
 						<span class="nav_name">팀원 목록</span>
 					</a>
 					<div id="slide" style="display:block;">
 						<a th:href="@{/page/team/team-apply(taNum=${param.taNum})}" class="nav__link"
 							style="color: #fff; text-decoration: none">
-							<ion-icon name="people-outline" class="nav__icon"></ion-icon>
+							<ion-icon name="person-add-outline" class="nav__icon"></ion-icon>
 							<span class="nav_name">가입 신청인원</span>
 						</a>
 						<a th:href="@{/page/team/record(taNum=${param.taNum})}" class="nav__link"
@@ -48,7 +48,7 @@
 
 						<a th:href="@{/page/match/match-status(taNum=${param.taNum})}" class="nav__link"
 							style="color: #fff; text-decoration: none">
-							<ion-icon name="checkmark-done-outline" class="nav__icon"></ion-icon>
+							<ion-icon name="mail-unread-outline" class="nav__icon"></ion-icon>
 							<span class="nav_name">매칭 현황</span>
 						</a>
 						<a th:href="@{/page/team/team-settings(taNum=${param.taNum})}" class="nav__link"
