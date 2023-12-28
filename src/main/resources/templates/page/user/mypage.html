@@ -86,7 +86,7 @@
 									<select id="sido" class="filter-select" onchange="makeSigungu()">
 										<option>시/도</option>
 									</select>
-									<select id="sigungu" class="filter-select" onchange="updateSchedule()">
+									<select id="sigungu" class="filter-select">
 										<option>시/군/구</option>
 									</select>
 								</div>
@@ -371,7 +371,6 @@
 						alert("새 비밀번호와 확인이 일치합니다");
 						document.querySelector('#change-password-popup').style.display = 'none';
 					} else {
-
 						alert("새 비밀번호와 확인이 일치하지 않습니다.");
 					}
 				} else {
@@ -390,11 +389,11 @@
 
 					const result = await response.json();
 
-					if (result = 2) {
+					if (result.resultMsg == 2) {
 						alert(`가입된 팀을 탈퇴 해 주세요!`);
-					} else if (result = 0) {
+					} else if (result.resultMsg == 0) {
 						alert(`탈퇴 완료`);
-						location.href = `/auth/login`;
+						location.href = `/auth/logout`;
 					}else{
 						alert(`탈퇴 중 문제 발생 다시 시도해 주세요`);
 					}

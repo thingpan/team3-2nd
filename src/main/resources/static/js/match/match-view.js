@@ -52,9 +52,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (matchPhotos.length === 0) {
             console.log(matchPhotos.length);
-            // 이미지가 없을 경우 기본 이미지 추가
-            const img = document.createElement('img');
-            img.src = '/imgs/no-image.jpg';
+
+            // 이미지가 없을 경우 이미지 없음 텍스트 출력
+            const img = document.createElement('div');
+            img.style.width = '100%';
+            img.style.height = '350px';
+            img.style.borderRadius = '10px';
+            // img.style.border = '2px solid black';
+            img.style.backgroundColor = '#e1e1e1';
+            img.style.display = 'flex';
+            img.style.alignItems = 'center';
+            img.style.justifyContent = 'center';
+
+            // 텍스트 추가
+            const text = document.createElement('span');
+            text.textContent = '등록된 사진이 없습니다.';
+            text.style.color = '#555';
+            text.style.fontSize = '18px';
+
+            img.appendChild(text);
             sliderContainer.appendChild(img);
         } else {
             matchPhotos.forEach(photo => {
@@ -62,8 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (photo.mbpFilePath) {
                     img.src = photo.mbpFilePath;
-                } else {
-                    img.src = '/imgs/no-image.jpg';
                 }
 
                 sliderContainer.appendChild(img);
@@ -100,10 +114,10 @@ window.addEventListener('load', async function () {
     } else if (matchInfo.activityStatus == 1) {
         alert('삭제된 매치입니다')
         this.location.href = '/page/match/match-board';
-    }else if(new Date(matchInfo.mbDate) < today){
+    } else if (new Date(matchInfo.mbDate) < today) {
         alert('기간이 지난 매치입니다')
         this.location.href = '/page/match/match-board';
-	}
+    }
 
     function addCommas(number) {
         const numericValue = number.toString().replace(/[^\d]/g, ''); // 문자열로 변환 후 숫자 이외의 문자 제거
@@ -173,7 +187,7 @@ window.addEventListener('load', async function () {
     const teamPoint = teamInfoList.taPoint;
 
     if (teamInfoList.uiNum == document.querySelector('#matchViewUiNum').innerHTML) {
-        document.querySelector('#updateAndDeleteButton').innerHTML = '<button class="btn btn-dark" onclick="doGoUpdatePage()">수정</button><button class="btn btn-dark" onclick="matchboarddelete()">삭제</button>'
+        document.querySelector('#updateAndDeleteButton').innerHTML = '<button class="btn btn-dark" id="modifyBtn" onclick="doGoUpdatePage()">수정</button><button class="btn btn-dark" id="deleteBtn" onclick="matchboarddelete()">삭제</button>'
     }
 
     nameValue.innerHTML = `${taName}`;
@@ -320,8 +334,8 @@ function goTeamPage(obj) {
     location.href = `/page/match/match-record?taNum=${obj.value}`;
 }
 
-function doGoUpdatePage(){
-	location.href = `/page/match/match-update-view?mbNum=${mbNum}`;
+function doGoUpdatePage() {
+    location.href = `/page/match/match-update-view?mbNum=${mbNum}`;
 }
 
 //쪽지 보내기
