@@ -25,7 +25,7 @@
 	height: 410px;
 	margin: 0 auto;
 	overflow: hidden; /* 영역을 벗어나면 보이지 않게 */
-	border-radius: 20px;
+	/*border-radius: 20px;*/
 	text-align: -webkit-center;
 }
 
