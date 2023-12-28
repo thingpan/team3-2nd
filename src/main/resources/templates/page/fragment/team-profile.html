@@ -133,7 +133,7 @@
 
 				const mannersProgress = document.querySelector('#manners-progress');
 				// taMannerPoint가 참 값인지 확인; 그렇지 않으면 0으로 기본값 사용
-				const mannerPercent = teamData.taMannerPoint ? (teamData.taMannerPoint / teamData.taMatchCount) : 0;
+				const mannerPercent = Math.floor(teamData.taMannerPoint ? (teamData.taMannerPoint / teamData.taMatchCount) : 0);
 				mannersProgress.style.width = `${mannerPercent}%`;
 
 				// 현재 점수 표시
@@ -149,7 +149,6 @@
 				if (teamData.taSignStatus == 1) {
 					document.querySelector('#teamSignBtn').innerHTML = '<span style="color: red;">가입신청 대기 중</span>'
 				}
-
 			}
 
 			function teamSignRequest() {
