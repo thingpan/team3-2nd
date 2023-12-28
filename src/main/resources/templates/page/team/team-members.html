@@ -88,7 +88,7 @@
 
 				if (result != null) {
 					alert(`${result.resultMsg}`);
-					location.reload();
+					getTeamUserInfoList();
 				}
 
 			} else {
@@ -109,16 +109,20 @@
 		async function getUserRole() {
 
 			const uiNum = await getSessionUiNum();
-			const res = await fetch(`/get-user-role?uiNum=${uiNum}&taNum=${taNum}`);
-			const userRole = await res.json();
-
-			if (userRole) {
-				return userRole.tuRole
-			} else {
-				console.error('없습니다');
-				return null;
+			try {
+				const res = await fetch(`/get-user-role?uiNum=${uiNum}&taNum=${taNum}`);
+				const userRole = await res.json();
+				return userRole.tuRole;
+			} catch {
+				return 'user';
 			}
+
+
+
+
+
 		}
+
 
 
 		async function teamLeave() {
@@ -136,13 +140,13 @@
 
 						if (result != null) {
 							alert(`${result.resultMsg}`);
-							location.href='/page/user/mypage'
+							location.href = '/page/user/mypage'
 							getTeamUserInfoList();
 						}
 					}
 				}
 			} catch (error) {
-				alert('팀에 속하지 않습니다.'); 
+				alert('팀에 속하지 않습니다.');
 			}
 		}
 
@@ -161,6 +165,7 @@
 			const pageInfos = await res.json();
 			const totalCnt = pageInfos.total;
 			const pageBlock = Math.ceil(totalCnt / pageSize);
+			const uiRole = await getUserRole();
 
 			const startBlock = (Math.ceil(page / blockSize) - 1) * blockSize + 1;
 			let endBlock = startBlock + blockSize - 1;
@@ -197,9 +202,14 @@
 				html += `<td>${user.uiAddress}</td>`;
 				html += `<td>${user.uiPhoneNum}</td>`;
 				html += `<td>`;
-				if (role == '팀원') {
-					html += `<button class="btn btn-dark" onclick="doRelease(${user.tuNum},'${user.uiName}')")>방출</button>`;
+				if (uiRole == 'ADMIN') {
+					if (role == '팀원') {
+						html += `<button class="btn btn-dark" id='shut'onclick="doRelease(${user.tuNum},'${user.uiName}')")>방출</button>`;
+					}
 				}
+
+
+
 				html += `</td>`;
 				html += '</tr>';
 			}

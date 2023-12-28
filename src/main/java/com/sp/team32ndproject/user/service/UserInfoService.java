@@ -96,17 +96,19 @@ public class UserInfoService implements UserDetailsService {
 	public MsgVO deleteUser(UserInfoVO user) {
 		MsgVO msgVO = new MsgVO();
 		log.info("user => {}", user);
-		String randomId = UUID.randomUUID()+"";
-		String randomPwd = UUID.randomUUID() + "";
-		user.setUiId(randomId.substring(0,10));
-		user.setUiPwd(randomPwd.substring(0, 10));
-		user.setUiActiveStatus("1");
+
 		List<TeamUserInfoVO> teamUserInfoVOs = teamUserInfoMapper.selectTeamUserInfoByUiNum(user.getUiNum());
 
 		if (teamUserInfoVOs.size() != 0) {
 			msgVO.setResultMsg("2");
+			return msgVO;
 		} else {
 			try {
+				String randomId = UUID.randomUUID() + "";
+				String randomPwd = UUID.randomUUID() + "";
+				user.setUiId(randomId.substring(0, 10));
+				user.setUiPwd(randomPwd.substring(0, 10));
+				user.setUiActiveStatus("1");
 				userInfoMapper.deleteUser(user);
 				teamSignUserInfoMapper.deleteTeamSignUserInfoByUiNum(user.getUiNum());
 				msgVO.setResultMsg("0");

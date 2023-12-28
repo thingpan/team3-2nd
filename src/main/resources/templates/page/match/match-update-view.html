@@ -80,12 +80,15 @@
 
 	<script>
 
+
 		//내가 선택한 팀 번호
 		let selectedTeamNum;
 		let teamList;
 		let matchFiles;
+
 		const urlParams = new URL(location.href).searchParams;
 		const mbNum = urlParams.get('mbNum');
+
 
 		async function getTeamInfos() {
 			const res = await fetch('/my-team-infos')
@@ -116,8 +119,10 @@
 		window.addEventListener('load', getTeamInfos);
 
 
-
-
+		var now_utc = new Date().getTime();
+		var timeOff = new Date().getTimezoneOffset() * 60000;
+		var today = new Date(now_utc - timeOff).toISOString().split("T")[0];
+		document.querySelector('#mbDate').setAttribute("min", today);
 
 
 		function selectTeamType(obj) {
