@@ -26,7 +26,9 @@ import lombok.extern.slf4j.Slf4j;
 public class TeamInfoController {
 
 	private final TeamInfoService teamInfoService;
-
+	
+	
+	
 	// 팀추가
 	@PostMapping("/team-infos")
 	public int insertTeamInfo(TeamInfoVO team, @AuthenticationPrincipal UserInfoVO user) {

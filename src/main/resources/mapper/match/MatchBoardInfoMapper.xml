@@ -52,4 +52,21 @@
 		MB_NUM =
 		#{mbNum};
 	</update>
+	<update id="updateMatchBoardInfo" 
+		parameterType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
+		UPDATE MATCH_BOARD_INFO SET TA_NUM = #{taNum},
+		MB_ADDRESS = #{mbAddress},
+		MB_ADDRESS_DETAIL= #{mbAddressDetail},
+		MB_MAP_X = #{mbMapX},
+		MB_MAP_Y = #{mbMapY},
+		MB_SIDO = #{mbSido},
+		MB_SIGUNGU= #{mbSigungu},
+		MB_TIME= #{mbTime},
+		MB_DATE= #{mbDate},
+		MB_DESC= #{mbDate},
+		MB_PAY = #{mbPay},
+		MB_TYPE= #{mbType}
+		WHERE MB_NUM = #{mbNum}
+
+	</update>
 </mapper>

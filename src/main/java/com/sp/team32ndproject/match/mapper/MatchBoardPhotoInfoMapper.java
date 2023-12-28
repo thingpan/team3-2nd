@@ -10,4 +10,6 @@ import com.sp.team32ndproject.match.vo.MatchBoardPhotoInfoVO;
 public interface MatchBoardPhotoInfoMapper {
 	int insertMatchBoardPhotoInfo(MatchBoardPhotoInfoVO matchPhoto);
 	List<MatchBoardPhotoInfoVO> selectMatchBoardInfo(int mbNum);
+	int updateMatchBoardPhotoInfos(MatchBoardPhotoInfoVO matchBoardPhotoInfoVO);
+	int deleteMatchBoardPhotoInfos(int mbpNum);
 }

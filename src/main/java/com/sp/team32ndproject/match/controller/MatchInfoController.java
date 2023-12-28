@@ -55,4 +55,10 @@ public class MatchInfoController {
 		log.info("taNum=>{}", matchBoardInfoVO);
 		return matchInfoService.selectMatchInfosByTaNum(matchBoardInfoVO);
 	}
+	
+	//게시글 업데이트
+	@PatchMapping("/match-infos-update")
+	public int updateMatchBoardInfo(MatchBoardInfoVO matchBoardInfoVO) {
+		return matchInfoService.updateMatchBoardInfo(matchBoardInfoVO);
+	}
 }

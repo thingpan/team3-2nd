@@ -59,4 +59,12 @@ public class MatchBoardInfoService {
 		PageHelper.startPage(matchBoardInfoVO.getPage(), matchBoardInfoVO.getPageSize());
 		return new PageInfo<>(matchBoardInfoMapper.selectMatchInfosByTaNum(matchBoardInfoVO.getTaNum()));
 	}
+	
+	public int updateMatchBoardInfo(MatchBoardInfoVO matchBoardInfoVO) {
+		matchBoardInfoVO
+		.setMbType(teamInfoMapper.selectTaTypeMatchBoardInfoByTaNum(matchBoardInfoVO.getTaNum()).getTaType());
+		int result = matchBoardInfoMapper.updateMatchBoardInfo(matchBoardInfoVO);
+		result += matchBoardPhotoInfoService.updateGoodsFileInfos(matchBoardInfoVO.getMbNum(), matchBoardInfoVO.getMatchPhotos());
+		return result;
+	}
 }

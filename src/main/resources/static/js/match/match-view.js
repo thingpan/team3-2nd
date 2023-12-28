@@ -173,7 +173,7 @@ window.addEventListener('load', async function () {
     const teamPoint = teamInfoList.taPoint;
 
     if (teamInfoList.uiNum == document.querySelector('#matchViewUiNum').innerHTML) {
-        document.querySelector('#updateAndDeleteButton').innerHTML = '<button class="btn btn-dark">수정</button><button class="btn btn-dark" onclick="matchboarddelete()">삭제</button>'
+        document.querySelector('#updateAndDeleteButton').innerHTML = '<button class="btn btn-dark" onclick="doGoUpdatePage()">수정</button><button class="btn btn-dark" onclick="matchboarddelete()">삭제</button>'
     }
 
     nameValue.innerHTML = `${taName}`;
@@ -322,6 +322,10 @@ async function matchRequest() {
 
 function goTeamPage(obj) {
     location.href = `/page/match/match-record?taNum=${obj.value}`;
+}
+
+function doGoUpdatePage(){
+	location.href = `/page/match/match-update-view?mbNum=${mbNum}`;
 }
 
 //쪽지 보내기
