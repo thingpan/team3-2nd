@@ -70,7 +70,19 @@
 		DATE_FORMAT(NOW(),'%Y%m%d'),DATE_FORMAT(NOW(),'%H%i%s')
 		);
 	</insert>
-	<delete id="deleteUser" parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
-        DELETE FROM USER_INFO WHERE UI_NUM = #{uiNum}
-    </delete>
+	<update id="deleteUser" parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
+        UPDATE USER_INFO
+        <set>
+        	<if test='uiId != null and uiId != ""'>
+        		UI_ID = #{uiId},	
+        	</if>
+        	<if test='uiPwd != null and uiPwd != ""'>
+        		UI_PWD = #{uiPwd},	
+        	</if>
+        	<if test='uiActiveStatus != null and uiActiveStatus != ""'>
+        		UI_ACTIVE_STATUS = #{uiActiveStatus}
+        	</if>
+        </set>
+        WHERE UI_NUM = #{uiNum}
+    </update>
 </mapper>

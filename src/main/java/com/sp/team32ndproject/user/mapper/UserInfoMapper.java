@@ -17,6 +17,4 @@ public interface UserInfoMapper {
 	int updateUserProfile(UserInfoVO user);
 
 	int deleteUser(UserInfoVO user);
-
-	void deleteUser(int uiNum);
 }

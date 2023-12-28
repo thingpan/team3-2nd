@@ -60,7 +60,7 @@ public class UserInfoController {
          return  userInfoService.updateUserProfile(user.getUiNum(), request);
     }
 	//계정 삭제
-	@DeleteMapping("/user-info-delete")
+	@PatchMapping("/user-info-delete")
     public MsgVO deleteUser(@AuthenticationPrincipal UserInfoVO user) {
          return  userInfoService.deleteUser(user);
        

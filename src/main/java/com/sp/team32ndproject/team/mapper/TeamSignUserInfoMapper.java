@@ -13,5 +13,6 @@ public interface TeamSignUserInfoMapper {
 	List<TeamSignUserInfoVO> selectTeamSignUserInfosWithHelper(TeamSignUserInfoVO teamSignUserInfoVO);
 	TeamSignUserInfoVO selectTeamSignUserInfoByUiNumAndTaNum(@Param("uiNum") int uiNum,@Param("taNum") int taNum);
 	int deleteTeamSignUserInfo(TeamSignUserInfoVO teamSignUserInfoVO);
+	int deleteTeamSignUserInfoByUiNum(int uiNum);
 	
 }

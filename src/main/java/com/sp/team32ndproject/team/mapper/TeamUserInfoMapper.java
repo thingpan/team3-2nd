@@ -30,5 +30,7 @@ public interface TeamUserInfoMapper {
 	TeamUserInfoVO TeamUserRole(TeamUserInfoVO teamUserInfo);
 
 	List<TeamUserInfoVO> selectTeamByTaNum(int taNum);
+	
+	List<TeamUserInfoVO> selectTeamUserInfoByUiNum(int uiNum);
 
 }
