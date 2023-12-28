@@ -2,6 +2,7 @@ package com.sp.team32ndproject.user.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.tools.DocumentationTool.Location;
 
@@ -14,7 +15,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sp.team32ndproject.team.mapper.TeamInfoMapper;
+import com.sp.team32ndproject.team.mapper.TeamSignUserInfoMapper;
+import com.sp.team32ndproject.team.mapper.TeamUserInfoMapper;
 import com.sp.team32ndproject.team.vo.MsgVO;
+import com.sp.team32ndproject.team.vo.TeamInfoVO;
+import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
 import com.sp.team32ndproject.user.controller.UserInfoController;
 import com.sp.team32ndproject.user.mapper.UserInfoMapper;
 import com.sp.team32ndproject.user.vo.UserInfoVO;
@@ -29,6 +35,8 @@ public class UserInfoService implements UserDetailsService {
 
 	private final UserInfoMapper userInfoMapper;
 	private final PasswordEncoder passwordEncoder;
+	private final TeamSignUserInfoMapper teamSignUserInfoMapper;
+	private final TeamUserInfoMapper teamUserInfoMapper;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -46,9 +54,9 @@ public class UserInfoService implements UserDetailsService {
 
 	public MsgVO doCheckUiId(String uiId) {
 		MsgVO msgVO = new MsgVO();
-		if(userInfoMapper.selectUserInfoByUiId(uiId) != null) {
+		if (userInfoMapper.selectUserInfoByUiId(uiId) != null) {
 			msgVO.setResultMsg("1");
-		}else {
+		} else {
 			msgVO.setResultMsg("0");
 		}
 		return msgVO;
@@ -63,10 +71,9 @@ public class UserInfoService implements UserDetailsService {
 		return userInfoMapper.selectUserInfoByUiNum(user);
 	}
 
-	
 	public boolean checkPassword(String uiId, Map<String, String> password) {
 		UserInfoVO user = userInfoMapper.selectPasswordByUiPwd(uiId);
-		if(passwordEncoder.matches(password.get("password"), user.getUiPwd())) {
+		if (passwordEncoder.matches(password.get("password"), user.getUiPwd())) {
 			return true;
 		}
 		return false;
@@ -75,31 +82,40 @@ public class UserInfoService implements UserDetailsService {
 	public int updateUserProfile(int uiNum, Map<String, String> request) {
 		UserInfoVO userInfoVO = new UserInfoVO();
 		userInfoVO.setUiNum(uiNum);
-	    if(request.get("uiPwd") != null && !request.get("uiPwd").isBlank()) {
-	    	request.put("uiPwd", passwordEncoder.encode(request.get("uiPwd")));
-	    }
-	    userInfoVO.setUiPwd(request.get("uiPwd"));
-	    userInfoVO.setUiEmail(request.get("uiEmail"));
-	    userInfoVO.setUiPhoneNum(request.get("uiPhoneNum"));
-	    userInfoVO.setUiAddress(request.get("uiAddress"));
-	    userInfoVO.setUiBirth(request.get("uiBirth"));
-	    return userInfoMapper.updateUserProfile(userInfoVO);
+		if (request.get("uiPwd") != null && !request.get("uiPwd").isBlank()) {
+			request.put("uiPwd", passwordEncoder.encode(request.get("uiPwd")));
+		}
+		userInfoVO.setUiPwd(request.get("uiPwd"));
+		userInfoVO.setUiEmail(request.get("uiEmail"));
+		userInfoVO.setUiPhoneNum(request.get("uiPhoneNum"));
+		userInfoVO.setUiAddress(request.get("uiAddress"));
+		userInfoVO.setUiBirth(request.get("uiBirth"));
+		return userInfoMapper.updateUserProfile(userInfoVO);
 	}
 
-	@Transactional
-	public MsgVO deleteUser(@AuthenticationPrincipal UserInfoVO user) {
-	    MsgVO msgVO = new MsgVO();
-	    try {
-	        userInfoMapper.deleteUser(user.getUiNum());
-	        msgVO.setResultMsg("삭제가 완료되었습니다.");
-	        msgVO.setSuccess(true);
-	    } catch (DataIntegrityViolationException e) {
-	        msgVO.setResultMsg("팀에 속한팀이 있어서 팀 탈퇴가 불가능합니다.");
-	        msgVO.setSuccess(false);
-	    }
-	    return msgVO;
+	public MsgVO deleteUser(UserInfoVO user) {
+		MsgVO msgVO = new MsgVO();
+		log.info("user => {}", user);
+		String randomId = UUID.randomUUID()+"";
+		String randomPwd = UUID.randomUUID() + "";
+		user.setUiId(randomId.substring(0,10));
+		user.setUiPwd(randomPwd.substring(0, 10));
+		user.setUiActiveStatus("1");
+		List<TeamUserInfoVO> teamUserInfoVOs = teamUserInfoMapper.selectTeamUserInfoByUiNum(user.getUiNum());
+
+		if (teamUserInfoVOs.size() != 0) {
+			msgVO.setResultMsg("2");
+		} else {
+			try {
+				userInfoMapper.deleteUser(user);
+				teamSignUserInfoMapper.deleteTeamSignUserInfoByUiNum(user.getUiNum());
+				msgVO.setResultMsg("0");
+			} catch (Exception e) {
+				msgVO.setResultMsg("1");
+			}
+		}
+
+		return msgVO;
 	}
-
-
 
 }

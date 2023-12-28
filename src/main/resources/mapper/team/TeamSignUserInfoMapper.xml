@@ -32,4 +32,9 @@
 		DELETE FROM TEAM_SIGN_USER_INFO
 		WHERE TSU_NUM = #{tsuNum}
 	</delete>
+	<delete id="deleteTeamSignUserInfoByUiNum" 
+		parameterType="com.sp.team32ndproject.team.vo.TeamSignUserInfoVO">
+		DELETE FROM TEAM_SIGN_USER_INFO
+		WHERE UI_NUM = #{uiNum}
+	</delete>
 </mapper>
