@@ -389,11 +389,11 @@
 
 					const result = await response.json();
 
-					if (result = 2) {
+					if (result.resultMsg == 2) {
 						alert(`가입된 팀을 탈퇴 해 주세요!`);
-					} else if (result = 0) {
+					} else if (result.resultMsg == 0) {
 						alert(`탈퇴 완료`);
-						location.href = `/auth/login`;
+						location.href = `/auth/logout`;
 					}else{
 						alert(`탈퇴 중 문제 발생 다시 시도해 주세요`);
 					}
