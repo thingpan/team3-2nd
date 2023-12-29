@@ -222,6 +222,7 @@
 
 				if (result) {
 					alert("비밀번호가 일치합니다!");
+					document.querySelector('#current-password-input').value='';
 					$('#current-password-modal').modal('hide');
 					document.querySelector('.edit-profile-form').style.display = 'block';
 				} else {
