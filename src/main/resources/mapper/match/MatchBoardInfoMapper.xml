@@ -66,7 +66,7 @@
 		MB_SIGUNGU= #{mbSigungu},
 		MB_TIME= #{mbTime},
 		MB_DATE= #{mbDate},
-		MB_DESC= #{mbDate},
+		MB_DESC= #{mbDesc},
 		MB_PAY = #{mbPay},
 		MB_TYPE= #{mbType}
 		WHERE MB_NUM =
