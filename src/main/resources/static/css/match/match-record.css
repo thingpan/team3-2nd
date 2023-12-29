@@ -67,6 +67,10 @@
     font-weight: 600;
 }
 
+.game-record-chart-container {
+    max-width: 45%;
+}
+
 .record {
     font-size: 45px;
     font-weight: 600;
