@@ -76,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				// 초기 선택일을 클릭한 날짜로 변경
 				selectedDate = new Date(day);
-
 				showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
 			}
 		}
@@ -88,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	async function onFilterChange() {
 		fetchMatchBoardData(selectedSport, selectedSido, selectedPoint)
 			.then(() => {
-				updateCalendar(selectedDate);
 				showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
 			})
 			.catch(error => {
