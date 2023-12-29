@@ -508,9 +508,10 @@
 						});
 
 						if (response.ok) {
-
+	
 							document.querySelector('.edit-profile-form').style.display = 'none';
 							alert('프로필이 업데이트 되었습니다.');
+							document.querySelector('#password').value = '';
 						} else {
 
 							throw new Error('프로필 업데이트에 실패했습니다.');
