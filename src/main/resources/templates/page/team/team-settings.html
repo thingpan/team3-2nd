@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<div th:replace="/page/fragment/header.html :: f-head"></div>
+	<div th:replace="page/fragment/header.html :: f-head"></div>
 	<div class="main">
 		<div class="container team-settings">
 			<h1>팀 정보 설정</h1>
@@ -74,7 +74,7 @@
 		</div>
 	</div>
 
-	<div th:replace="/page/fragment/side-bar.html :: f-side-bar"></div>
+	<div th:replace="page/fragment/side-bar.html :: f-side-bar"></div>
 	<script>
 		const teamNameInput = document.querySelector("#checkTeamNameInModal");
 
