@@ -11,13 +11,13 @@ spring:
       
   thymeleaf:
     cache: false
-    prefix: classpath:/templates/
+    prefix: classpath:templates/
     suffix: .html
   datasource:
-    url: 
+    url: jdbc:log4jdbc:mariadb://team3.crufuqrrmmdr.ap-northeast-2.rds.amazonaws.com:3306/project
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     username : admin 
-    password : 
+    password : Ample35790
 
     hikari:
       minimum-idle : 1
