@@ -5,7 +5,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 rootJar{
-	archivenBaseName ='team3-2nd-project'
+	archivesBaseName ='team3-2nd-project'
 	archiveFileName ='team3-2nd-project.war'
 	archiveVersion='0.0.1'
 }
