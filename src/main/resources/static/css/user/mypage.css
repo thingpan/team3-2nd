@@ -1,7 +1,6 @@
 #main {
 	width: 70%;
 	margin: 0 auto;
-
 }
 
 #user-info-form {
@@ -73,8 +72,8 @@ button {
 	margin: 0 auto;
 	width: 400px;
 	border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
+	border-radius: 5px;
+	padding: 10px;
 }
 
 #sex {
@@ -107,7 +106,6 @@ button {
 #change-phone-button {
 	font-size: 12px;
 	margin-left: 135px;
-
 	font-size: 12px;
 	cursor: pointer;
 	text-align: center;
@@ -117,7 +115,6 @@ button {
 #change-birth-button {
 	font-size: 12px;
 	margin-left: 135px;
-
 	font-size: 12px;
 	cursor: pointer;
 	text-align: center;
@@ -127,21 +124,20 @@ button {
 #phone {
 	width: 265px;
 	border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
+	border-radius: 5px;
+	padding: 10px;
 }
 
 #date {
 	width: 265px;
 	border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
+	border-radius: 5px;
+	padding: 10px;
 }
 
 #search-address {
 	font-size: 12px;
 }
-
 
 .team-list {
 	display: flex;
@@ -292,7 +288,6 @@ input[type="text"] {
 	outline: none;
 	box-sizing: border-box;
 	color: black;
-
 }
 
 input[type=button] {
@@ -377,14 +372,12 @@ select {
 	align-items: center;
 }
 
-.modal-body form div label,
-.modal-body form div input,
-.modal-body form div textarea {
+.modal-body form div label, .modal-body form div input, .modal-body form div textarea
+	{
 	width: 100%;
 }
 
-.modal-body form div .modal-title-text,
-.modal-body form div p {
+.modal-body form div .modal-title-text, .modal-body form div p {
 	text-align: left;
 }
 
@@ -491,8 +484,7 @@ select {
 	padding: 5px;
 }
 
-#changecurrentpasswordinput,
-#newpassword {
+#changecurrentpasswordinput, #newpassword {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 5px;
@@ -505,8 +497,7 @@ select {
 	margin-bottom: 10px;
 }
 
-#confirm-email-change,
-#cancel-email-change {
+#confirm-email-change, #cancel-email-change {
 	font-size: 14px;
 	margin-bottom: 5px;
 }
@@ -548,5 +539,32 @@ select {
 	background-color: var(--black-color);
 	font-size: var(--p-font);
 	content: 'test';
+}
 
+@media (max-width: 767px) {
+	#main {
+		width: 90%;
+	}
+	
+	#team-list-div,
+	#team-list-div-type {
+		margin-right: 0;
+	}
+
+	.team-list {
+		justify-content: flex-start;
+	}
+
+	#search-button {
+		margin-left: 0;
+	}
+
+	#team-heading {
+		margin-right: 0; 
+	}
+}
+@media ( min-width : 320px) {
+	#main {
+		width: 60%;
+	}
 }

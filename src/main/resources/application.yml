@@ -39,5 +39,4 @@ upload:
 
 download:
     file-path: file:///C:/dev/upload/
-#  file-path: file:///Users/ayeong-kim/dev/upload/
-#  resource-url: /file/**
+    resource-url: /file/**

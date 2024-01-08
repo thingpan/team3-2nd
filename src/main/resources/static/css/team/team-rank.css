@@ -68,24 +68,19 @@ table {
 	margin-bottom: 30px;
 }
 
-
 thead {
 	font-weight: bold;
 	color: #fff;
 	background: #8f8f8f;
 }
 
-td,
-th {
+td, th {
 	padding: 1em .5em;
 }
 
-
 a {
 	color: #73685d;
-
 }
-
 
 #search-button {
 	padding: 10px 15px;
@@ -108,3 +103,17 @@ a {
 #teamTable tbody tr {
 	border-bottom: 1px solid #ccc;
 }
+
+@media ( max-width : 767px) {
+	#main {
+		width: 90%;
+	}
+		table {
+		font-size: 0.8em;
+	}
+	}
+	@media ( min-width : 320px) {
+		#main {
+			width: 60%;
+		}
+	}
