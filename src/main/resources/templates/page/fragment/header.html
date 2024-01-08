@@ -1,46 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
-	<header th:fragment="f-head" id="header">
+    <header th:fragment="f-head" id="header">
 
-		<link href="/css/fragment/common.css" rel="stylesheet">
-		<link
-			href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@200;300;400;500;600;700;800&display=swap"
-			rel="stylesheet"/>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-			crossorigin="anonymous"></script>
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-			integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <link href="/css/fragment/common.css" rel="stylesheet">
+        <link
+                href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@200;300;400;500;600;700;800&display=swap"
+                rel="stylesheet"/>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+                crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+              crossorigin="anonymous">
 
-		<script>
-			function redirectToLoginPage() {
-				window.location.href = "/page/user/login";
-			}
+        <script>
+            function redirectToLoginPage() {
+                window.location.href = "/page/user/login";
+            }
 
-			function redirectToRegistrationPage() {
-				window.location.href = "/page/user/join";
-			}
-			function logout() {
-				window.location.href = "/auth/logout";
-			}
-		</script>
+            function redirectToRegistrationPage() {
+                window.location.href = "/page/user/join";
+            }
 
-		<a href="/" class="logo">Match Me If You Can</a>
-		<ul class="navbar">
-			<li><a href="/page/match/match-board">Match</a></li>
-			<li><a href="/page/user/mypage">MyPage</a></li>
-			<li><a href="/page/team/team-rank">Rank</a></li>
-		</ul>
-		<div class="user-menu" sec:authorize="isAnonymous()">
-			<button id="login-button" class="btn btn-dark" onclick="redirectToLoginPage()">로그인</button>
-			<button id="register-button" class="btn btn-dark" onclick="redirectToRegistrationPage()">회원가입</button>
-		</div>
-		<div sec:authorize="isAuthenticated()">
-			<button onclick="logout()" class="btn btn-dark">로그아웃</button> 
-		</div>
-	</header>
+            function logout() {
+                window.location.href = "/auth/logout";
+            }
+        </script>
+
+        <a href="/" class="logo">Match Me If You Can</a>
+        <ul class="navbar">
+            <li><a href="/page/match/match-board">Match</a></li>
+            <li><a href="/page/user/mypage">MyPage</a></li>
+            <li><a href="/page/team/team-rank">Rank</a></li>
+        </ul>
+        <div class="user-menu" sec:authorize="isAnonymous()">
+            <button id="login-button" class="btn btn-dark" onclick="redirectToLoginPage()">로그인</button>
+            <button id="register-button" class="btn btn-dark" onclick="redirectToRegistrationPage()">회원가입</button>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <button onclick="logout()" class="btn btn-dark">로그아웃</button>
+        </div>
+    </header>
 </head>
 
 </html>

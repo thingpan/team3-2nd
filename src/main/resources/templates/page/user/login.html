@@ -2,112 +2,141 @@
 <html>
 
 <head>
-	<meta charset="UTF-8" />
-	<title>Login</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
-	<link
-		href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@200;300;400;500;600;700;800&display=swap"
-		rel="stylesheet" />
-	<style>
-		* {
-			font-family: 'Noto Sans KR', sans-serif;
-		}
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@200;300;400;500;600;700;800&display=swap"
+            rel="stylesheet"/>
+    <style>
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
 
-		body {
-			scale: 150%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 80vh;
-			overflow: hidden;
-		}
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            overflow: hidden;
+        }
 
-		#main {
-			text-align: center;
-			margin-top: 5rem;
-		}
+        #main {
+            max-width: 600px;
+            width: 60%;
+            text-align: center;
+        }
 
-		.logo {
-			margin-bottom: 1.5rem;
-		}
+        .logo {
+            margin-bottom: 1.5rem;
+        }
 
-		.signUp {
-			font-size: 10px;
-			margin-top: 10px;
-			color: #b8b8b8;
-		}
+        .signUp {
+            font-size: 10px;
+            margin-top: 10px;
+            color: #b8b8b8;
+        }
 
-		.signUp a {
-			color: #111;
-			text-decoration: none;
-			font-weight: 600;
-		}
+        .signUp a {
+            color: #111;
+            text-decoration: none;
+            font-weight: 600;
+        }
 
-		input[type='text'] {
-			border-radius: 10px;
-			padding: 8px;
-			margin-bottom: 10px;
-			font-size: 10px;
-			border: 1.5px solid black;
-			width: 200px;
-		}
+        input[type='text'] {
+            border-radius: 10px;
+            padding: 8px;
+            margin-bottom: 10px;
+            font-size: 18px;
+            border: 1.5px solid black;
+            width: 70%;
+            box-sizing: border-box;
+        }
 
-		input[type='password'] {
-			border-radius: 10px;
-			padding: 8px;
-			font-size: 10px;
-			border: 1.5px solid black;
-			width: 200px;
-			
-			margin-bottom: 1.5rem;
-		}
+        input[type='password'] {
+            border-radius: 10px;
+            padding: 8px;
+            font-size: 18px;
+            border: 1.5px solid black;
+            width: 70%;
+            box-sizing: border-box;
+            margin-bottom: 1.5rem;
+        }
 
-		.btn {
-			font-size: 10px;
-			margin-bottom: 0.5rem;
-		}
+        .btn {
+            width: 70%;
+            font-size: 18px;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+        }
 
-		#doCheckIdOrPassword {
-			color: red;
-			font-size: 12px;
-			margin-top: 5px;
-			margin-bottom: 1.5rem;
-		}
-	</style>
+        #doCheckIdOrPassword {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 769px) {
+            #main {
+                width: 60%;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 540px) {
+            #main {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            body {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    </style>
 
 </head>
 
 <body>
-	<div id="main">
-		<div class="logo">
-			<a href="/" style="font-size: 16px; font-weight: 700; text-decoration: none; color: #111">Match Me If You Can</a>
-		</div>
-		<div>
-			<form method="post" action="/login"> 
-				<input type="text" id="uiId" name="uiId" placeholder="아이디" /><br />
-				<input type="password" id="uiPwd" name="uiPwd" placeholder="비밀번호" /><br />
-				<div>
+<div id="main">
+    <div class="logo">
+        <a href="/" style="font-size: 18px; font-weight: 700; text-decoration: none; color: #111">Match Me If
+            You Can</a>
+    </div>
+    <div>
+        <form method="post" action="/login">
+            <input type="text" id="uiId" name="uiId" placeholder="아이디"/><br/>
+            <input type="password" id="uiPwd" name="uiPwd" placeholder="비밀번호"/><br/>
+            <div>
 
-					<span id="doCheckIdOrPassword"></span>
-				</div>
-				<button class="btn btn-dark" style="width: 200px; border-radius: 10px" type="submit">
-					로그인
-				</button>
-			</form>
-		</div>
-		<div class="signUp">
-			<span>계정이 없으신가요? <a href="/page/user/join">회원가입</a></span>
-		</div>
-	</div>
-	<script>
-		const urlParams = new URL(location.href).searchParams;
-		const errorMsg = urlParams.get('errorMsg');
+                <span id="doCheckIdOrPassword"></span>
+            </div>
+            <button class="btn btn-dark" type="submit">
+                로그인
+            </button>
+        </form>
+    </div>
+    <div class="signUp">
+        <span>계정이 없으신가요? <a href="/page/user/join">회원가입</a></span>
+    </div>
+</div>
+<script>
+    const urlParams = new URL(location.href).searchParams;
+    const errorMsg = urlParams.get('errorMsg');
 
-		if (errorMsg != null && errorMsg != undefined) {
-			document.querySelector('#doCheckIdOrPassword').innerHTML = errorMsg;
-		}
-	</script>
+    if (errorMsg != null && errorMsg != undefined) {
+        document.querySelector('#doCheckIdOrPassword').innerHTML = errorMsg;
+    }
+</script>
 </body>
 
 </html>
