@@ -18,7 +18,7 @@
 </head>
 
 <body>
-	<div th:replace="/page/fragment/header.html :: f-head"></div>
+	<div th:replace="page/fragment/header.html :: f-head"></div>
 	<div name="main" class="main">
 		<hr>
 		<div name="select-team" id="team-main">
@@ -332,7 +332,7 @@
 			});
 
 			const result = await res.json();
-			if (result > 1) {
+			if (result >= 1) {
 				alert('등록 성공');
 				location.href = '/page/match/match-board';
 			} else {

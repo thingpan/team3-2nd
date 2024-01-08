@@ -4,7 +4,11 @@ plugins {
 	id 'org.springframework.boot' version '2.7.17'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
-
+bootWar{
+	archivesBaseName ='team3-2nd-project'
+	archiveFileName ='team3-2nd-project.war'
+	archiveVersion='0.0.1'
+}
 group = 'com.sp.team3-2nd-project'
 version = '0.0.1-SNAPSHOT'
 
@@ -35,6 +39,7 @@ dependencies {
 	implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.6'
 	//pagehelper-spring-boot-starter 
 	implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.6'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'

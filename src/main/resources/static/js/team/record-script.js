@@ -610,7 +610,12 @@ async function updateMatchResultCancle() {
 		body: JSON.stringify(body)
 	});
 	const result = await res.json();
-	alert(result.resultMsg)
+	if (result.resultMsg == "결과 입력 완료") {
+		alert("거절 완료")
+	} else {
+
+		alert(result.resultMsg)
+	}
 	getAwayAjaxList();
 
 	$('#mannerModal').modal('hide').data('bs.modal', null);

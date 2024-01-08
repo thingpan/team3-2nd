@@ -11,8 +11,8 @@
 </head>
 
 <body>
-	<div th:replace="/page/fragment/header.html :: f-head"></div>
-	<div th:replace="/page/fragment/team-profile.html :: f-team-profile"></div>
+	<div th:replace="page/fragment/header.html :: f-head"></div>
+	<div th:replace="page/fragment/team-profile.html :: f-team-profile"></div>
 	<div class="main">
 		<div class="membership-requests">
 			<h4>팀 가입 신청 목록</h4>
@@ -52,7 +52,7 @@
 			</div>
 		</div>
 	</div>
-	<div th:replace="/page/fragment/side-bar.html :: f-side-bar"></div>
+	<div th:replace="page/fragment/side-bar.html :: f-side-bar"></div>
 	<script>
 		const team = {
 			taNum: 1,
