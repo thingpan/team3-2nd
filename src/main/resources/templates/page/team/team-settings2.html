@@ -4,8 +4,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>팀 정보 설정</title>
-
+	<title>팀 정보 설정2</title>
+	<link rel="stylesheet" href="/css/team/team-settings.css">
 	<link
 		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
 		rel="stylesheet">
@@ -136,61 +136,45 @@
 				</nav>
 			</header>
 			<!--  Header End -->
-			<div class="container-fluid">
-				<!-- 사진  -->
-				<div class="col-md-8">
-					<div class="card">
-						<img id="preview" src="" class="card-img-top" alt="...">
-						<div id="noImageText" style="display: none; margin-left:50%; margin-top:40%">
-							<span>이미지 없음</span>
+			<div class="main">
+				<div class="container team-settings">
+					<h1>팀 정보 설정</h1>
+					<form id="teamForm">
+						
+						<label for="profilePicture">프로필 사진</label>
+						<!-- 원 모양의 플레이스홀더 이미지 컨테이너 -->
+						<div class="circular-image-container" id="teamProfilePicPriveiw">
+							<img id="preview" src="#">
+							<div id="noImageText" style="display: none; margin-left:10%; margin-top:36%">이미지 없음</div>
 						</div>
-						<div class="card-body">
-						</div>
-					</div>
 
-					<!-- 파일 업로드  -->
-					<div class="input-group mb-3">
-						<input type="file" class="form-control" id="profilePicture" accept="image/*"
-							onchange="previewImage(this)">
-					</div>
+						<input type="file" id="profilePicture" accept="image/*" onchange="previewImage(this)">
 
+						<!-- 선택한 이미지를 표시하는 부분 -->
+						<img id="preview" src="#" alt="프로필 사진 미리보기"
+							style="display:none; max-width: 20%; margin-top: 10px;">
 
+						<label for="teamName">팀 이름</label>
+						<input type="text" id="teamName" placeholder="팀 이름을 입력하세요" disabled>
+						<button type="button" class="btn btn-dark" id="teamNameCheckButton" data-bs-toggle="modal"
+							data-bs-target="#staticBackdrop">
+							중복 확인
+						</button>
 
-					<!-- 선택한 이미지를 표시하는 부분 여기 뭐임?? -->
-					<img id="preview" src="#" alt="프로필 사진 미리보기" style="display:none; max-width: 20%; margin-top: 10px;">
+						<label for="teamIntro">팀 소개</label>
+						<textarea id="teamIntro" placeholder="팀에 대한 소개를 입력하세요"></textarea>
 
+						<label for="jobStatus">구인 상태</label>
+						<select id="jobStatus" class="filter-select">
+							<option value="1">구함</option>
+							<option value="0">구하지 않음</option>
+						</select>
 
-
-					<div class="card">
-						<div class="card-body">
-							<form>
-								<div class="mb-3">
-									<label for="teamName" class="form-label">팀 이름</label>
-									<input type="text" class="form-control" id="teamName" placeholder="팀 이름을 입력하세요"
-										disabled>
-									<button type="button" style="margin-top: 2%;" class="btn btn-primary"
-										id="teamNameCheckButton" data-bs-toggle="modal"
-										data-bs-target="#staticBackdrop">
-										중복 확인
-									</button>
-								</div>
-								<div class="mb-3">
-									<label for="teamIntro" class="form-label">소개</label>
-									<textarea type="text" style="width: 100%; height: 50%; resize: none;"
-										class="form-control" id="teamIntro" placeholder="팀에 대한 소개를 입력하세요"></textarea>
-								</div>
-								<label for="jobStatus" class="form-label">구인 상태</label>
-								<select id="jobStatus" class="form-select" aria-label="Default select example">
-									<option value="1">구함</option>
-									<option value="0">구하지 않음</option>
-								</select>
-								<button type="button" class="btn btn-primary" onclick="saveTeamInfo()"
-									style="margin-top: 2%;">저장</button>
-							</form>
-						</div>
-					</div>
+						<button type="button" onclick="saveTeamInfo()" style="margin-bottom: 20px;">저장</button>
+					</form>
 				</div>
 			</div>
+
 			<!--중복확인 모달-->
 			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 				aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -203,7 +187,7 @@
 						<div class="modal-body">
 							<input type="text" class="form-control" id="checkTeamNameInModal"
 								placeholder="팀 이름은 최대 5자까지 입력 가능">
-							<button class="btn btn-primary" id="checkTeamNameButtonInModal"
+							<button class="btn btn-dark" id="checkTeamNameButtonInModal"
 								onclick="checkTeamName()">확인</button>
 							<div id="errorTaName" class="error-message"></div>
 							<div id="checkTeamName">
@@ -304,7 +288,7 @@
 				} else {
 					html = "<span style='color: green;'>사용 가능한 이름입니다.</span>"
 					document.querySelector('#checkTeamName').innerHTML = html;
-					makeBtn = `<button data-bs-dismiss="modal" type="button" class="btn btn-primary" onclick="setTeamName('${document.querySelector('#checkTeamNameInModal').value}')">사용하기</button>`
+					makeBtn = `<button data-bs-dismiss="modal" type="button" class="btn btn-dark" onclick="setTeamName('${document.querySelector('#checkTeamNameInModal').value}')">사용하기</button>`
 					document.querySelector('.modal-footer').innerHTML = makeBtn;
 				}
 
@@ -371,9 +355,9 @@
 				if (file) {
 					reader.readAsDataURL(file);
 				} else {
-					//preview.src = '';
-					//preview.style.display = 'none';
-					//noImageText.style.display = 'block';
+					preview.src = '';
+					preview.style.display = 'none';
+					noImageText.style.display = 'block';
 				}
 			}
 
