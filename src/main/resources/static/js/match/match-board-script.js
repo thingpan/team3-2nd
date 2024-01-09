@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		const today = new Date(); // 현재 날짜
 		today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간을 00:00:00으로 설정
 
-		if (oneWeekAgo < today) {
+		if (oneWeekAgo <= today) {
 			// 오늘 이전이면 버튼 비활성화
 			return;
 		}
