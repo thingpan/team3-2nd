@@ -80,14 +80,6 @@ body {
 
 /* 화면 너비가 770 이하일 때 */
 @media screen and (max-width: 770px) {
-    .calendar {
-        /*flex-direction: column; !* 세로 배치로 변경 *!*/
-    }
-
-    .calendar-button {
-        /*flex-direction: column;*/
-    }
-
     .calendar button::after {
         content: attr(data-dayname); /* 가상 클래스를 통해 data-dayname 속성 사용 */
         display: none;
@@ -171,23 +163,10 @@ body {
     padding: 20px !important;
 }
 
-/* 미디어 쿼리를 사용하여 특정 화면 크기에서의 스타일 조절 */
 @media screen and (max-width: 768px) {
-    .schedule-none {
-        /*font-size: 14px; !* 원하는 크기로 조절 *!*/
-        /* 추가적으로 필요한 스타일 조절 가능 */
-    }
-
-    /* 이하 다른 요소들에 대한 조절 가능 */
-    .match-table {
-        /* 원하는 스타일 조절 */
-    }
-
     .match-table th, .match-table td {
         font-size: 12px;
     }
-
-    /* 필요한 다른 스타일 조절 */
 }
 
 .schedule-caption {

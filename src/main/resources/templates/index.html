@@ -39,9 +39,9 @@
                 <img src="imgs/basketball.jpg" alt="Slide 3"/>
             </div>
         </div>
+        <button id="prev-btn" class="prev-btn">&lt;</button>
+        <button id="next-btn" class="next-btn">&gt;</button>
     </div>
-    <button id="prev-btn" class="prev-btn">&lt;</button>
-    <button id="next-btn" class="next-btn">&gt;</button>
 </section>
 
 <!-- 랭킹 영역 -->
@@ -106,19 +106,27 @@
 
 <!-- 매치 일정 영역 -->
 <section class="calendar-section">
-    <div class="calendar-container">
-        <button id="cal-prev-btn" class="calendar-button">&lt;</button>
-        <div class="calendar"></div>
-        <button id="cal-next-btn" class="calendar-button">&gt;</button>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="calendar-container">
+                <button id="cal-prev-btn" class="calendar-button">&lt;</button>
+                <div class="calendar"></div>
+                <button id="cal-next-btn" class="calendar-button">&gt;</button>
+            </div>
+        </div>
     </div>
-    <div class="filter">
+    </div>
+<!--    <div class="filter">-->
 
-    </div>
+<!--    </div>-->
+    <div class="container">
     <table class="schedule-table">
         <tbody id="schedule"></tbody>
     </table>
     <div class="schedule-caption">
         <a href="/page/match/match-board.html" class="schedule-view-more">전체 일정 확인하기 &gt;</a>
+    </div>
     </div>
 </section>
 
