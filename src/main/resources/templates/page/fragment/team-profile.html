@@ -4,190 +4,207 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/css/match/match-record.css">
-	<style>
-		:root {
-			--white-color: #fff;
-			--black-color: #111;
-			--btn-blue-color: #0066ff;
-			--btn-red-color: #ff0000;
-			--btn-gray-color: #d3d3d3;
-			--text-gray-color: #8f8f8f;
-			--text-light-gray-color: #dddddd;
-			--first-color: #0c5df4;
-			--bg-color: #000000;
-			--sub-color: #b6cefc;
-			--white-color: #fff;
-			
-			--big-font: 6rem;
-			--h2-font: 3rem;
-			--p-font: 1rem;
-			--nav--width: 92px;
-		}
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/styles.min.css" />
+	<link rel="shortcut icon" type="image/png" href="/assets/images/logos/favicon.png" />
 
-		#team-register-btn {
-			background-color: #efefef;
-			color: var(--black-color);
-			font-size: 14px;
-			padding: 8px 15px;
-			border: none;
-			/*margin-top: 1rem;*/
-			border-radius: 10px;
-			cursor: pointer;
-		}
 
-		#team-register-btn:hover {
-			background-color: var(--black-color);
-			color: #efefef;
-			font-size: 14px;
-			padding: 8px 15px;
-			border: none;
-			border-radius: 10px;
-			cursor: pointer;
-		}
-	</style>
 </head>
 
 <body>
 	<div th:fragment="f-team-profile">
-		<div class="team-profile">
-			<div class="team-photo">
-				<div id="noImageText" style="width: 200px; height: 180px; border-radius: 20px; position: relative;
-    overflow: hidden; margin-bottom: 1rem; border: 1px solid #ccc; text-align: center; line-height: 180px;">이미지 없음
+
+
+		<div class="row" id="match-record-row-1">
+			<div class="col-sm-6 col-xl-3">
+				<div class="card overflow-hidden rounded-2">
+					<div class="position-relative">
+						<a href="javascript:void(0)"><img id="teamImg" src="/assets/images/products/s4.jpg"
+								class="card-img-top rounded-0" alt="..."></a>
+					</div>
+					<div class="card-body pt-3 p-4" id="taNameDiv">
+						<h6 class="fw-semibold fs-4" id="taName">팀 이름</h6>
+					</div>
 				</div>
-				<img id="team-photo" style="border: 1px solid #ccc;">
 			</div>
-			<div class="score-badge">
-				<span id="team-name"></span>
-				<span id="score-value"></span>
-			</div>
-			<div>
-				<div class="progress-bar" style="background: aliceblue; border-radius: 5px; width: 180px; margin: 0 auto;">
-					<div id="manners-progress" class="progress" style="background: dodgerblue;"></div>
+			<div class="col-lg-8 d-flex align-items-stretch">
+				<div class="card w-100">
+					<div class="card-body p-4">
+						<h5 class="card-title fw-semibold mb-4">팀 소개</h5>
+						<div class="table-responsive">
+							<table class="table text-nowrap mb-0 align-middle">
+								<thead class="text-dark fs-4">
+
+								</thead>
+								<tbody id="team-info-tbody">
+									<tr>
+										<th>
+											<h6 class="fw-semibold mb-0">팀 소개 : </h6>
+										</th>
+										<td>
+											<h6 class="fw-semibold mb-0" id="taDesc"></h6>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h6 class="fw-semibold mb-0">매너 점수 : </h6>
+										</th>
+										<td>
+											<div id="team-manner-div">
+												<div class="progress-bar" id="team-manner-prograss-div">
+													<div id="manners-progress" class="progress"></div>
+												</div>
+												<p class="fw-semibold mb-0" id="current-score"></p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h6 class="fw-semibold mb-0">팀 점수 : </h6>
+										</th>
+										<td>
+											<span class="fw-semibold mb-0" id="score-value"></span>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h6 class="fw-semibold mb-0">전적 : </h6>
+										</th>
+										<td>
+											<span class="fw-semibold mb-0" id="whole-record"></span>
+										</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
-				<span id="current-score" style="margin-left: 36px;"></span>
 			</div>
-			<br>
-			<div>
-				<span id="team-introduce"></span>
-			</div>
-			<br>
-			<div id="teamSignBtn">
-				<button id="team-register-btn" onclick="teamSignRequest()">가입신청</button>
-			</div>
+
 		</div>
-		<br>
+	</div>
+	<script>
 
-		<script>
-			let taName;
-			window.addEventListener('load', getTeamProfile);
+		// 이미지 로딩 실패 시 호출되는 함수
+		function handleImageError() {
+			const noImageText = document.querySelector('#noImageText');
+			noImageText.style.display = 'block';
+		}
 
-			async function getTeamProfile() {
-
-				const urlParams = new URL(location.href).searchParams;
-				const taNum = urlParams.get('taNum');
-				const rankRes = await fetch(`/team-info?taNum=${taNum}`);
-				teamData = await rankRes.json();
-				taName = teamData.taName
-				document.querySelector('#team-name').innerText = teamData.taName;
-
-				const teamPhoto = document.querySelector('#team-photo');
-				const noImageText = document.querySelector('#noImageText');
-
-				if (teamData.taFilePath) {
-					teamPhoto.src = teamData.taFilePath;
-					teamPhoto.style.display = 'block'
-					noImageText.style.display = 'none';
-				} else {
-					teamPhoto.src = '';
-					teamPhoto.style.display = 'none';
-					noImageText.style.display = 'block';
+		async function doSendObj() {
+			const urlParams = new URL(location.href).searchParams;
+			const taNum = urlParams.get('taNum');
+			//타임리프 안돼서 일단 ㅠㅠ 
+			const obj = {
+				taNum: taNum
+			}
+			const res = await fetch('/team-sign-user-add', {
+				method: 'POST',
+				body: JSON.stringify(obj),
+				headers: {
+					'Content-Type': 'application/json;charset=UTF-8'
 				}
+			});
+			const result = await res.json();
 
-				// 팀 소개 설정
-				document.querySelector('#team-introduce').innerText = teamData.taDesc;
-				document.querySelector('#score-value').innerText = teamData.taPoint;
-				const randomScore = teamData.taPoint;
+			console.log(result);
+			if (result) {
+				alert(`${result.resultMsg}`);
+				getTeamProfile();
+			}
+		}
+		const urlParams = new URLSearchParams(window.location.search);
+		const taNum = urlParams.get('taNum');
 
-				// 점수 출력
-				const scoreValue = document.querySelector('#score-value');
-				scoreValue.textContent = `${randomScore}점`;
+		async function getTeamInfo() {
 
-				// 점수에 따라 배경색과 텍스트색 변경
-				if (randomScore <= 100) {
-					scoreValue.style.backgroundColor = '#ececec';
-					scoreValue.style.color = '#767676';
-				} else if (randomScore <= 200) {
-					scoreValue.style.backgroundColor = '#ede0c4';
-					scoreValue.style.color = '#825e01';
-				} else if (randomScore <= 300) {
-					scoreValue.style.backgroundColor = '#fffbd5';
-					scoreValue.style.color = '#ffb800';
-				} else if (randomScore <= 400) {
-					scoreValue.style.backgroundColor = '#e6f0ff';
-					scoreValue.style.color = '#0066ff';
-				} else {
-					scoreValue.style.backgroundColor = '#f4e2ff';
-					scoreValue.style.color = '#8200d2';
-				}
+			const res = await fetch(`/team-info?taNum=${taNum}`);
+			const teamInfo = await res.json();
+			console.log(teamInfo);
 
-				const mannersProgress = document.querySelector('#manners-progress');
-				// taMannerPoint가 참 값인지 확인; 그렇지 않으면 0으로 기본값 사용
-				const mannerPercent = Math.floor(teamData.taMannerPoint ? (teamData.taMannerPoint / teamData.taMatchCount) : 0);
-				mannersProgress.style.width = `${mannerPercent}%`;
-
-				// 현재 점수 표시
-				const currentScore = document.querySelector('#current-score');
-				currentScore.textContent = `매너점수 (${mannerPercent} / 100)`;
-
-				//가입한 팀인지 확인
-				const res = await fetch(`/team-user-infos/${taNum}`)
-				const result = await res.json();
-				if (result == 0) {
-					document.querySelector('#teamSignBtn').innerHTML = '';
-				}
-				if (teamData.taSignStatus == 1) {
-					document.querySelector('#teamSignBtn').innerHTML = '<span style="color: red;">가입신청 대기 중</span>'
-				}
+			document.querySelector('#taName').innerHTML = teamInfo.taName;
+			if (teamInfo.taDesc != null) {
+				document.querySelector('#taDesc').innerHTML = teamInfo.taDesc;
+			} else {
+				document.querySelector('#taDesc').innerHTML = '없음';
 			}
 
-			function teamSignRequest() {
-				if (confirm(`${taName} 팀에 가입 신청하시겠습니까?`)) {
-					doSendObj();
-				} else {
-					return false;			
-				}
+			if (teamInfo.taType == '농구') {
+				type = 'basketball';
+			} else if (teamInfo.taType == '야구') {
+				type = 'baseball';
+			} else if (teamInfo.taType == '축구') {
+				type = 'soccerball';
 			}
 
-			// 이미지 로딩 실패 시 호출되는 함수
-			function handleImageError() {
-				const noImageText = document.querySelector('#noImageText');
-				noImageText.style.display = 'block';
+			if (teamInfo.taFilePath == null) {
+				document.querySelector('#teamImg').src = `/imgs/${type}.png`
+			} else {
+				try {
+					document.querySelector('#teamImg').src = teamInfo.taFilePath;
+				} catch {
+					document.querySelector('#teamImg').src = `/imgs/${type}.png`
+				}
+
 			}
 
-			async function doSendObj() {
-				const urlParams = new URL(location.href).searchParams;
-				const taNum = urlParams.get('taNum');
-				//타임리프 안돼서 일단 ㅠㅠ 
-				const obj = {
-					taNum: taNum
-				}
-				const res = await fetch('/team-sign-user-add', {
-					method: 'POST',
-					body: JSON.stringify(obj),
-					headers: {
-						'Content-Type': 'application/json;charset=UTF-8'
-					}
-				});
-				const result = await res.json();
 
-				console.log(result);
-				if (result) {
-					alert(`${result.resultMsg}`);
-					getTeamProfile();
-				}
+			const mannersProgress = document.querySelector('#manners-progress');
+			// taMannerPoint가 참 값인지 확인; 그렇지 않으면 0으로 기본값 사용
+			const mannerPercent = Math.floor(teamInfo.taMannerPoint ? (teamInfo.taMannerPoint / teamInfo.taMatchCount) : 0);
+			mannersProgress.style.width = `${mannerPercent}%`;
+
+			// 현재 점수 표시
+			const currentScore = document.querySelector('#current-score');
+			currentScore.textContent = `(${mannerPercent} / 100)`;
+
+
+			const randomScore = teamInfo.taPoint;
+
+			const scoreValue = document.querySelector('#score-value');
+			scoreValue.textContent = `${randomScore}점`;
+
+			// 점수에 따라 배경색과 텍스트색 변경
+			if (randomScore <= 100) {
+				scoreValue.style.backgroundColor = '#ececec';
+				scoreValue.style.color = '#767676';
+			} else if (randomScore <= 200) {
+				scoreValue.style.backgroundColor = '#ede0c4';
+				scoreValue.style.color = '#825e01';
+			} else if (randomScore <= 300) {
+				scoreValue.style.backgroundColor = '#fffbd5';
+				scoreValue.style.color = '#ffb800';
+			} else if (randomScore <= 400) {
+				scoreValue.style.backgroundColor = '#e6f0ff';
+				scoreValue.style.color = '#0066ff';
+			} else {
+				scoreValue.style.backgroundColor = '#f4e2ff';
+				scoreValue.style.color = '#8200d2';
 			}
-		</script>
+
+			const wholeRecord = `${teamInfo.taMatchCount}전 ${teamInfo.taWinCnt}승 ${teamInfo.taDrawCnt}무 ${teamInfo.taLooseCnt}패`
+			document.querySelector('#whole-record').innerHTML = wholeRecord;
+
+
+
+		}
+
+		window.addEventListener('load', getTeamInfo);
+
+	</script>
+	<script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+	<script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="/assets/js/sidebarmenu.js"></script>
+	<script src="/assets/js/app.min.js"></script>
+	<script src="/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+	<script src="/assets/libs/simplebar/dist/simplebar.js"></script>
+	<script src="/assets/js/dashboard.js"></script>
+
 	</div>
 </body>
 
