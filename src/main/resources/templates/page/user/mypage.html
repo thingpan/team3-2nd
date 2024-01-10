@@ -22,6 +22,11 @@
 		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
 		crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/user/mypage.css">
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+
+
 
 <body>
 
@@ -222,7 +227,7 @@
 
 				if (result) {
 					alert("비밀번호가 일치합니다!");
-					document.querySelector('#current-password-input').value='';
+					document.querySelector('#current-password-input').value = '';
 					$('#current-password-modal').modal('hide');
 					document.querySelector('.edit-profile-form').style.display = 'block';
 				} else {
@@ -269,7 +274,7 @@
 		<script src="/js/mock/region.js"></script>
 
 		<hr style="margin-top:20px ;">
-		<div id="box2">
+		<div id="box2" class="mb-4">
 			<div class="team-section">
 				<h3>소속팀</h3>
 				<div class="team-buttons">
@@ -290,36 +295,46 @@
 			</div>
 		</div>
 
-		<div class="edit-profile-form" style="display: none;">
-
+		<div class="edit-profile-form ">
 			<h3 id="my">내 정보</h3>
+
 			<hr>
 
 			<label for="name">이름 :</label>
 			<input type="text" id="user-name" readonly>
+
 			<hr>
-			<label for="email">이메일 :</label>
-			<input type="email" id="email" placeholder="변경하려는 이메일을 입력해주세요.">
+			<div class="mb-2">
+				<label for="email">이메일 :</label>
+				<input type="email" id="email" placeholder="변경하려는 이메일을 입력해주세요.">
+			</div>
 			<hr>
 			<label for="password">비밀번호 :</label>
 			<input type="password" id="password" name="password" readonly>
 			<button id="change-password-button" class="btn btn-dark" onclick="openChangePasswordPopup()">비밀번호
 				변경</button>
+
 			<hr>
+
 			<label for="phone">전화번호 :</label>
 			<input type="number" id="phone">
+
 			<hr>
 			<label for="year">생년월일 :</label>
 			<input type="text" id="date" name="date">
-			<hr>
-			<label for="address">주소 :</label>
-			<input type="text" id="address" name="address" value="" placeholder="주소" readonly>
-			<button type="button" id="search-address" value="JOIN" onclick="openAddressSearchModal()"
-				class="btn btn-dark">검색</button>
+
 			<hr>
 
-			<button type="button" id="save-profile" class="btn btn-dark" onclick="save()">완료</button>
-			<button type="button" id="delete-profile" class="btn btn-dark" onclick="userdelete()">삭제</button>
+			<label for="address">주소 :</label>
+			<input type="text" id="address" name="address" placeholder="주소" readonly>
+			<button type="button" id="search-address" value="JOIN" onclick="openAddressSearchModal()"
+				class="btn btn-dark">검색</button>
+
+			<hr>
+			<div id="user">
+				<button type="button" id="delete-profile" class="btn btn-dark" onclick="userdelete()">삭제</button>
+				<button type="button" id="save-profile" class="btn btn-dark" onclick="save()">완료</button>
+			</div>
 		</div>
 		<!-- 비밀번호 변경 팝업 -->
 		<div id="change-password-popup"
@@ -333,7 +348,7 @@
 				class="btn btn-dark">확인</button>
 			<button type="button" id="cancel-password-change" class="btn btn-dark">취소</button>
 		</div>
-		
+
 		<script>
 			async function changePasswordAndDisplay() {
 				// 현재 비밀번호, 새 비밀번호, 새 비밀번호 확인 등 필요한 정보 수집
@@ -395,7 +410,7 @@
 					} else if (result.resultMsg == 0) {
 						alert(`탈퇴 완료`);
 						location.href = `/auth/logout`;
-					}else{
+					} else {
 						alert(`탈퇴 중 문제 발생 다시 시도해 주세요`);
 					}
 				}
@@ -508,7 +523,7 @@
 						});
 
 						if (response.ok) {
-	
+
 							document.querySelector('.edit-profile-form').style.display = 'none';
 							alert('프로필이 업데이트 되었습니다.');
 							document.querySelector('#password').value = '';

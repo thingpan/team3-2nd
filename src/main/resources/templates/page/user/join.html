@@ -7,114 +7,116 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
 		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
 	<style>
+		* {
+			font-family: 'Noto Sans KR', sans-serif;
+		}
+
 		body {
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			height: 100%;
-			scale: 150%;
-			overflow-y: scroll;
-			overflow-x: hidden;
 		}
 
 		h3 {
-			font-size: 15px;
-			text-align: right;
-			margin-top: 150px;
-			margin-right: 75px;
-		}
+			text-align: center;
+			margin-top: 30%;
 
-		input {
-			margin-bottom: 4px;
-			border: 1px solid lightgray;
-			border-radius: 5px;
-			padding: 4px;
-			font-size: 12px;
-			border: 1.5px solid black;
-			width: 184px;
-		}
-
-		#uiBirth {
-			height: 24px;
-			font-size: 8px;
-		}
-
-		.require-text {
-			color: red;
-		}
-
-		.btn {
-			font-size: 10px;
-		}
-
-		select {
-			font-size: 8px;
-			width: 45px;
-		}
-
-		input {
-			margin-bottom: -50px;
 		}
 
 		.error-message {
-			color: red;
-			margin-top: 3px;
-			font-size: 8px;
+			font-size: 12px;
+		}
+
+		.input-group-text {
+			font-size: 10px;
+		}
+
+		#basic-addon1 {
+			width: inherit;
 		}
 
 		#joinButton {
-			margin-bottom: 20px;
+			margin: 0 auto;
+			display: block;
+			margin-bottom: 30%;
+		}
+		
+		@media screen and (min-width: 768px) {
+			body {
+				margin: 0;
+			}
+
+			#main {
+				width: 50%;
+				margin: 0 auto;
+			}
 		}
 	</style>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 
 <body>
-	<div>
-		<h3>Match Me If You Can</h3>
+	<div id="main">
+		<h3>Match Me If You Can</h3><br>
 		<div>
-			<label for="uiId" style="font-size: 8px;">아이디<span class="require-text"> *</span></label><br>
-			<input type="text" id="uiId" style="font-size: 8px;" placeholder="아이디">
-			<button type="button" class="btn btn-dark" id="checkIdButton" style="font-size: 7px;"
-				onclick="checkId()">중복확인</button><br>
-			<div id="errorUiId" class="error-message"></div>
+			<div class="input-group mb-1">
+				<span class="input-group-text" id="basic-addon1">아이디<span style='color: red;'> *</span></span>
+				<input type="text" id="uiId" class="form-control" placeholder="ID" aria-describedby="basic-addon1">
+				<button type="button" class="btn btn-dark" id="checkIdButton" style="font-size: 12px;"
+					onclick="checkId()">중복확인</button>
+			</div>
+			<div id="errorUiId" class="error-message"></div><br>
 
-			<label for="uiPwd" style="font-size: 8px;">비밀번호<span class="require-text"> *</span></label><br>
-			<input type="password" id="uiPwd" style="font-size: 8px;" placeholder="비밀번호"><br>
-			<div id="errorUiPwd" class="error-message"></div>
+			<div class="input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">비밀번호<span style='color: red;'> *</span></span>
+				<input type="password" id="uiPwd" class="form-control" placeholder="Password"
+					aria-describedby="basic-addon1">
+			</div>
+			<div id="errorUiPwd" class="error-message"></div><br>
 
-			<label for="uiPwdConfirm" style="font-size: 8px;">비밀번호 확인<span class="require-text"> *</span></label><br>
-			<input type="password" id="uiPwdConfirm" style="font-size: 8px;" placeholder="비밀번호 확인"><br>
-			<div id="errorUiPwdConfirm" class="error-message"></div>
+			<div class="input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">비번 확인<span style='color: red;'> *</span></span>
+				<input type="password" id="uiPwdConfirm" class="form-control" placeholder="Password"
+					aria-describedby="basic-addon1">
+			</div>
+			<div id="errorUiPwdConfirm" class="error-message"></div><br>
 
-			<label for="uiName" style="font-size: 8px;">이름<span class="require-text"> *</span></label><br>
-			<input type="text" id="uiName" style="font-size: 8px;" placeholder="이름"><br>
-			<div id="errorUiName" class="error-message"></div>
+			<div class="input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">이름<span style='color: red;'> *</span></span>
+				<input type="text" id="uiName" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
+			</div>
+			<div id="errorUiName" class="error-message"></div><br>
 
-			<label for="uiMobile" style="font-size: 8px;">전화번호<span class="require-text"> *</span></label><br>
-			<input type="tel" id="uiMobile" style="font-size: 8px;" placeholder="전화번호" pattern="[0-9]*"><br>
-			<div id="errorUiMobile" class="error-message"></div>
+			<div class="input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">전화번호<span style='color: red;'> *</span></span>
+				<input type="number" id="uiMobile" class="form-control" placeholder="Phone-Number"
+					aria-describedby="basic-addon1">
+			</div>
+			<div id="errorUiMobile" class="error-message"></div><br>
 
-			<label for="uiId" style="font-size: 8px;">이메일<span class="require-text"> *</span></label><br>
-			<input type="email" id="uiEmail" style="font-size: 8px;" placeholder="이메일"><br>
+			<div class="input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">이메일<span style='color: red;'> *</span></span>
+				<input type="email" id="uiEmail" class="form-control" placeholder="E-Mail">
+			</div>
+			<div id="errorEmail" class="error-message"></div><br>
 
-			<div id="errorEmail" class="error-message"></div>
+			<div class="input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">생년월일<span style='color: red;'> *</span></span>
+				<input type="date" id="uiBirth" class="form-control"><br>
+			</div>
+			<div id="errorBirth" class="error-message"></div><br>
 
-			<label style="font-size: 8px;">생년월일<span class="require-text"> *</span></label><br>
+			<div class="input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">주소<span style='color: red;'> *</span></span>
+				<input type="text" id="uiAddress" placeholder="Address" class="form-control" readonly>
+				<button type="button" class="btn btn-dark" id="searchButton" style="font-size: 12px;"
+					onclick="searchAddress()">검색</button>
+			</div>
+			<div id="errorAddress" class="error-message"></div><br>
+
+			<button type="button" class="btn btn-dark" id="joinButton" style="width: 184px;"
+				onclick="join()">회원가입</button>
 		</div>
-
-		<input type="date" id="uiBirth" placeholder="YYYY-MM-DD">
-
-		<div id="errorBirth" class="error-message"></div>
-
-		<label style="font-size: 8px;">주소<span class="require-text"> *</span></label><br>
-		<input type="text" id="uiAddress" style="font-size: 8px;" placeholder="주소" readonly>
-		<div id="errorAddress" class="error-message"></div>
-		<button type="button" class="btn btn-dark" id="searchButton" style="font-size: 7px;"
-			onclick="searchAddress()">검색
-		</button>
-		<br><br>
-		<button type="button" class="btn btn-dark" id="joinButton" style="width: 184px;" onclick="join()">회원가입</button>
 	</div>
 
 	<script>
@@ -201,7 +203,7 @@
 			}
 
 			if (!uiName) {
-				document.querySelector('#errorUiName').innerHTML = "<span style='color: red; font-size: 8px;'>이름을 입력해주세요.</span>";
+				document.querySelector('#errorUiName').innerHTML = "<span style='color: red;'>이름을 입력해주세요.</span>";
 				return;
 			} else {
 				document.querySelector('#errorUiName').innerHTML = "";
