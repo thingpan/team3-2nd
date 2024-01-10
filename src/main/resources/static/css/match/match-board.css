@@ -30,7 +30,7 @@ body {
 .calendar-container {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
+    align-items: center;
 }
 
 .schedule-none {
@@ -53,7 +53,36 @@ body {
     display: flex;
     border-radius: 10px;
     overflow: hidden;
+    text-align: center;
 }
+
+@media screen and (max-width: 510px) {
+    .calendar {
+        font-size: 12px;
+    }
+
+    .calendar-container button {
+        font-size: 12px;
+    }
+
+}
+
+/* 화면 너비가 770 이하일 때 */
+@media screen and (max-width: 770px) {
+    .calendar {
+        /*flex-direction: column; !* 세로 배치로 변경 *!*/
+    }
+
+    .calendar-button {
+        /*flex-direction: column;*/
+    }
+
+    .calendar button::after {
+        content: attr(data-dayname); /* 가상 클래스를 통해 data-dayname 속성 사용 */
+        display: none;
+    }
+}
+
 
 .day {
     width: 160px;
@@ -76,6 +105,7 @@ body {
 }
 
 .filter {
+    display: flex;
     width: 100%;
     margin: 2rem auto 1rem;
 }
