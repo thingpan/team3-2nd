@@ -64,7 +64,7 @@ label {
 
 #email {
 	display: inline-block;
-	margin: 0 auto;
+	width:40%;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 10px;
@@ -399,16 +399,9 @@ select {
 	z-index: 0;
 }
 
-#logout-button {
-	background-color: #000000f5;
-	color: #fff;
-	margin-left: 130%;
-	width: 100px;
-	height: 35px;
-	border: none;
-	font-size: 15px;
-	border-radius: 5px;
-	cursor: pointer;
+
+#user{
+	margin-left:91%;
 }
 
 #create-team-btn {
