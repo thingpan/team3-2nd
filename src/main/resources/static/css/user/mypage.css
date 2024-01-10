@@ -550,21 +550,11 @@ select {
 	#team-heading {
 		margin-right: 0;
 	}
-
-
-}
-
-@media (min-width : 320px) {
-	#main {
-		width: 60%;
-	}
-
-	.edit-profile-form {
-		width: 60%;
-	}
-	#box2 {
+		#box2 {
 		width: 100%;
 		padding: 8px;
-	}
+		margin:0 auto;
+		}
+
 
 }

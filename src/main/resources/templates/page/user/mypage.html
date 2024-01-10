@@ -22,6 +22,11 @@
 		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
 		crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/user/mypage.css">
+	   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+        
+  
 
 <body>
 
@@ -269,8 +274,8 @@
 		<script src="/js/mock/region.js"></script>
 
 		<hr style="margin-top:20px ;">
-		<div id="box2">
-			<div class="team-section">
+		<div id="box2"class="mb-4">
+			<div class="team-section" >
 				<h3>소속팀</h3>
 				<div class="team-buttons">
 					<div style="float: left;">
@@ -291,35 +296,48 @@
 		</div>
 
 		<div class="edit-profile-form" style="display: none;">
-
+				<div class="mb-2">
 			<h3 id="my">내 정보</h3>
+				</div>
 			<hr>
-
+	<div class="mb-2">
 			<label for="name">이름 :</label>
 			<input type="text" id="user-name" readonly>
+			</div>
 			<hr>
+				<div class="mb-2">
 			<label for="email">이메일 :</label>
 			<input type="email" id="email" placeholder="변경하려는 이메일을 입력해주세요.">
+			</div>
 			<hr>
+				<div class="mb-2">
 			<label for="password">비밀번호 :</label>
 			<input type="password" id="password" name="password" readonly>
 			<button id="change-password-button" class="btn btn-dark" onclick="openChangePasswordPopup()">비밀번호
 				변경</button>
+				</div>
 			<hr>
+				<div class="mb-2">
 			<label for="phone">전화번호 :</label>
 			<input type="number" id="phone">
+			</div>
 			<hr>
+				<div class="mb-2">
 			<label for="year">생년월일 :</label>
 			<input type="text" id="date" name="date">
+			</div>
 			<hr>
+				<div class="mb-2">
 			<label for="address">주소 :</label>
 			<input type="text" id="address" name="address" value="" placeholder="주소" readonly>
 			<button type="button" id="search-address" value="JOIN" onclick="openAddressSearchModal()"
 				class="btn btn-dark">검색</button>
+				</div>
 			<hr>
-
+	<div class="mb-2">
 			<button type="button" id="save-profile" class="btn btn-dark" onclick="save()">완료</button>
 			<button type="button" id="delete-profile" class="btn btn-dark" onclick="userdelete()">삭제</button>
+			</div>
 		</div>
 		<!-- 비밀번호 변경 팝업 -->
 		<div id="change-password-popup"
