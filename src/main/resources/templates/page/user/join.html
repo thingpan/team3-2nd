@@ -15,6 +15,8 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			margin: 0;
+			padding: 0;
 		}
 
 		h3 {
@@ -40,26 +42,28 @@
 			margin-bottom: 10%;
 		}
 
-		@media screen and (max-width: 634px) {
-			body {
-				margin: 5px;
-			}
-
+		/* 더 작은 화면에 대한 조정 */
+		@media (max-width: 540px) {
 			h3 {
-				margin-top: 20%;
-			}
-
-			.input-group-text,
-			.form-control,
-			.btn {
-				font-size: 10px;
+				margin-top: 5%;
 			}
 
 			#joinButton {
-				margin-bottom: 10%;
+				width: 100%;
+			}
+		}
+
+		@media (max-width: 769px) {
+			h3 {
+				margin-top: 5%;
+			}
+
+			#joinButton {
+				width: 100%;
 			}
 		}
 	</style>
+
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 
