@@ -19,8 +19,7 @@
 
 		h3 {
 			text-align: center;
-			margin-top: 30%;
-
+			margin-top: 10%;
 		}
 
 		.error-message {
@@ -41,25 +40,23 @@
 			margin-bottom: 10%;
 		}
 
-		@media screen and (min-width: 768px) {
+		@media screen and (max-width: 634px) {
 			body {
-				margin: 0;
+				margin: 5px;
 			}
 
-			#main {
-				width: 70%;
-				margin: 0 auto;
-			}
-		}
-
-		@media screen and (min-width: 502px) {
-			body {
-				margin: 0;
+			h3 {
+				margin-top: 5%;
 			}
 
-			#main {
-				width: 50%;
-				margin: 0 auto;
+			.input-group-text,
+			.form-control,
+			.btn {
+				font-size: 10px;
+			}
+
+			#joinButton {
+				margin-bottom: 5%;
 			}
 		}
 	</style>
