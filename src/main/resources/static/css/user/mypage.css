@@ -46,15 +46,13 @@ label {
 	text-align: left;
 }
 
-button {
-	margin-left: 85px;
-}
+
 
 #password {
 	display: inline-block;
 	margin: 0 auto;
 	margin-left: 0.5%;
-	width: 265px;
+	width: 40%;
 	border: 0 solid white;
 }
 
@@ -82,13 +80,8 @@ button {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#change-email-button {
-	font-size: 12px;
-}
-
 #change-password-button {
 	font-size: 12px;
-	margin-left: 130px;
 	font-size: 12px;
 	cursor: pointer;
 	text-align: center;
@@ -127,9 +120,7 @@ button {
 	padding: 10px;
 }
 
-#search-address {
-	font-size: 12px;
-}
+
 
 .team-list {
 	display: flex;
@@ -191,7 +182,6 @@ button {
 }
 
 .search-results {
-	width: 0%;
 	margin-top: 10px;
 }
 
@@ -203,15 +193,7 @@ button {
 	display: inline-block;
 }
 
-#save-profile {
-	margin-left: 85%;
-	margin-bottom: 10%;
-}
 
-#delete-profile {
-	margin-left: 1%;
-	margin-bottom: 10%;
-}
 
 .first {
 	margin-left: 50px;
@@ -393,6 +375,10 @@ select {
 	margin-bottom: 10px;
 	box-sizing: border-box;
 }
+#address{
+	width: 40%;
+
+}
 
 .modal button {
 	background-color: #0066ff;
@@ -495,7 +481,7 @@ select {
 
 @media (max-width: 767px) {
 	#main {
-		width: 70%;
+		width: 100%;
 	}
 
 	#team-list-div,
@@ -507,20 +493,18 @@ select {
 		justify-content: flex-start;
 	}
 
-	#search-button {
-		margin-left: 0;
-	}
 
 	#team-heading {
 		margin-right: 0;
 	}
 
 	#box2 {
-		padding: 15px;
+		padding: 3%;
+
 	}
 
 	.edit-profile-form {
-		width:70%;
+		width:100%;
 	}
 
 }
