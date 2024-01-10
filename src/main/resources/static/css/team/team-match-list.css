@@ -41,6 +41,7 @@ body {
 }
 
 .team-photo img {
+	margin-top: 100px;
 	width: 200px;
 	height: 180px;
 	border-radius: 20px;
