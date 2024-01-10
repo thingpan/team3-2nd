@@ -2,9 +2,15 @@
 <html xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <header th:fragment="f-head" id="header">
 
         <link href="/css/fragment/common.css" rel="stylesheet">
+        <script
+                src="https://kit.fontawesome.com/3624917c4f.js"
+                crossorigin="anonymous"
+        ></script>
         <link
                 href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@200;300;400;500;600;700;800&display=swap"
                 rel="stylesheet"/>
@@ -14,6 +20,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
               crossorigin="anonymous">
+
 
         <script>
             function redirectToLoginPage() {
@@ -27,21 +34,44 @@
             function logout() {
                 window.location.href = "/auth/logout";
             }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const toggleBtn = document.querySelector('.navbar__toggleBtn');
+                const links = document.querySelector('.navbar__menu');
+                const userMenu = document.querySelector('.user-menu');
+
+                toggleBtn.addEventListener('click', () => {
+                    links.classList.toggle('active');
+                    userMenu.classList.toggle('active');
+                });
+
+            });
+
+
         </script>
 
-        <a href="/" class="logo">Match Me If You Can</a>
-        <ul class="navbar">
-            <li><a href="/page/match/match-board">Match</a></li>
-            <li><a href="/page/user/mypage">MyPage</a></li>
-            <li><a href="/page/team/team-rank">Rank</a></li>
-        </ul>
-        <div class="user-menu" sec:authorize="isAnonymous()">
-            <button id="login-button" class="btn btn-dark" onclick="redirectToLoginPage()">로그인</button>
-            <button id="register-button" class="btn btn-dark" onclick="redirectToRegistrationPage()">회원가입</button>
-        </div>
-        <div sec:authorize="isAuthenticated()">
-            <button onclick="logout()" class="btn btn-dark">로그아웃</button>
-        </div>
+        <nav class="navbar" style="align-items: center">
+            <a href="/" class="logo">Match Me If You Can</a>
+            <ul class="navbar__menu">
+                <div class="navbar__menus">
+                <li><a href="/page/match/match-board">Match</a></li>
+                <li><a href="/page/user/mypage">MyPage</a></li>
+                <li><a href="/page/team/team-rank">Rank</a></li>
+                </div>
+                <div class="buttons">
+                <div class="user-menu" sec:authorize="isAnonymous()">
+                    <button id="login-button" class="btn btn-dark" onclick="redirectToLoginPage()">로그인</button>
+                    <button id="register-button" class="btn btn-dark" onclick="redirectToRegistrationPage()">회원가입
+                    </button>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <button id="logout-button" onclick="logout()" class="btn btn-dark">로그아웃</button>
+                </div>
+                </div>
+            </ul>
+
+            <a href="#" class="navbar__toggleBtn"><i class="fas fa-bars"></i></a>
+        </nav>
     </header>
 </head>
 
