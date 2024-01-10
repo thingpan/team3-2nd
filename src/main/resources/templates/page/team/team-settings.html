@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>팀 정보 설정</title>
-
+	
 	<link
 		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
 		rel="stylesheet">
@@ -16,7 +16,7 @@
 <body>
 	<!--  Body Wrapper -->
 	<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-		data-sidebar-position="fixed" data-header-position="fixed">
+		data-sidebar-position="fixed" data-header-position="none">
 		<!-- Sidebar Start -->
 		<aside class="left-sidebar">
 			<!-- Sidebar scroll-->
@@ -131,59 +131,71 @@
 							</a>
 						</li>
 					</ul>
-
-
 				</nav>
 			</header>
 			<!--  Header End -->
-			<div class="container-fluid">
-				<!-- 사진  -->
-				<div class="col-md-8">
-					<div class="card">
-						<img id="preview" src="" class="card-img-top" alt="...">
-						<div id="noImageText" style="display: none; margin-left:50%; margin-top:40%">
-			
-						</div>
-						<div class="card-body">
-						</div>
-					</div>
 
-					<!-- 파일 업로드  -->
-					<div class="input-group mb-3">
-						<input type="file" class="form-control" id="profilePicture" accept="image/*"
-							onchange="previewImage(this)">
-					</div>
+			<div style="margin-top: 5%;">
+				<div class="container-fluid">
+					<!-- 사진  -->
+					<div class="row" id="match-record-row-1">
+						<!--  없어도 댐<label for="teamName" class="form-label">프로필</label>-->
+						<div class="col-xl-6 col-xl-3">
+							<div style="height: 100%; width: 100%;">
+								<div class="card overflow-hidden rounded-2">
+									<div style="height: 100%; width: 100%;">
+									<img style="object-fit: contain; height: 30rem; width: 100%;" id="preview" src="" class="card-img-top" alt="...">
+									</div>
+									<!--  없어도 댐
+										<div id="noImageText" style="display: none; margin-left:50%; margin-top:40%">
+										</div> -->
+									<div class="card-body">
+									</div>
+								</div>
 
-					<div class="card">
-						<div class="card-body">
-							<form>
-								<div class="mb-3">
-									<label for="teamName" class="form-label">팀 이름</label>
-									<input type="text" class="form-control" id="teamName" placeholder="팀 이름을 입력하세요"
-										disabled>
-									<button type="button" style="margin-top: 2%;" class="btn btn-primary"
-										id="teamNameCheckButton" data-bs-toggle="modal"
-										data-bs-target="#staticBackdrop">
-										중복 확인
-									</button>
+								<!-- 파일 업로드  -->
+								<div class="input-group mb-3">
+									<input type="file" class="form-control" id="profilePicture" accept="image/*"
+										onchange="previewImage(this)">
 								</div>
-								<div class="mb-3">
-									<label for="teamIntro" class="form-label">소개</label>
-									<textarea type="text" style="width: 100%; height: 50%; resize: none;"
-										class="form-control" id="teamIntro" placeholder="팀에 대한 소개를 입력하세요"></textarea>
+							</div>
+						</div>
+
+						<div class="col-xl-6">
+							<div class="card">
+								<div class="card-body">
+									<div class="mb-8">
+										<label for="teamName" class="form-label">팀 이름</label>
+										<input type="text" class="form-control" id="teamName" placeholder="팀 이름을 입력하세요"
+											disabled>
+										<button type="button" style="margin-top: 2%;" class="btn btn-primary"
+											id="teamNameCheckButton" data-bs-toggle="modal"
+											data-bs-target="#staticBackdrop">
+											중복 확인
+										</button>
+									</div>
+									<div class="mb-6">
+										<label for="teamIntro" class="form-label">소개</label>
+										<textarea type="text" style="width: 100%; height: 50%; resize: none;"
+											class="form-control" id="teamIntro"
+											placeholder="팀에 대한 소개를 입력하세요"></textarea>
+									</div>
+									<label for="jobStatus" class="form-label">구인 상태</label>
+									<select id="jobStatus" class="form-select" aria-label="Default select example">
+										<option value="1">구함</option>
+										<option value="0">구하지 않음</option>
+									</select>
+									<button type="button" class="btn btn-primary" onclick="saveTeamInfo()"
+										style="margin-top: 2%;">저장</button>
+
 								</div>
-								<label for="jobStatus" class="form-label">구인 상태</label>
-								<select id="jobStatus" class="form-select" aria-label="Default select example">
-									<option value="1">구함</option>
-									<option value="0">구하지 않음</option>
-								</select>
-								<button type="button" class="btn btn-primary" onclick="saveTeamInfo()"
-									style="margin-top: 2%;">저장</button>
-							</form>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
+
 			<!--중복확인 모달-->
 			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 				aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -210,185 +222,185 @@
 				</div>
 			</div>
 		</div>
+	</div>
 
+	<script>
+		const teamNameInput = document.querySelector("#checkTeamNameInModal");
 
-		<script>
-			const teamNameInput = document.querySelector("#checkTeamNameInModal");
+		// 입력 이벤트에 대한 이벤트 리스너를 추가
+		teamNameInput.addEventListener('input', function () {
+			// 입력의 현재 값을 가져옵니다.
+			let currentInput = teamNameInput.value;
 
-			// 입력 이벤트에 대한 이벤트 리스너를 추가
-			teamNameInput.addEventListener('input', function () {
-				// 입력의 현재 값을 가져옵니다.
-				let currentInput = teamNameInput.value;
+			// 길이가 5자를 초과하는지 확인
+			if (currentInput.length > 5) {
+				// 초과하는 경우 입력을 5자로 자릅니다.
+				currentInput = currentInput.slice(0, 5);
 
-				// 길이가 5자를 초과하는지 확인
-				if (currentInput.length > 5) {
-					// 초과하는 경우 입력을 5자로 자릅니다.
-					currentInput = currentInput.slice(0, 5);
-
-					// 입력 필드를 자른 값으로 업데이트
-					teamNameInput.value = currentInput;
-				}
-			});
-			function limitTeamNameLength() {
-				var teamNameInput = document.querySelector("#checkTeamNameInModal");
-				var errorDiv = document.querySelector("#errorTaName");
-
-				// 팀 이름이 5글자를 초과하면 초과 부분을 잘라내고 오류 메시지 표시
-				if (teamNameInput.value.length > 5) {
-					teamNameInput.value = teamNameInput.value.substring(0, 5); // 5글자로 자름
-					errorDiv.innerText = "팀 이름은 5글자를 초과할 수 없습니다.";
-				} else {
-					errorDiv.innerText = "";
-				}
+				// 입력 필드를 자른 값으로 업데이트
+				teamNameInput.value = currentInput;
 			}
-			window.addEventListener('load', async function () {
-				// 현재 URL에서 taNum을 가져오기
-				const urlParams = new URLSearchParams(window.location.search);
-				const taNum = urlParams.get('taNum');
+		});
+		function limitTeamNameLength() {
+			var teamNameInput = document.querySelector("#checkTeamNameInModal");
+			var errorDiv = document.querySelector("#errorTaName");
 
-				if (taNum) {
-					try {
-						const userRes = await fetch(`/team-info?taNum=${taNum}`);
-						const user = await userRes.json();
+			// 팀 이름이 5글자를 초과하면 초과 부분을 잘라내고 오류 메시지 표시
+			if (teamNameInput.value.length > 5) {
+				teamNameInput.value = teamNameInput.value.substring(0, 5); // 5글자로 자름
+				errorDiv.innerText = "팀 이름은 5글자를 초과할 수 없습니다.";
+			} else {
+				errorDiv.innerText = "";
+			}
+		}
+		window.addEventListener('load', async function () {
+			// 현재 URL에서 taNum을 가져오기
+			const urlParams = new URLSearchParams(window.location.search);
+			const taNum = urlParams.get('taNum');
 
-						document.querySelector('#teamName').value = user.taName;
-						console.log(user.taName);
-						document.querySelector('#teamIntro').value = user.taDesc;
-						document.querySelector('#jobStatus').value = user.taStatus;
+			if (taNum) {
+				try {
+					const userRes = await fetch(`/team-info?taNum=${taNum}`);
+					const user = await userRes.json();
+
+					document.querySelector('#teamName').value = user.taName;
+					console.log(user.taName);
+					document.querySelector('#teamIntro').value = user.taDesc;
+					document.querySelector('#jobStatus').value = user.taStatus;
 
 
 
-						const profilePicture = document.querySelector('#profilePicture');
-						console.log(user);
+					const profilePicture = document.querySelector('#profilePicture');
+					console.log(user);
 
-						// 수정 시작
-						const previewImage = document.querySelector('#preview');
-						//const noImageText = document.querySelector('#noImageText');
+					// 수정 시작
+					const previewImage = document.querySelector('#preview');
+					//const noImageText = document.querySelector('#noImageText');
 
-						if (user.taFilePath != null) {
-							previewImage.src = user.taFilePath;
-							previewImage.style.display = 'block';
-							//noImageText.style.display = 'none';
-						} else {
-							previewImage.src = '';
-							//프로필 설정 안할시 기본 이미지로 일단 해놈 
-							previewImage.src = '/assets/images/products/s4.jpg'; 
-							//noImageText.style.display = 'none';
-							
-						}
-						// 수정 종료
-					} catch (error) {
-						console.error('Error fetching team info:', error);
+					if (user.taFilePath != null) {
+						previewImage.src = user.taFilePath;
+						previewImage.style.display = 'block';
+						//noImageText.style.display = 'none';
+					} else {
+						previewImage.src = '';
+						//프로필 설정 안할시 기본 이미지로 일단 해놈 
+						previewImage.src = '/assets/images/products/s4.jpg';
+						//noImageText.style.display = 'none';
+
 					}
-				} else {
-					console.error('taNum이 없습니다.');
+					// 수정 종료
+				} catch (error) {
+					console.error('Error fetching team info:', error);
 				}
-			});
+			} else {
+				console.error('taNum이 없습니다.');
+			}
+		});
 
-			async function checkTeamName() {
-				const taName = document.querySelector('#checkTeamNameInModal').value
+		async function checkTeamName() {
+			const taName = document.querySelector('#checkTeamNameInModal').value
 
-				const res = await fetch(`/check-team-name/${taName}`)
-				const result = await res.json();
-				let html;
-				if (result.resultMsg == "0") {
-					html = "<span style='color: red;'>이미 사용 중인 이름입니다.</span>";
-					document.querySelector('#checkTeamName').innerHTML = html;
-					makeBtn = '';
-					document.querySelector('.modal-footer').innerHTML = makeBtn;
-				} else {
-					html = "<span style='color: green;'>사용 가능한 이름입니다.</span>"
-					document.querySelector('#checkTeamName').innerHTML = html;
-					makeBtn = `<button data-bs-dismiss="modal" type="button" class="btn btn-primary" onclick="setTeamName('${document.querySelector('#checkTeamNameInModal').value}')">사용하기</button>`
-					document.querySelector('.modal-footer').innerHTML = makeBtn;
-				}
-
+			const res = await fetch(`/check-team-name/${taName}`)
+			const result = await res.json();
+			let html;
+			if (result.resultMsg == "0") {
+				html = "<span style='color: red;'>이미 사용 중인 이름입니다.</span>";
+				document.querySelector('#checkTeamName').innerHTML = html;
+				makeBtn = '';
+				document.querySelector('.modal-footer').innerHTML = makeBtn;
+			} else {
+				html = "<span style='color: green;'>사용 가능한 이름입니다.</span>"
+				document.querySelector('#checkTeamName').innerHTML = html;
+				makeBtn = `<button data-bs-dismiss="modal" type="button" class="btn btn-primary" onclick="setTeamName('${document.querySelector('#checkTeamNameInModal').value}')">사용하기</button>`
+				document.querySelector('.modal-footer').innerHTML = makeBtn;
 			}
 
-			function setTeamName(taName) {
-				document.querySelector('#teamName').value = taName;
-			}
+		}
+
+		function setTeamName(taName) {
+			document.querySelector('#teamName').value = taName;
+		}
 
 
 
-			async function saveTeamInfo() {
-				const urlParams = new URLSearchParams(window.location.search);
-				const taNum = urlParams.get('taNum');
-				if (taNum) {
-					try {
-						const teamImgFile = document.querySelector('#profilePicture');
-						console.log(teamImgFile);
-						const formData = new FormData();
-						if (teamImgFile.files.length) {
-							const file = teamImgFile.files[0];
-							formData.append('taFile', file);
-						}
-						const taName = document.querySelector('#teamName').value;
-						const taDesc = document.querySelector('#teamIntro').value;
-						const taStatus = document.querySelector('#jobStatus').value;
-						formData.append('taNum', taNum);
-						formData.append('taName', taName);
-						formData.append('taDesc', taDesc);
-						formData.append('taStatus', taStatus);
-
-						const res = await fetch('/team-info-update', {
-							method: 'PUT',
-							body: formData
-						});
-						const result = await res.json();
-
-						if (result == 1) {
-							alert('팀 정보가 업데이트되었습니다.');
-							location.href = `/page/team/record?taNum=${taNum}`
-						} else {
-							alert('저장 실패');
-						}
-
-					} catch (error) {
-						console.error('Error updating team info:', error);
+		async function saveTeamInfo() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const taNum = urlParams.get('taNum');
+			if (taNum) {
+				try {
+					const teamImgFile = document.querySelector('#profilePicture');
+					console.log(teamImgFile);
+					const formData = new FormData();
+					if (teamImgFile.files.length) {
+						const file = teamImgFile.files[0];
+						formData.append('taFile', file);
 					}
+					const taName = document.querySelector('#teamName').value;
+					const taDesc = document.querySelector('#teamIntro').value;
+					const taStatus = document.querySelector('#jobStatus').value;
+					formData.append('taNum', taNum);
+					formData.append('taName', taName);
+					formData.append('taDesc', taDesc);
+					formData.append('taStatus', taStatus);
+
+					const res = await fetch('/team-info-update', {
+						method: 'PUT',
+						body: formData
+					});
+					const result = await res.json();
+
+					if (result == 1) {
+						alert('팀 정보가 업데이트되었습니다.');
+						location.href = `/page/team/record?taNum=${taNum}`
+					} else {
+						alert('저장 실패');
+					}
+
+				} catch (error) {
+					console.error('Error updating team info:', error);
 				}
 			}
+		}
 
-			// 선택한 이미지를 미리보기하는 함수
-			function previewImage(input) {
-				var preview = document.querySelector('#preview');
-				var noImageText = document.querySelector('#noImageText');
-				var file = input.files[0];
-				var reader = new FileReader();
+		// 선택한 이미지를 미리보기하는 함수
+		function previewImage(input) {
+			var preview = document.querySelector('#preview');
+			var noImageText = document.querySelector('#noImageText');
+			var file = input.files[0];
+			var reader = new FileReader();
 
-				reader.onloadend = function () {
-					preview.src = reader.result;
-					preview.style.display = 'block';
-					noImageText.style.display = 'none';
-				}
-
-				if (file) {
-					reader.readAsDataURL(file);
-				} else {
-					//preview.src = '';
-					//preview.style.display = 'none';
-					//noImageText.style.display = 'block';
-				}
+			reader.onloadend = function () {
+				preview.src = reader.result;
+				preview.style.display = 'block';
+				noImageText.style.display = 'none';
 			}
 
-			window.addEventListener('scroll', () => {
-				if (window.scrollY > 50) {
-					header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
-					header.style.transform = 'translateY(-100%)';
-				} else {
-					header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
-					header.style.transform = 'translateY(0)';
-				}
-			});
-		</script>
-		<script src="/assets/libs/jquery/dist/jquery.min.js"></script>
-		<script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-		<script src="/assets/js/sidebarmenu.js"></script>
-		<script src="/assets/js/app.min.js"></script>
-		<script src="/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-		<script src="/assets/libs/simplebar/dist/simplebar.js"></script>
-		<script src="/assets/js/dashboard.js"></script>
+			if (file) {
+				reader.readAsDataURL(file);
+			} else {
+				//preview.src = '';
+				//preview.style.display = 'none';
+				//noImageText.style.display = 'block';
+			}
+		}
+
+		window.addEventListener('scroll', () => {
+			if (window.scrollY > 50) {
+				header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
+				header.style.transform = 'translateY(-100%)';
+			} else {
+				header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
+				header.style.transform = 'translateY(0)';
+			}
+		});
+	</script>
+	<script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+	<script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="/assets/js/sidebarmenu.js"></script>
+	<script src="/assets/js/app.min.js"></script>
+	<script src="/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+	<script src="/assets/libs/simplebar/dist/simplebar.js"></script>
+	<script src="/assets/js/dashboard.js"></script>
 </body>
 
 </html>

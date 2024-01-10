@@ -4,322 +4,190 @@
 <head>
 	<meta charset="UTF-8">
 	<title>가입 신청 목록</title>
+	
 	<link
 		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
 		rel="stylesheet">
 	<link rel="stylesheet" href="/assets/css/styles.min.css" />
 	<link rel="shortcut icon" type="image/png" href="/assets/images/logos/favicon.png" />
-	<link
-		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
-		rel="stylesheet">
-	<link rel="stylesheet" href="/css/team/team-apply.css">
-	<link
-		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
-		rel="stylesheet">
 </head>
 
 <body>
-	<!--  Body Wrapper -->
-	<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-		data-sidebar-position="fixed" data-header-position="fixed">
-		<!-- Sidebar Start -->
-		<aside class="left-sidebar">
-			<!-- Sidebar scroll-->
-			<div>
-				<div class="brand-logo d-flex align-items-center justify-content-between">
-					<a href="/" class="text-nowrap logo-img">
-						<img src="/assets/images/logos/dark-logo.png" width="180" alt="" />
-					</a>
-					<div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-						<i class="ti ti-x fs-8"></i>
-					</div>
-				</div>
-				<!-- Sidebar navigation-->
-				<nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-					<ul id="sidebarnav">
-						<li class="sidebar-item">
-							<a class="sidebar-link" th:href="@{/page/match/match-record(taNum=${param.taNum})}"
-								aria-expanded="false">
-								<span>
-									<i class="ti ti-info-circle"></i>
-								</span>
-								<span class="hide-menu">팀 정보</span>
+	<div th:replace="page/fragment/header.html :: f-head"></div>
+	<div th:replace="page/fragment/team-profile.html :: f-team-profile"></div>
+	<div class="main">
+		<div class="membership-requests">
+			<h4>팀 가입 신청 목록</h4>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">이름</th>
+						<th scope="col">주소</th>
+						<th scope="col">전화번호</th>
+						<th scope="col" style="width: 80px;"></th><!-- Empty header cell for buttons -->
+						<th scope="col" style="width: 80px;"></th><!-- Empty header cell for buttons -->
+					</tr>
+				</thead>
+				<tbody id="membership-requests-info">
+				</tbody>
+			</table>
+			<div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center" id="pageDiv">
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
 							</a>
 						</li>
-						<li class="sidebar-item">
-							<a class="sidebar-link" th:href="@{/page/team/record(taNum=${param.taNum})}"
-								aria-expanded="false">
-								<span>
-									<i class="ti ti-bolt"></i>
-								</span>
-								<span class="hide-menu">팀 전적</span>
-							</a>
-						</li>
-						<li class="sidebar-item">
-							<a class="sidebar-link" th:href="@{/page/team/team-match-list(taNum=${param.taNum})}"
-								aria-expanded="false">
-								<span>
-									<i class="ti ti-list"></i>
-								</span>
-								<span class="hide-menu">매치 작성 목록</span>
-							</a>
-						</li>
-						<li class="sidebar-item">
-							<a class="sidebar-link" th:href="@{/page/match/match-status(taNum=${param.taNum})}"
-								aria-expanded="false">
-								<span>
-									<i class="ti ti-mail"></i>
-								</span>
-								<span class="hide-menu">매칭 현황</span>
-							</a>
-						</li>
-						<li class="sidebar-item">
-							<a class="sidebar-link" th:href="@{/page/team/team-members(taNum=${param.taNum})}"
-								aria-expanded="false">
-								<span>
-									<i class="ti ti-users"></i>
-								</span>
-								<span class="hide-menu">팀원 목록</span>
-							</a>
-						</li>
-						<li class="sidebar-item">
-							<a class="sidebar-link" th:href="@{/page/team/team-apply(taNum=${param.taNum})}"
-								aria-expanded="false">
-								<span>
-									<i class="ti ti-user-check"></i>
-								</span>
-								<span class="hide-menu">가입 신청 인원</span>
-							</a>
-						</li>
-						<li class="sidebar-item">
-							<a class="sidebar-link" th:href="@{/page/team/team-settings(taNum=${param.taNum})}"
-								aria-expanded="false">
-								<span>
-									<i class="ti ti-settings"></i>
-								</span>
-								<span class="hide-menu">팀 설정</span>
-							</a>
-						</li>
-					</ul>
-
-				</nav>
-				<!-- End Sidebar navigation -->
-			</div>
-			<!-- End Sidebar scroll-->
-		</aside>
-		<!--  Sidebar End -->
-		<!--  Main wrapper -->
-		<div class="body-wrapper">
-			<!--  Header Start -->
-			<header class="app-header">
-				<nav class="navbar navbar-expand-lg navbar-light">
-					<ul class="navbar-nav">
-						<li class="nav-item d-block d-xl-none">
-							<a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse"
-								href="javascript:void(0)">
-								<i class="ti ti-menu-2"></i>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link nav-icon-hover" href="/page/match/match-board">
-								<i>Match</i>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link nav-icon-hover" href="/page/user/mypage">
-								<i>My Page</i>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link nav-icon-hover" href="/page/team/team-rank">
-								<i>Rank</i>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#">4</a></li>
+						<li class="page-item"><a class="page-link" href="#">5</a></li>
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
 							</a>
 						</li>
 					</ul>
 				</nav>
-			</header>
-			<!--  Header End -->
-			<div th:replace="page/fragment/team-profile.html :: f-team-profile"></div>
-			<div class="main">
-				<div class="membership-requests">
-					<h4>팀 가입 신청 목록</h4>
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">이름</th>
-								<th scope="col">주소</th>
-								<th scope="col">전화번호</th>
-								<th scope="col" style="width: 80px;"></th><!-- Empty header cell for buttons -->
-								<th scope="col" style="width: 80px;"></th><!-- Empty header cell for buttons -->
-							</tr>
-						</thead>
-						<tbody id="membership-requests-info">
-						</tbody>
-					</table>
-					<div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
-						<nav aria-label="Page navigation">
-							<ul class="pagination justify-content-center" id="pageDiv">
-								<li class="page-item">
-									<a class="page-link" href="#" aria-label="Previous">
-										<span aria-hidden="true">&laquo;</span>
-									</a>
-								</li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">4</a></li>
-								<li class="page-item"><a class="page-link" href="#">5</a></li>
-								<li class="page-item">
-									<a class="page-link" href="#" aria-label="Next">
-										<span aria-hidden="true">&raquo;</span>
-									</a>
-								</li>
-							</ul>
-						</nav>
-					</div>
-				</div>
 			</div>
-			<script>
-				const team = {
-					taNum: 1,
-					taFilePath: '/imgs/basketball',
-					taPoint: 200,
-					taName: '농구 짱짱'
+		</div>
+	</div>
+	<div th:replace="page/fragment/side-bar.html :: f-side-bar"></div>
+	<script>
+		const team = {
+			taNum: 1,
+			taFilePath: '/imgs/basketball',
+			taPoint: 200,
+			taName: '농구 짱짱'
+		}
+
+		const urlParams = new URL(location.href).searchParams;
+		const taNum = urlParams.get('taNum');
+
+		document.querySelector('#team-name').innerHTML = team.taName;
+
+		// 가입 수락 처리를 담당하는 함수
+		async function acceptMembership(tsuNum, uiName, uiNum) {
+			if (confirm(`사용자 ${uiName}의 가입을 수락합니다.`) == true) {
+				const body = {
+					tsuNum: tsuNum,
+					uiNum: uiNum,
+					taNum: taNum
 				}
-
-				const urlParams = new URL(location.href).searchParams;
-				const taNum = urlParams.get('taNum');
-
-				document.querySelector('#team-name').innerHTML = team.taName;
-
-				// 가입 수락 처리를 담당하는 함수
-				async function acceptMembership(tsuNum, uiName, uiNum) {
-					if (confirm(`사용자 ${uiName}의 가입을 수락합니다.`) == true) {
-						const body = {
-							tsuNum: tsuNum,
-							uiNum: uiNum,
-							taNum: taNum
-						}
-						const res = await fetch('/team-user-add', {
-							method: 'POST',
-							body: JSON.stringify(body),
-							headers: {
-								'Content-Type': 'application/json;charset=UTF-8'
-							}
-						});
-						const result = await res.json();
-						if (result) {
-							alert('수락 성공');
-							getTeamSignUserInfoList();
-						} else {
-							alert('수락 실패 다시 시도해 주세요');
-							getTeamSignUserInfoList();
-						}
-					} else {
-						return false;
-					}
-				}
-
-				// 가입 거절 처리를 담당하는 함수
-				async function rejectMembership(tsuNum, uiName) {
-					if (confirm(`사용자 ${uiName}의 가입을 거절합니다.`) == true) {
-						const body = {
-							tsuNum: tsuNum
-						}
-						const res = await fetch('/team-sign-user-delete', {
-							method: 'DELETE',
-							body: JSON.stringify(body),
-							headers: {
-								'Content-Type': 'application/json;charset=UTF-8'
-							}
-						});
-						const result = await res.json();
-						if (result) {
-							alert('거절 성공');
-							getTeamSignUserInfoList();
-						} else {
-							alert('거절 실패 다시 시도해 주세요');
-							getTeamSignUserInfoList();
-						}
-					} else {
-						return false;
-					}
-
-				}
-
-				let total = 0;
-				let pageSize = 5;
-				const blockSize = 5;
-
-
-				const getTeamSignUserInfoList = async function (evt, page) {
-					if (!page) {
-						page = 1;
-					}
-					let url = `/team-sign-users/helper?page=${page}&pageSize=${pageSize}&taNum=${taNum}`;
-					const res = await fetch(url);
-					const pageInfos = await res.json();
-					const totalCnt = pageInfos.total;
-					const pageBlock = Math.ceil(totalCnt / pageSize);
-
-					const startBlock = (Math.ceil(page / blockSize) - 1) * blockSize + 1;
-					let endBlock = startBlock + blockSize - 1;
-					let pageHtml = '';
-
-
-					if (endBlock > pageBlock) {
-						endBlock = pageBlock;
-					}
-
-					if (startBlock != 1) {
-						pageHtml += `<li class="page-item"><a class="page-link" aria-label="Previous" href="javascript:void(0)" onclick="getTeamSignUserInfoList(event,${startBlock - 1})"><span aria-hidden="true">&laquo;</span></a></li>`;
-					}
-
-					for (let i = startBlock; i <= endBlock; i++) {
-						pageHtml += `<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="getTeamSignUserInfoList(event,${i})">${i}</a></li>`;
-					}
-
-					if (endBlock < pageBlock) {
-						pageHtml += `<li class="page-item"><a  class="page-link" aria-label="Next" href="javascript:void(0)" onclick="getTeamSignUserInfoList(event,${endBlock + 1})"><span aria-hidden="true">&raquo;</span></a></li>`;
-					}
-					document.querySelector('#pageDiv').innerHTML = pageHtml;
-					let html = '';
-					if (pageInfos === null || pageInfos.list.length === 0) {
-						html += '<tr><td colspan="5">비어있는 리스트 입니다.</td></tr>';
-					}
-					else {
-						for (let request of pageInfos.list) {
-							html += '<tr>';
-							html += `<td>${request.uiName}</td>`;
-							html += `<td>${request.uiAddress}</td>`;
-							html += `<td>${request.uiPhoneNum}</td>`;
-							html += `<td><button class="btn btn-success" onclick="acceptMembership(${request.tsuNum},'${request.uiName}',${request.uiNum})">수락</button></td>`;
-							html += `<td><button class="btn btn-danger" onclick="rejectMembership(${request.tsuNum},'${request.uiName}','${request.uiNum}')">거절</button></td>`;
-							html += '</tr>';
-						}
-					}
-					document.querySelector('#membership-requests-info').innerHTML = html;
-				}
-				window.addEventListener('load', getTeamSignUserInfoList);
-
-				window.addEventListener('scroll', () => {
-					if (window.scrollY > 50) {
-						header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
-						header.style.transform = 'translateY(-100%)';
-					} else {
-						header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
-						header.style.transform = 'translateY(0)';
+				const res = await fetch('/team-user-add', {
+					method: 'POST',
+					body: JSON.stringify(body),
+					headers: {
+						'Content-Type': 'application/json;charset=UTF-8'
 					}
 				});
-			</script>
+				const result = await res.json();
+				if (result) {
+					alert('수락 성공');
+					getTeamSignUserInfoList();
+				} else {
+					alert('수락 실패 다시 시도해 주세요');
+					getTeamSignUserInfoList();
+				}
+			} else {
+				return false;
+			}
+		}
 
-			<script src="/assets/libs/jquery/dist/jquery.min.js"></script>
-			<script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-			<script src="/assets/js/sidebarmenu.js"></script>
-			<script src="/assets/js/app.min.js"></script>
-			<script src="/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-			<script src="/assets/libs/simplebar/dist/simplebar.js"></script>
-			<script src="/assets/js/dashboard.js"></script>
+		// 가입 거절 처리를 담당하는 함수
+		async function rejectMembership(tsuNum, uiName) {
+			if (confirm(`사용자 ${uiName}의 가입을 거절합니다.`) == true) {
+				const body = {
+					tsuNum: tsuNum
+				}
+				const res = await fetch('/team-sign-user-delete', {
+					method: 'DELETE',
+					body: JSON.stringify(body),
+					headers: {
+						'Content-Type': 'application/json;charset=UTF-8'
+					}
+				});
+				const result = await res.json();
+				if (result) {
+					alert('거절 성공');
+					getTeamSignUserInfoList();
+				} else {
+					alert('거절 실패 다시 시도해 주세요');
+					getTeamSignUserInfoList();
+				}
+			} else {
+				return false;
+			}
+
+		}
+
+		let total = 0;
+		let pageSize = 5;
+		const blockSize = 5;
+
+
+		const getTeamSignUserInfoList = async function (evt, page) {
+			if (!page) {
+				page = 1;
+			}
+			let url = `/team-sign-users/helper?page=${page}&pageSize=${pageSize}&taNum=${taNum}`;
+			const res = await fetch(url);
+			const pageInfos = await res.json();
+			const totalCnt = pageInfos.total;
+			const pageBlock = Math.ceil(totalCnt / pageSize);
+
+			const startBlock = (Math.ceil(page / blockSize) - 1) * blockSize + 1;
+			let endBlock = startBlock + blockSize - 1;
+			let pageHtml = '';
+
+
+			if (endBlock > pageBlock) {
+				endBlock = pageBlock;
+			}
+
+			if (startBlock != 1) {
+				pageHtml += `<li class="page-item"><a class="page-link" aria-label="Previous" href="javascript:void(0)" onclick="getTeamSignUserInfoList(event,${startBlock - 1})"><span aria-hidden="true">&laquo;</span></a></li>`;
+			}
+
+			for (let i = startBlock; i <= endBlock; i++) {
+				pageHtml += `<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="getTeamSignUserInfoList(event,${i})">${i}</a></li>`;
+			}
+
+			if (endBlock < pageBlock) {
+				pageHtml += `<li class="page-item"><a  class="page-link" aria-label="Next" href="javascript:void(0)" onclick="getTeamSignUserInfoList(event,${endBlock + 1})"><span aria-hidden="true">&raquo;</span></a></li>`;
+			}
+			document.querySelector('#pageDiv').innerHTML = pageHtml;
+			let html = '';
+			if (pageInfos === null || pageInfos.list.length === 0) {
+				html += '<tr><td colspan="5">비어있는 리스트 입니다.</td></tr>';
+			}
+			else {
+				for (let request of pageInfos.list) {
+					html += '<tr>';
+					html += `<td>${request.uiName}</td>`;
+					html += `<td>${request.uiAddress}</td>`;
+					html += `<td>${request.uiPhoneNum}</td>`;
+					html += `<td><button class="btn btn-success" onclick="acceptMembership(${request.tsuNum},'${request.uiName}',${request.uiNum})">수락</button></td>`;
+					html += `<td><button class="btn btn-danger" onclick="rejectMembership(${request.tsuNum},'${request.uiName}','${request.uiNum}')">거절</button></td>`;
+					html += '</tr>';
+				}
+			}
+			document.querySelector('#membership-requests-info').innerHTML = html;
+		}
+		window.addEventListener('load', getTeamSignUserInfoList);
+
+		window.addEventListener('scroll', () => {
+			if (window.scrollY > 50) {
+				header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
+				header.style.transform = 'translateY(-100%)';
+			} else {
+				header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
+				header.style.transform = 'translateY(0)';
+			}
+		});
+	</script>
 </body>
 
 </html>
