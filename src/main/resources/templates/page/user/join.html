@@ -15,12 +15,13 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			margin: 0;
+			padding: 0;
 		}
 
 		h3 {
 			text-align: center;
-			margin-top: 30%;
-
+			margin-top: 10%;
 		}
 
 		.error-message {
@@ -41,28 +42,28 @@
 			margin-bottom: 10%;
 		}
 
-		@media screen and (min-width: 768px) {
-			body {
-				margin: 0;
+		/* 더 작은 화면에 대한 조정 */
+		@media (max-width: 540px) {
+			h3 {
+				margin-top: 5%;
 			}
 
-			#main {
-				width: 70%;
-				margin: 0 auto;
+			#joinButton {
+				width: 100%;
 			}
 		}
 
-		@media screen and (min-width: 502px) {
-			body {
-				margin: 0;
+		@media (max-width: 769px) {
+			h3 {
+				margin-top: 5%;
 			}
 
-			#main {
-				width: 50%;
-				margin: 0 auto;
+			#joinButton {
+				width: 100%;
 			}
 		}
 	</style>
+
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 
