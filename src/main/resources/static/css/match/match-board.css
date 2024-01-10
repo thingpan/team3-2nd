@@ -28,10 +28,9 @@ body {
 
 /* 일정 영역 */
 .calendar-container {
-    margin-top: 2rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .schedule-none {
@@ -77,7 +76,7 @@ body {
 }
 
 .filter {
-    width: 70%;
+    width: 100%;
     margin: 2rem auto 1rem;
 }
 
@@ -97,9 +96,8 @@ body {
 
 .schedule-table th,
 .schedule-table td {
-    border: none; /* 다른 테두리 제거 */
+    border: none;
     border-bottom: 1px solid #ccc;
-    padding: 20px;
     text-align: left;
 }
 
@@ -124,6 +122,11 @@ body {
 
 .schedule-table th.status {
     width: 40%;
+}
+
+.match-table td {
+    text-align: center;
+    padding: 20px !important;
 }
 
 .schedule-caption {
