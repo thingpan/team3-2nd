@@ -58,9 +58,6 @@ button {
 	border: 0 solid white;
 }
 
-#address {
-	width: 400px;
-}
 
 #name {
 	text-align: center;
@@ -70,7 +67,6 @@ button {
 #email {
 	display: inline-block;
 	margin: 0 auto;
-	width: 400px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 10px;
@@ -209,12 +205,12 @@ button {
 
 #save-profile {
 	margin-left: 85%;
-	margin-bottom: 20px;
+	margin-bottom: 10%;
 }
 
 #delete-profile {
-	margin-left: 10px;
-	margin-bottom: 20px;
+	margin-left: 1%;
+	margin-bottom: 10%;
 }
 
 .first {
@@ -245,15 +241,7 @@ button {
 	border-radius: 6px;
 }
 
-select.box {
-	height: 50px;
-	box-sizing: border-box;
-	border-radius: 4px;
-	border: 1px solid #d9d6d6;
-	color: #383838;
-	background-color: #ffffff;
-	font-family: 'Montserrat', 'Pretendard', sans-serif;
-}
+
 
 option {
 	font-size: 16px;
@@ -264,10 +252,7 @@ option {
 	background-color: #ffffff;
 }
 
-.in-line {
-	width: 350px;
-	height: 40px;
-}
+
 
 input {
 	margin: 0;
@@ -452,23 +437,7 @@ select {
 	font-size: 15px;
 }
 
-#new-email {
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 5px;
-}
 
-#new-phone {
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 5px;
-}
-
-#new-birth {
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 5px;
-}
 
 #changecurrentpasswordinput,
 #newpassword {
@@ -484,11 +453,6 @@ select {
 	margin-bottom: 10px;
 }
 
-#confirm-email-change,
-#cancel-email-change {
-	font-size: 14px;
-	margin-bottom: 5px;
-}
 
 .team-image {
 	width: 100px;
@@ -531,12 +495,12 @@ select {
 
 @media (max-width: 767px) {
 	#main {
-		width: 90%;
+		width: 70%;
 	}
 
 	#team-list-div,
 	#team-list-div-type {
-		margin:auto;
+		margin: auto;
 	}
 
 	.team-list {
@@ -550,11 +514,13 @@ select {
 	#team-heading {
 		margin-right: 0;
 	}
-		#box2 {
-		width: 100%;
-		padding: 15px;
-		margin:0 auto;
-		}
 
+	#box2 {
+		padding: 15px;
+	}
+
+	.edit-profile-form {
+		width:70%;
+	}
 
 }
