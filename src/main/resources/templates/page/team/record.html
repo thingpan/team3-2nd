@@ -2,238 +2,495 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>전적</title>
-    <link href="/css/team/record.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@200;300;400;500;600;700;800&display=swap"
-            rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"/>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-            crossorigin="anonymous"></script>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>전적</title>
+	<link href="/css/team/record.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@200;300;400;500;600;700;800&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+		crossorigin="anonymous"></script>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/styles.min.css" />
+	<link rel="shortcut icon" type="image/png" href="/assets/images/logos/favicon.png" />
 </head>
 
 <body>
-<!-- 사이드바 영역 -->
-<div th:replace="page/fragment/side-bar.html :: f-side-bar"></div>
+	<!-- 사이드바 영역 -->
+
+	<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+		data-sidebar-position="fixed" data-header-position="fixed">
+		<!-- Sidebar Start -->
+		<aside class="left-sidebar">
+			<!-- Sidebar scroll-->
+			<div>
+				<div class="brand-logo d-flex align-items-center justify-content-between">
+					<a href="/" class="text-nowrap logo-img">
+						<img src="/assets/images/logos/dark-logo.png" width="180" alt="" />
+					</a>
+					<div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+						<i class="ti ti-x fs-8"></i>
+					</div>
+				</div>
+				<!-- Sidebar navigation-->
+				<nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+					<ul id="sidebarnav">
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/match/match-record(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-info-circle"></i>
+								</span>
+								<span class="hide-menu">팀 정보</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/team/record(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-bolt"></i>
+								</span>
+								<span class="hide-menu">팀 전적</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/team/team-match-list(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-list"></i>
+								</span>
+								<span class="hide-menu">매치 작성 목록</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/match/match-status(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-mail"></i>
+								</span>
+								<span class="hide-menu">매칭 현황</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/team/team-members(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-users"></i>
+								</span>
+								<span class="hide-menu">팀원 목록</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/team/team-apply(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-user-check"></i>
+								</span>
+								<span class="hide-menu">가입 신청 인원</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/team/team-settings(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-settings"></i>
+								</span>
+								<span class="hide-menu">팀 설정</span>
+							</a>
+						</li>
+					</ul>
+
+				</nav>
+				<!-- End Sidebar navigation -->
+			</div>
+			<!-- End Sidebar scroll-->
+		</aside>
+		<!--  Sidebar End -->
+		<!--  Main wrapper -->
+		<div class="body-wrapper">
+			<!--  Header Start -->
+			<header class="app-header">
+				<nav class="navbar navbar-expand-lg navbar-light">
+					<ul class="navbar-nav">
+						<li class="nav-item d-block d-xl-none">
+							<a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse"
+								href="javascript:void(0)">
+								<i class="ti ti-menu-2"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link nav-icon-hover" href="/page/match/match-board">
+								<i>Match</i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link nav-icon-hover" href="/page/user/mypage">
+								<i>My Page</i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link nav-icon-hover" href="/page/team/team-rank">
+								<i>Rank</i>
+							</a>
+						</li>
+					</ul>
 
 
-<div th:replace="page/fragment/header.html :: f-head"></div>
+				</nav>
+			</header>
 
-<div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title" id="scoreModalLabel" style="text-align: center">
-                    오늘 경기 정보를 입력해주세요!
-                </h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-title-score">
-                    <label for="scoreInput">
-                        <h5>스코어</h5>
-                    </label>
-                </div>
 
-                <div class="modal-score" style="display: flex; justify-content: space-evenly">
-                    <div class="score-board">
-                        <input type="number" id="homeScoreInput" style="
+			<div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h6 class="modal-title" id="scoreModalLabel" style="text-align: center">
+								오늘 경기 정보를 입력해주세요!
+							</h6>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="modal-title-score">
+								<label for="scoreInput">
+									<h5>스코어</h5>
+								</label>
+							</div>
+
+							<div class="modal-score" style="display: flex; justify-content: space-evenly">
+								<div class="score-board">
+									<input type="number" id="homeScoreInput" style="
                     width: 80px;
                     height: 100px;
                     text-align: center;
                     font-size: 32px;
-                  "/><br/>
-                        <label for="homeScoreInput">Home</label>
-                    </div>
-                    <label style="font-size: 32px; margin-top: 1.2rem">:</label>
-                    <div class="score-board">
-                        <input type="number" id="awayScoreInput" style="
+                  " /><br />
+									<label for="homeScoreInput">Home</label>
+								</div>
+								<label style="font-size: 32px; margin-top: 1.2rem">:</label>
+								<div class="score-board">
+									<input type="number" id="awayScoreInput" style="
                     width: 80px;
                     height: 100px;
                     text-align: center;
                     font-size: 32px;
-                  "/>
-                        <br/>
-                        <label for="awayScoreInput">Away</label>
-                    </div>
-                </div>
+                  " />
+									<br />
+									<label for="awayScoreInput">Away</label>
+								</div>
+							</div>
 
-                <div class="emoji-container">
-                    <span>매너점수 : </span>
+							<div class="emoji-container">
+								<span>매너점수 : </span>
 
-                    <input type="number" id="mannerPointInput" placeholder="100점 만점입니다" oninput="javascript: if (this.value > 100) this.value = 100;">
-                    <!--
+								<input type="number" id="mannerPointInput" placeholder="100점 만점입니다"
+									oninput="javascript: if (this.value > 100) this.value = 100;">
+								<!--
                     <button class="emoji-option" id="emoji-sad">😟</button>
                     <button class="emoji-option" id="emoji-happy">😀</button>
                     <button class="emoji-option" id="emoji-excited">🤩</button>-->
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="history.go()">
-                    취소
-                </button>
-                <button type="button" class="btn btn-primary" id="confirmButton" onclick="updateFirstMatchResult()">
-                    저장
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="history.go()">
+								취소
+							</button>
+							<button type="button" class="btn btn-primary" id="confirmButton"
+								onclick="updateFirstMatchResult()">
+								저장
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
-<div class="modal fade" id="mannerModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title" id="scoreModalLabel" style="text-align: center">
-                    상대팀 매너점수를 입력 해주세요!
-                </h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="emoji-container">
-                    <span>매너점수 : </span>
+			<div class="modal fade" id="mannerModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h6 class="modal-title" id="scoreModalLabel" style="text-align: center">
+								상대팀 매너점수를 입력 해주세요!
+							</h6>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="emoji-container">
+								<span>매너점수 : </span>
 
-                    <input type="number" id="mannerPointInput2" placeholder="100점 만점입니다" oninput="javascript: if (this.value > 100) this.value = 100;">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="history.go()">
-                    취소
-                </button>
-                <button type="button" class="btn btn-primary" id="confirmButton" onclick="updateMatchResultAccept()">
-                    저장
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+								<input type="number" id="mannerPointInput2" placeholder="100점 만점입니다"
+									oninput="javascript: if (this.value > 100) this.value = 100;">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="history.go()">
+								취소
+							</button>
+							<button type="button" class="btn btn-primary" id="confirmButton"
+								onclick="updateMatchResultAccept()">
+								저장
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
-<!-- 팀 프로필 영역 -->
-<div th:replace="page/fragment/team-profile.html :: f-team-profile"></div>
-<div>
-    <div>
-        <select id="sport-filter" onchange="getSelectChangeListener(this)">
-            <option value="all" selected>All</option>
-            <option value="home">Home</option>
-            <option value="away">Away</option>
-        </select>
-    </div>
-    <ol class="custom-table" id="match-list">
-        <li id="match-item"></li>
-    </ol>
-</div>
+			<!-- 팀 프로필 영역 -->
 
-<div class="record-table-section">
-</div>
+			<div class="row" id="match-record-row-1">
+					<div class="col-sm-6 col-xl-3">
+						<div class="card overflow-hidden rounded-2">
+							<div class="position-relative">
+								<a href="javascript:void(0)"><img id="teamImg" src="/assets/images/products/s4.jpg"
+										class="card-img-top rounded-0" alt="..."></a>
+							</div>
+							<div class="card-body pt-3 p-4" id="taNameDiv">
+								<h6 class="fw-semibold fs-4" id="taName">팀 이름</h6>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-8 d-flex align-items-stretch">
+						<div class="card w-100">
+							<div class="card-body p-4">
+								<h5 class="card-title fw-semibold mb-4">팀 소개</h5>
+								<div class="table-responsive">
+									<table class="table text-nowrap mb-0 align-middle">
+										<thead class="text-dark fs-4">
+											
+										</thead>
+										<tbody>
+											<tr>
+												<th>
+													<h6 class="fw-semibold mb-0" >팀 소개 : </h6>
+												</th>
+												<td>
+													<h6 class="fw-semibold mb-0" id="taDesc"></h6>
+												</td>
+											</tr>
+										
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
 
-<!-- 가입 신청 모달 -->
-<div class="modal fade" id="membershipModal" tabindex="-1" role="dialog" aria-labelledby="membershipModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="membershipModalLabel">가입 신청</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    "<span id="team-name-modal" style="font-weight: bold"></span>"에
-                    가입 신청을 하시겠습니까?
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    취소
-                </button>
-                <button type="button" class="btn btn-primary" id="confirmMembershipBtn" onclick="doSendObj()">
-                    확인
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+				</div>
+			<div>
+				<div>
+					<select id="sport-filter" onchange="getSelectChangeListener(this)">
+						<option value="all" selected>All</option>
+						<option value="home">Home</option>
+						<option value="away">Away</option>
+					</select>
+				</div>
+				<ol class="custom-table" id="match-list">
+					<li id="match-item"></li>
+				</ol>
+			</div>
 
-<!-- 부트스트랩 Pagination -->
-<div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center" id="pageDiv">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</div>
-<!-- IONICONS -->
-<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+			<div class="record-table-section">
+			</div>
 
-<script>
-    async function doSendObj() {
-        //타임리프 안돼서 일단 ㅠㅠ
-        const urlParams = new URL(location.href).searchParams;
-        const taNum = urlParams.get('taNum');
-        const obj = {
-            taNum: taNum
-        }
-        const res = await fetch('/team-sign-user-add', {
-            method: 'POST',
-            body: JSON.stringify(obj),
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            }
-        });
-        const result = await res.json();
+			<!-- 가입 신청 모달 -->
+			<div class="modal fade" id="membershipModal" tabindex="-1" role="dialog"
+				aria-labelledby="membershipModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="membershipModalLabel">가입 신청</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p>
+								"<span id="team-name-modal" style="font-weight: bold"></span>"에
+								가입 신청을 하시겠습니까?
+							</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">
+								취소
+							</button>
+							<button type="button" class="btn btn-primary" id="confirmMembershipBtn"
+								onclick="doSendObj()">
+								확인
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
-        console.log(result);
-        if (result) {
-            window.location.reload();
-            alert(`${result.resultMsg}`);
-        }
-    }
+			<!-- 부트스트랩 Pagination -->
+			<div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center" id="pageDiv">
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#">4</a></li>
+						<li class="page-item"><a class="page-link" href="#">5</a></li>
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		</div>
+		<!-- IONICONS -->
+		<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 
-    window.addEventListener('load', async function () {
-        // 현재 URL에서 taNum을 가져오기
-        const urlParams = new URLSearchParams(window.location.search);
-        const taNum = urlParams.get('taNum');
+		<script>
+			async function doSendObj() {
+				//타임리프 안돼서 일단 ㅠㅠ
+				const urlParams = new URL(location.href).searchParams;
+				const taNum = urlParams.get('taNum');
+				const obj = {
+					taNum: taNum
+				}
+				const res = await fetch('/team-sign-user-add', {
+					method: 'POST',
+					body: JSON.stringify(obj),
+					headers: {
+						'Content-Type': 'application/json;charset=UTF-8'
+					}
+				});
+				const result = await res.json();
+
+				console.log(result);
+				if (result) {
+					window.location.reload();
+					alert(`${result.resultMsg}`);
+				}
+			}
+
+			window.addEventListener('load', async function () {
+				// 현재 URL에서 taNum을 가져오기
+				const urlParams = new URLSearchParams(window.location.search);
+				const taNum = urlParams.get('taNum');
 
 
-        const userRes = await fetch(`/team-info?taNum=${taNum}`);
-        const user = await userRes.json();
+				const userRes = await fetch(`/team-info?taNum=${taNum}`);
+				const user = await userRes.json();
 
-        document.querySelector('#team-name-modal').innerText = user.taName;
-    });
+				document.querySelector('#team-name-modal').innerText = user.taName;
+			});
+				
+			
+			let taName;
+			window.addEventListener('load', getTeamProfile);
 
+			async function getTeamProfile() {
 
-</script>
+				const urlParams = new URL(location.href).searchParams;
+				const taNum = urlParams.get('taNum');
+				const rankRes = await fetch(`/team-info?taNum=${taNum}`);
+				teamData = await rankRes.json();
+				taName = teamData.taName
+				document.querySelector('#taName').innerText = teamData.taName;
+				document.querySelector('#taDesc').innerText = teamData.taDesc;
 
-<script src="/js/team/record-script.js"></script>
+				const teamPhoto = document.querySelector('#teamImg');
+				const noImageText = document.querySelector('#noImageText');
+
+				if (teamData.taFilePath) {
+					teamPhoto.src = teamData.taFilePath;
+					teamPhoto.style.display = 'block'
+					noImageText.style.display = 'none';
+				} else {
+					teamPhoto.src = '';
+					teamPhoto.style.display = 'none';
+					noImageText.style.display = 'block';
+				}
+
+				// 팀 소개 설정
+				document.querySelector('#team-introduce').innerText = teamData.taDesc;
+				document.querySelector('#score-value').innerText = teamData.taPoint;
+				const randomScore = teamData.taPoint;
+
+				// 점수 출력
+				const scoreValue = document.querySelector('#score-value');
+				scoreValue.textContent = `${randomScore}점`;
+
+				// 점수에 따라 배경색과 텍스트색 변경
+				if (randomScore <= 100) {
+					scoreValue.style.backgroundColor = '#ececec';
+					scoreValue.style.color = '#767676';
+				} else if (randomScore <= 200) {
+					scoreValue.style.backgroundColor = '#ede0c4';
+					scoreValue.style.color = '#825e01';
+				} else if (randomScore <= 300) {
+					scoreValue.style.backgroundColor = '#fffbd5';
+					scoreValue.style.color = '#ffb800';
+				} else if (randomScore <= 400) {
+					scoreValue.style.backgroundColor = '#e6f0ff';
+					scoreValue.style.color = '#0066ff';
+				} else {
+					scoreValue.style.backgroundColor = '#f4e2ff';
+					scoreValue.style.color = '#8200d2';
+				}
+
+				const mannersProgress = document.querySelector('#manners-progress');
+				// taMannerPoint가 참 값인지 확인; 그렇지 않으면 0으로 기본값 사용
+				const mannerPercent = Math.floor(teamData.taMannerPoint ? (teamData.taMannerPoint / teamData.taMatchCount) : 0);
+				mannersProgress.style.width = `${mannerPercent}%`;
+
+				// 현재 점수 표시
+				const currentScore = document.querySelector('#current-score');
+				currentScore.textContent = `매너점수 (${mannerPercent} / 100)`;
+
+				//가입한 팀인지 확인
+				const res = await fetch(`/team-user-infos/${taNum}`)
+				const result = await res.json();
+				if (result == 0) {
+					document.querySelector('#teamSignBtn').innerHTML = '';
+				}
+				if (teamData.taSignStatus == 1) {
+					document.querySelector('#teamSignBtn').innerHTML = '<span style="color: red;">가입신청 대기 중</span>'
+				}
+			}
+
+			
+
+			// 이미지 로딩 실패 시 호출되는 함수
+			function handleImageError() {
+				const noImageText = document.querySelector('#noImageText');
+				noImageText.style.display = 'block';
+			}
+
+		
+		</script>
+		<script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+		<script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="/assets/js/sidebarmenu.js"></script>
+		<script src="/assets/js/app.min.js"></script>
+		<script src="/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+		<script src="/assets/libs/simplebar/dist/simplebar.js"></script>
+		<script src="/assets/js/dashboard.js"></script>
+		<script src="/js/team/record-script.js"></script>
 </body>
 
 </html>

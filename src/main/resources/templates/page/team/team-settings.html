@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>팀 정보 설정</title>
-
+	
 	<link
 		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
 		rel="stylesheet">
@@ -14,6 +14,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD
 	<!--사이드바와 헤더 공통 -->
 	<div th:replace="page/fragment/header-side.html :: f-head-side"></div>
 	
@@ -25,6 +26,135 @@
 				<div class="col-xl-6 col-xl-3">
 					<div style="height: 100%; width: 100%;">
 						<div class="card overflow-hidden rounded-2">
+=======
+	<!--  Body Wrapper -->
+	<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+		data-sidebar-position="fixed" data-header-position="none">
+		<!-- Sidebar Start -->
+		<aside class="left-sidebar">
+			<!-- Sidebar scroll-->
+			<div>
+				<div class="brand-logo d-flex align-items-center justify-content-between">
+					<a href="/" class="text-nowrap logo-img">
+						<img src="/assets/images/logos/dark-logo.png" width="180" alt="" />
+					</a>
+					<div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+						<i class="ti ti-x fs-8"></i>
+					</div>
+				</div>
+				<!-- Sidebar navigation-->
+				<nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+					<ul id="sidebarnav">
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/match/match-record(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-info-circle"></i>
+								</span>
+								<span class="hide-menu">팀 정보</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/team/record(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-bolt"></i>
+								</span>
+								<span class="hide-menu">팀 전적</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/team/team-match-list(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-list"></i>
+								</span>
+								<span class="hide-menu">매치 작성 목록</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/match/match-status(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-mail"></i>
+								</span>
+								<span class="hide-menu">매칭 현황</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/team/team-members(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-users"></i>
+								</span>
+								<span class="hide-menu">팀원 목록</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/team/team-apply(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-user-check"></i>
+								</span>
+								<span class="hide-menu">가입 신청 인원</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" th:href="@{/page/team/team-settings(taNum=${param.taNum})}"
+								aria-expanded="false">
+								<span>
+									<i class="ti ti-settings"></i>
+								</span>
+								<span class="hide-menu">팀 설정</span>
+							</a>
+						</li>
+					</ul>
+
+				</nav>
+				<!-- End Sidebar navigation -->
+			</div>
+			<!-- End Sidebar scroll-->
+		</aside>
+		<!--  Sidebar End -->
+		<!--  Main wrapper -->
+		<div class="body-wrapper">
+			<!--  Header Start -->
+			<header class="app-header">
+				<nav class="navbar navbar-expand-lg navbar-light">
+					<ul class="navbar-nav">
+						<li class="nav-item d-block d-xl-none">
+							<a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse"
+								href="javascript:void(0)">
+								<i class="ti ti-menu-2"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link nav-icon-hover" href="/page/match/match-board">
+								<i>Match</i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link nav-icon-hover" href="/page/user/mypage">
+								<i>My Page</i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link nav-icon-hover" href="/page/team/team-rank">
+								<i>Rank</i>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</header>
+			<!--  Header End -->
+
+			<div style="margin-top: 5%;">
+				<div class="container-fluid">
+					<!-- 사진  -->
+					<div class="row" id="match-record-row-1">
+						<!--  없어도 댐<label for="teamName" class="form-label">프로필</label>-->
+						<div class="col-xl-6 col-xl-3">
+>>>>>>> branch 'master' of https://github.com/WonJuni/secu-team3-1.git
 							<div style="height: 100%; width: 100%;">
 								<img style="object-fit: contain; height: 30rem; width: 100%;" id="preview" src=""
 									class="card-img-top" alt="...">
