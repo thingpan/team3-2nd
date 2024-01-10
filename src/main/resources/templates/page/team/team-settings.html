@@ -5,21 +5,28 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>팀 정보 설정</title>
-	
+
 	<link
 		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
 		rel="stylesheet">
 	<link rel="stylesheet" href="/assets/css/styles.min.css" />
 	<link rel="shortcut icon" type="image/png" href="/assets/images/logos/favicon.png" />
+	<style>
+		/*참고*/
+		#match-record-row-1 {
+			padding-top: calc(70px + 15px);
+		}
+	</style>
 </head>
 
 <body>
+	<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+		data-sidebar-position="fixed" data-header-position="fixed">
+		<!--사이드바와 헤더 공통 -->
+		<div th:replace="page/fragment/team-side.html :: f-side"></div>
+		<div class="body-wrapper">
 
-	<!--사이드바와 헤더 공통 -->
-	<div th:replace="page/fragment/header-side.html :: f-head-side"></div>
-	
-	<div style="margin-top: 3%;">
-		<div class="container team-settings"><!--사이드바와 헤더 공통 쓰려면 상위 div클래스를 저걸 써야댐 -->
+			<div th:replace="page/fragment/team-head.html :: f-team-head"></div>
 			<!-- 사진  -->
 			<div class="row" id="match-record-row-1">
 				<!--  없어도 댐<label for="teamName" class="form-label">프로필</label>-->
