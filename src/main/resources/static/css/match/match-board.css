@@ -65,6 +65,17 @@ body {
         font-size: 12px;
     }
 
+    .filter-select {
+        font-size: 14px;
+    }
+
+    .btn-check {
+        font-size: 13px;
+    }
+
+    #checkText {
+        font-size: 13px;
+    }
 }
 
 /* 화면 너비가 770 이하일 때 */
@@ -114,6 +125,7 @@ body {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-right: 5px;
 }
 
 .schedule-table {
@@ -159,6 +171,25 @@ body {
     padding: 20px !important;
 }
 
+/* 미디어 쿼리를 사용하여 특정 화면 크기에서의 스타일 조절 */
+@media screen and (max-width: 768px) {
+    .schedule-none {
+        /*font-size: 14px; !* 원하는 크기로 조절 *!*/
+        /* 추가적으로 필요한 스타일 조절 가능 */
+    }
+
+    /* 이하 다른 요소들에 대한 조절 가능 */
+    .match-table {
+        /* 원하는 스타일 조절 */
+    }
+
+    .match-table th, .match-table td {
+        font-size: 12px;
+    }
+
+    /* 필요한 다른 스타일 조절 */
+}
+
 .schedule-caption {
     text-align: right; /* 우측 정렬 */
     margin-bottom: 2rem;
@@ -168,6 +199,15 @@ body {
 .schedule-view-more {
     text-decoration: none;
     color: var(--dark-gray-color); /* 링크 색상 */
+}
+
+/* 경기 일정이 없을 때 메시지 스타일 */
+.schedule-none {
+    text-align: center;
+    font-size: 16px;
+    margin: 1.5rem 0 1.5rem 0;
+    border: none;
+    border-bottom-color: #dadada;
 }
 
 .write-section {

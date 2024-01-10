@@ -26,7 +26,7 @@
         border: 3px solid #111111;
         top: -30px;
         transform-origin: 50% 50%;
-        transform: translateX(-50%);
+        transform: translateX(-20%);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -74,7 +74,7 @@
                     <option value="sido">시/도</option>
                 </select>
                 <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
-                <label class="btn btn-primary" for="btn-check">신청가능만</label>
+                <label id="checkText" class="btn btn-primary" for="btn-check">신청가능만</label>
             </div>
         </div>
 
@@ -88,9 +88,25 @@
         </div>
     </div>
 
+    <script>
+        const rangeInput = document.querySelector('#point');
+        const valueMarker = document.querySelector('#valueMarker');
+
+        updateValueMarker();
+
+        rangeInput.addEventListener('input', function () {
+            updateValueMarker();
+        });
+
+        function updateValueMarker() {
+            const percent = (rangeInput.value - rangeInput.min) / (rangeInput.max - rangeInput.min) * 100;
+            valueMarker.style.left = `${percent}%`;
+            valueMarker.textContent = rangeInput.value;
+        }
+    </script>
+
     <div class="row mt-4">
         <div class="col-md-12">
-            <div class="schedule-none text-center"></div>
             <table class="match-table table">
                 <thead>
                 <tr>
@@ -101,6 +117,7 @@
                 </tr>
                 </thead>
                 <tbody class="text-center h-100" id="schedule"></tbody>
+                <div class="schedule-none text-center"></div>
             </table>
             <ul class="pagination" id="pagination"></ul>
         </div>
