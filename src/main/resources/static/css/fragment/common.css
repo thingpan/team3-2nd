@@ -1,13 +1,13 @@
 /* 전체 영역 기본 스타일 */
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-  list-style: none;
-  scroll-behavior: smooth;
-  font-family: 'Do Hyeon', sans-serif;
-  font-family: 'Noto Sans KR', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    scroll-behavior: smooth;
+    font-family: 'Do Hyeon', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 /* 
@@ -15,81 +15,200 @@
 사용법: color: var(--white-color);
 */
 :root {
-  --white-color: #fff;
-  --black-color: #111;
-  --btn-blue-color: #0066ff;
-  --btn-red-color: #ff0000;
-  --text-light-gray-color: #dddddd;
-  --dark-gray-color: rgb(153, 153, 153);
-  --p-font: 1rem;
+    --white-color: #fff;
+    --black-color: #111;
+    --btn-blue-color: #0066ff;
+    --btn-red-color: #ff0000;
+    --text-light-gray-color: #dddddd;
+    --dark-gray-color: rgb(153, 153, 153);
+    --p-font: 1rem;
 }
 
 body {
-  background: var(--white-color);
-  color: var(--black-color);
+    background: var(--white-color);
+    color: var(--black-color);
 }
 
-header {
-  position: sticky;
-  top: 0;
-  right: 0;
-  max-width: 100%;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: transparent;
-  padding: 30px 15%;
-  transition: ease 0.4s;
-}
+/*header {*/
+/*  position: sticky;*/
+/*  top: 0;*/
+/*  right: 0;*/
+/*  max-width: 100%;*/
+/*  z-index: 1000;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  justify-content: space-between;*/
+/*  background: transparent;*/
+/*  padding: 30px 15%;*/
+/*  transition: ease 0.4s;*/
+/*}*/
 
-.logo {
-  font-size: 20px;
-  font-weight: 700;
-  text-decoration: none;
-  color: var(--black-color);
-}
-
-.logo:hover {
-  color: var(--black-color);
-  text-decoration: none;
-}
+/*.logo {*/
+/*  font-size: 2px;*/
+/*  font-weight: 700;*/
+/*  text-decoration: none;*/
+/*  color: var(--black-color);*/
+/*}*/
 
 .navbar {
-  display: flex;
-  margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    padding: 30px 15% !important;
 }
 
-.navbar a {
-  color: var(--black-color);
-  font-size: var(--p-font);
-  font-weight: 400;
-  padding: 10px 22px;
-  transition: ease 0.4s;
-  text-decoration: none;
+.navbar .logo {
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #111;
 }
 
-.navbar a:hover {
-  background: var(--white-color);
-  color: var(--black-color);
-  font-weight: 600;
-  border-radius: 4px;
-  text-decoration: none;
+.navbar li a {
+    color: var(--black-color);
+    font-weight: 400;
+    padding: 10px 22px;
+    transition: ease 0.4s;
+    text-decoration: none;
+}
+
+.navbar li a:hover {
+    background: var(--white-color);
+    color: var(--black-color);
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
 }
 
 #login-button,
 #register-button {
-  letter-spacing: 1;
-  font-size: 14px;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 10px;
-  margin: 3px;
-  cursor: pointer;
+    letter-spacing: 1;
+    font-size: 14px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 10px;
+    margin: 3px;
+    cursor: pointer;
 }
 
 #login-button:hover,
 #register-button:hover {
-  background-color: var(--text-light-gray-color);
-  color: var(--black-color);
+    background-color: var(--text-light-gray-color);
+    color: var(--black-color);
 }
+
+.navbar__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding-left: 0;
+    margin-top: 1rem;
+}
+
+.navbar__menu li {
+    padding: 8px 12px;
+}
+
+.navbar__links li {
+    padding: 8px 12px;
+}
+
+.navbar__toggleBtn {
+    color: #111;
+    display: none;
+    position: absolute;
+    right: 32px;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 1100px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px 24px;
+    }
+
+    .navbar li a {
+        font-size: 14px;
+    }
+
+    .navbar .logo, .navbar a {
+        font-size: 16px;
+    }
+
+    .navbar__menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .navbar__menus {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navbar__menu li {
+        width: 100%;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .navbar__links {
+        display: none;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .navbar__toggleBtn {
+        color: #111;
+        display: block;
+    }
+
+    .navbar__toggleBtn:hover{
+        display: block;
+        color: #111;
+    }
+
+    .navbar__menu.active,
+    .navbar__links.active {
+        margin-top: 1rem;
+        display: flex;
+        color: #fff;
+    }
+
+    #login-button,
+    #register-button,
+    #logout-button {
+        background-color: #fff;
+        color: #111;
+        border: none;
+        font-size: 14px;
+        font-weight: 600;
+        margin-right: 1.2rem;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .navbar__menu.active .user-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .user-menu button {
+        width: 100%;
+    }
+}
+
+
+.navbar__menus {
+    display: flex;
+    margin-right: 20px;
+}
+
+

@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			const dayDate = day.getDate();
 			const dayName = day.toLocaleDateString('en-US', { weekday: 'short' });
 			dayDiv.textContent = `${dayDate}\n${dayName}`;
+			dayDiv.setAttribute('data-dayname', dayName);
 
 			dayDiv.addEventListener('click', () => {
 				if (selectedDateDiv) {
