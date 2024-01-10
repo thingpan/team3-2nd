@@ -3,12 +3,14 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<link rel="stylesheet" href="/assets/css/styles.min.css" />
-	<link rel="shortcut icon" type="image/png" href="/assets/images/logos/favicon.png" />
+	<title>팀 매치 리스트</title>
+
 	<link
 		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
 		rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/styles.min.css" />
+	<link rel="shortcut icon" type="image/png" href="/assets/images/logos/favicon.png" />
+
 	<style>
 		.main {
 			width: 80%;
@@ -20,7 +22,7 @@
 <body>
 	<!--  Body Wrapper -->
 	<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-		data-sidebar-position="fixed" data-header-position="fixed">
+		data-sidebar-position="fixed" data-header-position="none">
 		<!-- Sidebar Start -->
 		<aside class="left-sidebar">
 			<!-- Sidebar scroll-->
@@ -138,6 +140,7 @@
 				</nav>
 			</header>
 			<!--  Header End -->
+
 			<div th:replace="page/fragment/team-profile.html :: f-team-profile"></div>
 			<div class="main">
 				<div class="team-user-list">
@@ -155,7 +158,6 @@
 						<tbody id="team-user-list-info">
 						</tbody>
 					</table>
-
 				</div>
 				<div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
 					<nav aria-label="Page navigation">
@@ -179,14 +181,17 @@
 					</nav>
 				</div>
 			</div>
-			<script src="/js/team/team-match-list.js"></script>
-			<script src="/assets/libs/jquery/dist/jquery.min.js"></script>
-			<script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-			<script src="/assets/js/sidebarmenu.js"></script>
-			<script src="/assets/js/app.min.js"></script>
-			<script src="/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-			<script src="/assets/libs/simplebar/dist/simplebar.js"></script>
-			<script src="/assets/js/dashboard.js"></script>
+		</div>
+	</div>
+
+	<script src="/js/team/team-match-list.js"></script>
+	<script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+	<script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="/assets/js/sidebarmenu.js"></script>
+	<script src="/assets/js/app.min.js"></script>
+	<script src="/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+	<script src="/assets/libs/simplebar/dist/simplebar.js"></script>
+	<script src="/assets/js/dashboard.js"></script>
 </body>
 
 </html>
