@@ -41,6 +41,7 @@ body {
 }
 
 .team-photo img {
+	margin-top: 100px;
 	width: 200px;
 	height: 180px;
 	border-radius: 20px;
@@ -78,14 +79,8 @@ body {
 
 .table {
 	margin-top: 8px;
-	/* ???´ë??? ??ìª? ?¬ë°±?? ì¡°ì???©ë????. */
 }
 
 .table td .btn {
 	font-size: 15px;
-	/* ë²??? ???¤í?? ?¬ê¸° ì¡°ì?? */
-}
-
-#membership-requests-info {
-	vertical-align: middle;
 }
