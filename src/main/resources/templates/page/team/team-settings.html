@@ -142,7 +142,7 @@
 					<div class="card">
 						<img id="preview" src="" class="card-img-top" alt="...">
 						<div id="noImageText" style="display: none; margin-left:50%; margin-top:40%">
-							<span>이미지 없음</span>
+			
 						</div>
 						<div class="card-body">
 						</div>
@@ -153,13 +153,6 @@
 						<input type="file" class="form-control" id="profilePicture" accept="image/*"
 							onchange="previewImage(this)">
 					</div>
-
-
-
-					<!-- 선택한 이미지를 표시하는 부분 여기 뭐임?? -->
-					<img id="preview" src="#" alt="프로필 사진 미리보기" style="display:none; max-width: 20%; margin-top: 10px;">
-
-
 
 					<div class="card">
 						<div class="card-body">
@@ -270,16 +263,18 @@
 
 						// 수정 시작
 						const previewImage = document.querySelector('#preview');
-						const noImageText = document.querySelector('#noImageText');
+						//const noImageText = document.querySelector('#noImageText');
 
 						if (user.taFilePath != null) {
 							previewImage.src = user.taFilePath;
 							previewImage.style.display = 'block';
-							noImageText.style.display = 'none';
+							//noImageText.style.display = 'none';
 						} else {
 							previewImage.src = '';
-							previewImage.style.display = 'none';
-							noImageText.style.display = 'block';
+							//프로필 설정 안할시 기본 이미지로 일단 해놈 
+							previewImage.src = '/assets/images/products/s4.jpg'; 
+							//noImageText.style.display = 'none';
+							
 						}
 						// 수정 종료
 					} catch (error) {
