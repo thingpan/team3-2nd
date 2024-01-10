@@ -76,10 +76,6 @@ button {
 	padding: 10px;
 }
 
-#sex {
-	display: inline-block;
-	border: 0 solid white;
-}
 
 #box2 {
 	width: 100%;
@@ -312,19 +308,7 @@ input[type=button]:hover {
 	margin-bottom: 10px;
 }
 
-.edit-profile-form.info {
-	margin-bottom: 20px;
-}
 
-.edit-profile-form .label-data-container {
-	display: flex;
-	align-items: center;
-	margin-bottom: 10px;
-}
-
-.edit-profile-form label {
-	margin-right: 10px;
-}
 
 h4 {
 	font-weight: 700;
@@ -372,12 +356,14 @@ select {
 	align-items: center;
 }
 
-.modal-body form div label, .modal-body form div input, .modal-body form div textarea
-	{
+.modal-body form div label,
+.modal-body form div input,
+.modal-body form div textarea {
 	width: 100%;
 }
 
-.modal-body form div .modal-title-text, .modal-body form div p {
+.modal-body form div .modal-title-text,
+.modal-body form div p {
 	text-align: left;
 }
 
@@ -484,7 +470,8 @@ select {
 	padding: 5px;
 }
 
-#changecurrentpasswordinput, #newpassword {
+#changecurrentpasswordinput,
+#newpassword {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 5px;
@@ -497,7 +484,8 @@ select {
 	margin-bottom: 10px;
 }
 
-#confirm-email-change, #cancel-email-change {
+#confirm-email-change,
+#cancel-email-change {
 	font-size: 14px;
 	margin-bottom: 5px;
 }
@@ -545,7 +533,7 @@ select {
 	#main {
 		width: 90%;
 	}
-	
+
 	#team-list-div,
 	#team-list-div-type {
 		margin-right: 0;
@@ -560,11 +548,23 @@ select {
 	}
 
 	#team-heading {
-		margin-right: 0; 
+		margin-right: 0;
 	}
+
+
 }
-@media ( min-width : 320px) {
+
+@media (min-width : 320px) {
 	#main {
 		width: 60%;
 	}
+
+	.edit-profile-form {
+		width: 60%;
+	}
+	#box2 {
+		width: 100%;
+		padding: 8px;
+	}
+
 }
