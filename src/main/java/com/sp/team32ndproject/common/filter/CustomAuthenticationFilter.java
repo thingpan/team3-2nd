@@ -57,6 +57,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 			Authentication authResult) throws IOException, ServletException {
 		UserInfoVO user = (UserInfoVO)authResult.getPrincipal();
 		String token = jwt.generateToken(authResult);
+		log.info("token=>{}",token);
+		user.setToken(token);
 		ResponseCookie resCookie = ResponseCookie.from(HttpHeaders.AUTHORIZATION, token)
 				.httpOnly(true)
 				.sameSite("None")

@@ -3,15 +3,7 @@ let mrNum;
 const urlParams = new URLSearchParams(window.location.search);
 const taNum = urlParams.get('taNum');
 
-window.addEventListener('scroll', () => {
-	if (window.scrollY > 50) {
-		header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
-		header.style.transform = 'translateY(-100%)';
-	} else {
-		header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
-		header.style.transform = 'translateY(0)';
-	}
-});
+
 
 
 //홈 어웨이 셀렉트 박스 값 변할 때 밸류 갑 가져오기
