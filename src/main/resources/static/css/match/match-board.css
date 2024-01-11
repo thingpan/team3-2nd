@@ -160,7 +160,7 @@ body {
 
 .match-table td {
     text-align: center;
-    padding: 20px !important;
+    padding: 20px 10px !important;
 }
 
 @media screen and (max-width: 768px) {
