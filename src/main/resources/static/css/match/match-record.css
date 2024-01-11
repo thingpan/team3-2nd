@@ -40,3 +40,7 @@
 #match-record-table-top-div{
 	width: -webkit-fill-available;
 }
+#match-list-more{
+	margin-top: 3%;
+	text-align: right;
+}
