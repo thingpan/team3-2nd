@@ -1,86 +1,14 @@
-* {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	text-decoration: none;
-	list-style: none;
-	scroll-behavior: smooth;
-	font-family: 'Noto Sans KR', sans-serif;
+#team-apply-table-top-div {
+	width: unset;
 }
 
-:root {
-	--white-color: #fff;
-	--black-color: #111;
-	--btn-blue-color: #0066ff;
-	--btn-red-color: #ff0000;
-	--btn-gray-color: #d3d3d3;
-	--text-gray-color: #8f8f8f;
-	--text-light-gray-color: #dddddd;
-	--first-color: #0c5df4;
-	--bg-color: #000000;
-	--sub-color: #b6cefc;
-	--white-color: #fff;
-	--big-font: 6rem;
-	--h2-font: 3rem;
-	--p-font: 1rem;
-	--nav--width: 92px;
-}
-
-body {
-	background: var(--white-color);
-	color: var(--black-color);
-}
-
-.team-profile {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	margin-top: 20px;
-	position: relative;
-}
-
-.team-photo img {
-	margin-top: 100px;
-	width: 200px;
-	height: 180px;
-	border-radius: 20px;
-	position: relative;
-	overflow: hidden;
-	margin-bottom: 1rem;
-}
-
-.score-badge {
-	font-weight: 600;
-	margin-bottom: 10px;
-}
-
-#score-value {
-	font-weight: 600;
-	font-size: 16px;
-	margin-left: 0.5rem;
-	padding: 6px 14px;
-	border-radius: 8px;
-}
-
-.main {
-	width: 70%;
-	margin: 0 auto;
-}
-
-.table thead th {
-	background-color: var(--btn-gray-color);
+#name,
+#address,
+#phone-number {
 	text-align: center;
 }
 
-.table tbody td {
-	text-align: center;
-}
-
-.table {
-	margin-top: 8px;
-}
-
-.table td .btn {
-	font-size: 15px;
+#accept,
+#refuse {
+	width: 100px;
 }
