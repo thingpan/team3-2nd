@@ -346,7 +346,7 @@ img {
 }
 
 .schedule-table td:last-child {
-    text-align: right;
+    text-align: center;
 }
 
 .schedule-caption {

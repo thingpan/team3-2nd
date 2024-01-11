@@ -1,31 +1,12 @@
-/* 
-색상 설정
-사용법: color: var(--white-color);
-*/
-:root {
-    --white-color: #fff;
-    --black-color: #111;
-    --btn-blue-color: #0066ff;
-    --btn-red-color: #ff0000;
-    --btn-gray-color: #d3d3d3;
-    --text-gray-color: #8f8f8f;
-    --text-light-gray-color: #dddddd;
-    --big-font: 6rem;
-    --h2-font: 3rem;
-    --p-font: 1rem;
-}
-
 .main-slide {
     position: relative;
     max-height: 450px;
 }
 
 #slider-container {
-    width: 70%; /* 전체 영역의 70% 사용 (공통) */
-    height: 410px;
+    width: 100%; /* 전체 영역의 70% 사용 (공통) */
     margin: 0 auto;
     overflow: hidden; /* 영역을 벗어나면 보이지 않게 */
-    /*border-radius: 20px;*/
     text-align: -webkit-center;
 }
 
@@ -194,35 +175,99 @@ img {
     max-height: 450px;
 }
 
-.image-slider {
-    width: 70%; /* 전체 영역의 70% 사용 (공통) */
-    height: 410px;
-    margin: 0 auto;
-    overflow: hidden; /* 영역을 벗어나면 보이지 않게 */
-    border-radius: 20px;
-    display: flex;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
-#slider-container img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
+#image-slider {
     position: relative;
+    max-width: 100%; /* 화면 너비에 따라 최대 너비 설정 */
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
 }
 
 .button-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    position: relative;
-    width: 75%; /* 전체 영역의 70% 사용 (공통) */
-    top: 200px;
+}
+
+.prev-btn,
+.next-btn {
+    background-color: var(--black-color);
+    color: var(--white-color);
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+}
+
+#slider-container img {
+    width: 70%;
+    max-height: 400px;
+    display: block;
     margin: 0 auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+@media (max-width: 576px) {
+    #slider-container img {
+        width: 100%;
+        /*max-height: 20%*/
+    }
+}
+
+@media (max-width: 768px) {
+    #slider-container img {
+        max-height: 300px;
+    }
+
+    .send-info {
+        position: relative;
+        margin-top: -120px;
+    }
+
+    .main {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .info-main,
+    .send-info {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    #score-value {
+        font-size: 12px;
+    }
+
+    .image-slider,
+    .button-container {
+        width: 100%;
+    }
+
+    .button-container button {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+
+    .main-slide {
+        max-height: 300px;
+    }
+
+    #slider-container img {
+        max-height: 300px;
+        width: auto;
+    }
+}
+
+@media (max-width: 992px) {
+    #slider-container img {
+        max-height: 400px;
+    }
 }
 
 .prev-btn,
@@ -243,10 +288,54 @@ img {
 
 #updateAndDeleteButton {
     text-align: center;
-    /*display: flex;*/
-    /*justify-content: space-evenly;*/
 }
 
 #modifyBtn + #deleteBtn {
     margin-left: 0.5rem;
 }
+
+@media (max-width: 576px) {
+    #slider-container img {
+        max-height: 100%;
+        width: 100%;
+    }
+
+    .send-info {
+        position: static;
+        width: 100%;
+    }
+}
+
+#slider-container img {
+    max-height: 400px;
+    width: 70%;
+}
+
+@media (max-width: 576px) {
+    #slider-container img {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 768px) {
+    #slider-container img {
+        max-height: 200px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 992px) {
+    #slider-container img {
+        max-height: 350px;
+        width: auto;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    #slider-container img {
+        height: 250px;
+        width: 70%;
+    }
+}
+
