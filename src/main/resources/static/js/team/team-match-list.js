@@ -2,10 +2,12 @@
  * 
  */
 
-const urlParams = new URLSearchParams(window.location.search);
-const taNum = urlParams.get('taNum');
+
 
 async function getTeamMatchList(evt, page) {
+	const urlParams = new URLSearchParams(window.location.search);
+	const taNum = urlParams.get('taNum');
+	
 	if (!page) {
 		page = 1;
 	}
@@ -50,12 +52,12 @@ async function getTeamMatchList(evt, page) {
 			html += `<td>${matchinfo.mbDate} | ${matchinfo.mbTime}</td>`;
 			html += `<td>${mbCredatParsing}</td>`;
 			html += `<td>${matchinfo.mbAddress}</td>`;
-			if(matchinfo.mbStatus == 1){
+			if (matchinfo.mbStatus == 1) {
 				html += `<td>신청마감</td>`;
-			}else{
+			} else {
 				html += `<td>모집중</td>`;
 			}
-			
+
 			html += '</tr>';
 		}
 	}
