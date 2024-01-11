@@ -1,4 +1,6 @@
 // 가입 수락 처리를 담당하는 함수
+const urlParams = new URL(location.href).searchParams;
+const taNum = urlParams.get('taNum');
 async function acceptMembership(tsuNum, uiName, uiNum) {
 	if (confirm(`사용자 ${uiName}의 가입을 수락합니다.`) == true) {
 		const body = {
@@ -59,8 +61,7 @@ const blockSize = 5;
 
 
 const getTeamSignUserInfoList = async function(evt, page) {
-	const urlParams = new URL(location.href).searchParams;
-	const taNum = urlParams.get('taNum');
+
 
 	if (!page) {
 		page = 1;

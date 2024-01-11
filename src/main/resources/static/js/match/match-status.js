@@ -1,8 +1,7 @@
 let matchData = [];
 let teamInfo;
 let awayTeamName;
-const urlParams = new URL(location.href).searchParams;
-const taNum = urlParams.get('taNum');
+
 
 
 window.addEventListener('scroll', () => {
@@ -29,6 +28,8 @@ async function getAwayAjaxList(evt, page) {
 	let total = 0;
 	let pageSize = 5;
 	const blockSize = 5;
+	const urlParams = new URL(location.href).searchParams;
+	const taNum = urlParams.get('taNum');
 
 	if (!page) {
 		page = 1;
@@ -66,7 +67,7 @@ async function getAwayAjaxList(evt, page) {
 
 	let html = '';
 	if (pageInfos.list.length == 0) {
-		html += '<tr><td colspan="5">비어있는 리스트 입니다.</td></tr>';
+		html += '<tr><td colspan="5" style="text-align:center;">비어있는 리스트 입니다.</td></tr>';
 	} else {
 		for (let matchStatus of pageInfos.list) {
 			let status;
@@ -79,20 +80,20 @@ async function getAwayAjaxList(evt, page) {
 
 			if (matchStatus.mdMatchStatus == 0) {
 				status = '대기중';
-				badgeStyle = 'badge-waiting';
+				badgeStyle = 'badge bg-success rounded-3 fw-semibold';
 			} else if (matchStatus.mdMatchStatus == 1) {
 				status = '수락';
-				badgeStyle = 'badge-accepted';
+				badgeStyle = 'badge bg-primary rounded-3 fw-semibold';
 			} else if (matchStatus.mdMatchStatus == 2) {
 				status = '거절';
-				badgeStyle = 'badge-rejected';
+				badgeStyle = 'badge bg-danger rounded-3 fw-semibold';
 			}
 
 			html += `<td><span class="align-middle ${badgeStyle}">${status}</span></td>`;
 			html += '</tr>';
 		}
 	}
-	document.querySelector('#table-body').innerHTML = html;
+	document.querySelector('#team-user-list-info').innerHTML = html;
 }
 
 //토글이 홈일때 리스트 불러오기
@@ -100,6 +101,8 @@ async function getHomeAjaxList(evt, page) {
 	let total = 0;
 	let pageSize = 5;
 	const blockSize = 5;
+	const urlParams = new URL(location.href).searchParams;
+	const taNum = urlParams.get('taNum');
 
 	if (!page) {
 		page = 1;
@@ -137,20 +140,20 @@ async function getHomeAjaxList(evt, page) {
 
 	let html = '';
 	if (pageInfos.list.length == 0) {
-		html += '<tr><td colspan="5">비어있는 리스트 입니다.</td></tr>';
+		html += '<tr><td colspan="5" style="text-align:center;">비어있는 리스트 입니다.</td></tr>';
 	} else {
 		for (let matchStatus of pageInfos.list) {
 			html += '<tr>';
 			html += `<td>${matchStatus.mdAddress}</td>`;
 			html += `<td>${matchStatus.taName}</td>`;
 			html += `<td>${matchStatus.mdDate}||${matchStatus.mdTime}</td>`;
-			html += `<td><button class="btn btn-dark" id="accept-button" onclick="doAcceptCheck('${matchStatus.taName}',${matchStatus.mdNum}, ${matchStatus.mdHomeNum}, ${matchStatus.mdAwayNum}, ${matchStatus.mbNum})">수락</button>
-		<button class="btn btn-white" id="refuse-button" onclick="doCancleCheck('${matchStatus.taName}',${matchStatus.mdNum},${matchStatus.mbNum})">거절</button></td>`;
+			html += `<td><button class="badge bg-primary rounded-3 fw-semibold" id="accept-button" onclick="doAcceptCheck('${matchStatus.taName}',${matchStatus.mdNum}, ${matchStatus.mdHomeNum}, ${matchStatus.mdAwayNum}, ${matchStatus.mbNum})">수락</button>
+		<button class="badge bg-danger rounded-3 fw-semibold" id="refuse-button" onclick="doCancleCheck('${matchStatus.taName}',${matchStatus.mdNum},${matchStatus.mbNum})">거절</button></td>`;
 			html += `</tr>`;
 		}
 	}
 
-	document.querySelector('#table-body').innerHTML = html;
+	document.querySelector('#team-user-list-info').innerHTML = html;
 }
 
 function doAcceptCheck(mdAwayName, mdNum, mdHomeNum, mdAwayNum, mbNum) {
