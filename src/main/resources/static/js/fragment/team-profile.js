@@ -19,6 +19,7 @@ async function getTeamInfo() {
 
 	if (teamInfo.taFilePath == null) {
 		document.querySelector('#teamImg').src = `/imgs/${type}.png`
+		
 	} else {
 		try {
 			document.querySelector('#teamImg').src = teamInfo.taFilePath;
