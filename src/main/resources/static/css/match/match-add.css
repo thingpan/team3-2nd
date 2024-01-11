@@ -1,3 +1,4 @@
+/* 추가한 부트스트랩 클래스를 포함한 CSS 코드 */
 .main {
 	width: 70%;
 	margin: 0 auto;
@@ -6,7 +7,6 @@
 #main-tag {
 	font-size: var(--h2-font);
 }
-
 
 #select-team {
 	margin-top: 0.5em;
@@ -21,13 +21,10 @@
 	border: none;
 }
 
-
-
 #select-team button:hover {
 	background-color: var(--black-color);
 	font-size: var(--p-font);
 	content: 'test';
-
 }
 
 #select-team img {
@@ -35,7 +32,7 @@
 }
 
 #team-list-div {
-	width: 6em;
+	width: 6em; /* 수정 */
 	margin: 0;
 	display: inline-block;
 	text-align: center;
@@ -43,9 +40,8 @@
 	height: 100%;
 }
 
-
 #team-list button {
-	margin-right: 0.3em;
+	/*margin-right: 0.3em;*/
 	background-color: gray;
 	color: white;
 	height: 90px;
@@ -69,6 +65,7 @@
 #team-list {
 	margin-top: 0.5em;
 	height: 80%;
+	display: flex;
 }
 
 #info-main * {
@@ -81,8 +78,21 @@
 	grid-gap: 10em;
 }
 
+@media (max-width: 768px) {
+	#info-main {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 2rem;
+	}
+
+	.team-list {
+		display: flex;
+	}
+}
+
 #info-main-right {
-	width: 80%;
+	width: 100%; /* 수정 */
 }
 
 #info-main-right textarea {
@@ -98,13 +108,12 @@
 }
 
 #info-main-left {
-	width: 20%;
+	width: 100%; /* 수정 */
 }
 
 #info-main-left input {
 	width: 100%;
 }
-
 
 .map_wrap {
 	height: 40em;
@@ -157,16 +166,12 @@ input::-webkit-inner-spin-button {
 	align-items: center;
 }
 
-#date-input input[type="date"] {
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 5px;
-}
-
+#date-input input[type="date"],
 #time-input input[type="time"] {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 5px;
+	width: 100%; /* 수정 */
 }
 
 #okButton {
