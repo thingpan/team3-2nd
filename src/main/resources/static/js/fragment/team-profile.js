@@ -1,9 +1,9 @@
 
 async function getTeamInfo() {
 	const urlParams = new URLSearchParams(window.location.search);
-	const taNum = urlParams.get('taNum');
-	
-	const res = await fetch(`/team-info?taNum=${taNum}`);
+	const ftaNum = urlParams.get('taNum');
+
+	const res = await fetch(`/team-info?taNum=${ftaNum}`);
 	const teamInfo = await res.json();
 	console.log(teamInfo);
 	document.querySelector('#taName').innerHTML = teamInfo.taName;

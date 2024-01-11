@@ -1,7 +1,8 @@
-const urlParams = new URLSearchParams(window.location.search);
-const taNum = urlParams.get('taNum');
 
 async function getTeamInfo() {
+
+	const urlParams = new URLSearchParams(window.location.search);
+	const taNum = urlParams.get('taNum');
 
 	const res = await fetch(`/team-info?taNum=${taNum}`);
 	const teamInfo = await res.json();
@@ -61,13 +62,46 @@ async function getTeamInfo() {
 	} else {
 		scoreValue.style.backgroundColor = '#f4e2ff';
 		scoreValue.style.color = '#8200d2';
-	} 
-	
+	}
+
 	const wholeRecord = `${teamInfo.taMatchCount}전 ${teamInfo.taWinCnt}승 ${teamInfo.taDrawCnt}무 ${teamInfo.taLooseCnt}패`
 	document.querySelector('#whole-record').innerHTML = wholeRecord;
 
 
+	const resMatchList = await fetch(`/match-infos?page=${1}&pageSize=${5}&taNum=${taNum}`);
+	const pageInfos = await resMatchList.json();
+	console.log(pageInfos);
+
+	let html = '';
+	for (let matchinfo of pageInfos.list) {
+		if (matchinfo.activityStatus != '1') {
+			let mbCredat = matchinfo.mbCredat;
+			var mbCredatParsing = [mbCredat.slice(0, 4), "-", mbCredat.slice(4, 6), "-", mbCredat.slice(6, 8)].join('')
+
+			html += `<tr onclick="doGoMatchViewPage(${matchinfo.mbNum})">`;
+			html += `<td> <h6 class="fw-semibold mb-0">${matchinfo.mbAddressDetail}</h6></td>`;
+			html += `<td><h6 class="fw-semibold mb-0">${matchinfo.mbDate} | ${matchinfo.mbTime}</h6></td>`;
+			html += `<td><h6 class="fw-semibold mb-0">${mbCredatParsing}</h6></td>`;
+			html += `<td><h6 class="fw-semibold mb-0">${matchinfo.mbAddress}</h6></td>`;
+			if (matchinfo.mbStatus == 1) {
+				html += `<td><span class="badge bg-danger rounded-3 fw-semibold">신청마감</span></td>`;
+			} else {
+				html += `<td><span class="badge bg-primary rounded-3 fw-semibold">모집중</span></td>`;
+			}
+
+			html += '</tr>';
+		}
+	}
+	document.querySelector('#team-user-list-info').innerHTML = html;
 
 }
+
+function goMatchListPage() {
+	const urlParams = new URLSearchParams(window.location.search);
+	const taNum = urlParams.get('taNum');
+	location.href = `/page/team/team-match-list?taNum=${taNum}`;
+}
+
+
 
 window.addEventListener('load', getTeamInfo);

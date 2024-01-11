@@ -48,14 +48,14 @@ async function getTeamMatchList(evt, page) {
 			var mbCredatParsing = [mbCredat.slice(0, 4), "-", mbCredat.slice(4, 6), "-", mbCredat.slice(6, 8)].join('')
 
 			html += `<tr onclick="doGoMatchViewPage(${matchinfo.mbNum})">`;
-			html += `<td>${matchinfo.mbAddressDetail}</td>`;
-			html += `<td>${matchinfo.mbDate} | ${matchinfo.mbTime}</td>`;
-			html += `<td>${mbCredatParsing}</td>`;
-			html += `<td>${matchinfo.mbAddress}</td>`;
+			html += `<td><h6 class="fw-semibold mb-0">${matchinfo.mbAddressDetail}</h6></td>`;
+			html += `<td><h6 class="fw-semibold mb-0">${matchinfo.mbDate} | ${matchinfo.mbTime}</h6></td>`;
+			html += `<td><h6 class="fw-semibold mb-0">${mbCredatParsing}</h6></td>`;
+			html += `<td><h6 class="fw-semibold mb-0">${matchinfo.mbAddress}</h6></td>`;
 			if (matchinfo.mbStatus == 1) {
-				html += `<td>신청마감</td>`;
+				html += `<td><span class="badge bg-danger rounded-3 fw-semibold">신청마감</span></td>`;
 			} else {
-				html += `<td>모집중</td>`;
+				html += `<td><span class="badge bg-primary rounded-3 fw-semibold">모집중</span></td>`;
 			}
 
 			html += '</tr>';
