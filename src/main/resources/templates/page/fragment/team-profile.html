@@ -11,56 +11,23 @@
 		rel="stylesheet">
 	<link rel="stylesheet" href="/assets/css/styles.min.css" />
 	<link rel="shortcut icon" type="image/png" href="/assets/images/logos/favicon.png" />
-	<style>
-		#taNameDiv {
-			text-align: center;
-		}
 
-		#match-record-row-1 {
-			align-items: center;
-			justify-content: space-between;
-		}
-
-		#team-manner-div {
-			display: flex;
-			align-items: center;
-		}
-
-		#team-manner-prograss-div {
-			background: aliceblue;
-			border-radius: 5px;
-			width: 180px;
-		}
-
-		#manners-progress {
-			background-color: blue;
-		}
-
-		#current-score {
-			margin-left: 30px;
-			margin-bottom: 0;
-		}
-
-		#team-info-tbody th {
-			width: 0;
-		}
-
-		#team-info-tbody td {
-			padding: unset;
-		}
-	</style>
 </head>
 
 <body>
 	<div class="row" id="match-record-row-1" th:fragment="f-team-profile">
 		<div class="col-sm-6 col-xl-3">
-			<div class="card overflow-hidden rounded-2">
-				<div class="position-relative">
-					<a href="javascript:void(0)"><img id="teamImg" src="/assets/images/products/s4.jpg"
-							class="card-img-top rounded-0" alt="..."></a>
-				</div>
-				<div class="card-body pt-3 p-4" id="taNameDiv">
-					<h6 class="fw-semibold fs-4" id="taName">팀 이름</h6>
+			<div style="height: 100%; width: 100%;">
+				<div class="card overflow-hidden rounded-2">
+					
+						<div style="height: 50%; width: 100%;">
+							<img style=" height: 10rem; width: 100%;" id="teamImg"
+								src="/assets/images/products/s4.jpg" class="card-img-top rounded-0" alt="...">
+						</div>
+					
+					<div class="card-body pt-3 p-4" id="taNameDiv">
+						<h6 class="fw-semibold fs-4" id="taName">팀 이름</h6>
+					</div>
 				</div>
 			</div>
 		</div>
