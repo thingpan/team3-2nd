@@ -34,3 +34,13 @@
 #team-info-tbody td{
 	padding: unset;
 }
+#first-row-div{
+	width: unset;
+}
+#match-record-table-top-div{
+	width: -webkit-fill-available;
+}
+#match-list-more{
+	margin-top: 3%;
+	text-align: right;
+}
