@@ -16,9 +16,8 @@ async function getTeamInfo() {
 	} else if (teamInfo.taType == '축구') {
 		type = 'soccerball';
 	}
-
-	if (teamInfo.taFilePath == null) {
-		document.querySelector('#teamImg').src = `/imgs/${type}.png`
+	if (teamInfo.taFilePath == null || teamInfo.taFilePath == undefined) {
+		document.querySelector('#team-img-div').innerHTML = '<h6 class="fw-semibold mb-0">이미지 없음</h6>'
 	} else {
 		try {
 			document.querySelector('#teamImg').src = teamInfo.taFilePath;

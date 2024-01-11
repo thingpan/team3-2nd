@@ -71,26 +71,6 @@ async function getTeamInfo() {
 	document.querySelector('#taName').innerHTML = teamInfo.taName;
 	document.querySelector('#taDesc').innerHTML = teamInfo.taDesc;
 
-	if (teamInfo.taType == '농구') {
-		type = 'basketball';
-	} else if (teamInfo.taType == '야구') {
-		type = 'baseball';
-	} else if (teamInfo.taType == '축구') {
-		type = 'soccerball';
-	}
-
-	if (teamInfo.taFilePath == null) {
-		document.querySelector('#teamImg').src = `/imgs/${type}.png`
-	} else {
-		try {
-			document.querySelector('#teamImg').src = teamInfo.taFilePath;
-		} catch {
-			document.querySelector('#teamImg').src = `/imgs/${type}.png`
-		}
-
-	}
-
-
 	const mannersProgress = document.querySelector('#manners-progress');
 	// taMannerPoint가 참 값인지 확인; 그렇지 않으면 0으로 기본값 사용
 	const mannerPercent = Math.floor(teamInfo.taMannerPoint ? (teamInfo.taMannerPoint / teamInfo.taMatchCount) : 0);
