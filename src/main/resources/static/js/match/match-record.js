@@ -79,7 +79,7 @@ async function getTeamInfo() {
 			var mbCredatParsing = [mbCredat.slice(0, 4), "-", mbCredat.slice(4, 6), "-", mbCredat.slice(6, 8)].join('')
 
 			html += `<tr onclick="doGoMatchViewPage(${matchinfo.mbNum})">`;
-			html += `<td class="border-bottom-0"> <h6 class="fw-semibold mb-0">${matchinfo.mbAddressDetail}</h6></td>`;
+			html += `<td> <h6 class="fw-semibold mb-0">${matchinfo.mbAddressDetail}</h6></td>`;
 			html += `<td><h6 class="fw-semibold mb-0">${matchinfo.mbDate} | ${matchinfo.mbTime}</h6></td>`;
 			html += `<td><h6 class="fw-semibold mb-0">${mbCredatParsing}</h6></td>`;
 			html += `<td><h6 class="fw-semibold mb-0">${matchinfo.mbAddress}</h6></td>`;
