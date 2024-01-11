@@ -57,12 +57,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 			Authentication authResult) throws IOException, ServletException {
 		UserInfoVO user = (UserInfoVO)authResult.getPrincipal();
 		String token = jwt.generateToken(authResult);
+		user.setUiPwd(null);
 		log.info("token=>{}",token);
 		user.setToken(token);
 		ResponseCookie resCookie = ResponseCookie.from(HttpHeaders.AUTHORIZATION, token)
 				.httpOnly(true)
 				.sameSite("None")
-				.secure(true)
+				.secure(true) 
 				.path("/")
 				.maxAge(jwt.getTokenExpire())
 				.build();
