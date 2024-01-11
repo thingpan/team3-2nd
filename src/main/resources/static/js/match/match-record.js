@@ -8,6 +8,66 @@ async function getTeamInfo() {
 	const teamInfo = await res.json();
 	console.log(teamInfo);
 
+
+	//chart
+	$(function() {
+
+		// =====================================
+		// Breakup
+		// =====================================
+		var breakup = {
+			color: "#adb5bd",
+			series: [teamInfo.taWinCnt, teamInfo.taDrawCnt, teamInfo.taLooseCnt],
+			labels: ["Win", "Draw", "Loose"],
+			chart: {
+				width: 200,
+				type: "donut",
+				fontFamily: "Plus Jakarta Sans', sans-serif",
+				foreColor: "#adb0bb",
+			},
+			plotOptions: {
+				pie: {
+					startAngle: 0,
+					endAngle: 360,
+					donut: {
+						size: '75%',
+					},
+				},
+			},
+			stroke: {
+				show: false,
+			},
+
+			dataLabels: {
+				enabled: false,
+			},
+
+			legend: {
+				show: false,
+			},
+			colors: ["#5D87FF", "#FFBF01", "#FF0100"],
+
+			responsive: [
+				{
+					breakpoint: 991,
+					options: {
+						chart: {
+							width: 150,
+						},
+					},
+				},
+			],
+			tooltip: {
+				theme: "dark",
+				fillSeriesColor: false,
+			},
+		};
+
+		var chart = new ApexCharts(document.querySelector("#breakup"), breakup);
+		chart.render();
+	})
+
+
 	document.querySelector('#taName').innerHTML = teamInfo.taName;
 	document.querySelector('#taDesc').innerHTML = teamInfo.taDesc;
 
@@ -66,11 +126,20 @@ async function getTeamInfo() {
 
 	const wholeRecord = `${teamInfo.taMatchCount}전 ${teamInfo.taWinCnt}승 ${teamInfo.taDrawCnt}무 ${teamInfo.taLooseCnt}패`
 	document.querySelector('#whole-record').innerHTML = wholeRecord;
+	if (teamInfo.taMatchCount != 0) {
+		document.querySelector('#match-win-draw-loose').innerHTML = `${teamInfo.taMatchCount}전 ${teamInfo.taWinCnt}승 ${teamInfo.taDrawCnt}무 ${teamInfo.taLooseCnt}패`;
 
+		const victoryPercent = Math.floor((teamInfo.taWinCnt / teamInfo.taMatchCount) * 100);
+		document.querySelector('#victory-percent').innerHTML = `${victoryPercent}%`;
+	}else{
+		document.querySelector('#match-win-draw-loose-div').innerHTML = '<h6 class="fw-semibold mb-3" id="match-win-draw-loose">첫 경기 전입니다.</h6>';
+		
+	}
 
 	const resMatchList = await fetch(`/match-infos?page=${1}&pageSize=${5}&taNum=${taNum}`);
 	const pageInfos = await resMatchList.json();
 	console.log(pageInfos);
+
 
 	let html = '';
 	for (let matchinfo of pageInfos.list) {
@@ -101,6 +170,9 @@ function goMatchListPage() {
 	const taNum = urlParams.get('taNum');
 	location.href = `/page/team/team-match-list?taNum=${taNum}`;
 }
+
+
+
 
 
 
