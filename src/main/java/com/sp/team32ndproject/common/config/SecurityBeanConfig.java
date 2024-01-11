@@ -87,18 +87,8 @@ public class SecurityBeanConfig {
 						.failureUrl("/page/user/login?errorMsg=Plz check ID or PWD"))
 				.logout(logout -> logout.logoutUrl("/auth/logout").logoutSuccessUrl("/page/user/login"));
 		hs.csrf(csrf -> csrf.disable()).exceptionHandling(handling -> handling.accessDeniedPage("/page/denied"))
-				.userDetailsService(userInfoService)
-		.cors(cors->cors.configurationSource(new CorsConfigurationSource(){
-			@Override
-			public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-				CorsConfiguration ccf =new CorsConfiguration();
-				ccf.setAllowedOrigins(List.of("http://localhost:3000"));
-				ccf.setAllowedMethods(List.of("POST", "PATCH", "PUT", "GET", "DELETE","OPTIONS"));
-				ccf.setAllowedHeaders(List.of("*"));
-				ccf.setAllowCredentials(true);
-				return ccf;				
-			}
-		}));
+				.userDetailsService(userInfoService);
+	
 		return hs.build();
 	}
 }
