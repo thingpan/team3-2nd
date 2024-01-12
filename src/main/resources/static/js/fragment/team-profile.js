@@ -17,7 +17,7 @@ async function getTeamInfo() {
 	}
 
 	if (teamInfo.taFilePath == null) {
-		document.querySelector('#teamImg').src = `/imgs/${type}.png`
+		document.querySelector('#teamImg').src = `/imgs/noimgs.png`
 
 	} else {
 		try {
