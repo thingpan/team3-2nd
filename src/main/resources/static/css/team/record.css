@@ -33,7 +33,6 @@ body {
 }
 
 #sport-filter {
-    margin-left: 79%;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 5px;
@@ -112,33 +111,7 @@ body {
     color: #fff;
 }
 
-#accept-button {
-    background-color: #111;
-    color: #fff;
-    font-weight: 600;
-    border: none;
-}
 
-#refuse-button {
-    background-color: #111;
-    color: #fff;
-    font-weight: 600;
-    border: none;
-}
-
-#accept-button:hover {
-    background-color: #0066FF;
-    color: #D9E5FF;
-    font-weight: 600;
-    border: none;
-}
-
-#refuse-button:hover {
-    background-color: #ff1200;
-    color: #FFE6E6;
-    font-weight: 600;
-    border: none;
-}
 
 .end-game-button {
     flex-basis: 15%;
@@ -223,6 +196,14 @@ input[type='number']::-webkit-inner-spin-button {
 ::before,
 ::after {
     box-sizing: border-box;
+}
+
+
+
+/*여기부터*/
+
+#match-record-div-top{
+	width: 100%;
 }
 
 

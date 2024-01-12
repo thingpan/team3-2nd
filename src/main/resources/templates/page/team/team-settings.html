@@ -34,7 +34,7 @@
 					<div class="col-xl-4" style="text-align: -webkit-center;">
 						<div style="height: 100%; width: 83%;">
 							<div id="div" class="card overflow-hidden rounded-2">
-								<img style="height: 20rem; width: 20rem;" id="preview" src="" class="card-img-top"
+								<img style="height: 20rem; width: 20rem;" id="preview" class="card-img-top" src="/imgs/imgsplus.png"
 									alt="...">
 								<!--  없어도 댐
 										<div id="noImageText" style="display: none; margin-left:50%; margin-top:40%">
@@ -160,7 +160,7 @@
 
 					// 수정 시작
 					const previewImage = document.querySelector('#preview');
-					//const noImageText = document.querySelector('#noImageText');
+					const noImageText = document.querySelector('#noImageText');
 
 					if (user.taFilePath != null) {
 						previewImage.src = user.taFilePath;
@@ -169,7 +169,7 @@
 					} else {
 						previewImage.src = '';
 						//프로필 설정 안할시 기본 이미지로 일단 해놈 
-						//previewImage.src = '/assets/images/products/s4.jpg';
+						previewImage.src = '/imgs/imgsplus.png';
 						//noImageText.style.display = 'none';
 						
 
