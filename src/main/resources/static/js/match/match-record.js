@@ -103,7 +103,27 @@ async function getTeamInfo() {
 			html += '</tr>';
 		}
 	}
-	document.querySelector('#team-user-list-info').innerHTML = html;
+	document.querySelector('#match-list-info').innerHTML = html;
+
+	let url = `/team-users/helper?page=${1}&pageSize=${5}&taNum=${taNum}`;
+	const resMember = await fetch(url);
+	const membersInfo = await resMember.json();
+	
+	let memberHtml = '';
+			for (let user of membersInfo.list) {
+				let role = user.tuRole;
+				if (role == 'ADMIN') {
+					role = '팀장';
+				} else {
+					role = '팀원';
+				}
+				memberHtml += '<tr>';
+				memberHtml += `<td>${user.uiName}</td>`;
+				memberHtml += `<td>${role}</td>`;
+				memberHtml += `<td>${user.uiAddress}</td>`;
+				memberHtml += '</tr>';
+			}
+			document.querySelector('#team-user-list-info').innerHTML = memberHtml;
 
 }
 
@@ -111,6 +131,13 @@ function goMatchListPage() {
 	const urlParams = new URLSearchParams(window.location.search);
 	const taNum = urlParams.get('taNum');
 	location.href = `/page/team/team-match-list?taNum=${taNum}`;
+}
+
+function goTeamMemberPage(){
+	
+	const urlParams = new URLSearchParams(window.location.search);
+	const taNum = urlParams.get('taNum');
+	location.href = `/page/team/team-members?taNum=${taNum}`;
 }
 
 
