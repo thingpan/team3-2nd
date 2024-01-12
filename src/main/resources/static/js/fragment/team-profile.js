@@ -105,8 +105,7 @@ async function doSendObj() {
 	console.log(result);
 	if (result) {
 		alert(`${result.resultMsg}`);
-		debugger;
-		await getTeamInfo();
+		getTeamInfo();
 	}
 
 }

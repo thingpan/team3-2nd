@@ -11,7 +11,9 @@
 	<link rel="stylesheet" href="/assets/css/styles.min.css" />
 	<link rel="shortcut icon" type="image/png" href="/assets/images/logos/favicon.png" />
 	<link rel="stylesheet" href="/css/fragment/team-profile.css" />
-	
+
+	<link rel="stylesheet" href="/css/team/record.css" />
+
 </head>
 
 <body>
@@ -19,17 +21,167 @@
 
 	<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
 		data-sidebar-position="fixed" data-header-position="fixed">
-		
+
 		<div th:replace="page/fragment/team-side.html :: f-side"></div>
-		
+
 		<div class="body-wrapper">
-			
+
 			<div th:replace="page/fragment/team-head.html :: f-team-head"></div>
-			
+
 			<div class="container-fluid">
-				
-			<div th:replace="page/fragment/team-profile.html :: f-team-profile"></div>
-			
+
+				<div th:replace="page/fragment/team-profile.html :: f-team-profile"></div>
+
+				<div class="row">
+
+					<div class="col-lg-4 d-flex align-items-stretch" id="match-record-div-top">
+
+						<div class="card w-100">
+							<div class="card-body p-4">
+								<h5 class="card-title fw-semibold mb-4">전적</h5>
+								<div>
+									<select id="sport-filter" onchange="getSelectChangeListener(this)">
+										<option value="all" selected>All</option>
+										<option value="home">Home</option>
+										<option value="away">Away</option>
+									</select>
+								</div>
+								<div class="table-responsive">
+									<table class="table text-nowrap mb-0 align-middle">
+										<thead class="text-dark fs-4">
+											<tr>
+												<th class="border-bottom-0">
+													<h6 class="fw-semibold mb-0">위치</h6>
+												</th>
+												<th class="border-bottom-0">
+													<h6 class="fw-semibold mb-0">날짜|시간</h6>
+												</th>
+												<th class="border-bottom-0">
+													<h6 class="fw-semibold mb-0">상대팀</h6>
+												</th>
+												<th class="border-bottom-0">
+													<h6 class="fw-semibold mb-0">점수</h6>
+												</th>
+												<th class="border-bottom-0">
+													<h6 class="fw-semibold mb-0">결과</h6>
+												</th>
+											</tr>
+										</thead>
+										<tbody id="match-record-tbody">
+											<tr>
+												<td class="border-bottom-0">
+													<h6 class="fw-semibold mb-0">1</h6>
+												</td>
+												<td class="border-bottom-0">
+													<h6 class="fw-semibold mb-1">Sunil Joshi</h6>
+													<span class="fw-normal">Web Designer</span>
+												</td>
+												<td class="border-bottom-0">
+													<p class="mb-0 fw-normal">Elite Admin</p>
+												</td>
+												<td class="border-bottom-0">
+													<div class="d-flex align-items-center gap-2">
+														<span class="badge bg-primary rounded-3 fw-semibold">Low</span>
+													</div>
+												</td>
+												<td class="border-bottom-0">
+													<h6 class="fw-semibold mb-0 fs-4">$3.9</h6>
+												</td>
+											</tr>
+											<tr>
+												<td class="border-bottom-0">
+													<h6 class="fw-semibold mb-0">2</h6>
+												</td>
+												<td class="border-bottom-0">
+													<h6 class="fw-semibold mb-1">Andrew McDownland</h6>
+													<span class="fw-normal">Project Manager</span>
+												</td>
+												<td class="border-bottom-0">
+													<p class="mb-0 fw-normal">Real Homes WP Theme</p>
+												</td>
+												<td class="border-bottom-0">
+													<div class="d-flex align-items-center gap-2">
+														<span
+															class="badge bg-secondary rounded-3 fw-semibold">Medium</span>
+													</div>
+												</td>
+												<td class="border-bottom-0">
+													<h6 class="fw-semibold mb-0 fs-4">$24.5k</h6>
+												</td>
+											</tr>
+											<tr>
+												<td class="border-bottom-0">
+													<h6 class="fw-semibold mb-0">3</h6>
+												</td>
+												<td class="border-bottom-0">
+													<h6 class="fw-semibold mb-1">Christopher Jamil</h6>
+													<span class="fw-normal">Project Manager</span>
+												</td>
+												<td class="border-bottom-0">
+													<p class="mb-0 fw-normal">MedicalPro WP Theme</p>
+												</td>
+												<td class="border-bottom-0">
+													<div class="d-flex align-items-center gap-2">
+														<span class="badge bg-danger rounded-3 fw-semibold">High</span>
+													</div>
+												</td>
+												<td class="border-bottom-0">
+													<h6 class="fw-semibold mb-0 fs-4">$12.8k</h6>
+												</td>
+											</tr>
+											<tr>
+												<td class="border-bottom-0">
+													<h6 class="fw-semibold mb-0">4</h6>
+												</td>
+												<td class="border-bottom-0">
+													<h6 class="fw-semibold mb-1">Nirav Joshi</h6>
+													<span class="fw-normal">Frontend Engineer</span>
+												</td>
+												<td class="border-bottom-0">
+													<p class="mb-0 fw-normal">Hosting Press HTML</p>
+												</td>
+												<td class="border-bottom-0">
+													<div class="d-flex align-items-center gap-2">
+														<span
+															class="badge bg-success rounded-3 fw-semibold">Critical</span>
+													</div>
+												</td>
+												<td class="border-bottom-0">
+													<h6 class="fw-semibold mb-0 fs-4">$2.4k</h6>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<!-- 부트스트랩 Pagination -->
+								<div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
+									<nav aria-label="Page navigation">
+										<ul class="pagination justify-content-center" id="pageDiv">
+											<li class="page-item">
+												<a class="page-link" href="#" aria-label="Previous">
+													<span aria-hidden="true">&laquo;</span>
+												</a>
+											</li>
+											<li class="page-item"><a class="page-link" href="#">1</a></li>
+											<li class="page-item"><a class="page-link" href="#">2</a></li>
+											<li class="page-item"><a class="page-link" href="#">3</a></li>
+											<li class="page-item"><a class="page-link" href="#">4</a></li>
+											<li class="page-item"><a class="page-link" href="#">5</a></li>
+											<li class="page-item">
+												<a class="page-link" href="#" aria-label="Next">
+													<span aria-hidden="true">&raquo;</span>
+												</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
 			</div>
 
 			<div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel"
@@ -131,106 +283,9 @@
 					</div>
 				</div>
 			</div>
-			<div>
-				<div>
-					<select id="sport-filter" onchange="getSelectChangeListener(this)">
-						<option value="all" selected>All</option>
-						<option value="home">Home</option>
-						<option value="away">Away</option>
-					</select>
-				</div>
-				<ol class="custom-table" id="match-list">
-					<li id="match-item"></li>
-				</ol>
-			</div>
-
-			<div class="record-table-section">
-			</div>
-
-			<!-- 가입 신청 모달 -->
-			<div class="modal fade" id="membershipModal" tabindex="-1" role="dialog"
-				aria-labelledby="membershipModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="membershipModalLabel">가입 신청</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<p>
-								"<span id="team-name-modal" style="font-weight: bold"></span>"에
-								가입 신청을 하시겠습니까?
-							</p>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">
-								취소
-							</button>
-							<button type="button" class="btn btn-primary" id="confirmMembershipBtn"
-								onclick="doSendObj()">
-								확인
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- 부트스트랩 Pagination -->
-			<div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
-				<nav aria-label="Page navigation">
-					<ul class="pagination justify-content-center" id="pageDiv">
-						<li class="page-item">
-							<a class="page-link" href="#" aria-label="Previous">
-								<span aria-hidden="true">&laquo;</span>
-							</a>
-						</li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">4</a></li>
-						<li class="page-item"><a class="page-link" href="#">5</a></li>
-						<li class="page-item">
-							<a class="page-link" href="#" aria-label="Next">
-								<span aria-hidden="true">&raquo;</span>
-							</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
 		</div>
 	</div>
 	</div>
-
-	<!-- IONICONS -->
-	<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-
-	<!--<script>
-		async function doSendObj() {
-			//타임리프 안돼서 일단 ㅠㅠ
-			const urlParams = new URL(location.href).searchParams;
-			const taNum = urlParams.get('taNum');
-			const obj = {
-				taNum: taNum
-			}
-			const res = await fetch('/team-sign-user-add', {
-				method: 'POST',
-				body: JSON.stringify(obj),
-				headers: {
-					'Content-Type': 'application/json;charset=UTF-8'
-				}
-			});
-			const result = await res.json();
-
-			console.log(result);
-			if (result) {
-				window.location.reload();
-				alert(`${result.resultMsg}`);
-			}
-		}
-
-	</script>-->
 	<script src="/js/team/record-script.js"></script>
 	<script src="/js/fragment/team-profile.js"></script>
 	<script src="/assets/libs/jquery/dist/jquery.min.js"></script>

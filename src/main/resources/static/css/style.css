@@ -131,7 +131,8 @@ img {
 
 /* 팀 랭킹 테이블 색상(추후 수정) */
 .team-table thead {
-    background-color: var(--text-light-gray-color);
+    background-color: #e0e8ff;
+    color: #111;
 }
 
 .team-table th,
@@ -221,6 +222,10 @@ img {
     }
 }
 
+.calendar-button {
+    color: #5D87FF;
+}
+
 /* 화면 너비가 770 이하일 때 */
 @media screen and (max-width: 770px) {
     .calendar button::after {
@@ -242,12 +247,13 @@ img {
     margin: 0 5px;
     border-radius: 50px;
     cursor: pointer;
+    font-weight: 600;
 }
 
 .selected {
     width: 160px;
-    background-color: #111;
-    color: #fff;
+    background-color: #5D87FF;
+    color: #fff !important;
 }
 
 .schedule-table {
@@ -280,8 +286,12 @@ img {
     z-index: 1;
 }
 
-.calendar-section {
+.rankings {
     margin-top: 3rem;
+}
+
+.calendar-section {
+    margin-top: 5rem;
 }
 
 .schedule-view-more {
@@ -295,4 +305,12 @@ img {
     font-size: 16px;
     margin: 1.3rem 0 1.3rem 0;
     border: none;
+}
+
+.sunday {
+    color: red;
+}
+
+.saturday {
+    color: blue;
 }

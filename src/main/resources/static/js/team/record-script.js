@@ -69,208 +69,219 @@ async function getAjaxList(evt, page) {
 			let borderRadius;
 
 			if (matchStatus.taHomeNum == taNum) {
-
-				switch (matchStatus.mrRequestStatus) {
-
-					case '0':
-						// 대기중
-						backgroundColor = '#EAEAEA';
-						break;
-					case '1':
-						// 수락
-						backgroundColor = '#EAEAEA';
-						break;
-					case '2':
-						// 재입력 대기중
-						backgroundColor = '#EAEAEA';
-						break;
-					case '3':
-						// 결과 확정
-
-						const resultText = matchStatus.mrWinLoose;
-
-						// 승리, 패배, 무승부에 따라 다른 스타일 적용
-						switch (resultText) {
-							case '승리':
-								backgroundColor = '#D9E5FF';
-								break;
-							case '패배':
-								backgroundColor = '#FFE6E6';
-								break;
-							case '무승부':
-								backgroundColor = '#FFFBD8';
-								break;
-							default:
-								break;
-						}
-
-						break;
-				}
-
-				html += `<li id="match-item" style="
-						height: ${height};
-						background-color: ${backgroundColor};
-						border-radius: ${borderRadius};
-						">`;
-
 				if (matchStatus.mrRequestStatus == '0') {
-					html += `<span>${matchStatus.mdDate}<br>${matchStatus.mdTime}</span>`;
+					html += `<tr>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">0 : 0</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<div class="d-flex align-items-center gap-2">
+							 <span class="badge bg-primary rounded-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">경기종료</span>
+							 </div>`
+					html += `</td>`
+					html += `</tr>`
+					/*html += `<span>${matchStatus.mdDate}<br>${matchStatus.mdTime}</span>`;
 					html += `<span>${matchStatus.mdAddress} | ${matchStatus.taName}</span>`;
 					html += `<span><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">
-  						경기종료
-						</button></span>`;
+							경기종료
+						</button></span>`;*/
 				}
 				if (matchStatus.mrRequestStatus == '1') {
-					html += `<span>${matchStatus.mdDate}<br>${matchStatus.mdTime}</span>`;
-					html += `<span>${matchStatus.mdAddress} | ${matchStatus.taName}</span>`;
-					html += `<span>${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`
-					html += `<span>상대팀 수락 대기중</span>`;
+					html += `<tr>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<div class="d-flex align-items-center gap-2">
+							 <span class="badge bg-primary rounded-3 fw-semibold">수락 대기중</span>
+							 </div>`
+					html += `</td>`
+					html += `</tr>`
 				}
 				if (matchStatus.mrRequestStatus == '2') {
-					html += `<span>${matchStatus.mdDate}<br>${matchStatus.mdTime}</span>`;
-					html += `<span>${matchStatus.mdAddress} | ${matchStatus.taName}</span>`;
-					html += `<span>거절됨 </span>`;
-					html += `<button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">다시입력</button>`;
+					html += `<tr>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<div class="d-flex align-items-center gap-2">
+							 <span class="badge bg-primary rounded-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">거절(다시입력)</span>
+							 </div>`
+					html += `</td>`
+					html += `</tr>`
 				}
 				if (matchStatus.mrRequestStatus == '3') {
+					html += `<tr>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<div class="d-flex align-items-center gap-2">`
+					if (matchStatus.mrWinLose == '승리') {
+						html += `<span class="badge bg-primary rounded-3 fw-semibold">Win</span>
+							 	</div>`
+					} else if (matchStatus.mrWinLoose == '패배') {
+						html += `<span class="badge bg-danger rounded-3 fw-semibold">Lose</span>
+							 	</div>`
+					} else {
+						html += `<span class="badge bg-success rounded-3 fw-semibold">draw</span>
+							 	</div>`
+					}
+					html += `</td>`
+					html += `</tr>`
 					//상태 검사
-					html += `<span>${matchStatus.mdDate}<br>${matchStatus.mdTime}</span>`;
-					html += `<span>${matchStatus.mdAddress} | ${matchStatus.taName}</span>`;
 
-					const resultText = matchStatus.mrWinLoose;
-					console.log("resultText", resultText);
 
-					switch (resultText) {
-						case '승리':
-							html += `<span style="color: #0066FF; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-							html += `<span style="color: #0066FF; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
-							break;
-						case '패배':
-							html += `<span style="color: #ff0000; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-							html += `<span style="color: #ff0000; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
-							break;
-						case '무승부':
-							html += `<span style="color: #FFB800; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-							html += `<span style="color: #FFB800; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
-							break;
-					}
-
-					function getMatchResultText(resultText) {
-						switch (resultText) {
-							case '승리':
-								return 'W';
-							case '패배':
-								return 'L';
-							case '무승부':
-								return 'D';
-						}
-					}
 				}
 			} else {
-				switch (matchStatus.mrRequestStatus) {
-
-					case '0':
-						// 대기중
-						backgroundColor = '#EAEAEA';
-						break;
-					case '1':
-						// 수락
-						backgroundColor = '#EAEAEA';
-						break;
-					case '2':
-						// 재입력 대기중
-						backgroundColor = '#EAEAEA';
-						break;
-					case '3':
-						// 결과 확정
-
-						const resultText = matchStatus.mrWinLoose;
-
-						// 승리, 패배, 무승부에 따라 다른 스타일 적용
-						switch (resultText) {
-							case '승리':
-								backgroundColor = '#D9E5FF';
-								break;
-							case '패배':
-								backgroundColor = '#FFE6E6';
-								break;
-							case '무승부':
-								backgroundColor = '#FFFBD8';
-								break;
-							default:
-								break;
-						}
-				}
-
-				html += `<li id="match-item" style="
-						height: ${height};
-						background-color: ${backgroundColor};
-						border-radius: ${borderRadius};
-						">`;
 
 				if (matchStatus.mrRequestStatus == '0') {
 					// 상태: 대기중
-					html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
-					html += `<span>${matchStatus.taName}</span>`;
-					html += `<span>${matchStatus.mdAddress}</span>`;
-					html += `<span>상대팀 입력 대기중</span>`;
+					html += `<tr>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">0 : 0</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<div class="d-flex align-items-center gap-2">
+							 <span class="badge bg-primary rounded-3 fw-semibold">입력 대기중</span>
+							 </div>`
+					html += `</td>`
+					html += `</tr>`
 				} else if (matchStatus.mrRequestStatus == '1') {
 					// 상태: 수락
-					html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
-					html += `<span>${matchStatus.taName}</span>`;
-					html += `<span>${matchStatus.mdAddress}</span>`;
-					html += `<span>${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-					html += `<div><button style="margin-right: 0.4rem" class="btn btn-dark" id="accept-button" data-bs-toggle="modal" data-bs-target="#mannerModal" onclick="saveMrNum(${matchStatus.mrNum})">수락</button>`;
-					html += `<button class="btn btn-dark" id="refuse-button" onclick="saveMrNum(${matchStatus.mrNum},1)">거절</button></div>`;
+
+					html += `<tr>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<div class="d-flex align-items-center gap-2">
+							 <button class="btn btn-secondary m-1" id="accept-button" data-bs-toggle="modal" data-bs-target="#mannerModal" onclick="saveMrNum(${matchStatus.mrNum})">수락</button>
+							 </div>`
+					html += `<div class="d-flex align-items-center gap-2">
+							 <button class="btn btn-danger m-1" onclick="saveMrNum(${matchStatus.mrNum},1)">거절</button>
+							 </div>`
+					html += `</td>`
+					html += `</tr>`
+
 				} else if (matchStatus.mrRequestStatus == '2') {
-					// 상태: 재입력 대기중
-					html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
-					html += `<span>${matchStatus.taName}</span>`;
-					html += `<span>${matchStatus.mdAddress}</span>`;
-					html += `<span>재입력 대기중 </span>`;
+					html += `<tr>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">0 : 0</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<div class="d-flex align-items-center gap-2">
+							 <span class="badge rounded-pill text-bg-secondary">재입력 대기중</span>
+							 </div>`
+					html += `</td>`
+					html += `</tr>`
 				} else if (matchStatus.mrRequestStatus == '3') {
 					//상태 검사
-					html += `<span>${matchStatus.mdDate}<br>${matchStatus.mdTime}</span>`;
-					html += `<span>${matchStatus.mdAddress} | ${matchStatus.taName}</span>`;
-
-					const resultText = matchStatus.mrWinLoose;
-					console.log("resultText", resultText);
-
-					switch (resultText) {
-						case '승리':
-							html += `<span style="color: #0066FF; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-							html += `<span style="color: #0066FF; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
-							break;
-						case '패배':
-							html += `<span style="color: #ff0000; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-							html += `<span style="color: #ff0000; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
-							break;
-						case '무승부':
-							html += `<span style="color: #FFB800; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-							html += `<span style="color: #FFB800; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
-							break;
+					html += `<tr>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<div class="d-flex align-items-center gap-2">`
+					if (matchStatus.mrWinLoose == '승리') {
+						html += `<span class="badge bg-primary rounded-3 fw-semibold">Win</span>
+							 	</div>`
+					} else if (matchStatus.mrWinLoose == '패배') {
+						html += `<span class="badge bg-danger rounded-3 fw-semibold">Loose</span>
+							 	</div>`
+					} else {
+						html += `<span class="badge bg-success rounded-3 fw-semibold">draw</span>
+							 	</div>`
 					}
+					html += `</td>`
+					html += `</tr>`
 
-					function getMatchResultText(resultText) {
-						switch (resultText) {
-							case '승리':
-								return 'W';
-							case '패배':
-								return 'L';
-							case '무승부':
-								return 'D';
-						}
-					}
 				}
 			}
-			html += '</li>';
 		}
 	}
 
-	document.querySelector('#match-list').innerHTML = html;
-
-
-
+	document.querySelector('#match-record-tbody').innerHTML = html;
 }
 
 async function getHomeAjaxList(evt, page) {
@@ -324,108 +335,117 @@ async function getHomeAjaxList(evt, page) {
 			let backgroundColor;
 			let borderRadius;
 
-			switch (matchStatus.mrRequestStatus) {
-
-				case '0':
-					// 대기중
-					backgroundColor = '#EAEAEA';
-					break;
-				case '1':
-					// 수락
-					backgroundColor = '#EAEAEA';
-					break;
-				case '2':
-					// 재입력 대기중
-					backgroundColor = '#EAEAEA';
-					break;
-				case '3':
-					// 결과 확정
-
-					const resultText = matchStatus.mrWinLoose;
-
-					// 승리, 패배, 무승부에 따라 다른 스타일 적용
-					switch (resultText) {
-						case '승리':
-							backgroundColor = '#D9E5FF';
-							break;
-						case '패배':
-							backgroundColor = '#FFE6E6';
-							break;
-						case '무승부':
-							backgroundColor = '#FFFBD8';
-							break;
-						default:
-							break;
-					}
-
-					break;
-			}
-
-			html += `<li id="match-item" style="
-						height: ${height};
-						background-color: ${backgroundColor};
-						border-radius: ${borderRadius};
-						">`;
-
-			if (matchStatus.mrRequestStatus == '0') {
-				html += `<span>${matchStatus.mdDate}<br>${matchStatus.mdTime}</span>`;
-				html += `<span>${matchStatus.mdAddress} | ${matchStatus.taName}</span>`;
-				html += `<span><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">
-  						경기종료
-						</button></span>`;
-			}
-			if (matchStatus.mrRequestStatus == '1') {
-				html += `<span>${matchStatus.mdDate}<br>${matchStatus.mdTime}</span>`;
-				html += `<span>${matchStatus.mdAddress} | ${matchStatus.taName}</span>`;
-				html += `<span>${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`
-				html += `<span>상대팀 수락 대기중</span>`;
-			}
-			if (matchStatus.mrRequestStatus == '2') {
-				html += `<span>${matchStatus.mdDate}<br>${matchStatus.mdTime}</span>`;
-				html += `<span>${matchStatus.mdAddress} | ${matchStatus.taName}</span>`;
-				html += `<span>거절됨 </span>`;
-				html += `<button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">다시입력</button>`;
-			}
-			if (matchStatus.mrRequestStatus == '3') {
-				//상태 검사
-				html += `<span>${matchStatus.mdDate}<br>${matchStatus.mdTime}</span>`;
-				html += `<span>${matchStatus.mdAddress} | ${matchStatus.taName}</span>`;
-
-				const resultText = matchStatus.mrWinLoose;
-				console.log("resultText", resultText);
-
-				switch (resultText) {
-					case '승리':
-						html += `<span style="color: #0066FF; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-						html += `<span style="color: #0066FF; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
-						break;
-					case '패배':
-						html += `<span style="color: #ff0000; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-						html += `<span style="color: #ff0000; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
-						break;
-					case '무승부':
-						html += `<span style="color: #FFB800; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-						html += `<span style="color: #FFB800; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
-						break;
+			if (matchStatus.taHomeNum == taNum) {
+				if (matchStatus.mrRequestStatus == '0') {
+					html += `<tr>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">0 : 0</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<div class="d-flex align-items-center gap-2">
+							 <span class="badge bg-primary rounded-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})>경기종료</span>
+							 </div>`
+					html += `</td>`
+					html += `</tr>`
+					/*html += `<span>${matchStatus.mdDate}<br>${matchStatus.mdTime}</span>`;
+					html += `<span>${matchStatus.mdAddress} | ${matchStatus.taName}</span>`;
+					html += `<span><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">
+							경기종료
+						</button></span>`;*/
 				}
-
-				function getMatchResultText(resultText) {
-					switch (resultText) {
-						case '승리':
-							return 'W';
-						case '패배':
-							return 'L';
-						case '무승부':
-							return 'D';
+				if (matchStatus.mrRequestStatus == '1') {
+					html += `<tr>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<div class="d-flex align-items-center gap-2">
+							 <span class="badge bg-primary rounded-3 fw-semibold">수락 대기중</span>
+							 </div>`
+					html += `</td>`
+					html += `</tr>`
+				}
+				if (matchStatus.mrRequestStatus == '2') {
+					html += `<tr>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<div class="d-flex align-items-center gap-2">
+							 <span class="badge bg-primary rounded-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">거절(다시입력)</span>
+							 </div>`
+					html += `</td>`
+					html += `</tr>`
+				}
+				if (matchStatus.mrRequestStatus == '3') {
+					html += `<tr>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<p class="mb-0 fw-normal">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</p>`
+					html += `</td>`
+					html += `<td class="border-bottom-0">`
+					html += `<div class="d-flex align-items-center gap-2">`
+					if (matchStatus.mrWinLoose == '승리') {
+						html += `<span class="badge bg-primary rounded-3 fw-semibold">Win</span>
+							 	</div>`
+					} else if (matchStatus.mrWinLoose == '패배') {
+						html += `<span class="badge bg-danger rounded-3 fw-semibold">Loose</span>
+							 	</div>`
+					} else {
+						html += `<span class="badge bg-success rounded-3 fw-semibold">draw</span>
+							 	</div>`
 					}
+					html += `</td>`
+					html += `</tr>`
+					//상태 검사
+
+
 				}
 			}
 		}
-		html += '</li>';
+
+		document.querySelector('#match-record-tbody').innerHTML = html;
+
 	}
-
-	document.querySelector('#match-list').innerHTML = html;
-
 }
 
 async function getAwayAjaxList(evt, page) {
@@ -477,106 +497,113 @@ async function getAwayAjaxList(evt, page) {
 			let backgroundColor;
 			let borderRadius;
 
-			switch (matchStatus.mrRequestStatus) {
-
-				case '0':
-					// 대기중
-					backgroundColor = '#EAEAEA';
-					break;
-				case '1':
-					// 수락
-					backgroundColor = '#EAEAEA';
-					break;
-				case '2':
-					// 재입력 대기중
-					backgroundColor = '#EAEAEA';
-					break;
-				case '3':
-					// 결과 확정
-
-					const resultText = matchStatus.mrWinLoose;
-
-					// 승리, 패배, 무승부에 따라 다른 스타일 적용
-					switch (resultText) {
-						case '승리':
-							backgroundColor = '#D9E5FF';
-							break;
-						case '패배':
-							backgroundColor = '#FFE6E6';
-							break;
-						case '무승부':
-							backgroundColor = '#FFFBD8';
-							break;
-						default:
-							break;
-					}
-			}
-
-			html += `<li id="match-item" style="
-						height: ${height};
-						background-color: ${backgroundColor};
-						border-radius: ${borderRadius};
-						">`;
-
 			if (matchStatus.mrRequestStatus == '0') {
 				// 상태: 대기중
-				html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
-				html += `<span>${matchStatus.taName}</span>`;
-				html += `<span>${matchStatus.mdAddress}</span>`;
-				html += `<span>상대팀 입력 대기중</span>`;
+				html += `<tr>`
+				html += `<td class="border-bottom-0">`
+				html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<p class="mb-0 fw-normal">0 : 0</p>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<div class="d-flex align-items-center gap-2">
+							 <span class="badge bg-primary rounded-3 fw-semibold">입력 대기중</span>
+							 </div>`
+				html += `</td>`
+				html += `</tr>`
 			} else if (matchStatus.mrRequestStatus == '1') {
 				// 상태: 수락
-				html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
-				html += `<span>${matchStatus.taName}</span>`;
-				html += `<span>${matchStatus.mdAddress}</span>`;
-				html += `<span>${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-				html += `<div><button style="margin-right: 0.4rem" class="btn btn-dark" id="accept-button" data-bs-toggle="modal" data-bs-target="#mannerModal" onclick="saveMrNum(${matchStatus.mrNum})">수락</button>`;
-				html += `<button class="btn btn-dark" id="refuse-button" onclick="saveMrNum(${matchStatus.mrNum},1)">거절</button></div>`;
+
+				html += `<tr>`
+				html += `<td class="border-bottom-0">`
+				html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<p class="mb-0 fw-normal">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</p>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<div class="d-flex align-items-center gap-2">
+							 <button class="btn btn-secondary m-1" id="accept-button" data-bs-toggle="modal" data-bs-target="#mannerModal" onclick="saveMrNum(${matchStatus.mrNum})">수락</button>
+							 </div>`
+				html += `<div class="d-flex align-items-center gap-2">
+							 <button class="btn btn-danger m-1" onclick="saveMrNum(${matchStatus.mrNum},1)">거절</button>
+							 </div>`
+				html += `</td>`
+				html += `</tr>`
+
 			} else if (matchStatus.mrRequestStatus == '2') {
-				// 상태: 재입력 대기중
-				html += `<span>${matchStatus.mdDate}||${matchStatus.mdTime}</span>`;
-				html += `<span>${matchStatus.taName}</span>`;
-				html += `<span>${matchStatus.mdAddress}</span>`;
-				html += `<span>재입력 대기중 </span>`;
+				html += `<tr>`
+				html += `<td class="border-bottom-0">`
+				html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<p class="mb-0 fw-normal">0 : 0</p>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<div class="d-flex align-items-center gap-2">
+							 <span class="badge rounded-pill text-bg-secondary">재입력 대기중</span>
+							 </div>`
+				html += `</td>`
+				html += `</tr>`
 			} else if (matchStatus.mrRequestStatus == '3') {
 				//상태 검사
-				html += `<span>${matchStatus.mdDate}<br>${matchStatus.mdTime}</span>`;
-				html += `<span>${matchStatus.mdAddress} | ${matchStatus.taName}</span>`;
-
-				const resultText = matchStatus.mrWinLoose;
-				console.log("resultText", resultText);
-
-				switch (resultText) {
-					case '승리':
-						html += `<span style="color: #0066FF; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-						html += `<span style="color: #0066FF; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
-						break;
-					case '패배':
-						html += `<span style="color: #ff0000; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-						html += `<span style="color: #ff0000; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
-						break;
-					case '무승부':
-						html += `<span style="color: #FFB800; font-size: 36px; font-weight: 600">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</span>`;
-						html += `<span style="color: #FFB800; font-size: 40px; font-weight: 600">${getMatchResultText(resultText)}</span>`
-						break;
+				html += `<tr>`
+				html += `<td class="border-bottom-0">`
+				html += `<h6 class="fw-semibold mb-0">${matchStatus.mdAddress}</h6>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<h6 class="fw-semibold mb-1">${matchStatus.mdDate}</h6>
+							 <span class="fw-normal">${matchStatus.mdTime}</span>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<p class="mb-0 fw-normal">${matchStatus.taName}</p>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<p class="mb-0 fw-normal">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</p>`
+				html += `</td>`
+				html += `<td class="border-bottom-0">`
+				html += `<div class="d-flex align-items-center gap-2">`
+				if (matchStatus.mrWinLoose == '승리') {
+					html += `<span class="badge bg-primary rounded-3 fw-semibold">Win</span>
+							 	</div>`
+				} else if (matchStatus.mrWinLoose == '패배') {
+					html += `<span class="badge bg-danger rounded-3 fw-semibold">Loose</span>
+							 	</div>`
+				} else {
+					html += `<span class="badge bg-success rounded-3 fw-semibold">draw</span>
+							 	</div>`
 				}
+				html += `</td>`
+				html += `</tr>`
 
-				function getMatchResultText(resultText) {
-					switch (resultText) {
-						case '승리':
-							return 'W';
-						case '패배':
-							return 'L';
-						case '무승부':
-							return 'D';
-					}
-				}
 			}
-
-			html += '</li>';
 		}
+
+
+		document.querySelector('#match-record-tbody').innerHTML = html;
 	}
-	document.querySelector('#match-list').innerHTML = html;
 
 }
 
