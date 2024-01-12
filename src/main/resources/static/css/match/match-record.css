@@ -18,29 +18,46 @@
 	width: 180px;
 }
 
-#manners-progress{
+#manners-progress {
 	background-color: blue;
 }
 
-#current-score{
+#current-score {
 	margin-left: 30px;
 	margin-bottom: 0;
 }
 
-#team-info-tbody th{
+#team-info-tbody th {
 	width: 0;
 }
 
-#team-info-tbody td{
+#team-info-tbody td {
 	padding: unset;
 }
-#first-row-div{
-	width: unset;
+
+#first-row-div {
+	width: 100%;
 }
-#match-record-table-top-div{
+
+#match-record-table-top-div {
 	width: -webkit-fill-available;
 }
-#match-list-more{
+
+#match-list-more {
+	margin-top: 3%;
+	text-align: right;
+}
+
+#victory-div {
+	width: 50%;
+}
+
+#team-members-div {
+
+	width: 50%;
+}
+
+#team-members-more {
 	margin-top: 3%;
 	text-align: right;
 }

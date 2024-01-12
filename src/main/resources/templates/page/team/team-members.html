@@ -228,18 +228,8 @@
 
 		window.addEventListener('load', getTeamUserInfoList);
 
-		window.addEventListener('scroll', () => {
-			if (window.scrollY > 50) {
-				header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
-				header.style.transform = 'translateY(-100%)';
-			} else {
-				header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
-				header.style.transform = 'translateY(0)';
-			}
-		});
 	</script>
 	<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-	<script src="/js/match/match-record.js"></script>
 	<script src="/js/fragment/team-side.js"></script>
 	<script src="/js/fragment/team-profile.js"></script>
 	<script src="/assets/libs/jquery/dist/jquery.min.js"></script>

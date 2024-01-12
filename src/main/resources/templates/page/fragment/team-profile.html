@@ -11,6 +11,7 @@
 		rel="stylesheet">
 	<link rel="stylesheet" href="/assets/css/styles.min.css" />
 	<link rel="shortcut icon" type="image/png" href="/assets/images/logos/favicon.png" />
+	<link rel="stylesheet" href="/css/fragment/team-profile.css" />
 
 </head>
 
@@ -19,12 +20,12 @@
 		<div class="col-sm-6 col-xl-3">
 			<div style="height: 100%; width: 100%;">
 				<div class="card overflow-hidden rounded-2">
-					
-						<div style="height: 50%; width: 100%;" id="team-img-div">
-							<img style=" height: 10rem; width: 100%;" id="teamImg"
-								src="" class="card-img-top rounded-0" alt="...">
-						</div>
-					
+
+					<div style="height: 50%; width: 100%;" id="team-img-div">
+						<img style=" height: 10rem; width: 100%;" id="teamImg" src="" class="card-img-top rounded-0"
+							alt="...">
+					</div>
+
 					<div class="card-body pt-3 p-4" id="taNameDiv">
 						<h6 class="fw-semibold fs-4" id="taName">팀 이름</h6>
 					</div>
@@ -82,49 +83,20 @@
 							</tbody>
 						</table>
 					</div>
+					<div class="card-body p-4" id="teamSignBtn" >
+					</div>
 				</div>
 			</div>
 		</div>
 
 	</div>
-	<script>
-
-		// 이미지 로딩 실패 시 호출되는 함수
-		function handleImageError() {
-			const noImageText = document.querySelector('#noImageText');
-			noImageText.style.display = 'block';
-		}
-
-		async function doSendObj() {
-			//타임리프 안돼서 일단 ㅠㅠ 
-			const obj = {
-				taNum: taNum
-			}
-			const res = await fetch('/team-sign-user-add', {
-				method: 'POST',
-				body: JSON.stringify(obj),
-				headers: {
-					'Content-Type': 'application/json;charset=UTF-8'
-				}
-			});
-			const result = await res.json();
-
-			console.log(result);
-			if (result) {
-				alert(`${result.resultMsg}`);
-				getTeamProfile();
-			}
-		}
-
-	</script>
+	<script src="/js/fragment/team-profile.js"></script>
 	<script src="/assets/libs/jquery/dist/jquery.min.js"></script>
 	<script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="/assets/js/sidebarmenu.js"></script>
 	<script src="/assets/js/app.min.js"></script>
-	<script src="/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
 	<script src="/assets/libs/simplebar/dist/simplebar.js"></script>
 	<script src="/assets/js/dashboard.js"></script>
-	<script src="/js/fragment/team-profile.js"></script> 
 </body>
 
 </html>
