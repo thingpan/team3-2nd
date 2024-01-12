@@ -8,6 +8,13 @@
 	margin: 0 auto;
 }
 
+#user {
+	transition: margin-left 0.5s ease;
+	margin-left: 90%;
+	width: 100%;
+
+}
+
 #team-list {
 	display: flex;
 	width: 100%;
@@ -48,9 +55,8 @@ label {
 
 #password {
 	display: inline-block;
-	margin: 0 auto;
 	margin-left: 0.5%;
-	width: 25%;
+	width: 40%;
 	border: 0 solid white;
 }
 
@@ -275,12 +281,14 @@ select {
 	align-items: center;
 }
 
-.modal-body form div label, .modal-body form div input, .modal-body form div textarea
-	{
+.modal-body form div label,
+.modal-body form div input,
+.modal-body form div textarea {
 	width: 100%;
 }
 
-.modal-body form div .modal-title-text, .modal-body form div p {
+.modal-body form div .modal-title-text,
+.modal-body form div p {
 	text-align: left;
 }
 
@@ -327,7 +335,7 @@ select {
 }
 
 #address {
-	width: 25%;
+	width: 40%;
 }
 
 .modal button {
@@ -349,9 +357,7 @@ select {
 	z-index: 0;
 }
 
-#user {
-	margin-left: 90%;
-}
+
 
 #create-team-btn {
 	margin-right: 5px;
@@ -365,7 +371,8 @@ select {
 	font-size: 15px;
 }
 
-#changecurrentpasswordinput, #newpassword {
+#changecurrentpasswordinput,
+#newpassword {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 5px;
@@ -418,30 +425,37 @@ select {
 }
 
 @media (max-width: 767px) {
-  #main {
-    width: 95%;
-  }
-  #team-list-div, #team-list-div-type {
-    margin: auto;
-  }
-  .team-list {
-    justify-content: flex-start;
-  }
-  #team-heading {
-    margin-right: 0;
-  }
-  #box2 {
-    padding: 3%;
-  }
-  #user {
-    margin-left: 10%;
-    width: 80%;
-    margin-bottom: 10%;
-  }
-  #address {
-    width: 66%;
-  }
-  #password {
-    width: 45%;
-  }
+	#main {
+		width: 95%;
+	}
+
+	#team-list-div,
+	#team-list-div-type {
+		margin: auto;
+	}
+
+	.team-list {
+		justify-content: flex-start;
+	}
+
+	#team-heading {
+		margin-right: 0;
+	}
+
+	#box2 {
+		padding: 3%;
+	}
+
+	#user {
+		margin-left: 35%;
+		width: 80%;
+	}
+
+	#address {
+		width: 66%;
+	}
+
+	#password {
+		width: 53%;
+	}
 }

@@ -185,7 +185,7 @@
 			</div>
 		</div>
 
-		<div class="edit-profile-form" style="display: none;">
+		<div class="edit-profile-form" >
 			<h3 id="my">내 정보</h3>
 
 			<hr>
@@ -220,14 +220,27 @@
 				onclick="openAddressSearchModal()" class="btn btn-dark">검색</button>
 
 			<hr>
-			<div id="user">
+			<div id="user" >
 				<button type="button" id="delete-profile" class="btn btn-dark"
 					onclick="userdelete()">삭제</button>
 				<button type="button" id="save-profile" class="btn btn-dark"
 					onclick="save()">완료</button>
 			</div>
+			
 		</div>
+		
 	</div>
+	<div id="change-password-popup"
+			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
+			<h3>비밀번호 변경</h3>
+			<input type="password" id="changecurrentpasswordinput" name="current-password" placeholder="현재 비밀번호 입력">
+			<br>
+			<input type="password" id="newpassword" name="new-password" placeholder="새 비밀번호 입력"> <br>
+			<input type="password" id="confirmnewpassword" name="confirm-new-password" placeholder="새 비밀번호 확인"> <br>
+			<button type="button" id="confirm-password-change" onclick="changePasswordAndDisplay()"
+				class="btn btn-dark">확인</button>
+			<button type="button" id="cancel-password-change" class="btn btn-dark">취소</button>
+		</div>
 	<script>
 			function closeModalAndShowAlert() {
 				// Bootstrap 모달 닫기
@@ -658,6 +671,7 @@
 				}
 			});
 		</script>
+
 </body>
 
 </html>
