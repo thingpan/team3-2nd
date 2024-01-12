@@ -20,29 +20,41 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
             crossorigin="anonymous"></script>
+
+<!--    swiper 슬라이더 cdn -->
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </head>
 
 <body>
 <div th:replace="page/fragment/header.html :: f-head"></div>
 
-<!-- 이미지 슬라이드 영역 -->
-<section class="main-slide" id="main-slide">
-    <div class="image-slider">
-        <div class="slider">
-            <div class="slide">
-                <img src="imgs/soccer.jpeg" alt="Slide 1"/>
-            </div>
-            <div class="slide">
-                <img src="imgs/baseball.jpg" alt="Slide 2"/>
-            </div>
-            <div class="slide">
-                <img src="imgs/basketball.jpg" alt="Slide 3"/>
-            </div>
-        </div>
-        <button id="prev-btn" class="prev-btn">&lt;</button>
-        <button id="next-btn" class="next-btn">&gt;</button>
+<div class="swiper container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="imgs/soccer.jpeg" alt="Slide 1"/> </div>
+        <div class="swiper-slide"><img src="imgs/baseball.jpg" alt="Slide 2"/></div>
+        <div class="swiper-slide"><img src="imgs/basketball.jpg" alt="Slide 3"/> </div>
     </div>
-</section>
+    <div class="swiper-pagination"></div>
+</div>
+
+<script>
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        autoplay: true,
+        loop: true,
+
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+    });
+</script>
 
 <!-- 랭킹 영역 -->
 <section class="rankings" id="rankings">
@@ -107,26 +119,26 @@
 <!-- 매치 일정 영역 -->
 <section class="calendar-section">
     <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="calendar-container">
-                <button id="cal-prev-btn" class="calendar-button">&lt;</button>
-                <div class="calendar"></div>
-                <button id="cal-next-btn" class="calendar-button">&gt;</button>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="calendar-container">
+                    <button id="cal-prev-btn" class="calendar-button">&lt;</button>
+                    <div class="calendar"></div>
+                    <button id="cal-next-btn" class="calendar-button">&gt;</button>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-<!--    <div class="filter">-->
+    <!--    <div class="filter">-->
 
-<!--    </div>-->
+    <!--    </div>-->
     <div class="container">
-    <table class="schedule-table">
-        <tbody id="schedule"></tbody>
-    </table>
-    <div class="schedule-caption">
-        <a href="/page/match/match-board.html" class="schedule-view-more">전체 일정 확인하기 &gt;</a>
-    </div>
+        <table class="schedule-table">
+            <tbody id="schedule"></tbody>
+        </table>
+        <div class="schedule-caption">
+            <a href="/page/match/match-board.html" class="schedule-view-more">전체 일정 확인하기 &gt;</a>
+        </div>
     </div>
 </section>
 
