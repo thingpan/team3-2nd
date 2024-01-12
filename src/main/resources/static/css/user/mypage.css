@@ -9,7 +9,6 @@
 }
 
 #user {
-	transition: margin-left 0.5s ease;
 	margin-left: 90%;
 	width: 100%;
 
@@ -425,7 +424,7 @@ select {
 
 @media (max-width: 767px) {
 	#main {
-		width: 95%;
+		width: 94%;
 	}
 
 	#team-list-div,
@@ -447,7 +446,7 @@ select {
 
 	#user {
 		margin-left:35%;
-		width:40%
+		width:70%
 	}
 
 	#address {
