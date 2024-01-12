@@ -167,7 +167,6 @@ document.addEventListener('DOMContentLoaded', function () {
             try {
                 await fetchMatchBoardData();
             } catch (error) {
-                console.error('Failed to fetch match board data:', error);
                 return;
             }
         }
