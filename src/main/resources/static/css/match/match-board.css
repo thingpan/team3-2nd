@@ -116,7 +116,7 @@ body {
     margin-right: 5px;
 }
 
-.schedule-table {
+.match-table {
     width: 70%;
     margin: 2rem auto 1rem;
     border-collapse: collapse;
@@ -124,33 +124,36 @@ body {
     border-bottom: 1px solid #ccc;
 }
 
-.schedule-table th,
-.schedule-table td {
+.match-table td {
     border: none;
     border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.match-table td:first-child {
     text-align: left;
 }
 
-.schedule-table td:last-child {
+.match-table td:last-child {
     text-align: right;
 }
 
-.schedule-table th.time {
+.match-table th.time {
     width: 20%;
 }
 
-.schedule-table th.location {
+.match-table th.location {
     width: 40%;
 }
 
-.schedule-table th.time,
-.schedule-table td.time,
-.schedule-table th.location,
-.schedule-table td.location {
+.match-table th.time,
+.match-table td.time,
+.match-table th.location,
+.match-table td.location {
     text-align: left; /* 좌측 정렬 */
 }
 
-.schedule-table th.status {
+.match-table th.status {
     width: 40%;
 }
 
@@ -165,22 +168,10 @@ body {
     }
 }
 
-.schedule-caption {
-    text-align: right; /* 우측 정렬 */
-    margin-bottom: 2rem;
-    margin-right: 13rem;
-}
-
-.schedule-view-more {
-    text-decoration: none;
-    color: var(--dark-gray-color); /* 링크 색상 */
-}
-
-/* 경기 일정이 없을 때 메시지 스타일 */
 .schedule-none {
-    text-align: center;
+    text-align: center !important;
     font-size: 16px;
-    margin: 1.5rem 0 1.5rem 0;
+    margin: 1.1rem 0 1.1rem 0;
     border: none;
     border-bottom-color: #dadada;
 }

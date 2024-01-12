@@ -234,16 +234,18 @@ document.addEventListener('DOMContentLoaded', function () {
         scheduleTable.innerHTML = '';
 
         if (filteredMatchBoards.length === 0) {
-            const noScheduleMessage = document.createElement('tr');
+            const noScheduleMessage = document.createElement('div');
             noScheduleMessage.classList.add('schedule-none');
 
-            const cell = noScheduleMessage.insertCell();
-            cell.colSpan = "4"; // 이 값을 컬럼 수에 맞게 조절
+            // noScheduleMessage.classList.add('schedule-none');
+            noScheduleMessage.textContent = '경기 일정이 없습니다.';
+            // const cell = noScheduleMessage.insertCell();
+            // cell.colSpan = "4"; // 이 값을 컬럼 수에 맞게 조절
 
-            const messageDiv = document.createElement('div');
-            messageDiv.textContent = '경기 일정이 없습니다.';
+            // const messageDiv = document.createElement('div');
+            // messageDiv.textContent = '경기 일정이 없습니다.';
 
-            cell.appendChild(messageDiv);
+            // cell.appendChild(messageDiv);
 
             scheduleTable.appendChild(noScheduleMessage);
         } else {
