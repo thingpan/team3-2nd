@@ -55,7 +55,6 @@ label {
 
 #password {
 	display: inline-block;
-	margin-left: 0.5%;
 	width: 40%;
 	border: 0 solid white;
 }
@@ -447,7 +446,7 @@ select {
 	}
 
 	#user {
-		margin-left: 35%;
+		margin-left:40%;
 		width: 80%;
 	}
 
