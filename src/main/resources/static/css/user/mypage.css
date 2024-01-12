@@ -446,8 +446,8 @@ select {
 	}
 
 	#user {
-		margin-left:40%;
-		width: 80%;
+		margin-left:35%;
+		width:40%
 	}
 
 	#address {
@@ -455,6 +455,6 @@ select {
 	}
 
 	#password {
-		width: 53%;
+		width: 55%;
 	}
 }
