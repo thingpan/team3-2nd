@@ -16,44 +16,6 @@ window.addEventListener('scroll', () => {
 	}
 });
 
-function showSlide(n) {
-	slides.forEach((slide) => (slide.style.display = 'none'));
-	slides[n].style.display = 'block';
-}
-
-function nextSlide() {
-	currentSlide = (currentSlide + 1) % slideCount;
-	showSlide(currentSlide);
-}
-
-function prevSlide() {
-	currentSlide = (currentSlide - 1 + slideCount) % slideCount;
-	showSlide(currentSlide);
-}
-
-// 페이지 로드 시 슬라이드 표시
-document.addEventListener('DOMContentLoaded', () => {
-	showSlide(currentSlide);
-	slideInterval = setInterval(nextSlide, 3000); // 3초마다 자동 슬라이드
-
-	const slidePrevBtn = document.querySelector('.prev-btn');
-	const slideNextBtn = document.querySelector('.next-btn');
-
-	// 이전 버튼 클릭 시 이전 슬라이드로 이동
-	slidePrevBtn.addEventListener('click', () => {
-		clearInterval(slideInterval); // 자동 슬라이드 중지
-		prevSlide();
-		slideInterval = setInterval(nextSlide, 3000); // 다시 자동 슬라이드 시작
-	});
-
-	// 다음 버튼 클릭 시 다음 슬라이드로 이동
-	slideNextBtn.addEventListener('click', () => {
-		clearInterval(slideInterval); // 자동 슬라이드 중지
-		nextSlide();
-		slideInterval = setInterval(nextSlide, 3000); // 다시 자동 슬라이드 시작
-	});
-});
-
 const calendar = document.querySelector('.calendar');
 
 document.addEventListener('DOMContentLoaded', function() {

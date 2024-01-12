@@ -9,14 +9,12 @@ let currentSlide = 0;
 let slides;
 let slideCount;
 
-console.log('Slide Count:', slideCount);
+// console.log('Slide Count:', slideCount);
 
 document.addEventListener('DOMContentLoaded', function () {
     const sliderContainer = document.querySelector('#slider-container');
     const prevBtn = document.querySelector('#prev-btn');
     const nextBtn = document.querySelector('#next-btn');
-
-    // matchPhotos = matchInfo.matchPhotos;
 
     let currentSlide = 0;
 
@@ -43,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("matchPhoto", matchPhoto);
 
         const matchPhotos = matchPhoto.matchPhotos;
-        console.log("matchPhotos", matchPhotos);
         return matchPhotos;
     }
 
