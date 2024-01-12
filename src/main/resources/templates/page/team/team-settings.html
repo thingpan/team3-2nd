@@ -33,7 +33,7 @@
 					<!--  없어도 댐<label for="teamName" class="form-label">프로필</label>-->
 					<div class="col-xl-4" style="text-align: -webkit-center;">
 						<div style="height: 100%; width: 83%;">
-							<div class="card overflow-hidden rounded-2">
+							<div id="div" class="card overflow-hidden rounded-2">
 								<img style="height: 20rem; width: 20rem;" id="preview" src="" class="card-img-top"
 									alt="...">
 								<!--  없어도 댐
@@ -169,8 +169,9 @@
 					} else {
 						previewImage.src = '';
 						//프로필 설정 안할시 기본 이미지로 일단 해놈 
-						previewImage.src = '/assets/images/products/s4.jpg';
+						//previewImage.src = '/assets/images/products/s4.jpg';
 						//noImageText.style.display = 'none';
+						
 
 					}
 					// 수정 종료
