@@ -285,14 +285,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     statusBadge.style.color = '#FFFFFF';
                     statusBadge.style.padding = window.innerWidth <= 450 ? '8px' : '14px 40px';
                     statusBadge.style.borderRadius = '18px';
-                    statusBadge.style.fontSize = window.innerWidth <= 500 ? '8px' : '16px';
+                    statusBadge.style.fontSize = window.innerWidth <= 500 ? '9px' : '16px';
                 } else if (apiScheduleItem.mbStatus === "1") {
                     statusBadge.textContent = '마감';
                     statusBadge.style.backgroundColor = '#D3D3D3';
                     statusBadge.style.color = '#8F8F8F';
-                    statusBadge.style.padding = window.innerWidth <= 450 ? '8px' : '14px 40px';
+                    statusBadge.style.padding = window.innerWidth <= 450 ? '8px 15px' : '14px 55px';
                     statusBadge.style.borderRadius = '18px';
-                    statusBadge.style.fontSize = window.innerWidth <= 500 ? '10px' : '16px';
+                    statusBadge.style.fontSize = window.innerWidth <= 500 ? '9px' : '16px';
                 }
 
                 statusBadge.style.fontWeight = '500';
