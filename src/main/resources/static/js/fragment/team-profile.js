@@ -1,8 +1,7 @@
+const furlParams = new URLSearchParams(window.location.search);
+const ftaNum = furlParams.get('taNum');
 
 async function getTeamInfo() {
-	const urlParams = new URLSearchParams(window.location.search);
-	const ftaNum = urlParams.get('taNum');
-
 	const res = await fetch(`/team-info?taNum=${ftaNum}`);
 	const teamInfo = await res.json();
 	console.log(teamInfo);
@@ -19,7 +18,7 @@ async function getTeamInfo() {
 
 	if (teamInfo.taFilePath == null) {
 		document.querySelector('#teamImg').src = `/imgs/${type}.png`
-		
+
 	} else {
 		try {
 			document.querySelector('#teamImg').src = teamInfo.taFilePath;
@@ -66,8 +65,52 @@ async function getTeamInfo() {
 	const wholeRecord = `${teamInfo.taMatchCount}전 ${teamInfo.taWinCnt}승 ${teamInfo.taDrawCnt}무 ${teamInfo.taLooseCnt}패`
 	document.querySelector('#whole-record').innerHTML = wholeRecord;
 
+	//가입한 팀 확인
+	const resSign = await fetch(`/team-user-infos/${ftaNum}`)
+	const result = await resSign.json();
 
+	if (teamInfo.taSignStatus == 1) {
+		document.querySelector('#teamSignBtn').innerHTML = '<h5 id="team-sign-stay-h" class="fw-semibold mb-0">가입신청 대기중</h6>'
+	} else if (teamInfo.taSignStatus == 0) {
+		document.querySelector('#teamSignBtn').innerHTML = '<button class="btn btn-primary m-1" onclick="doSendObj()">가입신청</button>'
+		if (result == 0) {
+			document.querySelector('#teamSignBtn').innerHTML = '';
+		}
+	}
+}
+
+
+
+
+// 이미지 로딩 실패 시 호출되는 함수
+function handleImageError() {
+	const noImageText = document.querySelector('#noImageText');
+	noImageText.style.display = 'block';
+}
+
+async function doSendObj() {
+	//타임리프 안돼서 일단 ㅠㅠ 
+	const obj = {
+		taNum: ftaNum
+	}
+	const res = await fetch('/team-sign-user-add', {
+		method: 'POST',
+		body: JSON.stringify(obj),
+		headers: {
+			'Content-Type': 'application/json;charset=UTF-8'
+		}
+	});
+	const result = await res.json();
+
+	console.log(result);
+	if (result) {
+		alert(`${result.resultMsg}`);
+		debugger;
+		await getTeamInfo();
+	}
 
 }
 
 window.addEventListener('load', getTeamInfo);
+
+
