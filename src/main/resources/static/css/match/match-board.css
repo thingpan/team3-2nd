@@ -41,6 +41,7 @@ body {
 }
 
 .calendar-button {
+    color: #5D87FF;
     background: none;
     border: none;
     font-size: 24px;
@@ -95,12 +96,13 @@ body {
     margin: 0 5px;
     border-radius: 50px;
     cursor: pointer;
+    font-weight: 600;
 }
 
 .selected {
     width: 160px;
-    background-color: #111;
-    color: #fff;
+    background-color: #5D87FF;
+    color: #fff !important;
 }
 
 .filter {
@@ -196,7 +198,7 @@ body {
 }
 
 #write-button:hover {
-    background-color: var(--text-light-gray-color);
+    background-color: #5D87FF;
     color: var(--black-color);
     letter-spacing: normal;
     font-size: 14px;
@@ -205,3 +207,12 @@ body {
     border-radius: 10px;
     cursor: pointer;
 }
+
+.sunday {
+    color: red;
+}
+
+.saturday {
+    color: blue;
+}
+

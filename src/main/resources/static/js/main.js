@@ -58,6 +58,17 @@ document.addEventListener('DOMContentLoaded', function() {
 			const dayName = day.toLocaleDateString('en-US', { weekday: 'short' });
 			dayDiv.textContent = `${dayDate}\n${dayName}`;
 
+			// 주말 색상 추가
+			if (dayName === 'Sun') {
+				dayDiv.classList.add('sunday');
+			} else if (dayName === 'Sat') {
+				dayDiv.classList.add('saturday');
+			}
+
+			if (selectedDateDiv && dayDiv === selectedDateDiv) {
+				dayDiv.classList.add('selected');
+			}
+
 			dayDiv.addEventListener('click', () => {
 				if (selectedDateDiv) {
 					selectedDateDiv.classList.remove('selected');
