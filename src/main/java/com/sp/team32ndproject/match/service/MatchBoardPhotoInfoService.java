@@ -2,13 +2,17 @@ package com.sp.team32ndproject.match.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.sp.team32ndproject.match.mapper.MatchBoardPhotoInfoMapper;
 import com.sp.team32ndproject.match.vo.MatchBoardPhotoInfoVO;
 import com.sp.team32ndproject.type.Status;
@@ -20,9 +24,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class MatchBoardPhotoInfoService {
+	 @Autowired
+	    private AmazonS3 amazonS3;
 
-	@Value("${upload.file-path}")
-	private String uploadFilePath;
+	    @Value("${upload.file-path}")
+	    private String uploadFilePath;
+
+	    @Value("${bucket.file-Path}")
+	    private String s3FilePath;
+
 
 	private final MatchBoardPhotoInfoMapper matchBoardPhotoInfoMapper;
 
@@ -35,10 +45,14 @@ public class MatchBoardPhotoInfoService {
 				String extName = originName.substring(originName.lastIndexOf("."));
 				String fileName = UUID.randomUUID() + extName;
 				matchPhoto.setMbpFileName(originName);
-				matchPhoto.setMbpFilePath("/file/" + fileName);
-
 				try {
-					file.transferTo(new File(uploadFilePath + fileName));
+					   InputStream inputStream = file.getInputStream();
+		                ObjectMetadata metadata = new ObjectMetadata();
+		                metadata.setContentType(file.getContentType());
+		                metadata.setContentLength(file.getSize());
+		                String s3Key = "upload/" + fileName;
+		                amazonS3.putObject("3nd-team3", s3Key, inputStream, metadata);
+		                matchPhoto.setMbpFilePath("https://3nd-team3.s3.ap-northeast-2.amazonaws.com/" + s3Key);
 				} catch (IllegalStateException e) {
 					log.error("error => {}", e.getMessage());
 				} catch (IOException e) {
@@ -60,7 +74,7 @@ public class MatchBoardPhotoInfoService {
 				String fileName = matchPhoto.getMbpFilePath();
 				int idx = fileName.lastIndexOf("/") + 1;
 				fileName = fileName.substring(idx);
-				File f = new File(uploadFilePath + fileName);
+				File f = new File("upload/" + fileName);
 				if (f.exists()) {
 					f.delete();
 				}
@@ -73,9 +87,14 @@ public class MatchBoardPhotoInfoService {
 				String extName = originName.substring(originName.lastIndexOf(".")); // .png
 				String fileName = UUID.randomUUID() + extName;
 				matchPhoto.setMbpFileName(fileName);
-				matchPhoto.setMbpFilePath("/file/" + fileName);
 				try {
-					file.transferTo(new File(uploadFilePath + fileName));
+				      InputStream inputStream = file.getInputStream();
+		                ObjectMetadata metadata = new ObjectMetadata();
+		                metadata.setContentType(file.getContentType());
+		                metadata.setContentLength(file.getSize());
+		                String s3Key = "upload/" + fileName;
+		                amazonS3.putObject("3nd-team3", s3Key, inputStream, metadata);
+		                matchPhoto.setMbpFilePath("https://3nd-team3.s3.ap-northeast-2.amazonaws.com/" + s3Key);
 				} catch (IllegalStateException e) {
 					log.error("file upload error=>{}", e);
 				} catch (IOException e) {
