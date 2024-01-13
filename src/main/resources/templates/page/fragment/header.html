@@ -21,7 +21,6 @@
               integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
               crossorigin="anonymous">
 
-
         <script>
             function redirectToLoginPage() {
                 window.location.href = "/page/user/login";
@@ -35,19 +34,33 @@
                 window.location.href = "/auth/logout";
             }
 
+            // document.addEventListener('DOMContentLoaded', function () {
+            //     const toggleBtn = document.querySelector('.navbar__toggleBtn');
+            //     const links = document.querySelector('.navbar__menu');
+            //     const userMenu = document.querySelector('.user-menu');
+            //
+            //     toggleBtn.addEventListener('click', () => {
+            //         links.classList.toggle('active');
+            //         userMenu.classList.toggle('active');
+            //     });
+            // });
             document.addEventListener('DOMContentLoaded', function () {
                 const toggleBtn = document.querySelector('.navbar__toggleBtn');
-                const links = document.querySelector('.navbar__menu');
-                const userMenu = document.querySelector('.user-menu');
 
-                toggleBtn.addEventListener('click', () => {
-                    links.classList.toggle('active');
-                    userMenu.classList.toggle('active');
-                });
+                if (toggleBtn) {
+                    const links = document.querySelector('.navbar__menu');
+                    const userMenu = document.querySelector('.user-menu');
 
+                    toggleBtn.addEventListener('click', () => {
+                        if (links) {
+                            links.classList.toggle('active');
+                        }
+                        if (userMenu) {
+                            userMenu.classList.toggle('active');
+                        }
+                    });
+                }
             });
-
-
         </script>
 
         <nav class="navbar" style="align-items: center">
@@ -60,6 +73,7 @@
                     <li><a href="/page/team/team-rank">Rank</a></li>
                 </div>
                 <div class="buttons">
+
                     <div class="user-menu" sec:authorize="isAnonymous()">
                         <button id="login-button" class="btn btn-dark" onclick="redirectToLoginPage()">로그인</button>
                         <button id="register-button" class="btn btn-dark" onclick="redirectToRegistrationPage()">회원가입

@@ -87,7 +87,7 @@ body {
     width: 160px;
     height: 70px;
     display: flex;
-    padding: 20px 1%;
+    padding: 20px 1.2%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -199,7 +199,7 @@ body {
 
 #write-button:hover {
     background-color: #5D87FF;
-    color: var(--black-color);
+    color: #fff;
     letter-spacing: normal;
     font-size: 14px;
     padding: 8px 15px;

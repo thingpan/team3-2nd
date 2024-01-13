@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
             img.style.width = '100%';
             img.style.height = '350px';
             img.style.borderRadius = '10px';
-            // img.style.border = '2px solid black';
             img.style.backgroundColor = '#e1e1e1';
             img.style.display = 'flex';
             img.style.alignItems = 'center';
@@ -69,6 +68,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
             img.appendChild(text);
             sliderContainer.appendChild(img);
+
+            const prevBtn = document.querySelector('#prev-btn');
+            if (prevBtn) {
+                prevBtn.style.display = 'none';
+            }
+
+            const nextBtn = document.querySelector('#next-btn');
+            if (nextBtn) {
+                nextBtn.style.display = 'none';
+            }
         } else {
             matchPhotos.forEach(photo => {
                 const img = document.createElement('img');
@@ -86,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function () {
             nextBtn.addEventListener('click', nextSlide);
         }
     }
-
 
     initializeSlider();
 });
