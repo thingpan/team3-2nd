@@ -51,9 +51,6 @@ cloud:
 bucket:
   file-Path: https://3nd-team3.s3.ap-northeast-2.amazonaws.com/upload/
       
-application:
-  bucket:
-    name: 3nd-team3
 
 download:
     file-path: file:///C:/dev/upload/
