@@ -1,7 +1,7 @@
 const furlParams = new URLSearchParams(window.location.search);
 const ftaNum = furlParams.get('taNum');
 
-async function getTeamInfo() {
+async function getTeamInfo1() {
 	const res = await fetch(`/team-info?taNum=${ftaNum}`);
 	const teamInfo = await res.json();
 	console.log(teamInfo);
@@ -105,11 +105,11 @@ async function doSendObj() {
 	console.log(result);
 	if (result) {
 		alert(`${result.resultMsg}`);
-		getTeamInfo();
+		getTeamInfo1();
 	}
 
 }
 
-window.addEventListener('load', getTeamInfo);
+window.addEventListener('load', getTeamInfo1);
 
 
