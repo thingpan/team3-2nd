@@ -104,7 +104,7 @@ public class MatchResultService {
 				}
 
 			} else {
-				teamInfoVO = teamInfoMapper.selectTaTypeMatchBoardInfoByTaNum(allList.get(i).getTaAwayNum());
+				teamInfoVO = teamInfoMapper.selectTaTypeMatchBoardInfoByTaNum(allList.get(i).getTaHomeNum());
 				allList.get(i).setTaName(teamInfoVO.getTaName());
 				if (allList.get(i).getMrRequestStatus().equals("3")) {
 					if (allList.get(i).getMrHomeScore() < allList.get(i).getMrAwayScore()) {

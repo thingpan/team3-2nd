@@ -35,7 +35,19 @@ mybatis:
 upload:
     file-path: C:\dev\upload\
 #  file-path: /Users/ayeong-kim/dev/upload/
-
+cloud:
+  aws:
+    credentials:
+       accessKey: Qpq3fK8Qujgd7uY17Aus9ffcIv8G68VBhbL6jpGd
+       secretKey: AKIAYUZBF5FKL3MKVSEG
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+      
+application:
+  bucket:
+    name: 3nd-team3
 
 download:
     file-path: file:///C:/dev/upload/

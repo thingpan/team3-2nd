@@ -86,7 +86,7 @@ async function getAjaxList(evt, page) {
 					html += `</td>`
 					html += `<td class="border-bottom-0">`
 					html += `<div class="d-flex align-items-center gap-2">
-							 <span class="badge bg-primary rounded-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})>경기종료</span>
+							 <span class="badge bg-primary rounded-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">경기종료</span>
 							 </div>`
 					html += `</td>`
 					html += `</tr>`
@@ -135,7 +135,7 @@ async function getAjaxList(evt, page) {
 					html += `</td>`
 					html += `<td class="border-bottom-0">`
 					html += `<div class="d-flex align-items-center gap-2">
-							 <span class="badge bg-primary rounded-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})>거절(다시입력)</span>
+							 <span class="badge bg-primary rounded-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">거절(다시입력)</span>
 							 </div>`
 					html += `</td>`
 					html += `</tr>`
@@ -157,11 +157,11 @@ async function getAjaxList(evt, page) {
 					html += `</td>`
 					html += `<td class="border-bottom-0">`
 					html += `<div class="d-flex align-items-center gap-2">`
-					if (matchStatus.mrWinLoose == '승리') {
+					if (matchStatus.mrWinLose == '승리') {
 						html += `<span class="badge bg-primary rounded-3 fw-semibold">Win</span>
 							 	</div>`
 					} else if (matchStatus.mrWinLoose == '패배') {
-						html += `<span class="badge bg-danger rounded-3 fw-semibold">Loose</span>
+						html += `<span class="badge bg-danger rounded-3 fw-semibold">Lose</span>
 							 	</div>`
 					} else {
 						html += `<span class="badge bg-success rounded-3 fw-semibold">draw</span>
@@ -402,7 +402,7 @@ async function getHomeAjaxList(evt, page) {
 					html += `</td>`
 					html += `<td class="border-bottom-0">`
 					html += `<div class="d-flex align-items-center gap-2">
-							 <span class="badge bg-primary rounded-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})>거절(다시입력)</span>
+							 <span class="badge bg-primary rounded-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">거절(다시입력)</span>
 							 </div>`
 					html += `</td>`
 					html += `</tr>`
