@@ -37,13 +37,19 @@ upload:
 #  file-path: /Users/ayeong-kim/dev/upload/
 cloud:
   aws:
+    s3:
+      bucket: 3nd-team3
     credentials:
-       accessKey: Qpq3fK8Qujgd7uY17Aus9ffcIv8G68VBhbL6jpGd
-       secretKey: AKIAYUZBF5FKL3MKVSEG
+       accessKey: AKIAYUZBF5FKL3MKVSEG
+       secretKey: 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
     region:
       static: ap-northeast-2
     stack:
       auto: false
+      
+      
+bucket:
+  file-Path: https://3nd-team3.s3.ap-northeast-2.amazonaws.com/upload/
       
 application:
   bucket:

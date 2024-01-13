@@ -18,11 +18,15 @@ public class WebConfig implements WebMvcConfigurer{
 	private String filePath; 
 	@Value("${download.resource-url}")
 	private String resourceUrl;
+
+	@Value("${cloud.aws.s3.bucket}")
+	private String bucket;
 	
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler(resourceUrl)
-		.addResourceLocations(filePath);
-	}
+		registry.addResourceHandler("/upload/**")
+		.addResourceLocations("https://3nd-team3.s3.ap-northeast-2.amazonaws.com/");
+	}	
 	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
