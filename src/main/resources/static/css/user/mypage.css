@@ -450,10 +450,10 @@ select {
 	}
 
 	#address {
-		width: 66%;
+		width: 60%;
 	}
 
 	#password {
-		width: 55%;
+		width: 48%;
 	}
 }
