@@ -157,7 +157,7 @@ async function getAjaxList(evt, page) {
 					html += `</td>`
 					html += `<td class="border-bottom-0">`
 					html += `<div class="d-flex align-items-center gap-2">`
-					if (matchStatus.mrWinLose == '승리') {
+					if (matchStatus.mrWinLoose == '승리') {
 						html += `<span class="badge bg-primary rounded-3 fw-semibold">Win</span>
 							 	</div>`
 					} else if (matchStatus.mrWinLoose == '패배') {
