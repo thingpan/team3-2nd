@@ -13,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.transfer.TransferManager;
+import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
+import com.amazonaws.services.s3.transfer.Upload;
 import com.sp.team32ndproject.match.mapper.MatchBoardPhotoInfoMapper;
 import com.sp.team32ndproject.match.vo.MatchBoardPhotoInfoVO;
 import com.sp.team32ndproject.type.Status;
@@ -47,13 +50,17 @@ public class MatchBoardPhotoInfoService {
 				matchPhoto.setMbpFileName(originName);
 				try {
 					   InputStream inputStream = file.getInputStream();
+					   TransferManager transferManager = TransferManagerBuilder.standard()
+	                            .withS3Client(amazonS3)
+	                            .build();
 		                ObjectMetadata metadata = new ObjectMetadata();
-		                metadata.setContentType(file.getContentType());
-		                metadata.setContentLength(file.getSize());
 		                String s3Key = "upload/" + fileName;
+		                Upload upload = transferManager.upload(s3FilePath, s3Key, inputStream, metadata);
+	                    upload.waitForCompletion();
 		                amazonS3.putObject("3nd-team3", s3Key, inputStream, metadata);
 		                matchPhoto.setMbpFilePath("https://3nd-team3.s3.ap-northeast-2.amazonaws.com/" + s3Key);
-				} catch (IllegalStateException e) {
+		                transferManager.shutdownNow();
+				} catch (IllegalStateException | InterruptedException e) {
 					log.error("error => {}", e.getMessage());
 				} catch (IOException e) {
 					log.error("error =>{}", e.getMessage());
