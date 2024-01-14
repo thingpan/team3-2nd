@@ -215,10 +215,8 @@ async function getAjaxList(evt, page) {
 					html += `<p class="mb-0 fw-normal">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</p>`
 					html += `</td>`
 					html += `<td class="border-bottom-0">`
-					html += `<div class="d-flex align-items-center gap-2">
+					html += `<div style="text-align: -webkit-center";>
 							 <button class="btn btn-secondary m-1" id="accept-button" data-bs-toggle="modal" data-bs-target="#mannerModal" onclick="saveMrNum(${matchStatus.mrNum})">수락</button>
-							 </div>`
-					html += `<div class="d-flex align-items-center gap-2">
 							 <button class="btn btn-danger m-1" onclick="saveMrNum(${matchStatus.mrNum},1)">거절</button>
 							 </div>`
 					html += `</td>`
