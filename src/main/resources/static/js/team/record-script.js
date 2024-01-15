@@ -61,7 +61,7 @@ async function getAjaxList(evt, page) {
 
 	let html = '';
 	if (pageInfos.list.length == 0) {
-		html += '<tr><td colspan="5">비어있는 리스트 입니다.</td></tr>';
+		html += '<tr><td colspan="5" style="text-align: center;">비어있는 리스트 입니다.</td></tr>';
 	} else {
 		for (let matchStatus of pageInfos.list) {
 			let height;
