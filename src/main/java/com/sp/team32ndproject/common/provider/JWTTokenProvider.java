@@ -91,18 +91,12 @@ public class JWTTokenProvider {
 	}
 
 	public boolean validation(String token) {
-		try {
-			Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(token);
-			return true;
-		} catch (ExpiredJwtException e) {
-			throw new RuntimeException("기한만료");
-		} catch (JwtException e) {
-			throw new RuntimeException("token오류");
-		}
+		Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(token);
+		return true;
 	}
 
 	public String getId(String token) {
 		Claims claims = Jwts.parser().setSigningKey(getKey()).parseClaimsJws(token).getBody();
-		return claims.get("uiId").toString();
+		return claims.getSubject();
 	}
 }

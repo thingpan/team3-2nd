@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sp.team32ndproject.common.checker.TeamInfoAuthManager;
 import com.sp.team32ndproject.common.checker.TeamParamAuthManager;
 import com.sp.team32ndproject.common.filter.CustomAuthenticationFilter;
+import com.sp.team32ndproject.common.filter.CustomAuthorizationFilter;
 import com.sp.team32ndproject.common.provider.CustomAuthenticationProvider;
 import com.sp.team32ndproject.common.provider.JWTTokenProvider;
 import com.sp.team32ndproject.team.mapper.TeamInfoMapper;
@@ -49,7 +50,7 @@ public class SecurityBeanConfig {
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() { // static 안에 있는 css등등 필요한 애들은 webServer딴에서 이그노어 해줘야 해서 일케 함
 		return web -> {
-			web.ignoring().antMatchers("/css/**", "/js/**", "/imgs/**", "/resources/**", "/react/**");
+			web.ignoring().antMatchers("/css/**", "/js/**", "/imgs/**", "/resources/**", "/react/**", "/assets/**");
 		};
 	}
 
@@ -83,7 +84,7 @@ public class SecurityBeanConfig {
 				.access(new TeamParamAuthManager(teamInfoService)).antMatchers("/page/team/**")
 				.access(new TeamInfoAuthManager(teamInfoMapper)).anyRequest().authenticated())
 				.formLogin(formLogin -> formLogin.loginPage("/page/user/login").usernameParameter("uiId")
-						.passwordParameter("uiPwd").loginProcessingUrl("/login").defaultSuccessUrl("/")
+						.passwordParameter("uiPwd").loginProcessingUrl("/login").defaultSuccessUrl("/",true)
 						.failureUrl("/page/user/login?errorMsg=Plz check ID or PWD"))
 				.logout(logout -> logout.logoutUrl("/auth/logout").logoutSuccessUrl("/page/user/login"));
 		hs.csrf(csrf -> csrf.disable()).exceptionHandling(handling -> handling.accessDeniedPage("/page/denied"))
@@ -98,7 +99,8 @@ public class SecurityBeanConfig {
 				ccf.setAllowCredentials(true);
 				return ccf;				
 			}
-		}));
+		}))
+		.addFilterBefore(new CustomAuthorizationFilter(jwtProvider, userInfoService), UsernamePasswordAuthenticationFilter.class);
 		return hs.build();
 	}
 }

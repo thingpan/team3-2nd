@@ -39,8 +39,9 @@
 						<div class="card w-100">
 							<div class="card-body p-4">
 								<h5 class="card-title fw-semibold mb-4">전적</h5>
-								<div>
-									<select id="sport-filter" onchange="getSelectChangeListener(this)">
+								<div class="form-group col-md-2">
+									<select class="form-select" id="sport-filter"
+										onchange="getSelectChangeListener(this)">
 										<option value="all" selected>All</option>
 										<option value="home">Home</option>
 										<option value="away">Away</option>
@@ -63,7 +64,7 @@
 													<h6 class="fw-semibold mb-0">점수</h6>
 												</th>
 												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">결과</h6>
+													<h6 class="fw-semibold mb-0" style="text-align: center;">결과</h6>
 												</th>
 											</tr>
 										</thead>
