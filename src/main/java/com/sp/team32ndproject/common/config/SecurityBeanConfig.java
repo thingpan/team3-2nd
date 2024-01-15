@@ -83,7 +83,7 @@ public class SecurityBeanConfig {
 				.access(new TeamParamAuthManager(teamInfoService)).antMatchers("/page/team/**")
 				.access(new TeamInfoAuthManager(teamInfoMapper)).anyRequest().authenticated())
 				.formLogin(formLogin -> formLogin.loginPage("/page/user/login").usernameParameter("uiId")
-						.passwordParameter("uiPwd").loginProcessingUrl("/login").defaultSuccessUrl("/")
+						.passwordParameter("uiPwd").loginProcessingUrl("/login").defaultSuccessUrl("/",true)
 						.failureUrl("/page/user/login?errorMsg=Plz check ID or PWD"))
 				.logout(logout -> logout.logoutUrl("/auth/logout").logoutSuccessUrl("/page/user/login"));
 		hs.csrf(csrf -> csrf.disable()).exceptionHandling(handling -> handling.accessDeniedPage("/page/denied"))
