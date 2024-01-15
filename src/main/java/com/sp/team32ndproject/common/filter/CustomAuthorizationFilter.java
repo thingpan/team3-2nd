@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,58 +28,64 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
-	private final JWTTokenProvider jwtTokenProvider;
-	private final UserInfoService userInfoServie;
+	private final JWTTokenProvider jwtProvider;
+	private final UserInfoService userInfoService;
+
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+
 		String token = request.getHeader(HttpHeaders.AUTHORIZATION);
-		if(token != null && !token.isEmpty()) {
-			token = token.replace("Bearer", "");
-			Map<String, Object> error = new HashMap<>();
+		
+		if (token != null && !token.isEmpty()) {
+			token = token.replace("Bearer ", "");
+			Map<String, String> error = new HashMap<String, String>();
 			String msg = null;
 			try {
-				if(jwtTokenProvider.validation(token)) {
-					String uiId = jwtTokenProvider.getId(token);
-					UserInfoVO user = (UserInfoVO)userInfoServie.loadUserByUsername(uiId);
+				if (jwtProvider.validation(token)) {
+					String uiId = jwtProvider.getId(token);
+					UserInfoVO user = (UserInfoVO) userInfoService.loadUserByUsername(uiId);
 					user.setUiPwd(null);
-					UsernamePasswordAuthenticationToken authtoken = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-					authtoken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-					SecurityContextHolder.getContext().setAuthentication(authtoken);
-					
+					UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, null,
+							user.getAuthorities());
+					authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+					SecurityContextHolder.getContext().setAuthentication(authToken);
 				}
-			}catch (ExpiredJwtException e) {
+			} catch (ExpiredJwtException e) {
 				msg = "토큰 유효기간 만료";
-			}catch (UnsupportedJwtException e) {
-				msg = "지원하지 않는 토큰입니다.";
-			}catch (SignatureException | MalformedJwtException e) {
-				msg = "토큰 형식이 맞지 않습니다.";
+			} catch (UnsupportedJwtException e) {
+				msg = "지원하지 않는 토큰입니다";
+			} catch (SignatureException | MalformedJwtException e) {
+				msg = "토큰 형식이 맞지 않습니다";
 			}
-			if(msg != null) {
+			if (msg != null) {
 				error.put("msg", msg);
-				errorJsonWrite(response, error, HttpStatus.FORBIDDEN);
-				return;
+				errJsonWrite(response, error, HttpStatus.FORBIDDEN);
 			}
 		}
+		// 요청과 응답을 다음 필터로 넘기는 역할
+		filterChain.doFilter(request, response);
 
 	}
 
-	private static void errorJsonWrite(HttpServletResponse res, Map<String, Object> error,
-			org.springframework.http.HttpStatus status) {
-			res.setContentType("application/json;charset=UTF-8");
-			res.setStatus(status.value());
-			try {
-				PrintWriter out = res.getWriter();
-				JSONObject json = new JSONObject(error);
-				out.print(json);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	private static void errJsonWrite(HttpServletResponse res, Map<String, String> error, HttpStatus status)
+			throws IOException {
+		res.setStatus(status.value());
+		res.setContentType("application/json;charset=UTF-8");
+
+		try {
+			PrintWriter out = res.getWriter();
+			JSONObject json = new JSONObject(error);
+			out.print(json);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
