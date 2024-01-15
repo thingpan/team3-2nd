@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sp.team32ndproject.common.checker.TeamInfoAuthManager;
 import com.sp.team32ndproject.common.checker.TeamParamAuthManager;
 import com.sp.team32ndproject.common.filter.CustomAuthenticationFilter;
+import com.sp.team32ndproject.common.filter.CustomAuthorizationFilter;
 import com.sp.team32ndproject.common.provider.CustomAuthenticationProvider;
 import com.sp.team32ndproject.common.provider.JWTTokenProvider;
 import com.sp.team32ndproject.team.mapper.TeamInfoMapper;
@@ -98,7 +99,8 @@ public class SecurityBeanConfig {
 				ccf.setAllowCredentials(true);
 				return ccf;				
 			}
-		}));
+		}))
+		.addFilterBefore(new CustomAuthorizationFilter(jwtProvider, userInfoService), UsernamePasswordAuthenticationFilter.class);
 		return hs.build();
 	}
 }
