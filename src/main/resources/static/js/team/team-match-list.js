@@ -2,8 +2,6 @@
  * 
  */
 
-
-
 async function getTeamMatchList(evt, page) {
 	const urlParams = new URLSearchParams(window.location.search);
 	const taNum = urlParams.get('taNum');
