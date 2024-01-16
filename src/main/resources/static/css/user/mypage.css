@@ -61,6 +61,7 @@ label {
 #name {
 	text-align: center;
 	width: 100%;
+	font-style: unset;
 }
 
 #email {
