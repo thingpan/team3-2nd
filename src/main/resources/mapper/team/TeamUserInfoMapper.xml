@@ -52,7 +52,8 @@
 
 	</delete>
 	<select id="TeamUserRole"
-		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
+		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO"
+		>
 		SELECT TU_ROLE
 		FROM TEAM_USER_INFO
 		WHERE UI_NUM = #{uiNum}

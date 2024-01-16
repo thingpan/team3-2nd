@@ -3,6 +3,7 @@ package com.sp.team32ndproject.team.service;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -122,20 +123,26 @@ public class TeamUserInfoService {
 		return msgVO;
 	}
 
-	public TeamUserInfoVO getUserRole(TeamUserInfoVO teamUserInfo) {
-		return teamUserInfoMapper.TeamUserRole(teamUserInfo);
+	public TeamUserInfoVO TeamUserRole(TeamUserInfoVO teamUserInfo, UserInfoVO user) {
+	    TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
+	    teamUserInfoVO.setUiNum(user.getUiNum());
+	    teamUserInfoVO.setTaNum(teamUserInfo.getTaNum());
+
+	    TeamUserInfoVO tuRole = teamUserInfoMapper.TeamUserRole(teamUserInfoVO, user);
+
+	    if ("ADMIN".equals(tuRole)) {
+	        teamUserInfoVO.setTuRole("ADMIN");
+	    } else if ("USER".equals(tuRole)) {
+	        teamUserInfoVO.setTuRole("USER");
+	    }
+
+	    return teamUserInfoVO;
 	}
 
-	public int getTeamUserInfos(int taNum, UserInfoVO user) {
-		TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
-		teamUserInfoVO.setUiNum(user.getUiNum());
-		teamUserInfoVO.setTaNum(taNum);
-		if (teamUserInfoMapper.TeamUserRole(teamUserInfoVO) != null) {
-			return 0;
-		} else {
-			return 1;
-		}
 
-	}
+
+
+
+
 
 }

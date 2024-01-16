@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import com.sp.team32ndproject.team.vo.MsgVO;
 import com.sp.team32ndproject.team.vo.TeamInfoVO;
 import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
+import com.sp.team32ndproject.user.vo.UserInfoVO;
 
 @Mapper
 public interface TeamUserInfoMapper {
@@ -27,10 +29,12 @@ public interface TeamUserInfoMapper {
 
 	int deleteTeamUser(TeamUserInfoVO teamUserInfo);
 
-	TeamUserInfoVO TeamUserRole(TeamUserInfoVO teamUserInfo);
+	TeamUserInfoVO TeamUserRole(TeamUserInfoVO teamUserInfo,@AuthenticationPrincipal UserInfoVO user);
 
 	List<TeamUserInfoVO> selectTeamByTaNum(int taNum);
 	
 	List<TeamUserInfoVO> selectTeamUserInfoByUiNum(int uiNum);
+
+	TeamUserInfoVO TeamUserRole(int uiNum, int taNum);
 
 }

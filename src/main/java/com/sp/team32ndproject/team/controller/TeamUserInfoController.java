@@ -69,12 +69,13 @@ public class TeamUserInfoController {
 
 	// 팀에 속해있는 내가 유저인지 어드민지 확인
 	@GetMapping("/get-user-role")
-	public TeamUserInfoVO getUserRole(@RequestParam("uiNum") int uiNum, @RequestParam("taNum") int taNum) {
+	public TeamUserInfoVO TeamUserRole(@RequestParam int taNum,@AuthenticationPrincipal UserInfoVO user) {
 		TeamUserInfoVO teamUserInfo = new TeamUserInfoVO();
-		teamUserInfo.setUiNum(uiNum);
+		teamUserInfo.setUiNum(user.getUiNum());
 		teamUserInfo.setTaNum(taNum);
 
-		return teamUserInfoService.getUserRole(teamUserInfo);
+		return teamUserInfoService.TeamUserRole(teamUserInfo,user);
 	}
+	
 
 }
