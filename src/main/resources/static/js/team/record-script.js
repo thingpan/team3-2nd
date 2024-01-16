@@ -164,7 +164,7 @@ async function getAjaxList(evt, page) {
 						html += `<span class="badge bg-danger rounded-3 fw-semibold">Lose</span>
 							 	</div>`
 					} else {
-						html += `<span class="badge bg-success rounded-3 fw-semibold">draw</span>
+						html += `<span class="badge bg-success rounded-3 fw-semibold">Draw</span>
 							 	</div>`
 					}
 					html += `</td>`
@@ -215,7 +215,7 @@ async function getAjaxList(evt, page) {
 					html += `<p class="mb-0 fw-normal">${matchStatus.mrHomeScore} : ${matchStatus.mrAwayScore}</p>`
 					html += `</td>`
 					html += `<td class="border-bottom-0">`
-					html += `<div style="text-align: -webkit-center";>
+					html += `<div>
 							 <button class="btn btn-secondary m-1" id="accept-button" data-bs-toggle="modal" data-bs-target="#mannerModal" onclick="saveMrNum(${matchStatus.mrNum})">수락</button>
 							 <button class="btn btn-danger m-1" onclick="saveMrNum(${matchStatus.mrNum},1)">거절</button>
 							 </div>`
@@ -265,10 +265,10 @@ async function getAjaxList(evt, page) {
 						html += `<span class="badge bg-primary rounded-3 fw-semibold">Win</span>
 							 	</div>`
 					} else if (matchStatus.mrWinLoose == '패배') {
-						html += `<span class="badge bg-danger rounded-3 fw-semibold">Loose</span>
+						html += `<span class="badge bg-danger rounded-3 fw-semibold">Lose</span>
 							 	</div>`
 					} else {
-						html += `<span class="badge bg-success rounded-3 fw-semibold">draw</span>
+						html += `<span class="badge bg-success rounded-3 fw-semibold">Draw</span>
 							 	</div>`
 					}
 					html += `</td>`
@@ -426,10 +426,10 @@ async function getHomeAjaxList(evt, page) {
 						html += `<span class="badge bg-primary rounded-3 fw-semibold">Win</span>
 							 	</div>`
 					} else if (matchStatus.mrWinLoose == '패배') {
-						html += `<span class="badge bg-danger rounded-3 fw-semibold">Loose</span>
+						html += `<span class="badge bg-danger rounded-3 fw-semibold">Lose</span>
 							 	</div>`
 					} else {
-						html += `<span class="badge bg-success rounded-3 fw-semibold">draw</span>
+						html += `<span class="badge bg-success rounded-3 fw-semibold">Draw</span>
 							 	</div>`
 					}
 					html += `</td>`
@@ -587,10 +587,10 @@ async function getAwayAjaxList(evt, page) {
 					html += `<span class="badge bg-primary rounded-3 fw-semibold">Win</span>
 							 	</div>`
 				} else if (matchStatus.mrWinLoose == '패배') {
-					html += `<span class="badge bg-danger rounded-3 fw-semibold">Loose</span>
+					html += `<span class="badge bg-danger rounded-3 fw-semibold">Lose</span>
 							 	</div>`
 				} else {
-					html += `<span class="badge bg-success rounded-3 fw-semibold">draw</span>
+					html += `<span class="badge bg-success rounded-3 fw-semibold">Draw</span>
 							 	</div>`
 				}
 				html += `</td>`
