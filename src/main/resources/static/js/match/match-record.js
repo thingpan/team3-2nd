@@ -21,7 +21,7 @@ async function getTeamInfo() {
 			var breakup = {
 				color: "#adb5bd",
 				series: [teamInfo.taWinCnt, teamInfo.taDrawCnt, teamInfo.taLooseCnt],
-				labels: ["Win", "Draw", "Loose"],
+				labels: ["Win", "Draw", "Lose"],
 				chart: {
 					width: 200,
 					type: "donut",
