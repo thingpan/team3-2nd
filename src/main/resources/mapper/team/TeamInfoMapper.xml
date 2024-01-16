@@ -2,7 +2,60 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.sp.team32ndproject.team.mapper.TeamInfoMapper">
+
+
+	<insert id="insertTeamInfo" useGeneratedKeys="true"
+		keyColumn="TA_NUM" keyProperty="taNum"
+		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		INSERT INTO TEAM_INFO(
+		UI_NUM, TA_NAME, TA_BOUNDARY_SIDO,
+		TA_BOUNDARY_SIGUNGU,
+		TA_DESC,TA_TYPE,
+		TA_FILE_PATH,
+		TA_FILE_NAME
+		)
+		VALUES(
+		#{uiNum}, #{taName},
+		#{taBoundarySido},#{taBoundarySigungu},
+		#{taDesc},#{taType},#{taFilePath},#{taFileName}
+		);
+	</insert>
+
+	<select id="selectTeamInfoByTaName"
+		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		SELECT * FROM TEAM_INFO
+		WHERE TA_NAME=#{taName}
+
+	</select>
 	
+	
+	<select id="selectTeamRank"
+		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		SELECT *
+		FROM TEAM_INFO
+		<where>
+			<if test="taType != null and taType != ''">
+				TA_TYPE = #{taType}
+			</if>
+			<if test="taBoundarySido != null and taBoundarySido != ''">
+				AND TA_BOUNDARY_SIDO = #{taBoundarySido}
+			</if>
+			<if test="taPoint != null and taPoint != 0">
+				AND TA_POINT > #{taPoint}
+			</if>
+			AND TA_ACTIVE_STATUS = 0
+		</where>
+		ORDER BY TA_POINT DESC
+		LIMIT 100;
+	</select>
+	
+	
+	
+	
+	
+	
+	
+
 	<select id="selectTeamInfos"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
@@ -19,14 +72,16 @@
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
 		WHERE TA_NUM = #{taNum}
-		AND NOT TA_ACTIVE_STATUS = 1
+		AND NOT
+		TA_ACTIVE_STATUS = 1
 	</select>
 
 	<select id="selectTeamInfosByUiNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
 		WHERE UI_NUM = #{uiNum}
-		AND NOT TA_ACTIVE_STATUS = 1
+		AND NOT
+		TA_ACTIVE_STATUS = 1
 
 	</select>
 	<select id="selectTeamInfosByUiNumAndTaType"
@@ -55,39 +110,8 @@
 	</select>
 
 
-	<select id="selectTeamRank"
-		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
-		SELECT
-		TA_NUM,
-		TA_TYPE,
-		TA_NAME,
-		TA_BOUNDARY_SIDO,
-		TA_BOUNDARY_SIGUNGU,
-		TA_POINT
-		FROM TEAM_INFO
-		<where>
-			<if test="taType != null and taType != ''">
-				TA_TYPE = #{taType}
-			</if>
-			<if test="taBoundarySido != null and taBoundarySido != ''">
-				AND TA_BOUNDARY_SIDO = #{taBoundarySido}
-			</if>
-			<if test="taPoint != null and taPoint != 0">
-				AND TA_POINT > #{taPoint}
-			</if>
-			and not ta_active_status = 1
-		</where>
-		
-		ORDER BY TA_POINT DESC
-		LIMIT 100;
-	</select>
 
-	<select id="selectTeamInfoByTaName"
-		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
-		SELECT * FROM TEAM_INFO
-		WHERE TA_NAME=#{taName}
 
-	</select>
 
 	<select id="selectAdminByUiNumAndTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
@@ -180,26 +204,11 @@
 	</update>
 
 
-	<insert id="insertTeamInfo" useGeneratedKeys="true"
-		keyColumn="TA_NUM" keyProperty="taNum"
-		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
-		INSERT INTO TEAM_INFO(
-		UI_NUM, TA_NAME, TA_BOUNDARY_SIDO,
-		TA_BOUNDARY_SIGUNGU,
-		TA_DESC,TA_TYPE,
-		TA_FILE_PATH,
-		TA_FILE_NAME
-		)
-		VALUES(
-		#{uiNum}, #{taName},
-		#{taBoundarySido},#{taBoundarySigungu},
-		#{taDesc},#{taType},#{taFilePath},#{taFileName}
-		);
-	</insert>
-	
+
 	<update id="updateTeamTaActiveStatusInfo"
 		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		UPDATE TEAM_INFO SET TA_ACTIVE_STATUS=1
-		WHERE TA_NUM=#{TA_NUM}
+		WHERE
+		TA_NUM=#{TA_NUM}
 	</update>
 </mapper>

@@ -186,7 +186,7 @@
 		async function checkTeamName() {
 			const taName = document.querySelector('#checkTeamNameInModal').value
 
-			const res = await fetch(`/check-team-name/${taName}`)
+			const res = await fetch(`/auth/team-infos/${taName}`)
 			const result = await res.json();
 			let html;
 			if (result.resultMsg == "0") {

@@ -143,7 +143,6 @@ public class TeamInfoService {
 		MsgVO msgVO = new MsgVO();
 		if (teamInfoMapper.selectTeamInfoByTaName(taName) != null) {
 			msgVO.setResultMsg("0");
-
 		} else {
 			msgVO.setResultMsg("1");
 		}

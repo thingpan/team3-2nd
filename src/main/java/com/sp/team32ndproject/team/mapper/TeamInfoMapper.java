@@ -12,6 +12,9 @@ import com.sp.team32ndproject.user.vo.UserInfoVO;
 @Mapper
 public interface TeamInfoMapper {
 	int insertTeamInfo(TeamInfoVO team);
+	TeamInfoVO selectTeamInfoByTaName(String taName);
+	////////////////////////////////////////////////////////////
+	
 	TeamInfoVO selectTaTypeMatchBoardInfoByTaNum(int taNum);
 	List<TeamInfoVO> selectTeamInfos(TeamInfoVO team);
 	 List<TeamInfoVO> selectTeamRank(
@@ -23,7 +26,6 @@ public interface TeamInfoMapper {
 	TeamInfoVO selectTeamInfoByTaNum(int taNum);
 	List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(TeamInfoVO teamInfoVO);
 	List<TeamInfoVO> selectTeamRankByTeamType(TeamInfoVO teamInfoVO);
-	TeamInfoVO selectTeamInfoByTaName(String taName);
     List<TeamInfoVO> selectTeamUserInfo(int uiNum);
     int updateTeamInfo(TeamInfoVO teamInfoVO);
     int updateTeamInfoToHomeMatchResult(TeamInfoVO teamInfoVO);

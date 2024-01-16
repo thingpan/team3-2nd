@@ -253,6 +253,7 @@
     </button>
     <button type="button" id="cancel-password-change" class="btn btn-dark">취소</button>
 </div>
+<script src="/js/mock/region.js"></script>
 <script>
     function closeModalAndShowAlert() {
         // Bootstrap 모달 닫기
@@ -618,7 +619,7 @@
         const data = {
             taName: taName
         }
-        const res = await fetch(`/check-team-name/${taName}`);
+        const res = await fetch(`/auth/team-infos/${taName}`);
         isNameChecked = true;
         const result = await res.json();
 
