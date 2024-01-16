@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	async function fetchMatchBoardData() {
 		const res = await fetch(`/match-board`);
 		matchBoardInfos = await res.json();
-		console.log(matchBoardInfos);
+
+		console.log("matchBoardInfos", matchBoardInfos);
 	}
 
 	// 초기 캘린더 업데이트 시에도 데이터를 가져오도록 수정
@@ -43,20 +44,29 @@ document.addEventListener('DOMContentLoaded', function() {
 	init();
 
 	// 캘린더 업데이트 함수
+	// 캘린더 업데이트 함수
 	function updateCalendar(date) {
 		calendar.innerHTML = '';
 
-		// 주간 캘린더(7일) 표시
 		for (let i = 0; i <= 6; i++) {
 			const day = new Date(date);
 			day.setDate(date.getDate() + i);
+
+			const today = new Date();
+			today.setHours(0, 0, 0, 0);
+
+			if (day < today) {
+				continue;
+			}
 
 			const dayDiv = document.createElement('div');
 			dayDiv.classList.add('day');
 
 			const dayDate = day.getDate();
-			const dayName = day.toLocaleDateString('en-US', { weekday: 'short' });
+			const dayName = day.toLocaleDateString('en-US', {weekday: 'short'});
+
 			dayDiv.textContent = `${dayDate}\n${dayName}`;
+			dayDiv.setAttribute('data-dayname', dayName);
 
 			// 주말 색상 추가
 			if (dayName === 'Sun') {
@@ -76,7 +86,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				selectDate(dayDiv);
 				selectedDateDiv = dayDiv;
 
-				showSchedule(day, selectedSport, selectedSido, selectedPoint);
+				// 클릭한 날짜를 선택된 날짜로 업데이트
+				selectedDate = new Date(day);
+				showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
 			});
 
 			calendar.appendChild(dayDiv);
@@ -85,9 +97,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				selectDate(dayDiv);
 				selectedDateDiv = dayDiv;
 
+				// 초기 선택일을 클릭한 날짜로 변경
 				selectedDate = new Date(day);
-
-				showSchedule(day, selectedSport, selectedSido, selectedPoint);
+				showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
 			}
 		}
 	}
@@ -102,9 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		selectedDate.classList.add('selected');
 	}
 
-	// 종목 선택 시 이벤트 리스너
-
-
 	// 초기 캘린더 업데이트
 	let currentDate = new Date();
 	updateCalendar(currentDate);
@@ -112,26 +121,28 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 이전 주 버튼 클릭 시 이벤트 리스너
 	calendarPrevBtn.addEventListener('click', () => {
 		const oneWeekAgo = new Date(selectedDate);
-		console.log("onWeekAgo", oneWeekAgo);
 		oneWeekAgo.setDate(selectedDate.getDate() - 7);
 
-		const today = new Date(); // 현재 날짜
+		const today = new Date();
 		today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간을 00:00:00으로 설정
 
-		if (oneWeekAgo < today) {
-			// 오늘 이전이면 버튼 비활성화
-			return;
+		if (oneWeekAgo > today) {
+			// 이전 주가 오늘 이전인 경우에만 업데이트
+			selectedDate = oneWeekAgo;
+		} else {
+			// 그 외의 경우에는 오늘 날짜로 업데이트
+			selectedDate = today;
 		}
 
-		selectedDate = oneWeekAgo;
 		updateCalendar(selectedDate);
+		showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
 	});
 
 	// 다음 주 버튼 클릭 시 이벤트 리스너
 	calendarNextBtn.addEventListener('click', () => {
-		currentDate.setDate(currentDate.getDate() + 7);
-		updateCalendar(currentDate);
-		showSchedule(currentDate, selectedSport, selectedSido, selectedPoint);
+		selectedDate.setDate(selectedDate.getDate() + 7);
+		updateCalendar(selectedDate);
+		showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
 	});
 
 	// 일정 표시 함수
