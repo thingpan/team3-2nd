@@ -35,6 +35,12 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
 	private final JWTTokenProvider jwtProvider;
 	private final UserInfoService userInfoService;
+	private String[] excludeUrls = {"/"};
+	
+	@Override
+	protected boolean shouldNotFilter(HttpServletRequest req) throws ServletException{
+		return "none".equals(req.getHeader("sec-fetch-site")) || "same-origin".equals(req.getHeader("sec-fetch-site"));
+	}
 
 
 	@Override

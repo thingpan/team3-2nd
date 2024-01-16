@@ -10,7 +10,9 @@ import com.sp.team32ndproject.user.vo.UserInfoVO;
 
 public class SessionUtil {
 	public static Object getSessionUser() {
-	
+		if(SecurityContextHolder.getContext().getAuthentication()==null) {
+			return "Non-session";
+		}
 		return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 	}

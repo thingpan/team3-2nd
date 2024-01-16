@@ -293,7 +293,7 @@
 
 			async function checkCurrentPassword() {
 				const password = document.querySelector("#current-password-input").value;
-				const response = await fetch('/check-password', {
+				const response = await fetch(`/auth/user-infos`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -348,9 +348,6 @@
 				}
 			}
 		</script>
-
-	<script src="/js/mock/region.js"></script>
-
 	<script>
 			async function changePasswordAndDisplay() {
 				// 현재 비밀번호, 새 비밀번호, 새 비밀번호 확인 등 필요한 정보 수집
@@ -365,7 +362,7 @@
 				const passwordRegex = /^(?=.*[!@#$%^&*])(?=.{8,})/;
 
 				// 현재 비밀번호 확인을 위한 서버 요청
-				const response = await fetch('/check-password', {
+				const response = await fetch('/auth/user-infos', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -398,19 +395,23 @@
 			}
 			async function userdelete() {
 				const confirmation = confirm('정말로 계정을 삭제하시겠습니까?');
-
+				const data = {
+					uiActiveStatus: 1
+				}
 				if (confirmation) {
 
-					const response = await fetch(`/user-info-delete`, {
-						method: 'PATCH'
+					const response = await fetch(`/auth/user-infos`, {
+						headers: {
+								'Content-Type': 'application/json',
+							},
+						method: 'PATCH',
+						body: JSON.stringify(data)
 					});
 
 					const result = await response.json();
 
-					if (result.resultMsg == 2) {
-						alert(`가입된 팀을 탈퇴 해 주세요!`);
-					} else if (result.resultMsg == 0) {
-						alert(`탈퇴 완료`);
+					if (result == 1) {
+						alert(`탈퇴 완료!`);
 						location.href = `/auth/logout`;
 					} else {
 						alert(`탈퇴 중 문제 발생 다시 시도해 주세요`);
@@ -516,7 +517,7 @@
 
 				if (confirmations) {
 					try {
-						const response = await fetch('/update-profile', {
+						const response = await fetch('/auth/user-infos', {
 							method: 'PATCH',
 							headers: {
 								'Content-Type': 'application/json',

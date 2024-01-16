@@ -133,7 +133,7 @@
 			}
 
 			// 서버로 아이디 중복 확인 요청
-			const res = await fetch(`/auth/user-infos/${uiId}`);
+			const res = await fetch(`/user-infos/${uiId}`);
 
 
 			const result = await res.json();
@@ -253,7 +253,9 @@
 				}
 			});
 			console.log(res);
+			
 			const result = await res.json();
+			
 			if (result) {
 				alert(`회원가입이 완료되었습니다. 로그인 해주세요.`);
 				location.href = '/page/user/login';

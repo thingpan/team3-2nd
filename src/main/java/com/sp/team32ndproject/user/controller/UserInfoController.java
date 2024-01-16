@@ -36,7 +36,7 @@ public class UserInfoController {
 	}
 	
 	//회원가입시 입력한 아이디가 중복되는지 확인
-	@GetMapping("/auth/user-infos/{uiId}")
+	@GetMapping("/user-infos/{uiId}")
 	public MsgVO doCheckUiId(@PathVariable String uiId) {
 		return userInfoService.doCheckUiId(uiId);
 	}
@@ -49,22 +49,23 @@ public class UserInfoController {
 	}
 	
 	//회원정보 수정시 비밀번호 확인
-	@PostMapping("/check-password")
+	@PostMapping("/auth/user-infos")
 	public boolean checkPassword(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String> password) {
 		return userInfoService.checkPassword(user.getUiId(), password);
 	}
 	
 	//유저 프로필 업데이트 컨트롤러
-	@PatchMapping("/update-profile")
+	@PatchMapping("/auth/user-infos")
     public int updateUserProfile(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String>request) {
          return  userInfoService.updateUserProfile(user.getUiNum(), request);
     }
-	//계정 삭제
-	@PatchMapping("/user-info-delete")
-    public MsgVO deleteUser(@AuthenticationPrincipal UserInfoVO user) {
-         return  userInfoService.deleteUser(user);
-       
-    }
+	
+//계정 삭제
+//	@PatchMapping("/user-info-delete")
+//    public MsgVO deleteUser(@AuthenticationPrincipal UserInfoVO user) {
+//         return  userInfoService.deleteUser(user);
+//       
+//    }
 	
 
 }

@@ -72,7 +72,7 @@ public class UserInfoService implements UserDetailsService {
 	}
 
 	public boolean checkPassword(String uiId, Map<String, String> password) {
-		UserInfoVO user = userInfoMapper.selectPasswordByUiPwd(uiId);
+		UserInfoVO user = userInfoMapper.selectUserInfoByUiId(uiId);
 		if (passwordEncoder.matches(password.get("password"), user.getUiPwd())) {
 			return true;
 		}
@@ -90,7 +90,8 @@ public class UserInfoService implements UserDetailsService {
 		userInfoVO.setUiPhoneNum(request.get("uiPhoneNum"));
 		userInfoVO.setUiAddress(request.get("uiAddress"));
 		userInfoVO.setUiBirth(request.get("uiBirth"));
-		return userInfoMapper.updateUserProfile(userInfoVO);
+		userInfoVO.setUiActiveStatus(request.get("uiActiveStatus"));
+		return userInfoMapper.updateUserInfos(userInfoVO);
 	}
 
 	public MsgVO deleteUser(UserInfoVO user) {
@@ -109,14 +110,13 @@ public class UserInfoService implements UserDetailsService {
 				user.setUiId(randomId.substring(0, 10));
 				user.setUiPwd(randomPwd.substring(0, 10));
 				user.setUiActiveStatus("1");
-				userInfoMapper.deleteUser(user);
+				userInfoMapper.updateUserInfos(user);
 				teamSignUserInfoMapper.deleteTeamSignUserInfoByUiNum(user.getUiNum());
 				msgVO.setResultMsg("0");
 			} catch (Exception e) {
 				msgVO.setResultMsg("1");
 			}
 		}
-
 		return msgVO;
 	}
 

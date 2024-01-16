@@ -8,20 +8,23 @@
 		UI_EMAIL, UI_ADDRESS,
 		UI_CREDAT, UI_CRETIM
 	</sql>
+	
 	<select id="selectUserInfoByUiNum"
 		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">
 		SELECT * FROM USER_INFO
 		WHERE UI_NUM = #{uiNum}
 	</select>
+	
 	<select id="selectUserInfoByUiId"
 		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">
 		SELECT
 		<include refid="userInfoCols" />
 		FROM USER_INFO
 		WHERE UI_ID= #{uiId}
+		AND UI_ACTIVE_STATUS = 0
 	</select>
 
-	<update id="updateUserProfile"
+	<update id="updateUserInfos"
 		parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
 		UPDATE USER_INFO
 		<set>
@@ -40,20 +43,12 @@
 			<if test="uiPhoneNum != null and uiPhoneNum != ''">
 				UI_PHONE_NUM= #{uiPhoneNum}
 			</if>
+			<if test="uiActiveStatus != null and uiActiveStatus != ''">
+				UI_ACTIVE_STATUS= #{uiActiveStatus}
+			</if>
 		</set>
 		WHERE UI_NUM = #{uiNum}
 	</update>
-
-
-
-
-	<select id="selectPasswordByUiPwd"
-		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">
-		SELECT UI_PWD
-		FROM USER_INFO
-		WHERE UI_ID= #{uiId}
-	</select>
-
 
 	<insert id="insertUserInfo"
 		parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
@@ -70,19 +65,5 @@
 		DATE_FORMAT(NOW(),'%Y%m%d'),DATE_FORMAT(NOW(),'%H%i%s')
 		);
 	</insert>
-	<update id="deleteUser" parameterType="com.sp.team32ndproject.user.vo.UserInfoVO">
-        UPDATE USER_INFO
-        <set>
-        	<if test='uiId != null and uiId != ""'>
-        		UI_ID = #{uiId},	
-        	</if>
-        	<if test='uiPwd != null and uiPwd != ""'>
-        		UI_PWD = #{uiPwd},	
-        	</if>
-        	<if test='uiActiveStatus != null and uiActiveStatus != ""'>
-        		UI_ACTIVE_STATUS = #{uiActiveStatus}
-        	</if>
-        </set>
-        WHERE UI_NUM = #{uiNum}
-    </update>
+
 </mapper>
