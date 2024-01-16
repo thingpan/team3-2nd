@@ -47,6 +47,18 @@ document.addEventListener('DOMContentLoaded', function () {
     async function initializeSlider() {
         const matchPhotos = await fetchMatchPhotos();
 
+        if (matchPhotos.length === 1) {
+            const prevBtn = document.querySelector('#prev-btn');
+            if (prevBtn) {
+                prevBtn.style.display = 'none';
+            }
+
+            const nextBtn = document.querySelector('#next-btn');
+            if (nextBtn) {
+                nextBtn.style.display = 'none';
+            }
+        }
+
         if (matchPhotos.length === 0) {
             console.log(matchPhotos.length);
 
@@ -68,6 +80,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             img.appendChild(text);
             sliderContainer.appendChild(img);
+
+            console.log("매치 포토", matchPhotos.length);
 
             const prevBtn = document.querySelector('#prev-btn');
             if (prevBtn) {
