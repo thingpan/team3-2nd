@@ -13,6 +13,5 @@ public interface UserInfoMapper {
 
 	int updateUserInfos(UserInfoVO user);
 
-	//
 	UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user);
 }

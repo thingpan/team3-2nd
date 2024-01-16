@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.sp.team32ndproject.team.mapper.TeamInfoMapper">
+	
 	<select id="selectTeamInfos"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
@@ -195,6 +196,7 @@
 		#{taDesc},#{taType},#{taFilePath},#{taFileName}
 		);
 	</insert>
+	
 	<update id="updateTeamTaActiveStatusInfo"
 		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		UPDATE TEAM_INFO SET TA_ACTIVE_STATUS=1

@@ -62,12 +62,7 @@ public class UserInfoService implements UserDetailsService {
 		return msgVO;
 	}
 
-	public UserInfoVO selectUserInfoByUiId(String uiId) {
-		return userInfoMapper.selectUserInfoByUiId(uiId);
-	}
-
 	public UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
-		// TODO Auto-generated method stub
 		return userInfoMapper.selectUserInfoByUiNum(user);
 	}
 
@@ -94,30 +89,5 @@ public class UserInfoService implements UserDetailsService {
 		return userInfoMapper.updateUserInfos(userInfoVO);
 	}
 
-	public MsgVO deleteUser(UserInfoVO user) {
-		MsgVO msgVO = new MsgVO();
-		log.info("user => {}", user);
-
-		List<TeamUserInfoVO> teamUserInfoVOs = teamUserInfoMapper.selectTeamUserInfoByUiNum(user.getUiNum());
-
-		if (teamUserInfoVOs.size() != 0) {
-			msgVO.setResultMsg("2");
-			return msgVO;
-		} else {
-			try {
-				String randomId = UUID.randomUUID() + "";
-				String randomPwd = UUID.randomUUID() + "";
-				user.setUiId(randomId.substring(0, 10));
-				user.setUiPwd(randomPwd.substring(0, 10));
-				user.setUiActiveStatus("1");
-				userInfoMapper.updateUserInfos(user);
-				teamSignUserInfoMapper.deleteTeamSignUserInfoByUiNum(user.getUiNum());
-				msgVO.setResultMsg("0");
-			} catch (Exception e) {
-				msgVO.setResultMsg("1");
-			}
-		}
-		return msgVO;
-	}
 
 }

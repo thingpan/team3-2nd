@@ -42,7 +42,7 @@ public class UserInfoController {
 	}
 	
 	//uiNum으로 유저 정보 가져오기
-	@GetMapping("/user-info")
+	@GetMapping("/auth/user-infos/user")
 	public UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
 		log.info("user=>{}", user);
 		return userInfoService.selectUserInfoByUiNum(user);
@@ -59,13 +59,6 @@ public class UserInfoController {
     public int updateUserProfile(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String>request) {
          return  userInfoService.updateUserProfile(user.getUiNum(), request);
     }
-	
-//계정 삭제
-//	@PatchMapping("/user-info-delete")
-//    public MsgVO deleteUser(@AuthenticationPrincipal UserInfoVO user) {
-//         return  userInfoService.deleteUser(user);
-//       
-//    }
 	
 
 }

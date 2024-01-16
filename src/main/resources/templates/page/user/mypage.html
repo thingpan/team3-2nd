@@ -560,7 +560,7 @@
     }
 
     window.addEventListener('load', async function () {
-        const userRes = await fetch('/user-info');
+        const userRes = await fetch('/auth/user-infos/user');
         user = await userRes.json();
         document.querySelector('#name').value = user.uiName;
         document.querySelector('#address').value = user.uiAddress;
