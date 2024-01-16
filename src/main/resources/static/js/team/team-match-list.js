@@ -53,7 +53,7 @@ async function getTeamMatchList(evt, page) {
 			if (matchinfo.mbStatus == 1) {
 				html += `<td><span class="badge bg-danger rounded-3 fw-semibold">신청마감</span></td>`;
 			} else {
-				html += `<td><span class="badge bg-primary rounded-3 fw-semibold">모집중</span></td>`;
+				html += `<td><span class="badge bg-primary rounded-3 fw-semibold" style="margin-left: 1vh;">모집중</span></td>`;
 			}
 
 			html += '</tr>';
