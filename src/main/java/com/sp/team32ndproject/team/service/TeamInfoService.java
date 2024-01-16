@@ -219,8 +219,8 @@ public class TeamInfoService {
 		teamInfoMapper.updateTeamInfoToAwayMatchResult(teamInfoVO);
 	}
 
-	public List<TeamInfoVO> selectTeamRank(String taType, String taBoundarySido, Integer taPoint) {
-		return teamInfoMapper.selectTeamRank(taType, taBoundarySido, taPoint);
+	public List<TeamInfoVO> selectTeamRank(TeamInfoVO teamInfoVO) {
+		return teamInfoMapper.selectTeamInfo(teamInfoVO);
 	}
 
 }

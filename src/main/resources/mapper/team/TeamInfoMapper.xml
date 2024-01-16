@@ -29,7 +29,7 @@
 	</select>
 	
 	
-	<select id="selectTeamRank"
+	<select id="selectTeamInfo"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT *
 		FROM TEAM_INFO
@@ -42,6 +42,9 @@
 			</if>
 			<if test="taPoint != null and taPoint != 0">
 				AND TA_POINT > #{taPoint}
+			</if>
+			<if test="taName != null and taName != ''">
+				AND TA_NAME = #{taName}
 			</if>
 			AND TA_ACTIVE_STATUS = 0
 		</where>
@@ -84,6 +87,7 @@
 		TA_ACTIVE_STATUS = 1
 
 	</select>
+	
 	<select id="selectTeamInfosByUiNumAndTaType"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
@@ -99,6 +103,8 @@
 		ORDER BY
 		TA_POINT DESC;
 	</select>
+	
+	
 	<select id="selectTeamUserInfo"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT TSU.UI_NUM, TSU.TA_NUM,

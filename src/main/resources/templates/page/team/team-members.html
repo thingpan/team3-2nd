@@ -173,7 +173,7 @@
 			if (!page) {
 				page = 1;
 			}
-			let url = `/team-users/helper?page=${page}&pageSize=${pageSize}&taNum=${taNum}`;
+			let url = `/auth/team-user-infos/helper?page=${page}&pageSize=${pageSize}&taNum=${taNum}`;
 			const res = await fetch(url);
 			const pageInfos = await res.json();
 			const totalCnt = pageInfos.total;

@@ -437,7 +437,7 @@
 
     let teamData;
     window.addEventListener('load', async function () {
-        const rankRes = await fetch('/team-user-info');
+        const rankRes = await fetch('/auth/team-infos');
         teamData = await rankRes.json();
 
         let html = '';
@@ -616,14 +616,13 @@
         } else {
             document.querySelector('#errorTaName').innerHTML = "";
         }
-        const data = {
-            taName: taName
-        }
-        const res = await fetch(`/auth/team-infos/${taName}`);
+        
+        const res = await fetch(`/team-infos?taName=${taName}`);
         isNameChecked = true;
         const result = await res.json();
+        console.log(result);
 
-        if (result.resultMsg == "0") {
+        if (result.length != 0) {
             document.querySelector('#errorTaName').innerHTML = `<span style='color: red;'>이미 사용중인 이름입니다</span>`;
         } else {
             document.querySelector('#errorTaName').innerHTML = `<span style='color: green;'>사용 가능한 이름입니다</span>`;

@@ -37,15 +37,15 @@ public class TeamUserInfoController {
 	}
 
 	// 팀원 목록 헬퍼를 통해 가져오기
-	@GetMapping("/team-users/helper")
+	@GetMapping("/auth/team-user-infos/helper")
 	public PageInfo<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO) {
 		return teamUserInfoService.selectTeamUserInfosWithHelper(teamUserInfoVO);
 	}
 
-	@GetMapping("/team-user-infos/{taNum}")
-	public int getTeamUserInfos(@PathVariable int taNum, @AuthenticationPrincipal UserInfoVO user) {
-		return teamUserInfoService.getTeamUserInfos(taNum, user);
-	}
+//	@GetMapping("/team-user-infos/{taNum}")
+//	public int getTeamUserInfos(@PathVariable int taNum, @AuthenticationPrincipal UserInfoVO user) {
+//		return teamUserInfoService.getTeamUserInfos(taNum, user);
+//	}
 
 	// 팀원 방출
 	@DeleteMapping("/team-infos")

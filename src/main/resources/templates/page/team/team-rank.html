@@ -116,7 +116,7 @@
 							const selectedSido = document.querySelector('#sido').value;
 							const selectedPoint = rangeInput.value;
 
-							const rankRes = await fetch(`/auth/team-infos?taType=${selectedSport}&taBoundarySido=${selectedSido}&taPoint=${selectedPoint}`);
+							const rankRes = await fetch(`/team-infos?taType=${selectedSport}&taBoundarySido=${selectedSido}&taPoint=${selectedPoint}`);
 							const teamData = await rankRes.json();
 
 							let html = '';

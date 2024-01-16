@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,45 +36,42 @@ public class TeamInfoController {
 		return teamInfoService.insertTeamInfo(team, user);
 	}
 
-	// 팀이름 중복검사
-	@GetMapping("/auth/team-infos/{taName}")
-	public MsgVO TeamInfoByTaName(@PathVariable String taName) {
-		return teamInfoService.selectTeamInfoByTaName(taName);
-	}
-	
 	// 팀 랭크
-	@GetMapping("/auth/team-infos")
-	public List<TeamInfoVO> selectTeamRank(@RequestParam(value = "taType", required = false) String taType,
-			@RequestParam(value = "taBoundarySido", required = false) String taBoundarySido,
-			@RequestParam(value = "taPoint", required = false) Integer taPoint) {
-		return teamInfoService.selectTeamRank(taType, taBoundarySido, taPoint);
+	@GetMapping("/team-infos")
+	public List<TeamInfoVO> selectTeamRank(@ModelAttribute TeamInfoVO teamInfoVO) {
+		return teamInfoService.selectTeamRank(teamInfoVO);
+	}
+
+	// 팀 정보 가져오기
+	@GetMapping("/auth/team-infos/{taNum}")
+	public TeamInfoVO selectTeamInfoByTaNum(@PathVariable int taNum, @AuthenticationPrincipal UserInfoVO user) {
+		log.info("taNum =>{}", taNum);
+		return teamInfoService.selectTeamInfoByTaNum(taNum, user);
 	}
 	
-	//////////////////
 
 	// 내가 속한 팀 가져오기
+	@GetMapping("/auth/team-infos")
+	public List<TeamInfoVO> selectTeamUserInfo(@AuthenticationPrincipal UserInfoVO user) {
+		log.info("uiNum => {}", user);
+		return teamInfoService.selectTeamUserInfo(user.getUiNum());
+
+	}
+
+	//////////////////
+
+	//어드민 내가 속한 팀 가져오기
 	@GetMapping("/my-team-infos")
 	public List<TeamInfoVO> selectTeamInfosByUiNum(@AuthenticationPrincipal UserInfoVO user) {
 		return teamInfoService.selectTeamInfosByUiNum(user.getUiNum());
 	}
-	
 
-	
-	
-
-	// 종목별 팀 순위
-	@GetMapping("/team-infos/{taType}")
-	public List<TeamInfoVO> selectTeamRankByTeamType(@PathVariable String taType) {
-		log.info("taType => {}", taType);
-		return teamInfoService.selectTeamRankByTeamType(taType);
-	}
-
-	// 팀 정보 가져오기
-	@GetMapping("/team-info")
-	public TeamInfoVO selectTeamInfoByTaNum(@RequestParam int taNum, @AuthenticationPrincipal UserInfoVO user) {
-		log.info("taNum =>{}", taNum);
-		return teamInfoService.selectTeamInfoByTaNum(taNum, user);
-	}
+//	// 종목별 팀 순위
+//	@GetMapping("/team-infos/{taType}")
+//	public List<TeamInfoVO> selectTeamRankByTeamType(@PathVariable String taType) {
+//		log.info("taType => {}", taType);
+//		return teamInfoService.selectTeamRankByTeamType(taType);
+//	}
 
 	// 매치 신청 할때 매치글과 같은 타입으로 나의 팀 불러오기
 	@GetMapping("/my-team-infos-by-type/{taType}")
@@ -85,13 +83,6 @@ public class TeamInfoController {
 		return teamInfoService.selectTeamInfosByUiNumAndTaType(taType, user.getUiNum());
 	}
 
-	// 내가 속한 팀 가져오기
-	@GetMapping("/team-user-info")
-	public List<TeamInfoVO> selectTeamUserInfo(@AuthenticationPrincipal UserInfoVO user) {
-		log.info("uiNum => {}", user);
-		return teamInfoService.selectTeamUserInfo(user.getUiNum());
-
-	}
 
 	// 팀 정보 수정
 	@PutMapping("/team-info-update")

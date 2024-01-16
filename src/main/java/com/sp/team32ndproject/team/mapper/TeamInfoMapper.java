@@ -17,10 +17,7 @@ public interface TeamInfoMapper {
 	
 	TeamInfoVO selectTaTypeMatchBoardInfoByTaNum(int taNum);
 	List<TeamInfoVO> selectTeamInfos(TeamInfoVO team);
-	 List<TeamInfoVO> selectTeamRank(
-	            @Param("taType") String taType,
-	            @Param("taBoundarySido") String taBoundarySido,
-	            @Param("taPoint") Integer taPoint);
+	List<TeamInfoVO> selectTeamInfo(TeamInfoVO teamInfoVO);
 	List<TeamInfoVO> selectTeamInfosByUiNum(int uiNum);
 	TeamInfoVO selectAdminByUiNumAndTaNum(@Param("uiNum") int uiNum,@Param("taNum") int taNum);
 	TeamInfoVO selectTeamInfoByTaNum(int taNum);

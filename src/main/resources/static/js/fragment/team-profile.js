@@ -2,7 +2,7 @@ const furlParams = new URLSearchParams(window.location.search);
 const ftaNum = furlParams.get('taNum');
 
 async function getTeamInfo1() {
-	const res = await fetch(`/team-info?taNum=${ftaNum}`);
+	const res = await fetch(`/auth/team-infos/${ftaNum}`);
 	const teamInfo = await res.json();
 	console.log(teamInfo);
 	document.querySelector('#taName').innerHTML = teamInfo.taName;
@@ -93,7 +93,7 @@ async function doSendObj() {
 	const obj = {
 		taNum: ftaNum
 	}
-	const res = await fetch('/team-sign-user-add', {
+	const res = await fetch('/auth/team-sign-infos', {
 		method: 'POST',
 		body: JSON.stringify(obj),
 		headers: {

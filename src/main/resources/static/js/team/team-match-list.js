@@ -12,7 +12,7 @@ async function getTeamMatchList(evt, page) {
 	let total = 0;
 	let pageSize = 5;
 	const blockSize = 5;
-	const res = await fetch(`/match-infos?page=${page}&pageSize=${pageSize}&taNum=${taNum}`);
+	const res = await fetch(`/auth/match-infos?page=${page}&pageSize=${pageSize}&taNum=${taNum}`);
 	const pageInfos = await res.json();
 	console.log(pageInfos);
 

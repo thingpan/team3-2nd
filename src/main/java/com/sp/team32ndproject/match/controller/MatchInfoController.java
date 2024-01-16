@@ -22,6 +22,15 @@ public class MatchInfoController {
 
 	private final MatchBoardInfoService matchInfoService;
 
+	// 특정 팀 매치 목록 불러오기
+	@GetMapping("/auth/match-infos")
+	public PageInfo<MatchBoardInfoVO> selectMatchInfosByTaNum(MatchBoardInfoVO matchBoardInfoVO) {
+		log.info("taNum=>{}", matchBoardInfoVO);
+		return matchInfoService.selectMatchInfosByTaNum(matchBoardInfoVO);
+	}
+
+	///////////////////////
+
 	// 매치 글쓰기 인서트
 	@PostMapping("/match-infos")
 	public int insertMatchBoardInfo(MatchBoardInfoVO match) {
@@ -43,20 +52,14 @@ public class MatchInfoController {
 		MatchBoardInfoListVO matchBoardInfoListVO = matchInfoService.selectMatchList();
 		return matchBoardInfoListVO;
 	}
-	//매치 글쓰기 삭제
+
+	// 매치 글쓰기 삭제
 	@PatchMapping("/match-infos")
 	public int deleteMatchInfoBoard(@RequestBody MatchBoardInfoVO match) {
 		return matchInfoService.deleteMatchBoardInfoActivityStatus(match);
 	}
 
-	// 특정 팀 매치 목록 불러오기
-	@GetMapping("/match-infos")
-	public PageInfo<MatchBoardInfoVO> selectMatchInfosByTaNum(MatchBoardInfoVO matchBoardInfoVO) {
-		log.info("taNum=>{}", matchBoardInfoVO);
-		return matchInfoService.selectMatchInfosByTaNum(matchBoardInfoVO);
-	}
-	
-	//게시글 업데이트
+	// 게시글 업데이트
 	@PatchMapping("/match-infos-update")
 	public int updateMatchBoardInfo(MatchBoardInfoVO matchBoardInfoVO) {
 		return matchInfoService.updateMatchBoardInfo(matchBoardInfoVO);

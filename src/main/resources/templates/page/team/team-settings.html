@@ -145,7 +145,7 @@
 
 			if (taNum) {
 				try {
-					const userRes = await fetch(`/team-info?taNum=${taNum}`);
+					const userRes = await fetch(`/auth/team-infos/${taNum}`);
 					const user = await userRes.json();
 
 					document.querySelector('#teamName').value = user.taName;
@@ -186,8 +186,9 @@
 		async function checkTeamName() {
 			const taName = document.querySelector('#checkTeamNameInModal').value
 
-			const res = await fetch(`/auth/team-infos/${taName}`)
+			const res = await fetch(`/team-infos?taName=${taName}`)
 			const result = await res.json();
+			console.log(result);
 			let html;
 			if (result.resultMsg == "0") {
 				html = "<span style='color: red;'>이미 사용 중인 이름입니다.</span>";

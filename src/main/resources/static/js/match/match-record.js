@@ -4,7 +4,7 @@ async function getTeamInfo() {
 	const urlParams = new URLSearchParams(window.location.search);
 	const taNum = urlParams.get('taNum');
 
-	const res = await fetch(`/team-info?taNum=${taNum}`);
+	const res = await fetch(`/auth/team-infos/${taNum}`);
 	const teamInfo = await res.json();
 	console.log(teamInfo);
 
@@ -78,7 +78,7 @@ async function getTeamInfo() {
 
 	}
 
-	const resMatchList = await fetch(`/match-infos?page=${1}&pageSize=${5}&taNum=${taNum}`);
+	const resMatchList = await fetch(`/auth/match-infos?page=${1}&pageSize=${5}&taNum=${taNum}`);
 	const pageInfos = await resMatchList.json();
 	console.log(pageInfos);
 
@@ -105,7 +105,7 @@ async function getTeamInfo() {
 	}
 	document.querySelector('#match-list-info').innerHTML = html;
 
-	let url = `/team-users/helper?page=${1}&pageSize=${5}&taNum=${taNum}`;
+	let url = `/auth/team-user-infos/helper?page=${1}&pageSize=${5}&taNum=${taNum}`;
 	const resMember = await fetch(url);
 	const membersInfo = await resMember.json();
 	
