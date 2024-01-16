@@ -49,5 +49,5 @@ $(function () {
       },
     },
   };
-  new ApexCharts(document.querySelector("#earning"), earning).render();
+  // new ApexCharts(document.querySelector("#earning"), earning).render();
 })

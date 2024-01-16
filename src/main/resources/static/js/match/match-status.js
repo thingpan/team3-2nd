@@ -147,7 +147,7 @@ async function getHomeAjaxList(evt, page) {
 			html += `<td>${matchStatus.mdAddress}</td>`;
 			html += `<td>${matchStatus.taName}</td>`;
 			html += `<td>${matchStatus.mdDate}||${matchStatus.mdTime}</td>`;
-			html += `<td><button class="btn btn-success" id="accept-button" onclick="doAcceptCheck('${matchStatus.taName}',${matchStatus.mdNum}, ${matchStatus.mdHomeNum}, ${matchStatus.mdAwayNum}, ${matchStatus.mbNum})">수락</button>
+			html += `<td><button class="btn btn-success" id="accept-button" style="margin-right: 2vh;" onclick="doAcceptCheck('${matchStatus.taName}',${matchStatus.mdNum}, ${matchStatus.mdHomeNum}, ${matchStatus.mdAwayNum}, ${matchStatus.mbNum})">수락</button>
 		<button class="btn btn-danger" id="refuse-button" onclick="doCancleCheck('${matchStatus.taName}',${matchStatus.mdNum},${matchStatus.mbNum})">거절</button></td>`;
 			html += `</tr>`;
 		}

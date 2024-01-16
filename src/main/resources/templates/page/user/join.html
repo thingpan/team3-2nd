@@ -3,6 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="/assets/images/logos/favicon.ico">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>join</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
@@ -57,81 +58,78 @@
 				<span class="input-group-text" id="basic-addon1">아이디<span style='color: red;'> *</span></span>
 				<input type="text" id="uiId" class="form-control" placeholder="ID" aria-describedby="basic-addon1">
 				<button type="button" class="btn btn-dark" id="checkIdButton" style="font-size: 12px;"
-					onclick="checkId()">중복확인</button>
+					onclick="checkId()">중복확인
+				</button>
 			</div>
-			<div id="errorUiId" class="error-message"></div><br>
+			<div id="errorUiId" class="error-message"></div>
+			<br>
 
 			<div class="input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">비밀번호<span style='color: red;'> *</span></span>
 				<input type="password" id="uiPwd" class="form-control" placeholder="Password"
 					aria-describedby="basic-addon1">
 			</div>
-			<div id="errorUiPwd" class="error-message"></div><br>
+			<div id="errorUiPwd" class="error-message"></div>
+			<br>
 
 			<div class="input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">비번 확인<span style='color: red;'> *</span></span>
 				<input type="password" id="uiPwdConfirm" class="form-control" placeholder="Password"
 					aria-describedby="basic-addon1">
 			</div>
-			<div id="errorUiPwdConfirm" class="error-message"></div><br>
+			<div id="errorUiPwdConfirm" class="error-message"></div>
+			<br>
 
 			<div class="input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">이름<span style='color: red;'> *</span></span>
 				<input type="text" id="uiName" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
 			</div>
-			<div id="errorUiName" class="error-message"></div><br>
+			<div id="errorUiName" class="error-message"></div>
+			<br>
 
 			<div class="input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">전화번호<span style='color: red;'> *</span></span>
 				<input type="number" id="uiMobile" class="form-control" placeholder="Phone-Number"
 					aria-describedby="basic-addon1">
 			</div>
-			<div id="errorUiMobile" class="error-message"></div><br>
+			<div id="errorUiMobile" class="error-message"></div>
+			<br>
 
 			<div class="input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">이메일<span style='color: red;'> *</span></span>
 				<input type="email" id="uiEmail" class="form-control" placeholder="E-Mail">
 			</div>
-			<div id="errorEmail" class="error-message"></div><br>
+			<div id="errorEmail" class="error-message"></div>
+			<br>
 
 			<div class="input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">생년월일<span style='color: red;'> *</span></span>
 				<input type="date" id="uiBirth" class="form-control"><br>
 			</div>
-			<div id="errorBirth" class="error-message"></div><br>
+			<div id="errorBirth" class="error-message"></div>
+			<br>
 
 			<div class="input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">주소<span style='color: red;'> *</span></span>
 				<input type="text" id="uiAddress" placeholder="Address" class="form-control" readonly>
 				<button type="button" class="btn btn-dark" id="searchButton" style="font-size: 12px;"
-					onclick="searchAddress()">검색</button>
+					onclick="searchAddress()">검색
+				</button>
 			</div>
-			<div id="errorAddress" class="error-message"></div><br>
+			<div id="errorAddress" class="error-message"></div>
+			<br>
 
-			<button type="button" class="btn btn-dark" id="joinButton" style="width: 184px;"
-				onclick="join()">회원가입</button>
+			<button type="button" class="btn btn-dark" id="joinButton" style="width: 184px;" onclick="join()">회원가입
+			</button>
 		</div>
 	</div>
 
 	<script>
 		let isIdChecked = false;
+
 		async function checkId() {
 			const uiId = document.querySelector('#uiId').value;
 			const IdRegex = /^(?=.{8,})/;
-
-			if (!uiId) {
-				document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>아이디를 입력해주세요.</span>";
-				return;
-			} else {
-				document.querySelector('#errorUiId').innerHTML = "";
-			}
-			if (!IdRegex.test(uiId)) {
-				document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>아이디는 8자 이상이어야 합니다.</span>";
-				return;
-			} else {
-				document.querySelector('#errorUiId').innerHTML = "";
-			}
-
 			// 서버로 아이디 중복 확인 요청
 			const res = await fetch(`/user-infos/${uiId}`);
 
@@ -229,13 +227,13 @@
 			} else {
 				document.querySelector('#errorAddress').innerHTML = "";
 
-			} if (!passwordRegex.test(uiPwd)) {
+			}
+			if (!passwordRegex.test(uiPwd)) {
 				document.querySelector('#errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상이어야 하고,<br>특수문자가 하나 이상 포함되어야 합니다.</span>";
 				return;
 			} else {
 				document.querySelector('#errorUiPwd').innerHTML = "";
 			}
-
 			const data = {
 				uiId: document.querySelector('#uiId').value,
 				uiPwd: document.querySelector('#uiPwd').value,
@@ -253,9 +251,9 @@
 				}
 			});
 			console.log(res);
-			
+
 			const result = await res.json();
-			
+
 			if (result) {
 				alert(`회원가입이 완료되었습니다. 로그인 해주세요.`);
 				location.href = '/page/user/login';

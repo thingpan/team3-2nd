@@ -2,70 +2,70 @@ const calendar = document.querySelector('.calendar');
 let date;
 
 document.addEventListener('DOMContentLoaded', function () {
-    const deadlineCheckbox = document.querySelector('#btn-check');
-    let isCheckboxDisabled = false;
+        const deadlineCheckbox = document.querySelector('#btn-check');
+        let isCheckboxDisabled = false;
 
-    deadlineCheckbox.addEventListener('change', () => {
-        applyFilters();
-    });
+        deadlineCheckbox.addEventListener('change', () => {
+            applyFilters();
+        });
 
-    async function applyFilters() {
-        // 필터링된 일정을 표시
-        showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
-    }
+        async function applyFilters() {
+            // 필터링된 일정을 표시
+            showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
+        }
 
-    const calendarPrevBtn = document.querySelector('.calendar-button:first-of-type');
-    const calendarNextBtn = document.querySelector('.calendar-button:last-of-type');
+        const calendarPrevBtn = document.querySelector('.calendar-button:first-of-type');
+        const calendarNextBtn = document.querySelector('.calendar-button:last-of-type');
 
-    let selectedDateDiv = null;
-    let selectedSport = null;
-    let selectedSido = null;
-    let selectedPoint = null;
-    let selectedDate = new Date();
+        let selectedDateDiv = null;
+        let selectedSport = null;
+        let selectedSido = null;
+        let selectedPoint = null;
+        let selectedDate = new Date();
 
-    let matchBoardInfos = null;
+        let matchBoardInfos = null;
 
-    async function fetchMatchBoardData() {
-        const res = await fetch(`/match-board`);
-        matchBoardInfos = await res.json();
+        async function fetchMatchBoardData() {
+            const res = await fetch(`/match-board`);
+            matchBoardInfos = await res.json();
 
-        console.log("matchBoardInfos", matchBoardInfos);
-    }
+            console.log("matchBoardInfos", matchBoardInfos);
+        }
 
-    // 캘린더 업데이트 함수
-    function updateCalendar(date) {
-        calendar.innerHTML = '';
+        // 캘린더 업데이트 함수
+        function updateCalendar(date) {
+            calendar.innerHTML = '';
 
-        for (let i = 0; i <= 6; i++) {
-            const day = new Date(date);
-            day.setDate(date.getDate() + i);
+            for (let i = 0; i <= 6; i++) {
+                const day = new Date(date);
+                day.setDate(date.getDate() + i);
 
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
 
-            if (day < today) {
-                continue;
-            }
+                if (day < today) {
+                    continue;
+                }
 
-            const dayDiv = document.createElement('div');
-            dayDiv.classList.add('day');
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('day');
 
-            const dayDate = day.getDate();
-            const dayName = day.toLocaleDateString('en-US', {weekday: 'short'});
+                const dayDate = day.getDate();
+                const dayName = day.toLocaleDateString('en-US', {weekday: 'short'});
 
-            dayDiv.textContent = `${dayDate}\n${dayName}`;
-            dayDiv.setAttribute('data-dayname', dayName);
+                dayDiv.textContent = `${dayDate}\n${dayName}`;
+                dayDiv.setAttribute('data-dayname', dayName);
 
-            // 주말 색상 추가
-            if (dayName === 'Sun') {
-                dayDiv.classList.add('sunday');
-            } else if (dayName === 'Sat') {
-                dayDiv.classList.add('saturday');
-            }
+                // 주말 색상 추가
+                if (dayName === 'Sun') {
+                    dayDiv.classList.add('sunday');
+                } else if (dayName === 'Sat') {
+                    dayDiv.classList.add('saturday');
+                }
 
-            if (selectedDateDiv && dayDiv === selectedDateDiv) {
-                dayDiv.classList.add('selected');
-            }
+                if (selectedDateDiv && dayDiv === selectedDateDiv) {
+                    dayDiv.classList.add('selected');
+                }
 
                 dayDiv.addEventListener('click', () => {
                     if (selectedDateDiv) {
@@ -91,8 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         }
-
-        console.log('Clicked date:', selectedDate);
 
         // 이벤트 리스너 함수
         async function onFilterChange() {
@@ -149,16 +147,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const oneWeekAgo = new Date(selectedDate);
             oneWeekAgo.setDate(selectedDate.getDate() - 7);
 
-            const today = new Date(); // 현재 날짜
+            const today = new Date();
             today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간을 00:00:00으로 설정
 
-            if (oneWeekAgo <= today) {
-                // 오늘 이전이면 버튼 비활성화
-                return;
+            if (oneWeekAgo > today) {
+                // 이전 주가 오늘 이전인 경우에만 업데이트
+                selectedDate = oneWeekAgo;
+            } else {
+                // 그 외의 경우에는 오늘 날짜로 업데이트
+                selectedDate = today;
             }
 
-            selectedDate = oneWeekAgo;
             updateCalendar(selectedDate);
+            showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
         });
 
         // 다음 주 버튼 클릭 시 이벤트 리스너
@@ -307,6 +308,5 @@ document.addEventListener('DOMContentLoaded', function () {
             deadlineCheckbox.disabled = isCheckboxDisabled;
         }
     }
-
 )
-    ;
+;

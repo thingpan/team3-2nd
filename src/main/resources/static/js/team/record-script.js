@@ -164,7 +164,7 @@ async function getAjaxList(evt, page) {
 						html += `<span class="badge bg-danger rounded-3 fw-semibold">Lose</span>
 							 	</div>`
 					} else {
-						html += `<span class="badge bg-success rounded-3 fw-semibold">draw</span>
+						html += `<span class="badge bg-success rounded-3 fw-semibold">Draw</span>
 							 	</div>`
 					}
 					html += `</td>`
@@ -265,10 +265,10 @@ async function getAjaxList(evt, page) {
 						html += `<span class="badge bg-primary rounded-3 fw-semibold">Win</span>
 							 	</div>`
 					} else if (matchStatus.mrWinLoose == '패배') {
-						html += `<span class="badge bg-danger rounded-3 fw-semibold">Loose</span>
+						html += `<span class="badge bg-danger rounded-3 fw-semibold">Lose</span>
 							 	</div>`
 					} else {
-						html += `<span class="badge bg-success rounded-3 fw-semibold">draw</span>
+						html += `<span class="badge bg-success rounded-3 fw-semibold">Draw</span>
 							 	</div>`
 					}
 					html += `</td>`
@@ -426,10 +426,10 @@ async function getHomeAjaxList(evt, page) {
 						html += `<span class="badge bg-primary rounded-3 fw-semibold">Win</span>
 							 	</div>`
 					} else if (matchStatus.mrWinLoose == '패배') {
-						html += `<span class="badge bg-danger rounded-3 fw-semibold">Loose</span>
+						html += `<span class="badge bg-danger rounded-3 fw-semibold">Lose</span>
 							 	</div>`
 					} else {
-						html += `<span class="badge bg-success rounded-3 fw-semibold">draw</span>
+						html += `<span class="badge bg-success rounded-3 fw-semibold">Draw</span>
 							 	</div>`
 					}
 					html += `</td>`
@@ -587,10 +587,10 @@ async function getAwayAjaxList(evt, page) {
 					html += `<span class="badge bg-primary rounded-3 fw-semibold">Win</span>
 							 	</div>`
 				} else if (matchStatus.mrWinLoose == '패배') {
-					html += `<span class="badge bg-danger rounded-3 fw-semibold">Loose</span>
+					html += `<span class="badge bg-danger rounded-3 fw-semibold">Lose</span>
 							 	</div>`
 				} else {
-					html += `<span class="badge bg-success rounded-3 fw-semibold">draw</span>
+					html += `<span class="badge bg-success rounded-3 fw-semibold">Draw</span>
 							 	</div>`
 				}
 				html += `</td>`
