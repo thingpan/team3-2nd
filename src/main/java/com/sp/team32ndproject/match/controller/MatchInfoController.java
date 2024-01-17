@@ -29,17 +29,14 @@ public class MatchInfoController {
 		return matchInfoService.selectMatchInfosByTaNum(matchBoardInfoVO);
 	}
 
-	///////////////////////
-
 	// 매치 글쓰기 인서트
-	@PostMapping("/match-infos")
+	@PostMapping("/auth/match-infos")
 	public int insertMatchBoardInfo(MatchBoardInfoVO match) {
 		log.info("match => {}", match);
 		return matchInfoService.insertMatchInfo(match);
 	}
 
-	// 매치 상세뷰 정보 불러오기
-	@GetMapping("/match-view/{mbNum}")
+	@GetMapping("/auth/match-infos/{mbNum}")
 	public MatchBoardInfoVO selectMatchBoardInfo(@PathVariable int mbNum) {
 		log.info("mbNum => {}", mbNum);
 		MatchBoardInfoVO matchInfo = matchInfoService.selectMatchInfo(mbNum);
@@ -47,21 +44,26 @@ public class MatchInfoController {
 	}
 
 	// 매치 목록 불러오기
-	@GetMapping("/match-board")
+	@GetMapping("/match-infos")
 	public MatchBoardInfoListVO getMatchList() {
 		MatchBoardInfoListVO matchBoardInfoListVO = matchInfoService.selectMatchList();
 		return matchBoardInfoListVO;
 	}
 
 	// 매치 글쓰기 삭제
-	@PatchMapping("/match-infos")
+	@PatchMapping("/auth/match-infos/delete")
 	public int deleteMatchInfoBoard(@RequestBody MatchBoardInfoVO match) {
 		return matchInfoService.deleteMatchBoardInfoActivityStatus(match);
 	}
 
 	// 게시글 업데이트
-	@PatchMapping("/match-infos-update")
+	@PatchMapping("/auth/match-infos")
 	public int updateMatchBoardInfo(MatchBoardInfoVO matchBoardInfoVO) {
 		return matchInfoService.updateMatchBoardInfo(matchBoardInfoVO);
 	}
+
+	///////////////////////
+
+	// 매치 상세뷰 정보 불러오기
+
 }

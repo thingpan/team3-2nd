@@ -99,12 +99,12 @@
 
 
 		async function getTeamInfos() {
-			const res = await fetch('/my-team-infos')
+			const res = await fetch('/auth/team-infos/admin')
 			teamList = await res.json();
 			console.log(teamList);
 			//내가 선택한 종목 별로 소속된 팀 보여주기
 
-			const matchRes = await fetch(`/match-view/${mbNum}`);
+			const matchRes = await fetch(`/auth/match-infos/${mbNum}`);
 			const matchInfo = await matchRes.json();
 			matchFiles = matchInfo.matchPhotos;
 			console.log(matchInfo);
@@ -334,7 +334,7 @@
 			formData.append('mbSido', mbSido);
 			formData.append('mbSigungu', mbSigungu);
 			formData.append('mbNum', mbNum);
-			const res = await fetch('/match-infos-update', {
+			const res = await fetch('/auth/match-infos', {
 				method: 'PATCH',
 				body: formData
 			});

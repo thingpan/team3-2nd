@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 window.addEventListener('load', async function () {
-    const res = await fetch(`/match-view/${mbNum}`);
+    const res = await fetch(`/auth/match-infos/${mbNum}`);
     matchInfo = await res.json();
 
     const mbPayElement = document.querySelector('#formattedMbPay');
@@ -139,7 +139,7 @@ window.addEventListener('load', async function () {
 
     matchPhotos = matchInfo.matchPhotos;
 
-    const teamRes = await fetch(`/my-team-infos-by-type/${matchInfo.mbType}`);
+    const teamRes = await fetch(`/auth/team-infos/admin/${matchInfo.mbType}`);
     teamList = await teamRes.json();
 
     oponentTaName = matchInfo.taName;
@@ -189,7 +189,7 @@ window.addEventListener('load', async function () {
     const taNum = matchInfo.taNum;
     console.log("이거멍미:", taNum);
 
-    const teamListRes = await fetch(`/team-info?taNum=${taNum}`);
+    const teamListRes = await fetch(`/auth/team-infos/${taNum}`);
     const teamInfoList = await teamListRes.json();
 
 
@@ -280,7 +280,7 @@ async function matchboarddelete() {
     const data = {
         mbNum: mbNum
     }
-    const response = await fetch(`/match-infos`, {
+    const response = await fetch(`/auth/match-infos/delete`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',

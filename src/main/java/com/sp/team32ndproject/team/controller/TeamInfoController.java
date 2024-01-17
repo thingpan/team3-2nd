@@ -48,7 +48,6 @@ public class TeamInfoController {
 		log.info("taNum =>{}", taNum);
 		return teamInfoService.selectTeamInfoByTaNum(taNum, user);
 	}
-	
 
 	// 내가 속한 팀 가져오기
 	@GetMapping("/auth/team-infos")
@@ -57,7 +56,13 @@ public class TeamInfoController {
 		return teamInfoService.selectTeamUserInfo(user.getUiNum());
 
 	}
-	
+
+	// 어드민 내가 속한 팀 가져오기
+	@GetMapping("/auth/team-infos/admin")
+	public List<TeamInfoVO> selectTeamInfosByUiNum(@AuthenticationPrincipal UserInfoVO user) {
+		return teamInfoService.selectTeamInfosByUiNum(user.getUiNum());
+	}
+
 	// 팀 정보 수정
 	@PutMapping("/auth/team-infos")
 	public int updateTeamInfo(TeamInfoVO teamInfoVO) {
@@ -65,23 +70,8 @@ public class TeamInfoController {
 		return teamInfoService.updateTeamInfo(teamInfoVO);
 	}
 
-	//////////////////
-
-	//어드민 내가 속한 팀 가져오기
-	@GetMapping("/my-team-infos")
-	public List<TeamInfoVO> selectTeamInfosByUiNum(@AuthenticationPrincipal UserInfoVO user) {
-		return teamInfoService.selectTeamInfosByUiNum(user.getUiNum());
-	}
-
-//	// 종목별 팀 순위
-//	@GetMapping("/team-infos/{taType}")
-//	public List<TeamInfoVO> selectTeamRankByTeamType(@PathVariable String taType) {
-//		log.info("taType => {}", taType);
-//		return teamInfoService.selectTeamRankByTeamType(taType);
-//	}
-
 	// 매치 신청 할때 매치글과 같은 타입으로 나의 팀 불러오기
-	@GetMapping("/my-team-infos-by-type/{taType}")
+	@GetMapping("/auth/team-infos/admin/{taType}")
 	public List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(@PathVariable String taType,
 			@AuthenticationPrincipal UserInfoVO user) {
 		log.info("taType => {}", taType);
@@ -89,5 +79,14 @@ public class TeamInfoController {
 
 		return teamInfoService.selectTeamInfosByUiNumAndTaType(taType, user.getUiNum());
 	}
+
+	//////////////////
+
+//	// 종목별 팀 순위
+//	@GetMapping("/team-infos/{taType}")
+//	public List<TeamInfoVO> selectTeamRankByTeamType(@PathVariable String taType) {
+//		log.info("taType => {}", taType);
+//		return teamInfoService.selectTeamRankByTeamType(taType);
+//	}
 
 }

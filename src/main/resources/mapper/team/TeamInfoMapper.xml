@@ -3,7 +3,21 @@
 <mapper
 	namespace="com.sp.team32ndproject.team.mapper.TeamInfoMapper">
 
-
+	
+	<select id="selectTeamInfoByTaTypeAndTaNum" 
+		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		SELECT * FROM TEAM_INFO
+		<where>
+			<if test="taType != null and taType != ''">
+				TA_TYPE = #{taType}
+			</if>
+			<if test="taNum != null and taNum != ''">
+				AND TA_NUM = #{taNum}
+			</if>
+			AND TA_ACTIVE_STATUS = 0
+		</where>
+	</select>
+	
 	<insert id="insertTeamInfo" useGeneratedKeys="true"
 		keyColumn="TA_NUM" keyProperty="taNum"
 		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
@@ -71,6 +85,7 @@
 		WHERE TA_NUM = #{taNum}
 
 	</select>
+	
 	<select id="selectTeamInfoByTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
@@ -91,11 +106,11 @@
 	<select id="selectTeamInfosByUiNumAndTaType"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
-		WHERE UI_NUM = #{uiNum}
-		AND TA_TYPE =
-		#{taType}
-		AND NOT TA_ACTIVE_STATUS = 1
+		WHERE TA_NUM = #{taNum}
+		AND TA_TYPE = #{taType}
+		AND TA_ACTIVE_STATUS = 0
 	</select>
+	
 	<select id="selectTeamRankByTeamType"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
@@ -130,8 +145,6 @@
 				AND TA_NUM = #{taNum}
 			</if>
 		</where>
-
-
 	</select>
 
 	<update id="updateTeamInfo"

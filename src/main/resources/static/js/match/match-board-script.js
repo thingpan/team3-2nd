@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let matchBoardInfos = null;
 
         async function fetchMatchBoardData() {
-            const res = await fetch(`/match-board`);
+            const res = await fetch(`/match-infos`);
             matchBoardInfos = await res.json();
 
             console.log("matchBoardInfos", matchBoardInfos);
