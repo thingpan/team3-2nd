@@ -1,15 +1,9 @@
 let oponentTaName;
-let myTaName;
 const urlParams = new URL(location.href).searchParams;
 const mbNum = urlParams.get('mbNum');
 let matchInfo;
 let teamList;
 let selectedTeamNum;
-let currentSlide = 0;
-let slides;
-let slideCount;
-
-// console.log('Slide Count:', slideCount);
 
 document.addEventListener('DOMContentLoaded', function () {
     const sliderContainer = document.querySelector('#slider-container');
@@ -355,9 +349,4 @@ function goTeamPage(obj) {
 
 function doGoUpdatePage() {
     location.href = `/page/match/match-update-view?mbNum=${mbNum}`;
-}
-
-//쪽지 보내기
-async function sendPostMessage() {
-    const param = {}
 }
