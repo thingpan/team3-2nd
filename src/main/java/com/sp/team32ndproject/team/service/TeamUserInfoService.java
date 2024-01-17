@@ -123,6 +123,18 @@ public class TeamUserInfoService {
 		return msgVO;
 	}
 
+	public int getTeamUserInfos(int taNum, UserInfoVO user) {
+		TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
+		teamUserInfoVO.setUiNum(user.getUiNum());
+		teamUserInfoVO.setTaNum(taNum);
+		if (teamUserInfoMapper.TeamUserRole(teamUserInfoVO) != null) {
+			return 0;
+		} else {
+			return 1;
+		}
+
+	}
+
 	public TeamUserInfoVO TeamUserRole(TeamUserInfoVO teamUserInfo, UserInfoVO user) {
 		TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
 		teamUserInfoVO.setUiNum(user.getUiNum());

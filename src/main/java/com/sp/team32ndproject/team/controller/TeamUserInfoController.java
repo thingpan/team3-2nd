@@ -42,10 +42,10 @@ public class TeamUserInfoController {
 		return teamUserInfoService.selectTeamUserInfosWithHelper(teamUserInfoVO);
 	}
 
-//	@GetMapping("/team-user-infos/{taNum}")
-//	public int getTeamUserInfos(@PathVariable int taNum, @AuthenticationPrincipal UserInfoVO user) {
-//		return teamUserInfoService.getTeamUserInfos(taNum, user);
-//	}
+	@GetMapping("/team-user-infos/{taNum}")
+	public int getTeamUserInfos(@PathVariable int taNum, @AuthenticationPrincipal UserInfoVO user) {
+		return teamUserInfoService.getTeamUserInfos(taNum, user);
+	}
 
 	// 팀원 방출
 	@DeleteMapping("/team-infos")
@@ -76,6 +76,8 @@ public class TeamUserInfoController {
 
 		return teamUserInfoService.TeamUserRole(teamUserInfo,user);
 	}
+	
+	
 	
 
 }
