@@ -64,93 +64,12 @@
 													<h6 class="fw-semibold mb-0">점수</h6>
 												</th>
 												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0" style="margin-left: 5%;">결과</h6>
+													<h6 class="fw-semibold mb-0">결과</h6>
 												</th>
 											</tr>
 										</thead>
 										<tbody id="match-record-tbody">
-											<tr>
-												<td class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">1</h6>
-												</td>
-												<td class="border-bottom-0">
-													<h6 class="fw-semibold mb-1">Sunil Joshi</h6>
-													<span class="fw-normal">Web Designer</span>
-												</td>
-												<td class="border-bottom-0">
-													<p class="mb-0 fw-normal">Elite Admin</p>
-												</td>
-												<td class="border-bottom-0">
-													<div class="d-flex align-items-center gap-2">
-														<span class="badge bg-primary rounded-3 fw-semibold">Low</span>
-													</div>
-												</td>
-												<td class="border-bottom-0">
-													<h6 class="fw-semibold mb-0 fs-4">$3.9</h6>
-												</td>
-											</tr>
-											<tr>
-												<td class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">2</h6>
-												</td>
-												<td class="border-bottom-0">
-													<h6 class="fw-semibold mb-1">Andrew McDownland</h6>
-													<span class="fw-normal">Project Manager</span>
-												</td>
-												<td class="border-bottom-0">
-													<p class="mb-0 fw-normal">Real Homes WP Theme</p>
-												</td>
-												<td class="border-bottom-0">
-													<div class="d-flex align-items-center gap-2">
-														<span
-															class="badge bg-secondary rounded-3 fw-semibold">Medium</span>
-													</div>
-												</td>
-												<td class="border-bottom-0">
-													<h6 class="fw-semibold mb-0 fs-4">$24.5k</h6>
-												</td>
-											</tr>
-											<tr>
-												<td class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">3</h6>
-												</td>
-												<td class="border-bottom-0">
-													<h6 class="fw-semibold mb-1">Christopher Jamil</h6>
-													<span class="fw-normal">Project Manager</span>
-												</td>
-												<td class="border-bottom-0">
-													<p class="mb-0 fw-normal">MedicalPro WP Theme</p>
-												</td>
-												<td class="border-bottom-0">
-													<div class="d-flex align-items-center gap-2">
-														<span class="badge bg-danger rounded-3 fw-semibold">High</span>
-													</div>
-												</td>
-												<td class="border-bottom-0">
-													<h6 class="fw-semibold mb-0 fs-4">$12.8k</h6>
-												</td>
-											</tr>
-											<tr>
-												<td class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">4</h6>
-												</td>
-												<td class="border-bottom-0">
-													<h6 class="fw-semibold mb-1">Nirav Joshi</h6>
-													<span class="fw-normal">Frontend Engineer</span>
-												</td>
-												<td class="border-bottom-0">
-													<p class="mb-0 fw-normal">Hosting Press HTML</p>
-												</td>
-												<td class="border-bottom-0">
-													<div class="d-flex align-items-center gap-2">
-														<span
-															class="badge bg-success rounded-3 fw-semibold">Critical</span>
-													</div>
-												</td>
-												<td class="border-bottom-0">
-													<h6 class="fw-semibold mb-0 fs-4">$2.4k</h6>
-												</td>
-											</tr>
+
 										</tbody>
 									</table>
 								</div>
@@ -190,9 +109,9 @@
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h6 class="modal-title" id="scoreModalLabel" style="text-align: center">
+							<h5 class="modal-title" id="scoreModalLabel" style="text-align: center">
 								오늘 경기 정보를 입력해주세요!
-							</h6>
+							</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -228,7 +147,7 @@
 							</div>
 
 							<div class="emoji-container">
-								<span>매너점수 : </span>
+								<span>매너점수 : &nbsp;</span>
 
 								<input type="number" id="mannerPointInput" placeholder="100점 만점입니다"
 									oninput="javascript: if (this.value > 100) this.value = 100;">
@@ -257,9 +176,9 @@
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h6 class="modal-title" id="scoreModalLabel" style="text-align: center">
+							<h5 class="modal-title" id="scoreModalLabel" style="text-align: center">
 								상대팀 매너점수를 입력 해주세요!
-							</h6>
+							</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>

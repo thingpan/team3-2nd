@@ -103,8 +103,9 @@ const getTeamSignUserInfoList = async function(evt, page) {
 			html += `<td>${request.uiName}</td>`;
 			html += `<td>${request.uiAddress}</td>`;
 			html += `<td>${request.uiPhoneNum}</td>`;
-			html += `<td><button class="btn btn-success" onclick="acceptMembership(${request.tsuNum},'${request.uiName}',${request.uiNum})">수락</button></td>`;
-			html += `<td><button class="btn btn-danger" onclick="rejectMembership(${request.tsuNum},'${request.uiName}','${request.uiNum}')">거절</button></td>`;
+			html += `<td><div class="button-group"> <button class="btn btn-success" onclick="acceptMembership(${request.tsuNum},'${request.uiName}',${request.uiNum})">수락</button>
+		 											<button class="btn btn-danger" onclick="rejectMembership(${request.tsuNum},'${request.uiName}','${request.uiNum}')">거절</button>
+					</div></td>`;
 			html += '</tr>';
 		}
 	}
