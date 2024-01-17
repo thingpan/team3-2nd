@@ -57,6 +57,13 @@ public class TeamInfoController {
 		return teamInfoService.selectTeamUserInfo(user.getUiNum());
 
 	}
+	
+	// 팀 정보 수정
+	@PutMapping("/auth/team-infos")
+	public int updateTeamInfo(TeamInfoVO teamInfoVO) {
+		log.info("teamInfo => {}", teamInfoVO);
+		return teamInfoService.updateTeamInfo(teamInfoVO);
+	}
 
 	//////////////////
 
@@ -83,11 +90,4 @@ public class TeamInfoController {
 		return teamInfoService.selectTeamInfosByUiNumAndTaType(taType, user.getUiNum());
 	}
 
-
-	// 팀 정보 수정
-	@PutMapping("/team-info-update")
-	public int updateTeamInfo(TeamInfoVO teamInfoVO) {
-		log.info("teamInfo => {}", teamInfoVO);
-		return teamInfoService.updateTeamInfo(teamInfoVO);
-	}
 }

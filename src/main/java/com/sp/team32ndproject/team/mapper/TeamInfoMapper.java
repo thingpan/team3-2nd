@@ -28,6 +28,6 @@ public interface TeamInfoMapper {
     int updateTeamInfoToHomeMatchResult(TeamInfoVO teamInfoVO);
     int updateTeamInfoToAwayMatchResult(TeamInfoVO teamInfoVO);
 	TeamInfoVO selectTeamByTaNum(int taNum);
-	int updateTeamTaActiveStatusInfo(int taNum);
+	int updateTeamTaActiveStatusInfo(TeamInfoVO teamInfoVO);
 
 }

@@ -190,7 +190,7 @@
 			const result = await res.json();
 			console.log(result);
 			let html;
-			if (result.resultMsg == "0") {
+			if (result.length != 0 ) {
 				html = "<span style='color: red;'>이미 사용 중인 이름입니다.</span>";
 				document.querySelector('#checkTeamName').innerHTML = html;
 				makeBtn = '';
@@ -230,7 +230,7 @@
 					formData.append('taDesc', taDesc);
 					formData.append('taStatus', taStatus);
 
-					const res = await fetch('/team-info-update', {
+					const res = await fetch('/auth/team-infos', {
 						method: 'PUT',
 						body: formData
 					});

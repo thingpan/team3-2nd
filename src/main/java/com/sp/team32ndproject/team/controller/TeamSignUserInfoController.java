@@ -35,13 +35,13 @@ public class TeamSignUserInfoController {
 	}
 	
 	//가입신청 목록 페이징헬퍼를 통해 가져오기
-	@GetMapping("/team-sign-users/helper")
+	@GetMapping("/auth/team-sign-infos/helper")
 	public PageInfo<TeamSignUserInfoVO> selectTeamSignUserInfosWithHelper(TeamSignUserInfoVO teamSignUserInfoVO){
 		return teamSignUserInfoService.selectTeamSignUserInfosWithHelper(teamSignUserInfoVO);
 	}
 	
 	//가입신청 거절 컨트롤러
-	@DeleteMapping("/team-sign-user-delete")
+	@DeleteMapping("/auth/team-sign-infos")
 	public int deleteTeamSignUserInfo(@RequestBody TeamSignUserInfoVO teamSignUserInfoVO) {
 		log.info("teamData => {}",teamSignUserInfoVO);
 		return teamSignUserInfoService.deleteTeamSignUserInfo(teamSignUserInfoVO);

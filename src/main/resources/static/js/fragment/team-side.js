@@ -3,7 +3,7 @@ window.addEventListener('load', async function() {
 	try {
 		const urlParams = new URL(location.href).searchParams;
 		const taNum = urlParams.get('taNum');
-		const res = await fetch(`/get-user-role?taNum=${taNum}`);
+		const res = await fetch(`/auth/team-user-infos/role?taNum=${taNum}`);
 		const userRole = await res.json();
 		console.log('uiRole', userRole);
 		if (userRole && userRole.tuRole === "USER") {

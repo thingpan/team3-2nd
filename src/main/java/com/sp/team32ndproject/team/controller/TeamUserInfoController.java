@@ -30,16 +30,16 @@ public class TeamUserInfoController {
 
 	private final TeamUserInfoService teamUserInfoService;
 
-	// 가입신청 수락 컨트롤러
-	@PostMapping("/team-user-add")
-	public int insertTeamUserInfo(@RequestBody TeamSignUserInfoVO teamSignUserInfoVO) {
-		return teamUserInfoService.insertTeamUserInfoToUser(teamSignUserInfoVO);
-	}
-
 	// 팀원 목록 헬퍼를 통해 가져오기
 	@GetMapping("/auth/team-user-infos/helper")
 	public PageInfo<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO) {
 		return teamUserInfoService.selectTeamUserInfosWithHelper(teamUserInfoVO);
+	}
+
+	// 가입신청 수락 컨트롤러
+	@PostMapping("/auth/team-user-infos")
+	public int insertTeamUserInfo(@RequestBody TeamSignUserInfoVO teamSignUserInfoVO) {
+		return teamUserInfoService.insertTeamUserInfoToUser(teamSignUserInfoVO);
 	}
 
 	@GetMapping("/team-user-infos/{taNum}")
@@ -48,7 +48,7 @@ public class TeamUserInfoController {
 	}
 
 	// 팀원 방출
-	@DeleteMapping("/team-infos")
+	@DeleteMapping("/auth/team-user-infos/admin")
 	public MsgVO deleteTeamUserInfo(@RequestParam int tuNum, @RequestParam int taNum,
 			@AuthenticationPrincipal UserInfoVO user) {
 		log.info("data param=>{}", taNum);
@@ -57,27 +57,24 @@ public class TeamUserInfoController {
 	}
 
 	// 팀 탈퇴
-	@DeleteMapping("/team-user-delete")
+	@DeleteMapping("/auth/team-user-infos")
 	public MsgVO deleteTeamUser(@RequestParam int uiNum, @RequestParam int taNum, @RequestParam String tuRole) {
 		TeamUserInfoVO teamUserInfo = new TeamUserInfoVO();
 		teamUserInfo.setUiNum(uiNum);
 		teamUserInfo.setTaNum(taNum);
 		teamUserInfo.setTuRole(tuRole);
 
-		return teamUserInfoService.deleteTeamUser(taNum,teamUserInfo);
+		return teamUserInfoService.deleteTeamUser(taNum, teamUserInfo);
 	}
 
 	// 팀에 속해있는 내가 유저인지 어드민지 확인
-	@GetMapping("/get-user-role")
-	public TeamUserInfoVO TeamUserRole(@RequestParam int taNum,@AuthenticationPrincipal UserInfoVO user) {
+	@GetMapping("/auth/team-user-infos/role")
+	public TeamUserInfoVO TeamUserRole(@RequestParam int taNum, @AuthenticationPrincipal UserInfoVO user) {
 		TeamUserInfoVO teamUserInfo = new TeamUserInfoVO();
 		teamUserInfo.setUiNum(user.getUiNum());
 		teamUserInfo.setTaNum(taNum);
 
-		return teamUserInfoService.TeamUserRole(teamUserInfo,user);
+		return teamUserInfoService.TeamUserRole(teamUserInfo, user);
 	}
-	
-	
-	
 
 }
