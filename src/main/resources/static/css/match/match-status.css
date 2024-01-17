@@ -195,3 +195,9 @@ span {
     background-color: #FFE6E6;
     color: #FF5C5C;
 }
+
+.custom-status {
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+}

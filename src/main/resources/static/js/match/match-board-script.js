@@ -281,25 +281,21 @@ document.addEventListener('DOMContentLoaded', function () {
                     const statusCell = row.insertCell();
                     const statusBadge = document.createElement('span');
 
-                    // 상태에 따라 스타일을 지정
+                    let status;
+                    let badgeStyle = '';
+
                     if (apiScheduleItem.mbStatus === "0") {
-                        statusBadge.textContent = '신청가능';
-                        statusBadge.style.backgroundColor = '#0066FF';
-                        statusBadge.style.color = '#FFFFFF';
-                        statusBadge.style.padding = window.innerWidth <= 450 ? '8px' : '14px 40px';
-                        statusBadge.style.borderRadius = '18px';
-                        statusBadge.style.fontSize = window.innerWidth <= 500 ? '9px' : '16px';
+                        status = '신청가능';
+                        badgeStyle = 'badge-possible';
                     } else if (apiScheduleItem.mbStatus === "1") {
-                        statusBadge.textContent = '마감';
-                        statusBadge.style.backgroundColor = '#D3D3D3';
-                        statusBadge.style.color = '#8F8F8F';
-                        statusBadge.style.padding = window.innerWidth <= 450 ? '8px 15px' : '14px 55px';
-                        statusBadge.style.borderRadius = '18px';
-                        statusBadge.style.fontSize = window.innerWidth <= 500 ? '9px' : '16px';
+                        status = '마감';
+                        badgeStyle = 'badge-deadline';
                     }
 
-                    statusBadge.style.fontWeight = '500';
+                    statusBadge.textContent = status;
+                    statusBadge.classList.add(badgeStyle);
 
+                    statusBadge.style.fontWeight = '500';
                     statusCell.appendChild(statusBadge);
                 });
             }

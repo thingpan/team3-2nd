@@ -234,7 +234,6 @@ img {
     }
 }
 
-
 .day {
     width: 160px;
     height: 70px;
@@ -314,4 +313,32 @@ img {
 
 .saturday {
     color: blue;
+}
+
+.badge-possible {
+    background-color: #0066FF;
+    color: #fff;
+    font-size: 14px;
+    padding: 14px 40px;
+    border-radius: 18px;
+}
+
+.badge-deadline {
+    background-color: #D3D3D3;
+    color: #8F8F8F;
+    font-size: 14px;
+    padding: 14px 55px;
+    border-radius: 18px;
+}
+
+@media screen and (max-width: 500px) {
+    .badge-possible {
+        padding: 8px;
+        font-size: 10px;
+    }
+
+    .badge-deadline {
+        padding: 8px 15px;
+        font-size: 10px;
+    }
 }
