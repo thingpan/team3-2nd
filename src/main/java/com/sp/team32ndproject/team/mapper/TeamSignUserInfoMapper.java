@@ -11,6 +11,7 @@ import com.sp.team32ndproject.team.vo.TeamSignUserInfoVO;
 public interface TeamSignUserInfoMapper {
 	int insertTeamSignUserInfo(TeamSignUserInfoVO teamSignUserInfoVO);
 	List<TeamSignUserInfoVO> selectTeamSignUserInfosWithHelper(TeamSignUserInfoVO teamSignUserInfoVO);
+	//team-setting.html
 	TeamSignUserInfoVO selectTeamSignUserInfoByUiNumAndTaNum(@Param("uiNum") int uiNum,@Param("taNum") int taNum);
 	int deleteTeamSignUserInfo(TeamSignUserInfoVO teamSignUserInfoVO);
 	int deleteTeamSignUserInfoByUiNum(int uiNum);

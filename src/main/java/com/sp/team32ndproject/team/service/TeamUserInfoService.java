@@ -49,12 +49,12 @@ public class TeamUserInfoService {
 		}
 
 	}
-
+	 //team-members.html
 	public PageInfo<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO) {
 		PageHelper.startPage(teamUserInfoVO.getPage(), teamUserInfoVO.getPageSize());
 		return new PageInfo<>(teamUserInfoMapper.selectTeamUserInfosWithHelper(teamUserInfoVO));
 	}
-
+	//team-members.html
 	public MsgVO deleteTeamUserInfo(int tuNum, int taNum, int uiNum) {
 		MsgVO msgVO = new MsgVO();
 		if (teamInfoMapper.selectAdminByUiNumAndTaNum(uiNum, taNum) != null) {
@@ -140,7 +140,7 @@ public class TeamUserInfoService {
 		}
 
 	}
-
+	//team-members.html
 	public TeamUserInfoVO TeamUserRole(TeamUserInfoVO teamUserInfo, UserInfoVO user) {
 		TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
 		teamUserInfoVO.setUiNum(user.getUiNum());

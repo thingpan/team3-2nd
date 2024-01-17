@@ -77,7 +77,7 @@ public class TeamInfoService {
 
         return 0;
     }
-
+  //team-setting.html
     public int updateTeamInfo(TeamInfoVO teamInfoVO) {
         if (teamInfoVO.getTaFile() != null) {
             MultipartFile file = teamInfoVO.getTaFile();
@@ -120,7 +120,7 @@ public class TeamInfoService {
 	public TeamInfoVO selectAdminByUiNumAndTaNum(int uiNum, int taNum) {
 		return teamInfoMapper.selectAdminByUiNumAndTaNum(uiNum, taNum);
 	}
-
+	//team-setting.html
 	public TeamInfoVO selectTeamInfoByTaNum(int taNum, UserInfoVO user) {
 		TeamInfoVO teamInfoVO = new TeamInfoVO();
 		teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(taNum);
@@ -234,7 +234,7 @@ public class TeamInfoService {
 		}
 		teamInfoMapper.updateTeamInfoToAwayMatchResult(teamInfoVO);
 	}
-
+	//team-ranks.html ,team-setting.html
 	public List<TeamInfoVO> selectTeamRank(TeamInfoVO teamInfoVO) {
 		return teamInfoMapper.selectTeamInfo(teamInfoVO);
 	}

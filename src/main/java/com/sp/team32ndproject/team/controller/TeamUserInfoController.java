@@ -31,7 +31,7 @@ public class TeamUserInfoController {
 	private final TeamUserInfoService teamUserInfoService;
 
 	// 팀원 목록 헬퍼를 통해 가져오기
-	@GetMapping("/auth/team-user-infos/helper")
+	@GetMapping("/auth/team-user-infos/helper") //team-members.html
 	public PageInfo<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO) {
 		return teamUserInfoService.selectTeamUserInfosWithHelper(teamUserInfoVO);
 	}
@@ -48,7 +48,7 @@ public class TeamUserInfoController {
 	}
 
 	// 팀원 방출
-	@DeleteMapping("/auth/team-user-infos/admin")
+	@DeleteMapping("/auth/team-user-infos/admin")//team-members.html
 	public MsgVO deleteTeamUserInfo(@RequestParam int tuNum, @RequestParam int taNum,
 			@AuthenticationPrincipal UserInfoVO user) {
 		log.info("data param=>{}", taNum);
@@ -68,7 +68,7 @@ public class TeamUserInfoController {
 	}
 
 	// 팀에 속해있는 내가 유저인지 어드민지 확인
-	@GetMapping("/auth/team-user-infos/role")
+	@GetMapping("/auth/team-user-infos/role")//team-members.html
 	public TeamUserInfoVO TeamUserRole(@RequestParam int taNum, @AuthenticationPrincipal UserInfoVO user) {
 		TeamUserInfoVO teamUserInfo = new TeamUserInfoVO();
 		teamUserInfo.setUiNum(user.getUiNum());

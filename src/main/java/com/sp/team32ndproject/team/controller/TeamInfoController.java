@@ -36,14 +36,14 @@ public class TeamInfoController {
 		return teamInfoService.insertTeamInfo(team, user);
 	}
 
-	// 팀 랭크
-	@GetMapping("/team-infos")
+	// 팀 랭크 
+	@GetMapping("/team-infos")//team-ranks.html ,team-setting.html
 	public List<TeamInfoVO> selectTeamRank(@ModelAttribute TeamInfoVO teamInfoVO) {
 		return teamInfoService.selectTeamRank(teamInfoVO);
 	}
 
 	// 팀 정보 가져오기
-	@GetMapping("/auth/team-infos/{taNum}")
+	@GetMapping("/auth/team-infos/{taNum}")//team-setting.html
 	public TeamInfoVO selectTeamInfoByTaNum(@PathVariable int taNum, @AuthenticationPrincipal UserInfoVO user) {
 		log.info("taNum =>{}", taNum);
 		return teamInfoService.selectTeamInfoByTaNum(taNum, user);
@@ -63,8 +63,8 @@ public class TeamInfoController {
 		return teamInfoService.selectTeamInfosByUiNum(user.getUiNum());
 	}
 
-	// 팀 정보 수정
-	@PutMapping("/auth/team-infos")
+	// 팀 정보 수정 
+	@PutMapping("/auth/team-infos") //team-setting.html
 	public int updateTeamInfo(TeamInfoVO teamInfoVO) {
 		log.info("teamInfo => {}", teamInfoVO);
 		return teamInfoService.updateTeamInfo(teamInfoVO);

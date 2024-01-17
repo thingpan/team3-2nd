@@ -23,7 +23,7 @@ async function getAjaxList(evt, page) {
     if (!page) {
         page = 1;
     }
-
+	//match
     let url = `/match-result-infos?page=${page}&pageSize=${pageSize}&taHomeNum=${taNum}&taAwayNum=${taNum}`;
     const res = await fetch(url);
     const pageInfos = await res.json();

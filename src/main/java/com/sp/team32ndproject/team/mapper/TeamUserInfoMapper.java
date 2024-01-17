@@ -14,9 +14,9 @@ import com.sp.team32ndproject.user.vo.UserInfoVO;
 @Mapper
 public interface TeamUserInfoMapper {
 	int insertTeamUserInfo(TeamUserInfoVO teamUser);
-
+	 //team-members.html
 	List<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO);
-
+	//team-members.html
 	int deleteTeamUserInfo(int tuNum);
 
 	List<TeamUserInfoVO> selectTeamUsersByTaNum(int taNum);
@@ -28,7 +28,7 @@ public interface TeamUserInfoMapper {
 	TeamUserInfoVO selectTeamUserInfos(TeamUserInfoVO teamUserInfoVO);
 
 	int deleteTeamUser(TeamUserInfoVO teamUserInfo);
-
+	//team-members.html
 	TeamUserInfoVO TeamUserRole(TeamUserInfoVO teamUserInfo);
 
 	List<TeamUserInfoVO> selectTeamByTaNum(int taNum);
