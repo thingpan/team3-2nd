@@ -1,19 +1,3 @@
-let matchData = [];
-let teamInfo;
-let awayTeamName;
-
-
-
-window.addEventListener('scroll', () => {
-	if (window.scrollY > 50) {
-		header.style.opacity = '0';
-		header.style.transform = 'translateY(-100%)';
-	} else {
-		header.style.opacity = '1';
-		header.style.transform = 'translateY(0)';
-	}
-});
-
 //홈 어웨이 셀렉트 박스 값 변할 때 밸류 갑 가져오기
 function getSelectChangeListener(obj) {
 	if (obj.value == 'home') {
