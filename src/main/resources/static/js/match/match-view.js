@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     async function fetchMatchPhotos() {
-        const response = await fetch(`/match-view/${mbNum}`);
+        const response = await fetch(`/auth/match-infos/${mbNum}`);
         const matchPhoto = await response.json();
         console.log("matchPhoto", matchPhoto);
 
@@ -321,7 +321,7 @@ async function matchRequest() {
         if (matchInfo.taNum == selectedTeamNum) {
             alert('같은 팀은 매칭 할 수 없습니다');
         } else {
-            const response = await fetch('/math-deal-infos', {
+            const response = await fetch('/auth/match-deal-infos', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

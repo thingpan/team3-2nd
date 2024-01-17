@@ -19,7 +19,7 @@ async function getAwayAjaxList(evt, page) {
 		page = 1;
 	}
 
-	let url = `/math-deal-away-infos?page=${page}&pageSize=${pageSize}&taNum=${taNum}`;
+	let url = `/auth/math-deal-infos/away?page=${page}&pageSize=${pageSize}&taNum=${taNum}`;
 	const res = await fetch(url);
 	const pageInfos = await res.json();
 	const totalCnt = pageInfos.total;
@@ -92,7 +92,7 @@ async function getHomeAjaxList(evt, page) {
 		page = 1;
 	}
 
-	let url = `/math-deal-home-infos?page=${page}&pageSize=${pageSize}&taNum=${taNum}`;
+	let url = `/auth/match-deal-infos/home?page=${page}&pageSize=${pageSize}&taNum=${taNum}`;
 	const res = await fetch(url);
 	const pageInfos = await res.json();
 	const totalCnt = pageInfos.total;
@@ -181,7 +181,7 @@ async function doMatchDealUpdate(mdNum, mdMatchStatus, mbNum) {
 		mdMatchStatus: mdMatchStatus,
 		mbNum: mbNum
 	}
-	const res = await fetch(`/match-deal-infos`, {
+	const res = await fetch(`/auth/match-deal-infos`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
