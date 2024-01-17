@@ -64,6 +64,7 @@
 		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
 		SELECT * FROM TEAM_USER_INFO
 		WHERE UI_NUM = #{uiNum}
+		AND TU_ROLE = 'ADMIN'
 	</select>
 
 </mapper>

@@ -3,6 +3,7 @@ package com.sp.team32ndproject.team.service;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +17,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.sp.team32ndproject.match.vo.MatchResultVO;
 import com.sp.team32ndproject.team.mapper.TeamInfoMapper;
 import com.sp.team32ndproject.team.mapper.TeamSignUserInfoMapper;
+import com.sp.team32ndproject.team.mapper.TeamUserInfoMapper;
 import com.sp.team32ndproject.team.vo.MsgVO;
 import com.sp.team32ndproject.team.vo.TeamInfoVO;
 import com.sp.team32ndproject.team.vo.TeamUserInfoVO;
@@ -40,6 +42,7 @@ public class TeamInfoService {
 
     private final TeamInfoMapper teamInfoMapper;
     private final TeamUserInfoService teamUserInfoService;
+    private final TeamUserInfoMapper teamUserInfoMapper;
     private final TeamSignUserInfoMapper teamSignUserInfoMapper;
 
     public int insertTeamInfo(TeamInfoVO team, UserInfoVO user) {
@@ -104,7 +107,14 @@ public class TeamInfoService {
 	}
 
 	public List<TeamInfoVO> selectTeamInfosByUiNum(int uiNum) {
-		return teamInfoMapper.selectTeamInfosByUiNum(uiNum);
+		
+		List<TeamInfoVO> teamInfoVOs = new ArrayList<TeamInfoVO>();
+		List<TeamUserInfoVO> teamUserInfoVOs = teamUserInfoMapper.selectTeamUserInfoByUiNum(uiNum);
+		for(TeamUserInfoVO teamUserInfoVO : teamUserInfoVOs) {
+			TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(teamUserInfoVO.getTaNum());
+			teamInfoVOs.add(teamInfoVO);			
+		}
+		return teamInfoVOs;
 	}
 
 	public TeamInfoVO selectAdminByUiNumAndTaNum(int uiNum, int taNum) {
@@ -123,10 +133,16 @@ public class TeamInfoService {
 	}
 
 	public List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(String taType, int uiNum) {
-		TeamInfoVO teamInfoVO = new TeamInfoVO();
-		teamInfoVO.setTaType(taType);
-		teamInfoVO.setUiNum(uiNum);
-		return teamInfoMapper.selectTeamInfosByUiNumAndTaType(teamInfoVO);
+		List<TeamInfoVO> teamInfoVOs = new ArrayList<TeamInfoVO>();
+		List<TeamUserInfoVO> teamUserInfoVOs = teamUserInfoMapper.selectTeamUserInfoByUiNum(uiNum);
+		for(TeamUserInfoVO teamUserInfoVO : teamUserInfoVOs) {
+			TeamInfoVO teamInfoVO = new TeamInfoVO();
+			teamInfoVO.setTaType(taType);
+			teamInfoVO.setTaNum(teamUserInfoVO.getTaNum());
+			teamInfoVOs.add(teamInfoMapper.selectTeamInfoByTaTypeAndTaNum(teamInfoVO));  
+		}
+		
+		return teamInfoVOs;
 	}
 
 	public List<TeamInfoVO> selectTeamRankByTeamType(String taType) {

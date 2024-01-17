@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	let selectedPoint = null;
 
 	async function fetchMatchBoardData() {
-		const res = await fetch(`/match-board`);
+		const res = await fetch(`/match-infos`);
 		matchBoardInfos = await res.json();
 
 		console.log("matchBoardInfos", matchBoardInfos);
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 일정 표시 함수
 	async function showSchedule(date, selectedSport, selectedSido, selectedPoint) {
 		console.log('showSchedule 호출');
-		const res = await fetch(`/match-board`);
+		const res = await fetch(`/match-infos`);
 		const matchBoardInfos = await res.json();
 		const apiScheduleItems = matchBoardInfos.matchBoardList.map(matchBoardList => {
 			return {
@@ -252,107 +252,5 @@ const sportIconsMap = {
 	'야구': '⚾️'
 };
 
-// 현재 날짜의 경기 일정을 표시하는 함수
-async function showSchedule(date) {
-	// 서버에서 matchBoard 데이터 가져오기 중
-	const res = await fetch(`/match-board/1`);
-	const matchBoards = await res.json();
 
-	const filteredMatchBoards = matchBoards.filter(matchBoard => {
-		const boardDate = new Date(matchBoard.mbDate);
-		return boardDate.getFullYear() === date.getFullYear() &&
-			boardDate.getMonth() === date.getMonth() &&
-			boardDate.getDate() === date.getDate();
-	});
-
-
-	const scheduleTable = document.querySelector('#schedule');
-	scheduleTable.innerHTML = '';
-
-	if (filteredMatchBoards.length === 0) {
-		const noScheduleMessage = document.createElement('div');
-		noScheduleMessage.classList.add('schedule-none');
-		noScheduleMessage.textContent = '경기 일정이 없습니다.';
-
-		scheduleTable.appendChild(noScheduleMessage);
-	} else {
-		filteredMatchBoards.forEach(matchBoard => {
-			const apiScheduleItem = {
-				mbNum: matchBoard.mbNum,
-				mbTime: matchBoard.mbTime,
-				mbAddress: matchBoard.mbAddress,
-				mbAddressDetail: matchBoard.mbAddressDetail,
-				mbSido: matchBoard.mbSido,
-				mbDate: new Date(matchBoard.mbDate),
-				mbType: matchBoard.mbType,
-				taMannerPoint: matchBoardList.taMannerPoint,
-				activityStatus: matchBoardList.activityStatus,
-				taPoint: matchBoardList.taPoint
-			};
-
-			scheduleData.forEach((scheduleItem) => {
-				if (scheduleItem.date.toDateString() === date.toDateString()) {
-					const row = scheduleTable.insertRow();
-
-					// 시간과 스포츠 아이콘
-					const timeAndSportIconCell = row.insertCell(0);
-					const sportIcon = getSportIconByType(apiScheduleItem.mbType);
-					timeAndSportIconCell.innerHTML = `${apiScheduleItem.mbTime}${sportIcon}`;
-
-
-					function getSportIconByType() {
-						return sportIconsMap[apiScheduleItem.mbType];
-					}
-
-					function getGenderLabelAndText(gender) {
-						const colors = {
-							남자: '#0066FF',
-							여자: '#FF7474',
-							모두: '#80FF00'
-						};
-						const color = colors[gender];
-
-						return `
-                        <span style="background-color: ${color}; border-radius: 50%; width: 8px; height: 8px; display: inline-block; margin-right: 4px;"></span>
-                        ${gender}
-                    `;
-					}
-
-					// 장소와 성별 표시
-					const locationCell = row.insertCell(1);
-					locationCell.innerHTML = `[${apiScheduleItem.mbSido}]
-                    <a class="match-board-title" style="color: #111; font-weight: 400; text-decoration: none" href="/page/match/match-view?mbNum=${apiScheduleItem.mbNum}">${apiScheduleItem.mbAddressDetail}</a> <br>
-                    <span style="color: gray;">${getGenderLabelAndText(scheduleItem.gender)}</span>
-                    <span style="color: gray;">${scheduleItem.capacity}</span>
-                `;
-
-					// 상태 뱃지 표시
-					const statusCell = row.insertCell(2);
-					const statusBadge = document.createElement('span');
-					statusBadge.textContent = scheduleItem.statusBadge;
-
-					// 상태에 따라 스타일을 지정
-					switch (scheduleItem.statusBadge) {
-						case '마감':
-							statusBadge.style.backgroundColor = '#D3D3D3';
-							statusBadge.style.color = '#8F8F8F';
-							statusBadge.style.padding = '14px 50px';
-							break;
-						case '신청가능':
-							statusBadge.style.backgroundColor = '#0066FF';
-							statusBadge.style.color = '#FFFFFF';
-							statusBadge.style.padding = '14px 37px';
-							break;
-					}
-
-					statusBadge.style.borderRadius = '18px';
-					statusBadge.style.fontSize = '14px';
-					statusBadge.style.fontWeight = '500';
-
-					statusCell.appendChild(statusBadge);
-				}
-			});
-		});
-	}
-}
 

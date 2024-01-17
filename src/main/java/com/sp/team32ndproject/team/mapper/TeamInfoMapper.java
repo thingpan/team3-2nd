@@ -13,6 +13,7 @@ import com.sp.team32ndproject.user.vo.UserInfoVO;
 public interface TeamInfoMapper {
 	int insertTeamInfo(TeamInfoVO team);
 	TeamInfoVO selectTeamInfoByTaName(String taName);
+	TeamInfoVO selectTeamInfoByTaTypeAndTaNum (TeamInfoVO teamInfoVO);
 	////////////////////////////////////////////////////////////
 	
 	TeamInfoVO selectTaTypeMatchBoardInfoByTaNum(int taNum);

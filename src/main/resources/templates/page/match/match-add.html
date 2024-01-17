@@ -105,7 +105,7 @@
 
     async function getTeamInfos() {
 
-        const res = await fetch('/my-team-infos')
+        const res = await fetch('/auth/team-infos/admin')
         teamList = await res.json();
         console.log(teamList);
         //내가 선택한 종목 별로 소속된 팀 보여주기
@@ -287,7 +287,7 @@
         formData.append('mbAddressDetail', mbAddressDetail);
         formData.append('mbSido', mbSido);
         formData.append('mbSigungu', mbSigungu);
-        const res = await fetch('/match-infos', {
+        const res = await fetch('/auth/match-infos', {
             method: 'POST',
             body: formData
         });
