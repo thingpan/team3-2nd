@@ -76,31 +76,32 @@ public class SecurityBeanConfig {
 	@Bean
 	SecurityFilterChain securityTeamPageFilterChain(HttpSecurity hs) throws Exception {
 		hs.authorizeHttpRequests((auth) -> auth
-				.antMatchers("/login", "/user-infos/*", "/page/user/login", "/page/user/join", "/",
-						"/team-infos", "/match-board","/api/login", "/join")
+				.antMatchers("/login", "/user-infos/*", "/page/user/login", "/page/user/join", "/", "/team-infos",
+						"/match-board", "/api/login", "/join")
 				.permitAll()
 				.antMatchers("/page/team/team-settings", "/page/team/team-apply", "/page/match/match-status",
 						"/page/team/record")
 				.access(new TeamParamAuthManager(teamInfoService)).antMatchers("/page/team/**")
 				.access(new TeamInfoAuthManager(teamInfoMapper)).anyRequest().authenticated())
 				.formLogin(formLogin -> formLogin.loginPage("/page/user/login").usernameParameter("uiId")
-						.passwordParameter("uiPwd").loginProcessingUrl("/login").defaultSuccessUrl("/",true)
-						.failureUrl("/page/user/login?errorMsg=Plz check ID or PWD"))
+						.passwordParameter("uiPwd").loginProcessingUrl("/login").defaultSuccessUrl("/", true)
+						.failureUrl(
+								"/page/user/login?errorMsg=%EC%95%84%EC%9D%B4%EB%94%94%20%EB%98%90%EB%8A%94%20%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8%EB%A5%BC%20%ED%99%95%EC%9D%B8%ED%95%B4%EC%A3%BC%EC%84%B8%EC%9A%94."))
 				.logout(logout -> logout.logoutUrl("/auth/logout").logoutSuccessUrl("/page/user/login"));
 		hs.csrf(csrf -> csrf.disable()).exceptionHandling(handling -> handling.accessDeniedPage("/page/denied"))
 				.userDetailsService(userInfoService)
-		.cors(cors->cors.configurationSource(new CorsConfigurationSource(){
-			@Override
-			public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-				CorsConfiguration ccf =new CorsConfiguration();
-				ccf.setAllowedOrigins(List.of("http://localhost:3000","https://matchmeifyoucan.today"));
-				ccf.setAllowedMethods(List.of("POST", "PATCH", "PUT", "GET", "DELETE","OPTIONS"));
-				ccf.setAllowedHeaders(List.of("*"));
-				ccf.setAllowCredentials(true);
-				return ccf;				
-			}
-		}))
-		.addFilterBefore(new CustomAuthorizationFilter(jwtProvider, userInfoService), UsernamePasswordAuthenticationFilter.class);
+				.cors(cors -> cors.configurationSource(new CorsConfigurationSource() {
+					@Override
+					public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+						CorsConfiguration ccf = new CorsConfiguration();
+						ccf.setAllowedOrigins(List.of("http://localhost:3000", "https://matchmeifyoucan.today"));
+						ccf.setAllowedMethods(List.of("POST", "PATCH", "PUT", "GET", "DELETE", "OPTIONS"));
+						ccf.setAllowedHeaders(List.of("*"));
+						ccf.setAllowCredentials(true);
+						return ccf;
+					}
+				})).addFilterBefore(new CustomAuthorizationFilter(jwtProvider, userInfoService),
+						UsernamePasswordAuthenticationFilter.class);
 		return hs.build();
 	}
 }
