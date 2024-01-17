@@ -13,52 +13,6 @@
 		#{taAwayNum}, #{mrRequestStatus})
 	</insert>
 
-
-
-	<select id="selectMatchDealInfosWithHelper"
-		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
-		SELECT MR.*, MD.MD_DATE, MD.MD_TIME, MD.MD_ADDRESS FROM
-		MATCH_RESULT_INFO MR
-		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM =
-		MR.MD_NUM
-		WHERE TA_HOME_NUM = #{taHomeNum}
-		OR TA_AWAY_NUM = #{taAwayNum}
-		ORDER BY
-		MR.MR_REQUEST_STATUS ASC,
-		MD_DATE DESC, MD_TIME DESC 
-	</select>
-
-
-	<select id="selectMatchDealInfosByHomeNumWithHelper"
-		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
-		SELECT MR.*, TA.TA_NAME, MD.MD_DATE, MD.MD_TIME,
-		MD.MD_ADDRESS
-		FROM MATCH_RESULT_INFO MR
-		INNER JOIN TEAM_INFO TA ON
-		TA.TA_NUM = MR.TA_AWAY_NUM
-		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM =
-		MR.MD_NUM
-		WHERE MR.TA_HOME_NUM = #{taHomeNum}
-		ORDER BY
-		MR.MR_REQUEST_STATUS ASC,
-		MD_DATE DESC, MD_TIME DESC
-	</select>
-
-	<select id="selectMatchDealInfosByAwayNumWithHelper"
-		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
-		SELECT MR.*, TA.TA_NAME, MD.MD_DATE, MD.MD_TIME,
-		MD.MD_ADDRESS
-		FROM MATCH_RESULT_INFO MR
-		INNER JOIN TEAM_INFO TA ON
-		TA.TA_NUM = MR.TA_HOME_NUM
-		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM =
-		MR.MD_NUM
-		WHERE MR.TA_AWAY_NUM = #{taAwayNum}
-		ORDER BY
-		MR.MR_REQUEST_STATUS ASC,
-		MD_DATE DESC, MD_TIME DESC
-	</select>
-
 	<update id="updateMatchResultInfoFirst"
 		parameterType="com.sp.team32ndproject.match.vo.MatchResultVO"
 		useGeneratedKeys="true" keyColumn="MR_REQUEST_STATUS,TA_HOME_NUM"
@@ -78,16 +32,70 @@
 				MR_HOME_MANNER_POINT = #{mrHomeMannerPoint},
 			</if>
 			<if test="mrRequestStatus != null and mrRequestStatus != ''">
-				MR_REQUEST_STATUS = #{mrRequestStatus}
+				MR_REQUEST_STATUS = #{mrRequestStatus},
+			</if>
+			<if test="mrHomeResult != null and mrHomeResult != ''">
+				MR_HOME_RESULT = #{mrHomeResult},
+			</if>
+			<if test="mrAwayResult != null and mrAwayResult != ''">
+				MR_AWAY_RESULT = #{mrAwayResult}
 			</if>
 		</set>
 		WHERE MR_NUM = #{mrNum}
 	</update>
 
-	<select id="selectMatchResultInfo"
+
+	<select id="selectMatchResultInfosStay"
 		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
-		SELECT * FROM MATCH_RESULT_INFO
-		WHERE MR_NUM = #{mrNum}
+		SELECT MR.*, TA.TA_NAME, MD.MD_DATE, MD.MD_TIME, MD.MD_ADDRESS
+		FROM
+		MATCH_RESULT_INFO MR
+		INNER JOIN TEAM_INFO TA ON
+		TA.TA_NUM =
+		MR.TA_HOME_NUM
+		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM = MR.MD_NUM
+		<where>
+			<if test="mrSearchType == 'all'">
+				(TA_HOME_NUM = #{taNum}
+				OR TA_AWAY_NUM = #{taNum})
+			</if>
+			<if test="mrSearchType == 'away'">
+				TA_AWAY_NUM = #{taNum}
+			</if>
+			<if test="mrSearchType == 'home'">
+				TA_HOME_NUM = #{taNum}
+			</if>
+			AND NOT MR_REQUEST_STATUS = '3'
+		</where>
+		ORDER BY
+		MD_DATE DESC, MD_TIME DESC
+	</select>
+
+
+	<select id="selectMatchResultInfos" 
+		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
+		SELECT MR.*, TA.TA_NAME, MD.MD_DATE, MD.MD_TIME, MD.MD_ADDRESS
+		FROM
+		MATCH_RESULT_INFO MR
+		INNER JOIN TEAM_INFO TA ON
+		TA.TA_NUM =
+		MR.TA_HOME_NUM
+		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM = MR.MD_NUM
+		<where>
+			<if test="mrSearchType == 'all'">
+				(TA_HOME_NUM = #{taNum}
+				OR TA_AWAY_NUM = #{taNum})
+			</if>
+			<if test="mrSearchType == 'away'">
+				TA_AWAY_NUM = #{taNum}
+			</if>
+			<if test="mrSearchType == 'home'">
+				TA_HOME_NUM = #{taNum}
+			</if>
+			AND MR_REQUEST_STATUS = '3'
+		</where>
+		ORDER BY
+		MD_DATE DESC, MD_TIME DESC
 	</select>
 
 

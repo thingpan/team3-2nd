@@ -44,82 +44,6 @@ public class MatchResultService {
 		return msgVO;
 	}
 
-	public PageInfo<MatchResultVO> selectMatchDealInfosByHomeNumWithHelper(MatchResultVO matchResultVO) {
-		PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
-		List<MatchResultVO> selectHomeResults = matchResultMapper
-				.selectMatchDealInfosByHomeNumWithHelper(matchResultVO);
-
-		for (int i = 0; i < selectHomeResults.size(); i++) {
-			if (selectHomeResults.get(i).getMrRequestStatus().equals("3")) {
-				if (selectHomeResults.get(i).getMrHomeScore() > selectHomeResults.get(i).getMrAwayScore()) {
-					selectHomeResults.get(i).setMrWinLoose("승리");
-				} else if (selectHomeResults.get(i).getMrHomeScore() < selectHomeResults.get(i).getMrAwayScore()) {
-					selectHomeResults.get(i).setMrWinLoose("패배");
-				} else {
-					selectHomeResults.get(i).setMrWinLoose("무승부");
-				}
-			}
-		}
-
-		return new PageInfo<>(selectHomeResults);
-	}
-
-	public PageInfo<MatchResultVO> selectMatchDealInfosByAwayNumWithHelper(MatchResultVO matchResultVO) {
-		PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
-		List<MatchResultVO> selectAwayResults = matchResultMapper
-				.selectMatchDealInfosByAwayNumWithHelper(matchResultVO);
-		for (int i = 0; i < selectAwayResults.size(); i++) {
-			if (selectAwayResults.get(i).getMrRequestStatus().equals("3")) {
-				if (selectAwayResults.get(i).getMrHomeScore() < selectAwayResults.get(i).getMrAwayScore()) {
-					selectAwayResults.get(i).setMrWinLoose("승리");
-				} else if (selectAwayResults.get(i).getMrHomeScore() > selectAwayResults.get(i).getMrAwayScore()) {
-					selectAwayResults.get(i).setMrWinLoose("패배");
-				} else {
-					selectAwayResults.get(i).setMrWinLoose("무승부");
-				}
-			}
-		}
-
-		return new PageInfo<>(selectAwayResults);
-	}
-
-	public PageInfo<MatchResultVO> selectMatchResultInfos(MatchResultVO matchResultVO) {
-		int taNum = matchResultVO.getTaHomeNum();
-		TeamInfoVO teamInfoVO = new TeamInfoVO();
-		PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
-		List<MatchResultVO> allList = matchResultMapper.selectMatchDealInfosWithHelper(matchResultVO);
-
-		for (int i = 0; i < allList.size(); i++) {
-			if (allList.get(i).getTaHomeNum() == taNum) {
-				teamInfoVO = teamInfoMapper.selectTaTypeMatchBoardInfoByTaNum(allList.get(i).getTaAwayNum());
-				allList.get(i).setTaName(teamInfoVO.getTaName());
-				if (allList.get(i).getMrRequestStatus().equals("3")) {
-					if (allList.get(i).getMrHomeScore() > allList.get(i).getMrAwayScore()) {
-						allList.get(i).setMrWinLoose("승리");
-					} else if (allList.get(i).getMrHomeScore() < allList.get(i).getMrAwayScore()) {
-						allList.get(i).setMrWinLoose("패배");
-					} else {
-						allList.get(i).setMrWinLoose("무승부");
-					}
-				}
-
-			} else {
-				teamInfoVO = teamInfoMapper.selectTaTypeMatchBoardInfoByTaNum(allList.get(i).getTaHomeNum());
-				allList.get(i).setTaName(teamInfoVO.getTaName());
-				if (allList.get(i).getMrRequestStatus().equals("3")) {
-					if (allList.get(i).getMrHomeScore() < allList.get(i).getMrAwayScore()) {
-						allList.get(i).setMrWinLoose("승리");
-					} else if (allList.get(i).getMrHomeScore() > allList.get(i).getMrAwayScore()) {
-						allList.get(i).setMrWinLoose("패배");
-					} else {
-						allList.get(i).setMrWinLoose("무승부");
-					}
-				}
-			}
-		}
-		return new PageInfo<>(allList);
-	}
-
 	public MsgVO updateMatchResultInfoFirst(MatchResultVO matchResultVO) {
 		MsgVO msgVO = new MsgVO();
 		if (matchResultMapper.updateMatchResultInfoFirst(matchResultVO) == 1) {
@@ -134,5 +58,16 @@ public class MatchResultService {
 			msgVO.setResultMsg("결과 입력 실패 다시 시도 해주세요");
 		}
 		return msgVO;
+	}
+	
+	public PageInfo<MatchResultVO> selectMatchResultInfosStay(MatchResultVO matchResultVO){
+		PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
+		return new PageInfo<>(matchResultMapper.selectMatchResultInfosStay(matchResultVO));
+	}
+	
+	public PageInfo<MatchResultVO> selectMatchResultInfos(MatchResultVO matchResultVO){
+		PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
+		log.info("Result => {}",matchResultMapper.selectMatchResultInfos(matchResultVO));
+		return new PageInfo<>(matchResultMapper.selectMatchResultInfos(matchResultVO));
 	}
 }
