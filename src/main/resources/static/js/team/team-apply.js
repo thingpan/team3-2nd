@@ -8,7 +8,7 @@ async function acceptMembership(tsuNum, uiName, uiNum) {
 			uiNum: uiNum,
 			taNum: taNum
 		}
-		const res = await fetch('/team-user-add', {
+		const res = await fetch('/auth/team-user-infos', {
 			method: 'POST',
 			body: JSON.stringify(body),
 			headers: {
@@ -34,7 +34,7 @@ async function rejectMembership(tsuNum, uiName) {
 		const body = {
 			tsuNum: tsuNum
 		}
-		const res = await fetch('/team-sign-user-delete', {
+		const res = await fetch('/auth/team-sign-infos', {
 			method: 'DELETE',
 			body: JSON.stringify(body),
 			headers: {
@@ -66,7 +66,7 @@ const getTeamSignUserInfoList = async function(evt, page) {
 	if (!page) {
 		page = 1;
 	}
-	let url = `/team-sign-users/helper?page=${page}&pageSize=${pageSize}&taNum=${taNum}`;
+	let url = `/auth/team-sign-infos/helper?page=${page}&pageSize=${pageSize}&taNum=${taNum}`;
 	const res = await fetch(url);
 	const pageInfos = await res.json();
 	const totalCnt = pageInfos.total;

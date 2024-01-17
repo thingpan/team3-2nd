@@ -99,7 +99,7 @@
 
 			if (confirm(`${uiName}님을 방출 하시겠습니까?`) == true) {
 
-				const res = await fetch(`/team-infos?tuNum=${tuNum}&taNum=${taNum}`, {
+				const res = await fetch(`/auth/team-user-infos/admin?tuNum=${tuNum}&taNum=${taNum}`, {
 					method: 'DELETE'
 				});
 				const result = await res.json();
@@ -115,7 +115,7 @@
 		}
 		async function getSessionUiNum() {
 
-			const res = await fetch('/user-info');
+			const res = await fetch('/auth/user-infos/user');
 			const user = await res.json();
 
 			if (user && user.uiNum) {
@@ -128,7 +128,7 @@
 
 			const uiNum = await getSessionUiNum();
 			try {
-				const res = await fetch(`/get-user-role?uiNum=${uiNum}&taNum=${taNum}`);
+				const res = await fetch(`/auth/team-user-infos/role?uiNum=${uiNum}&taNum=${taNum}`);
 				const userRole = await res.json();
 				return userRole.tuRole;
 			} catch {
@@ -145,7 +145,7 @@
 
 				if (uiNum != null) {
 					if (tuRole != null) {
-						const res = await fetch(`/team-user-delete?uiNum=${uiNum}&taNum=${taNum}&tuRole=${tuRole}`, {
+						const res = await fetch(`/auth/team-user-infos?uiNum=${uiNum}&taNum=${taNum}&tuRole=${tuRole}`, {
 							method: 'DELETE'
 						});
 

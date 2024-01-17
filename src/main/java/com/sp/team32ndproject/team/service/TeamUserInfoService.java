@@ -2,6 +2,7 @@ package com.sp.team32ndproject.team.service;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
@@ -105,7 +106,12 @@ public class TeamUserInfoService {
 			} else if (teamUserInfoVO.size() == 1) {
 				int result = teamUserInfoMapper.deleteTeamUser(teamUserInfo);
 				if (result == 1) {
-					int updateResult = teamInfoMapper.updateTeamTaActiveStatusInfo(taNum);
+					TeamInfoVO teamInfoVO = new TeamInfoVO();
+					String FulltaName = UUID.randomUUID() + "";
+					String taName = FulltaName.substring(0, 5);
+					teamInfoVO.setTaNum(taNum);
+					teamInfoVO.setTaName(taName);
+					int updateResult = teamInfoMapper.updateTeamTaActiveStatusInfo(teamInfoVO);
 					if (updateResult == 1) {
 						List<MatchBoardInfoVO> matchBoardInfoVOs = matchBoardInfoMapper.selectMatchInfosByTaNum(taNum);
 						for (MatchBoardInfoVO matchBoardInfoVO : matchBoardInfoVOs) {
