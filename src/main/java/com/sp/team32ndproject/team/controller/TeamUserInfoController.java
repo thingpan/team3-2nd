@@ -41,8 +41,9 @@ public class TeamUserInfoController {
 	public int insertTeamUserInfo(@RequestBody TeamSignUserInfoVO teamSignUserInfoVO) {
 		return teamUserInfoService.insertTeamUserInfoToUser(teamSignUserInfoVO);
 	}
-
-	@GetMapping("/team-user-infos/{taNum}")
+	
+	
+	@GetMapping("/team-user-infos/{taNum}") //team-profile.js
 	public int getTeamUserInfos(@PathVariable int taNum, @AuthenticationPrincipal UserInfoVO user) {
 		return teamUserInfoService.getTeamUserInfos(taNum, user);
 	}
@@ -68,7 +69,7 @@ public class TeamUserInfoController {
 	}
 
 	// 팀에 속해있는 내가 유저인지 어드민지 확인
-	@GetMapping("/auth/team-user-infos/role")//team-members.html
+	@GetMapping("/auth/team-user-infos/role")//team-members.html //team-side.js
 	public TeamUserInfoVO TeamUserRole(@RequestParam int taNum, @AuthenticationPrincipal UserInfoVO user) {
 		TeamUserInfoVO teamUserInfo = new TeamUserInfoVO();
 		teamUserInfo.setUiNum(user.getUiNum());

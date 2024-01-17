@@ -73,7 +73,8 @@ public class TeamUserInfoService {
 		}
 
 	}
-
+	
+	//team-profile.js
 	public boolean checkTeamUserInfo(int taNum, int uiNum) {
 		List<TeamUserInfoVO> teamUserInfoVOList = teamUserInfoMapper.selectTeamUsersByTaNum(taNum);
 		for (TeamUserInfoVO teamUserInfoVO : teamUserInfoVOList) {
@@ -128,7 +129,8 @@ public class TeamUserInfoService {
 		}
 		return msgVO;
 	}
-
+	
+	//team-profile.js
 	public int getTeamUserInfos(int taNum, UserInfoVO user) {
 		TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
 		teamUserInfoVO.setUiNum(user.getUiNum());
@@ -140,7 +142,7 @@ public class TeamUserInfoService {
 		}
 
 	}
-	//team-members.html
+	//team-members.html //team-side.js
 	public TeamUserInfoVO TeamUserRole(TeamUserInfoVO teamUserInfo, UserInfoVO user) {
 		TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
 		teamUserInfoVO.setUiNum(user.getUiNum());

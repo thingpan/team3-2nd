@@ -27,7 +27,7 @@ public class TeamSignUserInfoController {
 	private final TeamSignUserInfoService teamSignUserInfoService;
 	
 	//가입신청 인서트 컨트롤러
-	@PostMapping("/auth/team-sign-infos")
+	@PostMapping("/auth/team-sign-infos") //team-profile.js
 	public MsgVO insertTeamSignUserInfo(@RequestBody TeamInfoVO team, @AuthenticationPrincipal UserInfoVO user) {
 		log.info("team=>{}", team); 
 		log.info("user=>{}", user);

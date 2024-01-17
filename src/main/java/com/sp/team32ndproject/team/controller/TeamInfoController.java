@@ -43,7 +43,7 @@ public class TeamInfoController {
 	}
 
 	// 팀 정보 가져오기
-	@GetMapping("/auth/team-infos/{taNum}")//team-setting.html
+	@GetMapping("/auth/team-infos/{taNum}")//team-setting.html //team-profile.js
 	public TeamInfoVO selectTeamInfoByTaNum(@PathVariable int taNum, @AuthenticationPrincipal UserInfoVO user) {
 		log.info("taNum =>{}", taNum);
 		return teamInfoService.selectTeamInfoByTaNum(taNum, user);

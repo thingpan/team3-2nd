@@ -120,7 +120,8 @@ public class TeamInfoService {
 	public TeamInfoVO selectAdminByUiNumAndTaNum(int uiNum, int taNum) {
 		return teamInfoMapper.selectAdminByUiNumAndTaNum(uiNum, taNum);
 	}
-	//team-setting.html
+	
+	//team-setting.html //team-profile.js
 	public TeamInfoVO selectTeamInfoByTaNum(int taNum, UserInfoVO user) {
 		TeamInfoVO teamInfoVO = new TeamInfoVO();
 		teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(taNum);

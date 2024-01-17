@@ -21,9 +21,11 @@ public interface TeamInfoMapper {
 	//team-ranks.html ,team-setting.html
 	List<TeamInfoVO> selectTeamInfo(TeamInfoVO teamInfoVO);
 	List<TeamInfoVO> selectTeamInfosByUiNum(int uiNum);
+	
 	//team-members.html
 	TeamInfoVO selectAdminByUiNumAndTaNum(@Param("uiNum") int uiNum,@Param("taNum") int taNum);
-	//team-setting.html
+	
+	//team-setting.html //team-profile.js
 	TeamInfoVO selectTeamInfoByTaNum(int taNum);
 	List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(TeamInfoVO teamInfoVO);
 	List<TeamInfoVO> selectTeamRankByTeamType(TeamInfoVO teamInfoVO);

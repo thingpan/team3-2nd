@@ -86,6 +86,8 @@
 
 	</select>
 	
+	
+	<!--team-profile.js  -->
 	<select id="selectTeamInfoByTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO

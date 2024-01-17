@@ -29,6 +29,8 @@
 		ORDER BY TU_NUM
 
 	</select>
+	
+	<!--team-profile.js  -->
 	<select id="selectTeamUsersByTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
 		SELECT UI_NUM FROM TEAM_USER_INFO
@@ -51,6 +53,8 @@
 		TA_NUM = #{taNum};
 
 	</delete>
+	
+	<!--//team-profile.js //team-side.js-->
 	<select id="TeamUserRole"
 		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO"
 		>

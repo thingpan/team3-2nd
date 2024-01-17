@@ -18,7 +18,8 @@ public interface TeamUserInfoMapper {
 	List<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO);
 	//team-members.html
 	int deleteTeamUserInfo(int tuNum);
-
+	
+	//team-profile.js
 	List<TeamUserInfoVO> selectTeamUsersByTaNum(int taNum);
 
 	int updateTeamUserInfos(int tuNum);
@@ -28,7 +29,8 @@ public interface TeamUserInfoMapper {
 	TeamUserInfoVO selectTeamUserInfos(TeamUserInfoVO teamUserInfoVO);
 
 	int deleteTeamUser(TeamUserInfoVO teamUserInfo);
-	//team-members.html
+	
+	//team-members.html //team-profile.js //team-side.js
 	TeamUserInfoVO TeamUserRole(TeamUserInfoVO teamUserInfo);
 
 	List<TeamUserInfoVO> selectTeamByTaNum(int taNum);

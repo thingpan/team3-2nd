@@ -28,6 +28,7 @@ public class TeamSignUserInfoService {
 	private final TeamInfoMapper teamInfoMapper;
 	private final TeamUserInfoService teamUserInfoService;
 	
+	//team-profile.js
 	public MsgVO insertTeamSignUserInfo(TeamInfoVO teamInfoVO, UserInfoVO user) {
 		MsgVO msgVO = new MsgVO();
 		if (teamUserInfoService.checkTeamUserInfo(teamInfoVO.getTaNum(), user.getUiNum())) {
