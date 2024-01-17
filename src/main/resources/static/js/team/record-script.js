@@ -84,7 +84,7 @@ async function getAjaxList(evt, page) {
                     html += `</td>`
                     html += `<td class="border-bottom-0">`
                     html += `
-							 <span style="cursor: pointer" class="badge bg-primary rounded-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">경기종료</span>
+							 <span style="cursor: pointer" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">경기종료</span>
 							 `
                     html += `</td>`
                     html += `</tr>`

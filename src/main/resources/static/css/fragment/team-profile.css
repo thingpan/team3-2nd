@@ -50,6 +50,17 @@
 	border-radius: 8px;
 }
 
+.hoverable-row {
+	cursor: pointer;
+	/* 손가락 모양의 커서로 변경하여 클릭 가능한 것임을 나타냄 */
+}
+
+/* hover 시 적용되는 스타일 */
+.hoverable-row:hover {
+	background-color: #f0f0f0;
+	/* 원하는 배경색으로 변경할 수 있음 */
+}
+
 @media screen and (max-width: 768px) {
 	#score-value {
 		font-size: 14px;
