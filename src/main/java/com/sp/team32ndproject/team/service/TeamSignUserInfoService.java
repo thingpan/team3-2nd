@@ -54,12 +54,12 @@ public class TeamSignUserInfoService {
 			}
 		}
 	}
-
+	//teamapply.js
 	public PageInfo<TeamSignUserInfoVO> selectTeamSignUserInfosWithHelper(TeamSignUserInfoVO teamSignUserInfoVO){
 		PageHelper.startPage(teamSignUserInfoVO.getPage(),teamSignUserInfoVO.getPageSize());
 		return new PageInfo<>(teamSignUserInfoMapper.selectTeamSignUserInfosWithHelper(teamSignUserInfoVO));
 	}
-	
+	//team-apply.js
 	public int deleteTeamSignUserInfo(TeamSignUserInfoVO teamSignUserInfoVO) {
 		return teamSignUserInfoMapper.deleteTeamSignUserInfo(teamSignUserInfoVO);
 	}
