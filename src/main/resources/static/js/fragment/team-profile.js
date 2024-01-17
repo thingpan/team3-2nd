@@ -72,7 +72,7 @@ async function getTeamInfo1() {
 	if (teamInfo.taSignStatus == 1) {
 		document.querySelector('#teamSignBtn').innerHTML = '<h5 id="team-sign-stay-h" class="fw-semibold mb-0">가입신청 대기중</h6>'
 	} else if (teamInfo.taSignStatus == 0) {
-		document.querySelector('#teamSignBtn').innerHTML = '<button class="btn btn-primary m-1" onclick="doSendObj()">가입신청</button>'
+		document.querySelector('#teamSignBtn').innerHTML = '<button class="btn btn-primary" onclick="doSendObj()">가입신청</button>'
 		if (result == 0) {
 			document.querySelector('#teamSignBtn').innerHTML = '';
 		}
@@ -89,7 +89,7 @@ function handleImageError() {
 }
 
 async function doSendObj() {
-	//타임리프 안돼서 일단 ㅠㅠ 
+	//타임리프 안돼서 일단 ㅠㅠ
 	const obj = {
 		taNum: ftaNum
 	}

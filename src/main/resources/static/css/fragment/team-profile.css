@@ -48,3 +48,9 @@
 	padding: 6px 14px;
 	border-radius: 8px;
 }
+
+@media screen and (max-width: 768px) {
+	#score-value {
+		font-size: 14px;
+	}
+}
