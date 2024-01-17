@@ -105,10 +105,10 @@ public class TeamUserInfoService {
 			} else if (teamUserInfoVO.size() == 1) {
 				int result = teamUserInfoMapper.deleteTeamUser(teamUserInfo);
 				if (result == 1) {
-					int updateResult =teamInfoMapper.updateTeamTaActiveStatusInfo(taNum);
-					if(updateResult == 1) {
+					int updateResult = teamInfoMapper.updateTeamTaActiveStatusInfo(taNum);
+					if (updateResult == 1) {
 						List<MatchBoardInfoVO> matchBoardInfoVOs = matchBoardInfoMapper.selectMatchInfosByTaNum(taNum);
-						for(MatchBoardInfoVO matchBoardInfoVO : matchBoardInfoVOs) {
+						for (MatchBoardInfoVO matchBoardInfoVO : matchBoardInfoVOs) {
 							matchBoardInfoMapper.deleteMatchBoardInfoActivityStatus(matchBoardInfoVO);
 						}
 					}
@@ -124,25 +124,24 @@ public class TeamUserInfoService {
 	}
 
 	public TeamUserInfoVO TeamUserRole(TeamUserInfoVO teamUserInfo, UserInfoVO user) {
-	    TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
-	    teamUserInfoVO.setUiNum(user.getUiNum());
-	    teamUserInfoVO.setTaNum(teamUserInfo.getTaNum());
+		TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
+		teamUserInfoVO.setUiNum(user.getUiNum());
+		teamUserInfoVO.setTaNum(teamUserInfo.getTaNum());
 
-	    TeamUserInfoVO tuRole = teamUserInfoMapper.TeamUserRole(teamUserInfoVO, user);
+		TeamUserInfoVO tuRole = teamUserInfoMapper.TeamUserRole(teamUserInfoVO);
 
-	    if ("ADMIN".equals(tuRole)) {
-	        teamUserInfoVO.setTuRole("ADMIN");
-	    } else if ("USER".equals(tuRole)) {
-	        teamUserInfoVO.setTuRole("USER");
-	    }
-
-	    return teamUserInfoVO;
+		try {
+			if (tuRole.getTuRole() != null) {
+				if ("ADMIN".equals(tuRole.getTuRole())) {
+					teamUserInfoVO.setTuRole("ADMIN");
+				} else if ("USER".equals(tuRole.getTuRole())) {
+					teamUserInfoVO.setTuRole("USER");
+				}
+			}
+		} catch (NullPointerException e) {
+			teamUserInfoVO.setTuRole("USER");
+		}
+		return teamUserInfoVO;
 	}
-
-
-
-
-
-
 
 }

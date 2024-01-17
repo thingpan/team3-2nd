@@ -29,7 +29,7 @@ public interface TeamUserInfoMapper {
 
 	int deleteTeamUser(TeamUserInfoVO teamUserInfo);
 
-	TeamUserInfoVO TeamUserRole(TeamUserInfoVO teamUserInfo,@AuthenticationPrincipal UserInfoVO user);
+	TeamUserInfoVO TeamUserRole(TeamUserInfoVO teamUserInfo);
 
 	List<TeamUserInfoVO> selectTeamByTaNum(int taNum);
 	
