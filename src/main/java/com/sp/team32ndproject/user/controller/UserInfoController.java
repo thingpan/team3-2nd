@@ -29,20 +29,20 @@ public class UserInfoController {
 	private final UserInfoService userInfoService;
 	
 	//폼태그 post 회원가입
-	@PostMapping("/join")
+	@PostMapping("/join") //join.html
 	public int insertUserInfo(@RequestBody UserInfoVO user) {
 		log.info("user => {}", user);
 		return userInfoService.insertUserInfo(user); 
 	}
 	
-	//회원가입시 입력한 아이디가 중복되는지 확인
-	@GetMapping("/user-infos/{uiId}")
+	//회원가입시 입력한 아이디가 중복되는지 확인 
+	@GetMapping("/user-infos/{uiId}") //join.html
 	public MsgVO doCheckUiId(@PathVariable String uiId) {
 		return userInfoService.doCheckUiId(uiId);
 	}
 	
 	//uiNum으로 유저 정보 가져오기
-	@GetMapping("/auth/user-infos/user")
+	@GetMapping("/auth/user-infos/user") 
 	public UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
 		log.info("user=>{}", user);
 		return userInfoService.selectUserInfoByUiNum(user);

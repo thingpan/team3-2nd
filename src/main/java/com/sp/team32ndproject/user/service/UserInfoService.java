@@ -46,12 +46,12 @@ public class UserInfoService implements UserDetailsService {
 		}
 		return user;
 	}
-
+	//join.html
 	public int insertUserInfo(UserInfoVO user) {
 		user.setUiPwd(passwordEncoder.encode(user.getPassword()));
 		return userInfoMapper.insertUserInfo(user);
 	}
-
+		//join.html
 	public MsgVO doCheckUiId(String uiId) {
 		MsgVO msgVO = new MsgVO();
 		if (userInfoMapper.selectUserInfoByUiId(uiId) != null) {

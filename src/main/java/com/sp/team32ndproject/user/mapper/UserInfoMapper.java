@@ -6,9 +6,9 @@ import com.sp.team32ndproject.user.vo.UserInfoVO;
 
 @Mapper
 public interface UserInfoMapper {
-	
+	//join.html
 	UserInfoVO selectUserInfoByUiId(String uiId);
-
+	//join.html
 	int insertUserInfo(UserInfoVO user);
 
 	int updateUserInfos(UserInfoVO user);
