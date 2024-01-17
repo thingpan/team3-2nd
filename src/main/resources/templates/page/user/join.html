@@ -129,20 +129,29 @@
 
 		async function checkId() {
 			const uiId = document.querySelector('#uiId').value;
-			const IdRegex = /^(?=.{8,})/;
-			// 서버로 아이디 중복 확인 요청
-			const res = await fetch(`/user-infos/${uiId}`);
 
+			if (uiId != null && uiId != '') {
+				// 서버로 아이디 중복 확인 요청
+				const res = await fetch(`/user-infos/${uiId}`);
 
-			const result = await res.json();
-			if (result.resultMsg == 1) {
-				document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>이미 사용 중인 아이디입니다.</span>";
-				isIdChecked = false;
+				const result = await res.json();
+				if (result.resultMsg == 1) {
+					document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>이미 사용 중인 아이디입니다.</span>";
+					isIdChecked = false;
+				}else {
+					console.log(res);
+					document.querySelector('#errorUiId').innerHTML = "<span style='color: green;'>사용 가능한 아이디입니다.</span>";
+					isIdChecked = true;
+				}
 			} else {
-				console.log(res);
-				document.querySelector('#errorUiId').innerHTML = "<span style='color: green;'>사용 가능한 아이디입니다.</span>";
-				isIdChecked = true;
+				document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>아이디를 입력해주세요</span>";
+				isIdChecked = false;
 			}
+
+
+
+
+
 		}
 
 		async function join() {

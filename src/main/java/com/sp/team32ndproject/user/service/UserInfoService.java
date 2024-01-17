@@ -56,7 +56,7 @@ public class UserInfoService implements UserDetailsService {
 		MsgVO msgVO = new MsgVO();
 		if (userInfoMapper.selectUserInfoByUiId(uiId) != null) {
 			msgVO.setResultMsg("1");
-		} else {
+		}else {
 			msgVO.setResultMsg("0");
 		}
 		return msgVO;
