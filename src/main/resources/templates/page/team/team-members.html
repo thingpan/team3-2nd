@@ -128,7 +128,7 @@
 
 			const uiNum = await getSessionUiNum();
 			try {
-				const res = await fetch(`/get-user-role?uiNum=${uiNum}&taNum=${taNum}`);
+				const res = await fetch(`/auth/team-user-infos/role?uiNum=${uiNum}&taNum=${taNum}`);
 				const userRole = await res.json();
 				return userRole.tuRole;
 			} catch {
