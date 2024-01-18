@@ -46,18 +46,38 @@ public class MatchResultService {
 
 	public MsgVO updateMatchResultInfoFirst(MatchResultVO matchResultVO) {
 		MsgVO msgVO = new MsgVO();
-		if (matchResultMapper.updateMatchResultInfoFirst(matchResultVO) == 1) {
-			if (matchResultVO.getMrRequestStatus().equals("3")) {
-				log.info("matchBoardInfo => {}", matchResultMapper.selectMatchResultInfo(matchResultVO));
-				matchResultVO = matchResultMapper.selectMatchResultInfo(matchResultVO);
-				teamInfoService.doUpdateHomeMatchResult(matchResultVO);
-				teamInfoService.doUpdateAwayMatchResult(matchResultVO);
+		if(matchResultVO.getMrRequestStatus().equals("1")){
+			if(matchResultVO.getMrHomeScore()>matchResultVO.getMrAwayScore()) {
+				matchResultVO.setMrHomeResult("w");
+				matchResultVO.setMrAwayResult("l");
+			}else if(matchResultVO.getMrHomeScore()<matchResultVO.getMrAwayScore()) {
+				matchResultVO.setMrHomeResult("l");
+				matchResultVO.setMrAwayResult("w");
+			}else {
+				matchResultVO.setMrHomeResult("d");
+				matchResultVO.setMrAwayResult("d");
 			}
-			msgVO.setResultMsg("결과 입력 완료");
-		} else {
-			msgVO.setResultMsg("결과 입력 실패 다시 시도 해주세요");
 		}
-		return msgVO;
+		try {
+			matchResultMapper.updateMatchResultInfo(matchResultVO);
+			msgVO.setResultMsg("결과 입력 완료");
+			return msgVO;
+		}catch (Exception e) {
+			msgVO.setResultMsg("결과 입력 실패 다시 시도 해주세요");
+			return msgVO;
+		}
+//		if (matchResultMapper.updateMatchResultInfoFirst(matchResultVO) == 1) {
+//			if (matchResultVO.getMrRequestStatus().equals("3")) {
+//				log.info("matchBoardInfo => {}", matchResultMapper.selectMatchResultInfo(matchResultVO));
+//				matchResultVO = matchResultMapper.selectMatchResultInfo(matchResultVO);
+//				teamInfoService.doUpdateHomeMatchResult(matchResultVO);
+//				teamInfoService.doUpdateAwayMatchResult(matchResultVO);
+//			}
+//			msgVO.setResultMsg("결과 입력 완료");
+//		} else {
+//			msgVO.setResultMsg("결과 입력 실패 다시 시도 해주세요");
+//		}
+//		return msgVO;
 	}
 	
 	public PageInfo<MatchResultVO> selectMatchResultInfosStay(MatchResultVO matchResultVO){

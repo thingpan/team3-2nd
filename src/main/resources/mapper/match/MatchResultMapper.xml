@@ -13,7 +13,7 @@
 		#{taAwayNum}, #{mrRequestStatus})
 	</insert>
 
-	<update id="updateMatchResultInfoFirst"
+	<update id="updateMatchResultInfo" 
 		parameterType="com.sp.team32ndproject.match.vo.MatchResultVO"
 		useGeneratedKeys="true" keyColumn="MR_REQUEST_STATUS,TA_HOME_NUM"
 		keyProperty="mrRequestStatus,taHomeNum">
