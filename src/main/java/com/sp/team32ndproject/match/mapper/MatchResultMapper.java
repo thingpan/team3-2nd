@@ -11,12 +11,14 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MatchResultMapper {
     int insertMatchResult(MatchResultVO matchResultVO);
     //결과 업데이트
-    int updateMatchResultInfoFirst (MatchResultVO matchResultVO);
+    int updateMatchResultInfo(MatchResultVO matchResultVO);
     //단일조회
     MatchResultVO selectMatchResultInfo(MatchResultVO matchResultVO);
     
     List<MatchResultVO> selectMatchResultInfosStay(MatchResultVO matchResultVO);
     
     List<MatchResultVO> selectMatchResultInfos(MatchResultVO matchResultVO);
+    
+    
 }
 

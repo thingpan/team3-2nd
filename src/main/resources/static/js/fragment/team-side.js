@@ -16,7 +16,7 @@ window.addEventListener('load', async function() {
 		} else if (userRole && userRole.tuRole === "ADMIN") {
 			return userRole.tuRole
 		}
-		else if (userRole === null) {
+		else if (userRole && userRole.tuRole  === null) {
 			document.querySelector('#applyBar').style.display = 'none';
 			document.querySelector('#recordBar').style.display = 'none';
 			document.querySelector('#matchStatusBar').style.display = 'none';

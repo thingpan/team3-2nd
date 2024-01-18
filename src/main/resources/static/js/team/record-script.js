@@ -13,6 +13,7 @@ async function get*/
 
 let matchData;
 let mrNum;
+let mrRequestStatus;
 const urlParams = new URLSearchParams(window.location.search);
 const taNum = urlParams.get('taNum');
 
@@ -107,7 +108,7 @@ async function getAjaxListStay(evt, page, mrSearchType) {
 					html += `</td>`
 					html += `<td class="border-bottom-0">`
 					html += `
-							 <span style="cursor: pointer" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">경기종료</span>
+							 <span style="cursor: pointer" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNumAndMrRequestStatus(${matchStatus.mrNum}, 1)">경기종료</span>
 							 `
 					html += `</td>`
 					html += `</tr>`
@@ -155,7 +156,7 @@ async function getAjaxListStay(evt, page, mrSearchType) {
 					html += `</td>`
 					html += `<td class="border-bottom-0">`
 					html += `
-							 <span class="badge bg-primary rounded-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNum(${matchStatus.mrNum})">거절(다시입력)</span>
+							 <span style="cursor: pointer" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNumAndMrRequestStatus(${matchStatus.mrNum},1)">거절(다시입력)</span>
 							 `
 					html += `</td>`
 					html += `</tr>`
@@ -208,8 +209,8 @@ async function getAjaxListStay(evt, page, mrSearchType) {
 					html += `</td>`
 					html += `<td class="border-bottom-0">`
 					html += `<div>
-							 <button class="btn btn-secondary m-1" id="accept-button" data-bs-toggle="modal" data-bs-target="#mannerModal" onclick="saveMrNum(${matchStatus.mrNum})">수락</button>
-							 <button class="btn btn-danger m-1" onclick="saveMrNum(${matchStatus.mrNum},1)">거절</button>
+							 <button class="btn btn-secondary m-1" id="accept-button" data-bs-toggle="modal" data-bs-target="#mannerModal" onclick="saveMrNumAndMrRequestStatus(${matchStatus.mrNum},3)">수락</button>
+							 <button class="btn btn-danger m-1" onclick="saveMrNumAndMrRequestStatus(${matchStatus.mrNum},2,1)">거절</button>
 							 </div>`
 					html += `</td>`
 					html += `</tr>`
@@ -373,12 +374,13 @@ async function getAjaxList(evt, page, mrSearchType) {
 }
 
 
-function saveMrNum(mrNum, check) {
+function saveMrNumAndMrRequestStatus(mrNum, mrRequestStatus, check) {
 	this.mrNum = mrNum;
-	console.log(mrNum);
-	if (check != null || check != undefined) {
-		updateMatchResultCancle();
+	this.mrRequestStatus = mrRequestStatus;
+	if(check){
+		updateFirstMatchResult();
 	}
+	console.log(mrNum);
 }
 
 async function updateMatchResultCancle() {
@@ -433,14 +435,18 @@ async function updateFirstMatchResult() {
 	let homeScore = document.querySelector('#homeScoreInput').value;
 	let awayScore = document.querySelector('#awayScoreInput').value;
 	let awayMannerPoint = document.querySelector('#mannerPointInput').value;
+	let homeMannerPoint = document.querySelector('#mannerPointInput2').value;
 	let mrNum = this.mrNum;
+	let mrRequestStatus = this.mrRequestStatus;
 
 	const body = {
 		mrNum: mrNum,
 		mrHomeScore: homeScore,
 		mrAwayScore: awayScore,
 		mrAwayMannerPoint: awayMannerPoint,
-		mrRequestStatus: '1'
+		mrHomeMannerPoint: homeMannerPoint,
+		mrRequestStatus: mrRequestStatus
+	
 	};
 	const res = await fetch(`/match-result-infos`, {
 		method: 'PATCH',
@@ -451,7 +457,6 @@ async function updateFirstMatchResult() {
 	});
 	const result = await res.json();
 	alert(result.resultMsg)
-	getHomeAjaxList();
 
 	$('#scoreModal').modal('hide').data('bs.modal', null);
 }
