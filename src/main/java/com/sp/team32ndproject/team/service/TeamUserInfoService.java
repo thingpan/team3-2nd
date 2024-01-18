@@ -160,7 +160,7 @@ public class TeamUserInfoService {
 				}
 			}
 		} catch (NullPointerException e) {
-			teamUserInfoVO.setTuRole("USER");
+			teamUserInfoVO.setTuRole(null);
 		}
 		return teamUserInfoVO;
 	}

@@ -80,7 +80,8 @@
 									</ul>
 								</nav>
 							</div>
-							<button onclick="teamLeave()" class="btn btn-dark">팀 탈퇴</button>
+							<button onclick="teamLeave()" style="display:none ;" id="teamLeave" class="btn btn-dark">팀
+								탈퇴</button>
 						</div>
 					</div>
 				</div>
@@ -135,6 +136,7 @@
 				return 'user';
 			}
 		}
+
 
 
 
@@ -219,11 +221,17 @@
 					if (role == '팀원') {
 						html += `<button class="btn btn-dark" id='shut'onclick="doRelease(${user.tuNum},'${user.uiName}')")>방출</button>`;
 					}
+					document.querySelector('#teamLeave').style.display = 'block';
 				}
+				if (uiRole == 'USER') {
+					document.querySelector('#teamLeave').style.display = 'block';
+				}
+				
 				html += `</td>`;
 				html += '</tr>';
 			}
 			document.querySelector('#team-user-list-info').innerHTML = html;
+
 		}
 
 		window.addEventListener('load', getTeamUserInfoList);
