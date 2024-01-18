@@ -5,7 +5,7 @@
 async function getTeamMatchList(evt, page) {
 	const urlParams = new URLSearchParams(window.location.search);
 	const taNum = urlParams.get('taNum');
-	
+
 	if (!page) {
 		page = 1;
 	}
@@ -40,27 +40,30 @@ async function getTeamMatchList(evt, page) {
 	}
 	document.querySelector('#pageDiv').innerHTML = pageHtml;
 	let html = '';
-	for (let matchinfo of pageInfos.list) {
-		if (matchinfo.activityStatus != '1') {
-			let mbCredat = matchinfo.mbCredat;
-			var mbCredatParsing = [mbCredat.slice(0, 4), "-", mbCredat.slice(4, 6), "-", mbCredat.slice(6, 8)].join('')
+	if (pageInfos.list.length == 0) {
+		html += '<tr><td colspan="5" style="text-align:center;">비어있는 리스트 입니다.</td></tr>';
+	} else {
+		for (let matchinfo of pageInfos.list) {
+			if (matchinfo.activityStatus != '1') {
+				let mbCredat = matchinfo.mbCredat;
+				var mbCredatParsing = [mbCredat.slice(0, 4), "-", mbCredat.slice(4, 6), "-", mbCredat.slice(6, 8)].join('')
 
-			html += `<tr class="hoverable-row" onclick="doGoMatchViewPage(${matchinfo.mbNum})">`;
-			html += `<td><h6 class="fw-semibold mb-0">${matchinfo.mbAddressDetail}</h6></td>`;
-			html += `<td><h6 class="fw-semibold mb-0">${matchinfo.mbDate} | ${matchinfo.mbTime}</h6></td>`;
-			html += `<td><h6 class="fw-semibold mb-0">${mbCredatParsing}</h6></td>`;
-			html += `<td><h6 class="fw-semibold mb-0">${matchinfo.mbAddress}</h6></td>`;
-			if (matchinfo.mbStatus == 1) {
-				html += `<td><span class="badge bg-danger rounded-3 fw-semibold">신청마감</span></td>`;
-			} else {
-				html += `<td><span class="badge bg-primary rounded-3 fw-semibold" style="margin-left: 1vh;">모집중</span></td>`;
+				html += `<tr class="hoverable-row" onclick="doGoMatchViewPage(${matchinfo.mbNum})">`;
+				html += `<td><h6 class="fw-semibold mb-0">${matchinfo.mbAddressDetail}</h6></td>`;
+				html += `<td><h6 class="fw-semibold mb-0">${matchinfo.mbDate} | ${matchinfo.mbTime}</h6></td>`;
+				html += `<td><h6 class="fw-semibold mb-0">${mbCredatParsing}</h6></td>`;
+				html += `<td><h6 class="fw-semibold mb-0">${matchinfo.mbAddress}</h6></td>`;
+				if (matchinfo.mbStatus == 1) {
+					html += `<td><span class="badge bg-danger rounded-3 fw-semibold">신청마감</span></td>`;
+				} else {
+					html += `<td><span class="badge bg-primary rounded-3 fw-semibold" style="margin-left: 1vh;">모집중</span></td>`;
+				}
+
+				html += '</tr>';
 			}
-
-			html += '</tr>';
 		}
 	}
 	document.querySelector('#team-user-list-info').innerHTML = html;
-
 }
 
 function doGoMatchViewPage(mbNum) {
