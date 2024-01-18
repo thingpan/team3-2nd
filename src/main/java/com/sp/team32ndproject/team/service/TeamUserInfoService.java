@@ -33,6 +33,7 @@ public class TeamUserInfoService {
 	private final MatchBoardInfoMapper matchBoardInfoMapper;
 
 	// 팀 만들때
+	//mypage.html
 	public int insertTeamUserInfo(TeamUserInfoVO teamUserInfoVO) {
 		return teamUserInfoMapper.insertTeamUserInfo(teamUserInfoVO);
 	}

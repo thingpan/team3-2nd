@@ -51,7 +51,7 @@ public class UserInfoService implements UserDetailsService {
 		user.setUiPwd(passwordEncoder.encode(user.getPassword()));
 		return userInfoMapper.insertUserInfo(user);
 	}
-		//join.html
+	//join.html
 	public MsgVO doCheckUiId(String uiId) {
 		MsgVO msgVO = new MsgVO();
 		if (userInfoMapper.selectUserInfoByUiId(uiId) != null) {
@@ -61,11 +61,11 @@ public class UserInfoService implements UserDetailsService {
 		}
 		return msgVO;
 	}
-
+	//mypage.html
 	public UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
 		return userInfoMapper.selectUserInfoByUiNum(user);
 	}
-
+	//mypage.html
 	public boolean checkPassword(String uiId, Map<String, String> password) {
 		UserInfoVO user = userInfoMapper.selectUserInfoByUiId(uiId);
 		if (passwordEncoder.matches(password.get("password"), user.getUiPwd())) {
@@ -73,7 +73,7 @@ public class UserInfoService implements UserDetailsService {
 		}
 		return false;
 	}
-
+	//mypage.html
 	public int updateUserProfile(int uiNum, Map<String, String> request) {
 		UserInfoVO userInfoVO = new UserInfoVO();
 		userInfoVO.setUiNum(uiNum);

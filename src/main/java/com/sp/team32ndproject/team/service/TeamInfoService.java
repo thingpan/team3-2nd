@@ -44,7 +44,7 @@ public class TeamInfoService {
     private final TeamUserInfoService teamUserInfoService;
     private final TeamUserInfoMapper teamUserInfoMapper;
     private final TeamSignUserInfoMapper teamSignUserInfoMapper;
-
+    //mypage.html
     public int insertTeamInfo(TeamInfoVO team, UserInfoVO user) {
         team.setUiNum(user.getUiNum());
 

@@ -29,19 +29,22 @@ public class UserInfoController {
 	private final UserInfoService userInfoService;
 	
 	//폼태그 post 회원가입
-	@PostMapping("/join") //join.html
+	//join.html
+	@PostMapping("/join")
 	public int insertUserInfo(@RequestBody UserInfoVO user) {
 		log.info("user => {}", user);
 		return userInfoService.insertUserInfo(user); 
 	}
 	
 	//회원가입시 입력한 아이디가 중복되는지 확인 
-	@GetMapping("/user-infos/{uiId}") //join.html
+	//join.html
+	@GetMapping("/user-infos/{uiId}")
 	public MsgVO doCheckUiId(@PathVariable String uiId) {
 		return userInfoService.doCheckUiId(uiId);
 	}
 	
 	//uiNum으로 유저 정보 가져오기
+	//mypage.html
 	@GetMapping("/auth/user-infos/user") 
 	public UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user) {
 		log.info("user=>{}", user);
@@ -49,12 +52,14 @@ public class UserInfoController {
 	}
 	
 	//회원정보 수정시 비밀번호 확인
+	//mypage.html
 	@PostMapping("/auth/user-infos")
 	public boolean checkPassword(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String> password) {
 		return userInfoService.checkPassword(user.getUiId(), password);
 	}
 	
 	//유저 프로필 업데이트 컨트롤러
+	//mypage.html
 	@PatchMapping("/auth/user-infos")
     public int updateUserProfile(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String>request) {
          return  userInfoService.updateUserProfile(user.getUiNum(), request);

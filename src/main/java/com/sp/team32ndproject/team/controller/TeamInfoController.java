@@ -29,6 +29,7 @@ public class TeamInfoController {
 	private final TeamInfoService teamInfoService;
 
 	// 팀추가
+	//mypage.html
 	@PostMapping("/team-infos")
 	public int insertTeamInfo(TeamInfoVO team, @AuthenticationPrincipal UserInfoVO user) {
 		log.info("user => {}", user);
