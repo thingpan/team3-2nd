@@ -1,34 +1,12 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" href="/assets/images/logos/favicon.ico">
     <title>메인 페이지</title>
+    <th:block th:replace="page/fragment/head :: f-head"></th:block>
+    <th:block th:replace="page/fragment/script :: f-script"></th:block>
+
     <link href="/css/style.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"/>
-
-    <!-- 구글 폰트 -->
-    <link
-            href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@200;300;400;500;600;700;800&display=swap"
-            rel="stylesheet"/>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-            crossorigin="anonymous"></script>
-
-<!--    swiper 슬라이더 cdn -->
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="module" src="/js/main.js"></script>
 </head>
 
 <body>
@@ -36,26 +14,12 @@
 
 <div class="swiper container">
     <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="imgs/soccer.jpeg" alt="Slide 1"/> </div>
+        <div class="swiper-slide"><img src="imgs/soccer.jpeg" alt="Slide 1"/></div>
         <div class="swiper-slide"><img src="imgs/baseball.JPG" alt="Slide 2"/></div>
-        <div class="swiper-slide"><img src="imgs/basketball.jpg" alt="Slide 3"/> </div>
+        <div class="swiper-slide"><img src="imgs/basketball.jpg" alt="Slide 3"/></div>
     </div>
     <div class="swiper-pagination"></div>
 </div>
-
-<script>
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'horizontal',
-        autoplay: true,
-        loop: true,
-
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-        },
-    });
-</script>
 
 <!-- 랭킹 영역 -->
 <section class="rankings" id="rankings">
@@ -85,6 +49,18 @@
 </section>
 
 <script>
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        autoplay: true,
+        loop: true,
+
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+    });
+
     window.addEventListener('load', async function () {
         const rankRes = await fetch('/team-infos');
         teamData = await rankRes.json();
@@ -141,7 +117,5 @@
         </div>
     </div>
 </section>
-
-<script type="module" src="/js/main.js"></script>
 </body>
 </html>

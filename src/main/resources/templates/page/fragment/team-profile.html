@@ -1,102 +1,85 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="/css/match/match-record.css">
-	<link
-		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
-		rel="stylesheet">
-	<link rel="stylesheet" href="/assets/css/styles.min.css" />
-	<link rel="shortcut icon" href="/assets/images/logos/favicon.ico" />
-	<link rel="stylesheet" href="/css/fragment/team-profile.css" />
-
+    <th:block th:replace="page/fragment/head :: f-head"></th:block>
+    <th:block th:replace="page/fragment/script :: f-script"></th:block>
+    <title>Insert title here</title>
 </head>
 
 <body>
-	<div class="row" id="match-record-row-1" th:fragment="f-team-profile">
-		<div class="col-sm-6 col-xl-3">
-			<div style="height: 100%; width: 100%;">
-				<div class="card overflow-hidden rounded-2">
+<div class="row" id="match-record-row-1" th:fragment="f-team-profile">
+    <div class="col-sm-6 col-xl-3">
+        <div style="height: 100%; width: 100%;">
+            <div class="card overflow-hidden rounded-2">
 
-					<div style="height: 50%; width: 100%;" id="team-img-div">
-						<img style=" height: 10rem; width: 100%;" id="teamImg" src="" class="card-img-top rounded-0"
-							alt="...">
-					</div>
+                <div style="height: 50%; width: 100%;" id="team-img-div">
+                    <img style=" height: 10rem; width: 100%;" id="teamImg" src="" class="card-img-top rounded-0"
+                         alt="...">
+                </div>
 
-					<div class="card-body pt-3 p-4" id="taNameDiv">
-						<h6 class="fw-semibold fs-4" id="taName">팀 이름</h6>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-8 d-flex align-items-stretch">
-			<div class="card w-100">
-				<div class="card-body p-4">
-					<h5 class="card-title fw-semibold mb-4">팀 소개</h5>
-					<div class="table-responsive">
-						<table class="table text-nowrap mb-0 align-middle">
-							<thead class="text-dark fs-4">
+                <div class="card-body pt-3 p-4" id="taNameDiv">
+                    <h6 class="fw-semibold fs-4" id="taName">팀 이름</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 d-flex align-items-stretch">
+        <div class="card w-100">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-semibold mb-4">팀 소개</h5>
+                <div class="table-responsive">
+                    <table class="table text-nowrap mb-0 align-middle">
+                        <thead class="text-dark fs-4">
 
-							</thead>
-							<tbody id="team-info-tbody">
-								<tr>
-									<th>
-										<h6 class="fw-semibold mb-0">팀 소개 : </h6>
-									</th>
-									<td>
-										<h6 class="fw-semibold mb-0" id="taDesc"></h6>
-									</td>
-								</tr>
-								<tr>
-									<th>
-										<h6 class="fw-semibold mb-0">매너 점수 : </h6>
-									</th>
-									<td>
-										<div id="team-manner-div">
-											<div class="progress-bar" id="team-manner-prograss-div">
-												<div id="manners-progress" class="progress"></div>
-											</div>
-											<p class="fw-semibold mb-0" id="current-score"></p>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<th>
-										<h6 class="fw-semibold mb-0">팀 점수 : </h6>
-									</th>
-									<td>
-										<span class="fw-semibold mb-0" id="score-value"></span>
-									</td>
-								</tr>
-								<tr>
-									<th>
-										<h6 class="fw-semibold mb-0">전적 : </h6>
-									</th>
-									<td>
-										<span class="fw-semibold mb-0" id="whole-record"></span>
-									</td>
-								</tr>
+                        </thead>
+                        <tbody id="team-info-tbody">
+                        <tr>
+                            <th>
+                                <h6 class="fw-semibold mb-0">팀 소개 : </h6>
+                            </th>
+                            <td>
+                                <h6 class="fw-semibold mb-0" id="taDesc"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <h6 class="fw-semibold mb-0">매너 점수 : </h6>
+                            </th>
+                            <td>
+                                <div id="team-manner-div">
+                                    <div class="progress-bar" id="team-manner-prograss-div">
+                                        <div id="manners-progress" class="progress"></div>
+                                    </div>
+                                    <p class="fw-semibold mb-0" id="current-score"></p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <h6 class="fw-semibold mb-0">팀 점수 : </h6>
+                            </th>
+                            <td>
+                                <span class="fw-semibold mb-0" id="score-value"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <h6 class="fw-semibold mb-0">전적 : </h6>
+                            </th>
+                            <td>
+                                <span class="fw-semibold mb-0" id="whole-record"></span>
+                            </td>
+                        </tr>
 
-							</tbody>
-						</table>
-					</div>
-					<div style="text-align: center" class="card-body p-4" id="teamSignBtn" >
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
-	<script src="/js/fragment/team-profile.js"></script>
-	<script src="/assets/libs/jquery/dist/jquery.min.js"></script>
-	<script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="/assets/js/sidebarmenu.js"></script>
-	<script src="/assets/js/app.min.js"></script>
-	<script src="/assets/libs/simplebar/dist/simplebar.js"></script>
-	<script src="/assets/js/dashboard.js"></script>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="text-align: center" class="card-body p-4" id="teamSignBtn">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
-
 </html>
