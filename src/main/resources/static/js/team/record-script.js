@@ -408,8 +408,7 @@ async function updateFirstMatchResult() {
 	alert(result.resultMsg)
 
 	$('#scoreModal').modal('hide').data('bs.modal', null);
-
-	document.querySelector('#modal-fade').style.display = 'none';
+	$('#mannerModal').modal('hide').data('bs.modal', null);
 
 	getAjaxList(undefined, undefined, doneStatus);
 	getAjaxListStay(undefined, undefined, stayStatus);
