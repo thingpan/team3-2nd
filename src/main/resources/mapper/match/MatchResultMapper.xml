@@ -96,6 +96,12 @@
 		</where>
 		ORDER BY
 		MD_DATE DESC, MD_TIME DESC
+	</select >
+	
+	<select id="selectMatchResultInfo" 
+		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
+		SELECT * FROM MATCH_RESULT_INFO
+		WHERE MR_NUM = #{mrNum}
 	</select>
 
 

@@ -61,6 +61,15 @@ public class MatchResultService {
 		try {
 			matchResultMapper.updateMatchResultInfo(matchResultVO);
 			msgVO.setResultMsg("결과 입력 완료");
+			if(matchResultVO.getMrRequestStatus().equals("3")) {
+				matchResultVO = matchResultMapper.selectMatchResultInfo(matchResultVO);
+				try {
+					teamInfoService.doUpdateHomeMatchResult(matchResultVO);
+					teamInfoService.doUpdateAwayMatchResult(matchResultVO);
+				}catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
 			return msgVO;
 		}catch (Exception e) {
 			msgVO.setResultMsg("결과 입력 실패 다시 시도 해주세요");

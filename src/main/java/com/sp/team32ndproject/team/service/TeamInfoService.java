@@ -40,7 +40,7 @@ public class TeamInfoService {
     @Value("${bucket.file-Path}")
     private String s3FilePath;
 
-    private final TeamInfoMapper teamInfoMapper;
+    private final TeamInfoMapper teamInfoMapper; 
     private final TeamUserInfoService teamUserInfoService;
     private final TeamUserInfoMapper teamUserInfoMapper;
     private final TeamSignUserInfoMapper teamSignUserInfoMapper;
@@ -170,7 +170,7 @@ public class TeamInfoService {
 	public void doUpdateHomeMatchResult(MatchResultVO matchResultVO) {
 		log.info("matchResultVO => {}", matchResultVO);
 		TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(matchResultVO.getTaHomeNum());
-		if (matchResultVO.getMrHomeScore() > matchResultVO.getMrAwayScore()) {
+		if (matchResultVO.getMrHomeResult().equals("w")) {
 			int pointResult = teamInfoVO.getTaPoint() + 3;
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchWinCntResult = teamInfoVO.getTaWinCnt() + 1;
@@ -179,7 +179,7 @@ public class TeamInfoService {
 			teamInfoVO.setTaMannerPoint(matchMannerPoint);
 			teamInfoVO.setTaMatchCount(matchCntResult);
 			teamInfoVO.setTaWinCnt(matchWinCntResult);
-		} else if (matchResultVO.getMrHomeScore() < matchResultVO.getMrAwayScore()) {
+		} else if (matchResultVO.getMrHomeResult().equals("l")) {
 			int pointResult = 0;
 			if (teamInfoVO.getTaPoint() > 3) {
 				pointResult = teamInfoVO.getTaPoint() - 3;
@@ -191,7 +191,7 @@ public class TeamInfoService {
 			teamInfoVO.setTaMannerPoint(matchMannerPoint);
 			teamInfoVO.setTaMatchCount(matchCntResult);
 			teamInfoVO.setTaLooseCnt(matchLooseCntResult);
-		} else if (matchResultVO.getMrHomeScore() == matchResultVO.getMrAwayScore()) {
+		} else if (matchResultVO.getMrHomeResult().equals("d")) {
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchDrawCntResult = teamInfoVO.getTaDrawCnt() + 1;
 			int matchMannerPoint = teamInfoVO.getTaMannerPoint() + matchResultVO.getMrHomeMannerPoint();
@@ -204,7 +204,7 @@ public class TeamInfoService {
 
 	public void doUpdateAwayMatchResult(MatchResultVO matchResultVO) {
 		TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(matchResultVO.getTaAwayNum());
-		if (matchResultVO.getMrHomeScore() < matchResultVO.getMrAwayScore()) {
+		if (matchResultVO.getMrAwayResult().equals("w")) {
 			int pointResult = teamInfoVO.getTaPoint() + 3;
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchWinCntResult = teamInfoVO.getTaWinCnt() + 1;
@@ -213,7 +213,7 @@ public class TeamInfoService {
 			teamInfoVO.setTaMannerPoint(matchMannerPoint);
 			teamInfoVO.setTaMatchCount(matchCntResult);
 			teamInfoVO.setTaWinCnt(matchWinCntResult);
-		} else if (matchResultVO.getMrHomeScore() > matchResultVO.getMrAwayScore()) {
+		} else if (matchResultVO.getMrAwayResult().equals("l")) {
 			int pointResult = 0;
 			if (teamInfoVO.getTaPoint() > 3) {
 				pointResult = teamInfoVO.getTaPoint() - 3;
@@ -225,7 +225,7 @@ public class TeamInfoService {
 			teamInfoVO.setTaMannerPoint(matchMannerPoint);
 			teamInfoVO.setTaMatchCount(matchCntResult);
 			teamInfoVO.setTaLooseCnt(matchLooseCntResult);
-		} else if (matchResultVO.getMrHomeScore() == matchResultVO.getMrAwayScore()) {
+		} else if (matchResultVO.getMrAwayResult().equals("d")) {
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchDrawCntResult = teamInfoVO.getTaDrawCnt() + 1;
 			int matchMannerPoint = teamInfoVO.getTaMannerPoint() + matchResultVO.getMrAwayMannerPoint();

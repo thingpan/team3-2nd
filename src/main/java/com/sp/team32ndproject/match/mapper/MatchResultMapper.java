@@ -18,5 +18,7 @@ public interface MatchResultMapper {
     List<MatchResultVO> selectMatchResultInfosStay(MatchResultVO matchResultVO);
     
     List<MatchResultVO> selectMatchResultInfos(MatchResultVO matchResultVO);
+    
+    
 }
 
