@@ -182,7 +182,7 @@
 			<if test="taMatchCount != null and taMatchCount != ''">
 				TA_MATCH_COUNT = #{taMatchCount},
 			</if>
-			<if test="taPoint != null and taPoint != ''">
+			<if test="taPoint != null ">
 				TA_POINT = #{taPoint},
 			</if>
 			<if test="taMannerPoint != null and taMannerPoint != ''">
@@ -208,7 +208,7 @@
 			<if test="taMatchCount != null and taMatchCount != ''">
 				TA_MATCH_COUNT = #{taMatchCount},
 			</if>
-			<if test="taPoint != null and taPoint != ''">
+			<if test="taPoint != null">
 				TA_POINT = #{taPoint},
 			</if>
 			<if test="taMannerPoint != null and taMannerPoint != ''">

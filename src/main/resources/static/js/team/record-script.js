@@ -41,7 +41,7 @@ function getSelectChangeListenerStay(obj) {
 
 async function getAjaxListStay(evt, page, mrSearchType) {
 	let total = 0;
-	let pageSize = 5;
+	let pageSize = 10;
 	const blockSize = 5;
 	if (!mrSearchType) {
 		mrSearchType = 'all';
@@ -459,6 +459,7 @@ async function updateFirstMatchResult() {
 	alert(result.resultMsg)
 
 	$('#scoreModal').modal('hide').data('bs.modal', null);
+	document.querySelector('#modal-fade').style.display = 'none';
 }
 
 window.addEventListener('load', async function() {
