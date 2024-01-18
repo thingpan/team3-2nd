@@ -25,7 +25,7 @@ public class MatchInfoController {
 	// 특정 팀 매치 목록 불러오기
 	@GetMapping("/auth/match-infos")
 	public PageInfo<MatchBoardInfoVO> selectMatchInfosByTaNum(MatchBoardInfoVO matchBoardInfoVO) {
-		log.info("taNum=>{}", matchBoardInfoVO);
+		log.info("taNum=>{}", matchInfoService.selectMatchInfosByTaNum(matchBoardInfoVO));
 		return matchInfoService.selectMatchInfosByTaNum(matchBoardInfoVO);
 	}
 
@@ -46,6 +46,7 @@ public class MatchInfoController {
 	// 매치 목록 불러오기
 	@GetMapping("/match-infos")
 	public MatchBoardInfoListVO getMatchList() {
+		
 		MatchBoardInfoListVO matchBoardInfoListVO = matchInfoService.selectMatchList();
 		return matchBoardInfoListVO;
 	}

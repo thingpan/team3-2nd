@@ -1,19 +1,9 @@
 
-
-/*async function doUpdateMatchResultInfo(mrNum, taNum, mrRequestStatus, mrHomeScore, mrAwayScore, mrHomeMannerPoint, mrAwayMannerPoint,
-	mrHomeResult, mrAwayResult) {
-	
-
-}
-
-async function get*/
-
-
-
-
 let matchData;
 let mrNum;
 let mrRequestStatus;
+let stayStatus;
+let doneStatus;
 const urlParams = new URLSearchParams(window.location.search);
 const taNum = urlParams.get('taNum');
 
@@ -21,20 +11,26 @@ const taNum = urlParams.get('taNum');
 //홈 어웨이 셀렉트 박스 값 변할 때 밸류 갑 가져오기
 function getSelectChangeListener(obj) {
 	if (obj.value == 'home') {
+		doneStatus = obj.value;
 		getAjaxList(undefined, undefined, 'home');
 	} else if (obj.value == 'away') {
+		doneStatus = obj.value;
 		getAjaxList(undefined, undefined, 'away');
 	} else {
+		doneStatus = obj.value;
 		getAjaxList(undefined, undefined, 'all');
 	}
 }
 
 function getSelectChangeListenerStay(obj) {
 	if (obj.value == 'home') {
+		stayStatus = obj.value;
 		getAjaxListStay(undefined, undefined, 'home');
 	} else if (obj.value == 'away') {
+		stayStatus = obj.value;
 		getAjaxListStay(undefined, undefined, 'away');
 	} else {
+		stayStatus = obj.value;
 		getAjaxListStay(undefined, undefined, 'all');
 	}
 }
@@ -60,8 +56,9 @@ async function getAjaxListStay(evt, page, mrSearchType) {
 	const startBlock = (Math.ceil(page / blockSize) - 1) * blockSize + 1;
 	let endBlock = startBlock + blockSize - 1;
 	let pageHtml = '';
+	
 
-	console.log(pageInfos.list);
+	console.log("대기중 전적",pageInfos);
 
 	if (endBlock > pageBlock) {
 		endBlock = pageBlock;
@@ -72,7 +69,7 @@ async function getAjaxListStay(evt, page, mrSearchType) {
 	}
 
 	for (let i = startBlock; i <= endBlock; i++) {
-		pageHtml += `<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="getAjaxListStay(event,${i},"${mrSearchType})"),">${i}</a></li>`;
+		pageHtml += `<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="getAjaxListStay(event,${i},"${mrSearchType},"${mrSearchType}")"),">${i}</a></li>`;
 	}
 
 	if (endBlock < pageBlock) {
@@ -251,7 +248,7 @@ async function getAjaxListStay(evt, page, mrSearchType) {
 
 async function getAjaxList(evt, page, mrSearchType) {
 	let total = 0;
-	let pageSize = 5;
+	const pageSize = 5;
 	const blockSize = 5;
 
 	if (!mrSearchType) {
@@ -272,7 +269,7 @@ async function getAjaxList(evt, page, mrSearchType) {
 	let endBlock = startBlock + blockSize - 1;
 	let pageHtml = '';
 
-	console.log(pageInfos.list);
+	console.log("완료된 전적",pageInfos);
 
 	if (endBlock > pageBlock) {
 		endBlock = pageBlock;
@@ -283,11 +280,11 @@ async function getAjaxList(evt, page, mrSearchType) {
 	}
 
 	for (let i = startBlock; i <= endBlock; i++) {
-		pageHtml += `<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="getAjaxList(event,${i})">${i}</a></li>`;
+		pageHtml += `<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="getAjaxList(event,${i},'${mrSearchType}')">${i}</a></li>`;
 	}
 
 	if (endBlock < pageBlock) {
-		pageHtml += `<li class="page-item"><a  class="page-link" aria-label="Next" href="javascript:void(0)" onclick="getAjaxList(event,${endBlock + 1})"><span aria-hidden="true">&raquo;</span></a></li>`;
+		pageHtml += `<li class="page-item"><a  class="page-link" aria-label="Next" href="javascript:void(0)" onclick="getAjaxList(event,${endBlock + 1},"${mrSearchType}")"><span aria-hidden="true">&raquo;</span></a></li>`;
 	}
 
 
@@ -383,54 +380,6 @@ function saveMrNumAndMrRequestStatus(mrNum, mrRequestStatus, check) {
 	console.log(mrNum);
 }
 
-async function updateMatchResultCancle() {
-	let mrNum = this.mrNum;
-	const body = {
-		mrNum: mrNum,
-		mrRequestStatus: '2'
-	};
-	const res = await fetch(`/match-result-infos`, {
-		method: 'PATCH',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(body)
-	});
-	const result = await res.json();
-	if (result.resultMsg == "결과 입력 완료") {
-		alert("거절 완료")
-	} else {
-
-		alert(result.resultMsg)
-	}
-	getAwayAjaxList();
-
-	$('#mannerModal').modal('hide').data('bs.modal', null);
-}
-
-async function updateMatchResultAccept() {
-	let mrNum = this.mrNum;
-	let homeMannerPoint = document.querySelector('#mannerPointInput2').value;
-	console.log(homeMannerPoint);
-	const body = {
-		mrNum: mrNum,
-		mrHomeMannerPoint: homeMannerPoint,
-		mrRequestStatus: '3'
-	};
-	const res = await fetch(`/match-result-infos`, {
-		method: 'PATCH',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(body)
-	});
-	const result = await res.json();
-	alert(result.resultMsg)
-	getAwayAjaxList();
-
-	$('#mannerModal').modal('hide').data('bs.modal', null);
-}
-
 async function updateFirstMatchResult() {
 	let homeScore = document.querySelector('#homeScoreInput').value;
 	let awayScore = document.querySelector('#awayScoreInput').value;
@@ -459,6 +408,8 @@ async function updateFirstMatchResult() {
 	alert(result.resultMsg)
 
 	$('#scoreModal').modal('hide').data('bs.modal', null);
+	getAjaxList(undefined, undefined, doneStatus);
+	getAjaxListStay(undefined, undefined, stayStatus);
 }
 
 window.addEventListener('load', async function() {

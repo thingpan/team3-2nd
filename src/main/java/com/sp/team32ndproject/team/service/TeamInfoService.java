@@ -181,7 +181,7 @@ public class TeamInfoService {
 			teamInfoVO.setTaWinCnt(matchWinCntResult);
 		} else if (matchResultVO.getMrHomeResult().equals("l")) {
 			int pointResult = 0;
-			if (teamInfoVO.getTaPoint() > 3) {
+			if (teamInfoVO.getTaPoint() >= 3) {
 				pointResult = teamInfoVO.getTaPoint() - 3;
 			}
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
@@ -215,7 +215,7 @@ public class TeamInfoService {
 			teamInfoVO.setTaWinCnt(matchWinCntResult);
 		} else if (matchResultVO.getMrAwayResult().equals("l")) {
 			int pointResult = 0;
-			if (teamInfoVO.getTaPoint() > 3) {
+			if (teamInfoVO.getTaPoint() >= 3) {
 				pointResult = teamInfoVO.getTaPoint() - 3;
 			}
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;

@@ -57,6 +57,7 @@ public class MatchBoardInfoService {
 
 	public PageInfo<MatchBoardInfoVO> selectMatchInfosByTaNum(MatchBoardInfoVO matchBoardInfoVO) {
 		PageHelper.startPage(matchBoardInfoVO.getPage(), matchBoardInfoVO.getPageSize());
+		log.info("TESTTESTTEST=>{}",matchBoardInfoMapper.selectMatchInfosByTaNum(matchBoardInfoVO.getTaNum()) );
 		return new PageInfo<>(matchBoardInfoMapper.selectMatchInfosByTaNum(matchBoardInfoVO.getTaNum()));
 	}
 	

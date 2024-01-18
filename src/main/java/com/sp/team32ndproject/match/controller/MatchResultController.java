@@ -36,13 +36,13 @@ public class MatchResultController {
     
     @GetMapping("/auth/match-result-infos/stay")
     public  PageInfo<MatchResultVO> selectMatchResultInfosStay(MatchResultVO matchResultVO){
-    	log.info("matchVO => {}", matchResultVO);
+    	log.info("matchVO => {}", matchResultService.selectMatchResultInfosStay(matchResultVO));
     	return matchResultService.selectMatchResultInfosStay(matchResultVO);
     }
     
     @GetMapping("/auth/match-result-infos")
     public  PageInfo<MatchResultVO> selectMatchResultInfos(MatchResultVO matchResultVO){
-    	log.info("matchVO => {}", matchResultVO);
+    	log.info("matchVO => {}", matchResultService.selectMatchResultInfos(matchResultVO));
     	return matchResultService.selectMatchResultInfos(matchResultVO);
     }
 }
