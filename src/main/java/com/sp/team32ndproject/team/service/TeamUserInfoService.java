@@ -37,7 +37,7 @@ public class TeamUserInfoService {
 	public int insertTeamUserInfo(TeamUserInfoVO teamUserInfoVO) {
 		return teamUserInfoMapper.insertTeamUserInfo(teamUserInfoVO);
 	}
-
+	 //team-apply.js
 	public int insertTeamUserInfoToUser(TeamSignUserInfoVO teamSignUserInfoVO) {
 		TeamUserInfoVO teamUserInfoVO = new TeamUserInfoVO();
 		teamUserInfoVO.setUiNum(teamSignUserInfoVO.getUiNum());

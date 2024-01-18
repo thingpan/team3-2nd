@@ -23,7 +23,7 @@ public class MatchResultController {
     private MatchResultService matchResultService;
     
     //매치 수락 했을때 테이블 인서트
-    @PostMapping("/match-result-infos")
+    @PostMapping("/match-result-infos") //record-script.js
     public MsgVO insertMatchResult(@RequestBody MatchResultVO matchResultVO) {
        return matchResultService.insertMatchResult(matchResultVO);
     }
@@ -33,14 +33,15 @@ public class MatchResultController {
     public MsgVO updateMatchResultInfoFirst(@RequestBody MatchResultVO matchResultVO) {
     	return matchResultService.updateMatchResultInfoFirst(matchResultVO);
     }
-    
+
+	//record-script.js 
     @GetMapping("/auth/match-result-infos/stay")
     public  PageInfo<MatchResultVO> selectMatchResultInfosStay(MatchResultVO matchResultVO){
     	log.info("matchVO => {}", matchResultService.selectMatchResultInfosStay(matchResultVO));
     	return matchResultService.selectMatchResultInfosStay(matchResultVO);
     }
     
-    @GetMapping("/auth/match-result-infos")
+    @GetMapping("/auth/match-result-infos") //record-script.js
     public  PageInfo<MatchResultVO> selectMatchResultInfos(MatchResultVO matchResultVO){
     	log.info("matchVO => {}", matchResultService.selectMatchResultInfos(matchResultVO));
     	return matchResultService.selectMatchResultInfos(matchResultVO);

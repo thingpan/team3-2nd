@@ -13,9 +13,12 @@ import com.sp.team32ndproject.user.vo.UserInfoVO;
 
 @Mapper
 public interface TeamUserInfoMapper {
+	 //team-apply.js
 	int insertTeamUserInfo(TeamUserInfoVO teamUser);
+	
 	 //team-members.html
 	List<TeamUserInfoVO> selectTeamUserInfosWithHelper(TeamUserInfoVO teamUserInfoVO);
+	
 	//team-members.html
 	int deleteTeamUserInfo(int tuNum);
 	
@@ -27,12 +30,14 @@ public interface TeamUserInfoMapper {
 	TeamUserInfoVO selectTeamUserInfo(int taNum, int tuNum);
 
 	TeamUserInfoVO selectTeamUserInfos(TeamUserInfoVO teamUserInfoVO);
-
+	
+	//team-members.html
 	int deleteTeamUser(TeamUserInfoVO teamUserInfo);
 	
 	//team-members.html //team-profile.js //team-side.js
 	TeamUserInfoVO TeamUserRole(TeamUserInfoVO teamUserInfo);
-
+	
+	//team-members.html
 	List<TeamUserInfoVO> selectTeamByTaNum(int taNum);
 	
 	List<TeamUserInfoVO> selectTeamUserInfoByUiNum(int uiNum);

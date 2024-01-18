@@ -54,7 +54,7 @@ public class MatchBoardInfoService {
 	public int deleteMatchBoardInfoActivityStatus(MatchBoardInfoVO matchBoardInfoVO) {
 		return matchBoardInfoMapper.deleteMatchBoardInfoActivityStatus(matchBoardInfoVO);
 	}
-
+	//team-match-list.html
 	public PageInfo<MatchBoardInfoVO> selectMatchInfosByTaNum(MatchBoardInfoVO matchBoardInfoVO) {
 		PageHelper.startPage(matchBoardInfoVO.getPage(), matchBoardInfoVO.getPageSize());
 		log.info("TESTTESTTEST=>{}",matchBoardInfoMapper.selectMatchInfosByTaNum(matchBoardInfoVO.getTaNum()) );

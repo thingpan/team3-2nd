@@ -30,11 +30,14 @@ public interface TeamInfoMapper {
 	List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(TeamInfoVO teamInfoVO);
 	List<TeamInfoVO> selectTeamRankByTeamType(TeamInfoVO teamInfoVO);
     List<TeamInfoVO> selectTeamUserInfo(int uiNum);
+    
   //team-setting.html
     int updateTeamInfo(TeamInfoVO teamInfoVO);
     int updateTeamInfoToHomeMatchResult(TeamInfoVO teamInfoVO);
     int updateTeamInfoToAwayMatchResult(TeamInfoVO teamInfoVO);
 	TeamInfoVO selectTeamByTaNum(int taNum);
+	
+	//team-members.html
 	int updateTeamTaActiveStatusInfo(TeamInfoVO teamInfoVO);
 
 }

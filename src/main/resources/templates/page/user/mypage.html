@@ -2,257 +2,224 @@
 <html lang="en">
 
 <head>
-    <th:block th:replace="page/fragment/head :: f-head"></th:block>
-    <th:block th:replace="page/fragment/script :: f-script"></th:block>
-    <title>마이페이지</title>
-    <link rel="stylesheet" href="/css/user/mypage.css">
+<th:block th:replace="page/fragment/head :: f-head"></th:block>
+<th:block th:replace="page/fragment/script :: f-script"></th:block>
+<title>마이페이지</title>
+<link rel="stylesheet" href="/css/user/mypage.css">
 
-    <script
-            src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <body>
-
-<div th:replace="page/fragment/header.html :: f-head"></div>
-
-<div id="main" class="container mt-3">
-    <div id="sub">
-        <input type="text" id="name" readonly>
-        <div class="first"></div>
-        <div class="action-buttonss">
-            <button id="create-team-btn" onclick="openModal()"
-                    class="btn btn-dark">팀 만들기
-            </button>
-            <button id="edit-button" class="btn btn-dark"
-                    onclick="openCurrentPasswordModal()">정보 수정
-            </button>
-        </div>
-    </div>
-
-    <div class="modal fade" id="teamAddModal" tabindex="-1"
-         aria-labelledby="" aria-hidden="true">
-        <div
-                class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-            <div class="modal-content" style="align-items: center">
-                <div class="modal-header">
-                    <div class="modal-title-text" id="teamAddModalLabel">팀 생성하기</div>
-                </div>
-                <div class="modal-body" style="width: 90%">
-                    <form>
-                        <!-- 프로필 섹션 -->
-                        <div class="profile-section">
-                            <div class="modal-title-text">팀 사진</div>
-                            <img class="profile-image" id="profile-image">
-                            <div class="file-upload-btn">
-                                <input type="file" id="team-file-input"
-                                       onchange="uploadTeamImage()" style="display: none;"/> <label
-                                    for="team-file-input" class="btn btn-dark"> 팀 사진 첨부 </label>
-                            </div>
-                        </div>
-
-                        <!-- 팀 정보 섹션 -->
-                        <div class="mb-2">
-                            <div class="modal-title-text">
-                                팀 이름
-                                <p style="color: red">&nbsp;*</p>
-                            </div>
-                            <input type="text" class="form-control" id="recipient-name"
-                                   placeholder="팀 이름은 최대 5자까지 입력 가능"/>
-                            <div id="errorTaName" class="error-message"></div>
-                            <button type="button" class="btn btn-dark" id="checkIdButton"
-                                    style="font-size: 13px;" onclick="checkTeamName()">중복
-                                확인
-                            </button>
-                            <br>
-                        </div>
-
-                        <div class="mb-2">
-                            <div class="modal-title-text">
-                                지역
-                                <p style="color: red">&nbsp;*</p>
-                            </div>
-                            <div class="region-select-section">
-                                <select id="sido" class="filter-select"
-                                        onchange="makeSigungu()">
-                                    <option>시/도</option>
-                                </select> <select id="sigungu" class="filter-select">
-                                <option>시/군/구</option>
-                            </select>
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <div class="modal-title-text">
-                                종목
-                                <p style="color: red">&nbsp;*</p>
-                            </div>
-                        </div>
-
-                        <div class="mb-2 sports-section" id="checked">
-                            <input type="checkbox" class="btn-check"
-                                   id="btn-check-outlined1" autocomplete="off" value="축구"/> <label
-                                class="btn btn-outline-dark" for="btn-check-outlined1">
-                            축구 </label> <input type="checkbox" class="btn-check"
-                                               id="btn-check-outlined2" autocomplete="off" value="야구"/> <label
-                                class="btn btn-outline-dark" for="btn-check-outlined2">
-                            야구 </label> <input type="checkbox" class="btn-check"
-                                               id="btn-check-outlined3" autocomplete="off" value="농구"/> <label
-                                class="btn btn-outline-dark" for="btn-check-outlined3">
-                            농구 </label>
-                        </div>
-
-                        <div class="mb-2">
-                            <div class="modal-title-text">팀 소개</div>
-                            <textarea style="height: 250px" class="form-control"
-                                      id="message-text"
-                                      placeholder="ex) 20-30대 직장인들이 함께하는 Team3 입니다. 함께 해주실 분을 찾고 있습니다!"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                            data-dismiss="modal" onclick="closeModalAndShowAlert()">닫기
-                    </button>
-                    <button type="button" class="btn btn-dark" onclick="showAlert()">등록</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="current-password-modal" class="modal" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">현재 비밀번호 확인</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="password" id="current-password-input"
-                           class="form-control">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                            data-dismiss="modal" onclick="cancelCurrentPassword()">취소
-                    </button>
-                    <button type="button" class="btn btn-primary"
-                            onclick="checkCurrentPassword()">확인
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <hr class="mt-4">
-
-    <div id="box2" class="mb-4">
-        <div class="team-section">
-            <h3>소속팀</h3>
-            <div class="team-buttons d-flex flex-wrap">
-                <div style="float: left;">
-                    <button id="basketball" onclick="selectTeamType(this)"
-                            data-value="농구">
-                        <img src="/imgs/basketball.png" alt="Basketball"></img>
-                    </button>
-                </div>
-                <div style="float: left;">
-                    <button id="baseball" onclick="selectTeamType(this)"
-                            data-value="야구">
-                        <img src="/imgs/baseball.png" alt="Baseball"></img>
-                    </button>
-                </div>
-                <div style="float: left;">
-                    <button id="soccerball" onclick="selectTeamType(this)"
-                            data-value="축구">
-                        <img src="/imgs/soccerball.png" alt="Soccer"></img>
-                    </button>
-                </div>
-                <div id="team-list"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="edit-profile-form" style="display:none;">
-        <h3 id="my">내 정보</h3>
-
-        <hr>
-
-        <label for="name">이름 :</label> <input type="text" id="user-name"
-                                              readonly>
-
-        <hr>
-        <div class="mb-2">
-            <label for="email">이메일 :</label> <input type="email" id="email"
-                                                    placeholder="변경하려는 이메일을 입력해주세요.">
-        </div>
-        <hr>
-        <label for="password">비밀번호 :</label> <input type="password"
-                                                    id="password" name="password" readonly>
-        <button id="change-password-button" class="btn btn-dark"
-                onclick="openChangePasswordPopup()">비밀번호 변경
-        </button>
-
-        <hr>
-
-        <label for="phone">전화번호 :</label> <input type="number" id="phone">
-
-        <hr>
-        <label for="year">생년월일 :</label> <input type="text" id="date"
-                                                name="date">
-
-        <hr>
-
-        <label for="address">주소 :</label> <input type="text" id="address"
-                                                 name="address" placeholder="주소" readonly>
-        <button type="button" id="search-address" value="JOIN"
-                onclick="openAddressSearchModal()" class="btn btn-dark">검색
-        </button>
-
-        <hr>
-        <div id="user">
-            <button type="button" id="delete-profile" class="btn btn-dark"
-                    onclick="userdelete()">삭제
-            </button>
-            <button type="button" id="save-profile" class="btn btn-dark"
-                    onclick="save()">완료
-            </button>
-        </div>
-
-    </div>
-
-</div>
-<div id="change-password-popup"
-     style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
-    <h3>비밀번호 변경</h3>
-    <input type="password" id="changecurrentpasswordinput" name="current-password" placeholder="현재 비밀번호 입력">
-    <br>
-    <input type="password" id="newpassword" name="new-password" placeholder="새 비밀번호 입력"> <br>
-    <input type="password" id="confirmnewpassword" name="confirm-new-password" placeholder="새 비밀번호 확인"> <br>
-    <button type="button" id="confirm-password-change" onclick="changePasswordAndDisplay()"
-            class="btn btn-dark">확인
-    </button>
-    <button type="button" id="cancel-password-change" class="btn btn-dark">취소</button>
-</div>
-<script src="/js/mock/region.js"></script>
-<script>
+	<div th:replace="page/fragment/header.html :: f-head"></div>
+	<div id="main" class="container mt-3">
+		<div id="sub">
+			<input type="text" id="name" readonly>
+			<div class="first"></div>
+			<div class="action-buttonss">
+				<button id="create-team-btn" onclick="openModal()"
+					class="btn btn-dark">팀 만들기</button>
+				<button id="edit-button" class="btn btn-dark"
+					onclick="openCurrentPasswordModal()">정보 수정</button>
+			</div>
+		</div>
+		<div class="modal fade" id="teamAddModal" tabindex="-1"
+			aria-labelledby="" aria-hidden="true">
+			<div
+				class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+				<div class="modal-content" style="align-items: center">
+					<div class="modal-header">
+						<div class="modal-title-text" id="teamAddModalLabel">팀 생성하기</div>
+					</div>
+					<div class="modal-body" style="width: 90%">
+						<form>
+							<!-- 프로필 섹션 -->
+							<div class="profile-section">
+								<div class="modal-title-text">팀 사진</div>
+								<img class="profile-image" id="profile-image">
+								<div class="file-upload-btn">
+									<input type="file" id="team-file-input"
+										onchange="uploadTeamImage()" style="display: none;" /> <label
+										for="team-file-input" class="btn btn-dark"> 팀 사진 첨부 </label>
+								</div>
+							</div>
+							<!-- 팀 정보 섹션 -->
+							<div class="mb-2">
+								<div class="modal-title-text">
+									팀 이름
+									<p style="color: red">&nbsp;*</p>
+								</div>
+								<input type="text" class="form-control" id="recipient-name"
+									placeholder="팀 이름은 최대 5자까지 입력 가능" />
+								<div id="errorTaName" class="error-message"></div>
+								<button type="button" class="btn btn-dark" id="checkIdButton"
+									style="font-size: 13px;" onclick="checkTeamName()">중복
+									확인</button>
+								<br>
+							</div>
+							<div class="mb-2">
+								<div class="modal-title-text">
+									지역
+									<p style="color: red">&nbsp;*</p>
+								</div>
+								<div class="region-select-section">
+									<select id="sido" class="filter-select"
+										onchange="makeSigungu()">
+										<option>시/도</option>
+									</select> <select id="sigungu" class="filter-select">
+										<option>시/군/구</option>
+									</select>
+								</div>
+							</div>
+							<div class="mb-2">
+								<div class="modal-title-text">
+									종목
+									<p style="color: red">&nbsp;*</p>
+								</div>
+							</div>
+							<div class="mb-2 sports-section" id="checked">
+								<input type="checkbox" class="btn-check"
+									id="btn-check-outlined1" autocomplete="off" value="축구" /> <label
+									class="btn btn-outline-dark" for="btn-check-outlined1">
+									축구 </label> <input type="checkbox" class="btn-check"
+									id="btn-check-outlined2" autocomplete="off" value="야구" /> <label
+									class="btn btn-outline-dark" for="btn-check-outlined2">
+									야구 </label> <input type="checkbox" class="btn-check"
+									id="btn-check-outlined3" autocomplete="off" value="농구" /> <label
+									class="btn btn-outline-dark" for="btn-check-outlined3">
+									농구 </label>
+							</div>
+							<div class="mb-2">
+								<div class="modal-title-text">팀 소개</div>
+								<textarea style="height: 250px" class="form-control"
+									id="message-text"
+									placeholder="ex) 20-30대 직장인들이 함께하는 Team3 입니다. 함께 해주실 분을 찾고 있습니다!"></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal" onclick="closeModalAndShowAlert()">닫기
+						</button>
+						<button type="button" class="btn btn-dark" onclick="showAlert()">등록</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="current-password-modal" class="modal" style="display: none;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">현재 비밀번호 확인</h4>
+					</div>
+					<div class="modal-body">
+						<input type="password" id="current-password-input"
+							class="form-control">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal" onclick="cancelCurrentPassword()">취소
+						</button>
+						<button type="button" class="btn btn-primary"
+							onclick="checkCurrentPassword()">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr class="mt-4">
+		<div id="box2" class="mb-4">
+			<div class="team-section">
+				<h3>소속팀</h3>
+				<div class="team-buttons d-flex flex-wrap">
+					<div style="float: left;">
+						<button id="basketball" onclick="selectTeamType(this)"
+							data-value="농구">
+							<img src="/imgs/basketball.png" alt="Basketball"></img>
+						</button>
+					</div>
+					<div style="float: left;">
+						<button id="baseball" onclick="selectTeamType(this)"
+							data-value="야구">
+							<img src="/imgs/baseball.png" alt="Baseball"></img>
+						</button>
+					</div>
+					<div style="float: left;">
+						<button id="soccerball" onclick="selectTeamType(this)"
+							data-value="축구">
+							<img src="/imgs/soccerball.png" alt="Soccer"></img>
+						</button>
+					</div>
+					<div id="team-list"></div>
+				</div>
+			</div>
+		</div>
+		<div class="edit-profile-form" style="display: none;">
+			<h3 id="my">내 정보</h3>
+			<hr>
+			<label for="name">이름 :</label> <input type="text" id="user-name"
+				readonly>
+			<hr>
+			<div class="mb-2">
+				<label for="email">이메일 :</label> <input type="email" id="email"
+					placeholder="변경하려는 이메일을 입력해주세요.">
+			</div>
+			<hr>
+			<label for="password">비밀번호 :</label> <input type="password"
+				id="password" name="password" readonly>
+			<button id="change-password-button" class="btn btn-dark"
+				onclick="openChangePasswordPopup()">비밀번호 변경</button>
+			<hr>
+			<label for="phone">전화번호 :</label> <input type="number" id="phone">
+			<hr>
+			<label for="year">생년월일 :</label> <input type="text" id="date"
+				name="date">
+			<hr>
+			<label for="address">주소 :</label> <input type="text" id="address"
+				name="address" placeholder="주소" readonly>
+			<button type="button" id="search-address" value="JOIN"
+				onclick="openAddressSearchModal()" class="btn btn-dark">검색
+			</button>
+			<hr>
+			<div id="user">
+				<button type="button" id="delete-profile" class="btn btn-dark"
+					onclick="userdelete()">삭제</button>
+				<button type="button" id="save-profile" class="btn btn-dark"
+					onclick="save()">완료</button>
+			</div>
+		</div>
+	</div>
+	<div id="change-password-popup"
+		style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;">
+		<h3>비밀번호 변경</h3>
+		<input type="password" id="changecurrentpasswordinput"
+			name="current-password" placeholder="현재 비밀번호 입력"> <br> <input
+			type="password" id="newpassword" name="new-password"
+			placeholder="새 비밀번호 입력"> <br> <input type="password"
+			id="confirmnewpassword" name="confirm-new-password"
+			placeholder="새 비밀번호 확인"> <br>
+		<button type="button" id="confirm-password-change"
+			onclick="changePasswordAndDisplay()" class="btn btn-dark">확인
+		</button>
+		<button type="button" id="cancel-password-change" class="btn btn-dark">취소</button>
+	</div>
+	<script src="/js/mock/region.js"></script>
+	<script>
     function closeModalAndShowAlert() {
         // Bootstrap 모달 닫기
         $('#teamAddModal').modal('hide');
     }
-
     function openCurrentPasswordModal() {
         $('#current-password-modal').modal('show');
     }
-
     function cancelCurrentPassword() {
         $('#current-password-modal').modal('hide');
         document.querySelector('#current-password-input').value = '';
-
-        // Hide the user information section
         document.querySelector('.edit-profile-form').style.display = 'none';
     }
-
     function openModal() {
         const teamAddModal = document.querySelector('#teamAddModal');
         $(teamAddModal).modal('show');
     }
-
     document.querySelectorAll('.btn-check').forEach(function (checkbox) {
         checkbox.addEventListener('change', function () {
             document
@@ -264,7 +231,6 @@
                 });
         });
     });
-
     // 파일 업로드 함수 - 팀 사진
     function uploadTeamImage() {
         const fileInput = document.querySelector('#team-file-input');
@@ -280,7 +246,6 @@
             reader.readAsDataURL(file);
         }
     }
-
     async function checkCurrentPassword() {
         const password = document.querySelector("#current-password-input").value;
         const response = await fetch(`/auth/user-infos`, {
@@ -290,9 +255,7 @@
             },
             body: JSON.stringify({password}),
         });
-
         const result = await response.json();
-
         if (result) {
             alert("비밀번호가 일치합니다!");
             document.querySelector('#current-password-input').value = '';
@@ -302,7 +265,6 @@
             alert("비밀번호가 일치하지않습니다!");
         }
     }
-
     async function showAlert() {
         if (!isNameChecked) {
             alert('팀 이름 중복 확인을 해주세요.');
@@ -337,8 +299,6 @@
             alert("팀 만들기 실패");
         }
     }
-
-
     async function changePasswordAndDisplay() {
         // 현재 비밀번호, 새 비밀번호, 새 비밀번호 확인 등 필요한 정보 수집
         const currentPassword = document.querySelector("#changecurrentpasswordinput").value;
@@ -361,15 +321,11 @@
         });
 
         const isCurrentPasswordCorrect = await response.json();
-
-
         if (isCurrentPasswordCorrect) {
-
             if (!passwordRegex.test(newPassword)) {
                 alert("8자 이상 특수문자를 포함해 입력해주세요.");
                 return;
             }
-
 
             if (newPassword === confirmNewPassword) {
                 inputPasswordElement.value = confirmedPassword;
@@ -383,7 +339,6 @@
             alert("현재 비밀번호가 일치하지 않습니다!");
         }
     }
-
     async function userdelete() {
         const confirmation = confirm('정말로 계정을 삭제하시겠습니까?');
         const data = {
@@ -408,18 +363,14 @@
                 alert(`탈퇴 중 문제 발생 다시 시도해 주세요`);
             }
         }
-
-    }
-
+    }   
     let teamData;
-
     async function loadTeamDataAndDisplay() {
         const rankRes = await fetch('/auth/team-infos');
         teamData = await rankRes.json();
 
         displayTeamList(teamData);
     }
-
     function displayTeamList(teamData) {
         let html = '';
         let type;
@@ -440,29 +391,23 @@
             } else {
                 html += `<td><img src="${row.taFilePath}" class="team-image" data-ta-num="${row.taNum}" style="display: block;"></td>`;
             }
-
             html += `<td>${row.taName}</td>`;
             html += '</div>';
             html += '</tr>';
         }
-
         document.querySelector('#team-list').innerHTML = html;
-
         const teamImages = document.querySelectorAll('.team-image');
         teamImages.forEach(image => {
             image.addEventListener('click', handleImageClick);
         });
-
     }
-
     function handleImageClick(event) {
         const taNum = event.currentTarget.dataset.taNum;
         window.location.href = '/page/match/match-record?taNum=' + taNum;
     }
 
     loadTeamDataAndDisplay();
-
-    function selectTeamType(obj) {
+   function selectTeamType(obj) {
         document.querySelector('#team-list').innerHTML = '';
 
         for (const row of teamData) {
@@ -492,20 +437,15 @@
                     image.addEventListener('click', handleImageClick);
                 });
             }
-
         }
-
     }
-
-    function save() {
+   function save() {
         var uiName = document.querySelector("#user-name").value;
         var uiAddress = document.querySelector("#address").value;
         var uiBirth = document.querySelector("#date").value;
         var uiPhoneNum = document.querySelector("#phone").value;
         var uiEmail = document.querySelector("#email").value;
         var uiPwd = document.querySelector("#password").value;
-
-
         updateProfile({
             uiName: uiName,
             uiAddress: uiAddress,
@@ -515,11 +455,8 @@
             uiPwd: uiPwd
         });
     }
-
     async function updateProfile(profileData) {
-
-        const confirmations = confirm('계정을 수정하시겠습니까?');
-
+       const confirmations = confirm('계정을 수정하시겠습니까?');
         if (confirmations) {
             try {
                 const response = await fetch('/auth/user-infos', {
@@ -546,7 +483,6 @@
             }
         }
     }
-
     window.addEventListener('load', async function () {
         const userRes = await fetch('/auth/user-infos/user');
         user = await userRes.json();
@@ -557,13 +493,11 @@
         document.querySelector('#phone').value = user.uiPhoneNum;
         document.querySelector('#user-name').value = user.uiName;
     });
-
-    const teamNameInput = document.querySelector('#recipient-name');
+   const teamNameInput = document.querySelector('#recipient-name');
     // 입력 이벤트에 대한 이벤트 리스너를 추가
     teamNameInput.addEventListener('input', function () {
         // 입력의 현재 값을 가져옵니다.
         let currentInput = teamNameInput.value;
-
         // 길이가 5자를 초과하는지 확인
         if (currentInput.length > 5) {
             // 초과하는 경우 입력을 5자로 자릅니다.
@@ -573,12 +507,10 @@
             teamNameInput.value = currentInput;
         }
     });
-
     // 팀 이름 길이 제한 함수
     function limitTeamNameLength() {
         var teamNameInput = document.querySelector("#recipient-name");
         var errorDiv = document.querySelector("#errorTaName");
-
         // 팀 이름이 5글자를 초과하면 초과 부분을 잘라내고 오류 메시지 표시
         if (teamNameInput.value.length > 5) {
             teamNameInput.value = teamNameInput.value.substring(0, 5); // 5글자로 자름
@@ -587,9 +519,7 @@
             errorDiv.innerText = "";
         }
     }
-
     let isNameChecked = false;
-
     async function checkTeamName() {
         const taName = document.querySelector('#recipient-name').value;
 
@@ -599,7 +529,6 @@
         } else {
             document.querySelector('#errorTaName').innerHTML = "";
         }
-
         const res = await fetch(`/team-infos?taName=${taName}`);
         isNameChecked = true;
         const result = await res.json();
@@ -610,25 +539,18 @@
         } else {
             document.querySelector('#errorTaName').innerHTML = `<span style='color: green;'>사용 가능한 이름입니다</span>`;
         }
-
     }
-
     function openChangePasswordPopup() {
-
-        document.querySelector('#change-password-popup').style.display = 'block';
-
+       document.querySelector('#change-password-popup').style.display = 'block';
     }
-
     document.querySelector('#cancel-password-change').addEventListener('click', function () {
         document.querySelector('#change-password-popup').style.display = 'none';
     });
-
     function profile() {
         var image = document.querySelector('#image');
         var source = image.src;
         window.open(source);
     }
-
     function openAddressSearchModal() {
         new daum.Postcode({
             oncomplete: function (data) {
@@ -644,7 +566,6 @@
             }
         }).open();
     }
-
     const editButton = document.querySelector('#edit-button');
     const editProfileForm = document.querySelector('.edit-profile-form');
     const saveButton = document.querySelector('#save-profile');
@@ -657,7 +578,5 @@
         editProfileForm.style.display = 'none';
     });
 </script>
-
 </body>
-
 </html>

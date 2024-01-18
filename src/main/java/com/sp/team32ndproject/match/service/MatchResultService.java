@@ -27,7 +27,7 @@ public class MatchResultService {
 	private TeamInfoService teamInfoService;
 	@Autowired
 	private TeamInfoMapper teamInfoMapper;
-
+	//record-script.js
 	public MsgVO insertMatchResult(MatchResultVO matchResultVO) {
 		MsgVO msgVO = new MsgVO();
 		try {
@@ -76,12 +76,12 @@ public class MatchResultService {
 			return msgVO;
 		}
 	}
-	
+	//record-script.js 
 	public PageInfo<MatchResultVO> selectMatchResultInfosStay(MatchResultVO matchResultVO){
 		PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
 		return new PageInfo<>(matchResultMapper.selectMatchResultInfosStay(matchResultVO));
 	}
-	
+	//record-script.js
 	public PageInfo<MatchResultVO> selectMatchResultInfos(MatchResultVO matchResultVO){
 		PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
 		return new PageInfo<>(matchResultMapper.selectMatchResultInfos(matchResultVO));
