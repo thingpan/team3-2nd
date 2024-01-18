@@ -38,7 +38,8 @@
 	<select id="selectMatchInfosByTaNum"
 		resultType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
 		SELECT * FROM MATCH_BOARD_INFO
-		WHERE TA_NUM = #{taNum}
+		WHERE TA_NUM = #{taNum} 
+		AND ACTIVITY_STATUS = 0
 	</select>
 
 	<update id="updateMatchBoardInfoMbStatus"
