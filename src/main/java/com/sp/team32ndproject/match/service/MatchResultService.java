@@ -75,18 +75,6 @@ public class MatchResultService {
 			msgVO.setResultMsg("결과 입력 실패 다시 시도 해주세요");
 			return msgVO;
 		}
-//		if (matchResultMapper.updateMatchResultInfoFirst(matchResultVO) == 1) {
-//			if (matchResultVO.getMrRequestStatus().equals("3")) {
-//				log.info("matchBoardInfo => {}", matchResultMapper.selectMatchResultInfo(matchResultVO));
-//				matchResultVO = matchResultMapper.selectMatchResultInfo(matchResultVO);
-//				teamInfoService.doUpdateHomeMatchResult(matchResultVO);
-//				teamInfoService.doUpdateAwayMatchResult(matchResultVO);
-//			}
-//			msgVO.setResultMsg("결과 입력 완료");
-//		} else {
-//			msgVO.setResultMsg("결과 입력 실패 다시 시도 해주세요");
-//		}
-//		return msgVO;
 	}
 	
 	public PageInfo<MatchResultVO> selectMatchResultInfosStay(MatchResultVO matchResultVO){
@@ -96,7 +84,6 @@ public class MatchResultService {
 	
 	public PageInfo<MatchResultVO> selectMatchResultInfos(MatchResultVO matchResultVO){
 		PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
-		log.info("Result => {}",matchResultMapper.selectMatchResultInfos(matchResultVO));
 		return new PageInfo<>(matchResultMapper.selectMatchResultInfos(matchResultVO));
 	}
 }
