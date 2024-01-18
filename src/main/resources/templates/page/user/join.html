@@ -2,294 +2,285 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<link rel="shortcut icon" href="/assets/images/logos/favicon.ico">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>join</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
-	<style>
-		* {
-			font-family: 'Noto Sans KR', sans-serif;
-		}
+    <th:block th:replace="page/fragment/head :: f-head"></th:block>
+    <th:block th:replace="page/fragment/script :: f-script"></th:block>
+    <title>join</title>
 
-		body {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			margin: 0;
-			padding: 0;
-			margin-left: 10%;
-			margin-right: 10%;
-		}
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            margin-left: 10%;
+            margin-right: 10%;
+        }
 
-		h3 {
-			text-align: center;
-			margin-top: 10%;
-		}
+        h3 {
+            text-align: center;
+            margin-top: 10%;
+        }
 
-		.error-message {
-			font-size: 12px;
-		}
+        .error-message {
+            font-size: 12px;
+        }
 
-		.input-group-text {
-			font-size: 15px;
-		}
+        .input-group-text {
+            font-size: 15px;
+        }
 
-		#joinButton {
-			margin: 0 auto;
-			display: block;
-			margin-bottom: 10%;
-		}
+        #joinButton {
+            margin: 0 auto;
+            display: block;
+            margin-bottom: 10%;
+        }
 
-		#basic-addon1 {
-			width: inherit;
-		}
-	</style>
+        #basic-addon1 {
+            width: inherit;
+        }
+    </style>
 
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 
 <body>
-	<div id="main">
-		<h3>Match Me If You Can</h3><br>
-		<div>
-			<div class="input-group mb-1">
-				<span class="input-group-text" id="basic-addon1">아이디<span style='color: red;'> *</span></span>
-				<input type="text" id="uiId" class="form-control" placeholder="ID" aria-describedby="basic-addon1">
-				<button type="button" class="btn btn-dark" id="checkIdButton" style="font-size: 12px;"
-					onclick="checkId()">중복확인
-				</button>
-			</div>
-			<div id="errorUiId" class="error-message"></div>
-			<br>
+<div id="main">
+    <h3>Match Me If You Can</h3><br>
+    <div>
+        <div class="input-group mb-1">
+            <span class="input-group-text" id="basic-addon1">아이디<span style='color: red;'> *</span></span>
+            <input type="text" id="uiId" class="form-control" placeholder="ID" aria-describedby="basic-addon1">
+            <button type="button" class="btn btn-dark" id="checkIdButton" style="font-size: 12px;"
+                    onclick="checkId()">중복확인
+            </button>
+        </div>
+        <div id="errorUiId" class="error-message"></div>
+        <br>
 
-			<div class="input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">비밀번호<span style='color: red;'> *</span></span>
-				<input type="password" id="uiPwd" class="form-control" placeholder="Password"
-					aria-describedby="basic-addon1">
-			</div>
-			<div id="errorUiPwd" class="error-message"></div>
-			<br>
+        <div class="input-group mb-2">
+            <span class="input-group-text" id="basic-addon1">비밀번호<span style='color: red;'> *</span></span>
+            <input type="password" id="uiPwd" class="form-control" placeholder="Password"
+                   aria-describedby="basic-addon1">
+        </div>
+        <div id="errorUiPwd" class="error-message"></div>
+        <br>
 
-			<div class="input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">비번 확인<span style='color: red;'> *</span></span>
-				<input type="password" id="uiPwdConfirm" class="form-control" placeholder="Password"
-					aria-describedby="basic-addon1">
-			</div>
-			<div id="errorUiPwdConfirm" class="error-message"></div>
-			<br>
+        <div class="input-group mb-2">
+            <span class="input-group-text" id="basic-addon1">비번 확인<span style='color: red;'> *</span></span>
+            <input type="password" id="uiPwdConfirm" class="form-control" placeholder="Password"
+                   aria-describedby="basic-addon1">
+        </div>
+        <div id="errorUiPwdConfirm" class="error-message"></div>
+        <br>
 
-			<div class="input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">이름<span style='color: red;'> *</span></span>
-				<input type="text" id="uiName" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
-			</div>
-			<div id="errorUiName" class="error-message"></div>
-			<br>
+        <div class="input-group mb-2">
+            <span class="input-group-text" id="basic-addon1">이름<span style='color: red;'> *</span></span>
+            <input type="text" id="uiName" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
+        </div>
+        <div id="errorUiName" class="error-message"></div>
+        <br>
 
-			<div class="input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">전화번호<span style='color: red;'> *</span></span>
-				<input type="number" id="uiMobile" class="form-control" placeholder="Phone-Number"
-					aria-describedby="basic-addon1">
-			</div>
-			<div id="errorUiMobile" class="error-message"></div>
-			<br>
+        <div class="input-group mb-2">
+            <span class="input-group-text" id="basic-addon1">전화번호<span style='color: red;'> *</span></span>
+            <input type="number" id="uiMobile" class="form-control" placeholder="Phone-Number"
+                   aria-describedby="basic-addon1">
+        </div>
+        <div id="errorUiMobile" class="error-message"></div>
+        <br>
 
-			<div class="input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">이메일<span style='color: red;'> *</span></span>
-				<input type="email" id="uiEmail" class="form-control" placeholder="E-Mail">
-			</div>
-			<div id="errorEmail" class="error-message"></div>
-			<br>
+        <div class="input-group mb-2">
+            <span class="input-group-text" id="basic-addon1">이메일<span style='color: red;'> *</span></span>
+            <input type="email" id="uiEmail" class="form-control" placeholder="E-Mail">
+        </div>
+        <div id="errorEmail" class="error-message"></div>
+        <br>
 
-			<div class="input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">생년월일<span style='color: red;'> *</span></span>
-				<input type="date" id="uiBirth" class="form-control"><br>
-			</div>
-			<div id="errorBirth" class="error-message"></div>
-			<br>
+        <div class="input-group mb-2">
+            <span class="input-group-text" id="basic-addon1">생년월일<span style='color: red;'> *</span></span>
+            <input type="date" id="uiBirth" class="form-control"><br>
+        </div>
+        <div id="errorBirth" class="error-message"></div>
+        <br>
 
-			<div class="input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">주소<span style='color: red;'> *</span></span>
-				<input type="text" id="uiAddress" placeholder="Address" class="form-control" readonly>
-				<button type="button" class="btn btn-dark" id="searchButton" style="font-size: 12px;"
-					onclick="searchAddress()">검색
-				</button>
-			</div>
-			<div id="errorAddress" class="error-message"></div>
-			<br>
+        <div class="input-group mb-2">
+            <span class="input-group-text" id="basic-addon1">주소<span style='color: red;'> *</span></span>
+            <input type="text" id="uiAddress" placeholder="Address" class="form-control" readonly>
+            <button type="button" class="btn btn-dark" id="searchButton" style="font-size: 12px;"
+                    onclick="searchAddress()">검색
+            </button>
+        </div>
+        <div id="errorAddress" class="error-message"></div>
+        <br>
 
-			<button type="button" class="btn btn-dark" id="joinButton" style="width: 184px;" onclick="join()">회원가입
-			</button>
-		</div>
-	</div>
+        <button type="button" class="btn btn-dark" id="joinButton" style="width: 184px;" onclick="join()">회원가입
+        </button>
+    </div>
+</div>
 
-	<script>
-		let isIdChecked = false;
+<script>
+    let isIdChecked = false;
 
-		async function checkId() {
-			const uiId = document.querySelector('#uiId').value;
+    async function checkId() {
+        const uiId = document.querySelector('#uiId').value;
 
-			if (uiId != null && uiId != '') {
-				// 서버로 아이디 중복 확인 요청
-				const res = await fetch(`/user-infos/${uiId}`);
+        if (uiId != null && uiId != '') {
+            // 서버로 아이디 중복 확인 요청
+            const res = await fetch(`/user-infos/${uiId}`);
 
-				const result = await res.json();
-				if (result.resultMsg == 1) {
-					document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>이미 사용 중인 아이디입니다.</span>";
-					isIdChecked = false;
-				}else {
-					console.log(res);
-					document.querySelector('#errorUiId').innerHTML = "<span style='color: green;'>사용 가능한 아이디입니다.</span>";
-					isIdChecked = true;
-				}
-			} else {
-				document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>아이디를 입력해주세요</span>";
-				isIdChecked = false;
-			}
-
-
+            const result = await res.json();
+            if (result.resultMsg == 1) {
+                document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>이미 사용 중인 아이디입니다.</span>";
+                isIdChecked = false;
+            } else {
+                console.log(res);
+                document.querySelector('#errorUiId').innerHTML = "<span style='color: green;'>사용 가능한 아이디입니다.</span>";
+                isIdChecked = true;
+            }
+        } else {
+            document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>아이디를 입력해주세요</span>";
+            isIdChecked = false;
+        }
 
 
+    }
 
-		}
+    async function join() {
+        if (!isIdChecked) {
+            alert('아이디 중복 확인을 해주세요.');
+            return;
+        }
+        const uiId = document.querySelector('#uiId').value;
+        const uiPwd = document.querySelector('#uiPwd').value;
+        const uiPwdConfirm = document.querySelector('#uiPwdConfirm').value;
+        const uiName = document.querySelector('#uiName').value;
+        const uiMobile = document.querySelector('#uiMobile').value
+        const uiAddress = document.querySelector('#uiAddress').value;
+        // const selectedYear = document.querySelector('uiYear').value;
+        // const selectedMonth = document.querySelector('uiMonth').value;
+        // const selectedDay = document.querySelector('uiDay').value;
+        const uiBirth = (document.querySelector('#uiBirth').value).split('-').join('');
+        // const uiBirth  = uiBirth.split('-').join('');
+        const IdRegex = /^(?=.{8,})/;
+        const passwordRegex = /^(?=.*[!@#$%^&*])(?=.{8,})/;
 
-		async function join() {
-			if (!isIdChecked) {
-				alert('아이디 중복 확인을 해주세요.');
-				return;
-			}
-			const uiId = document.querySelector('#uiId').value;
-			const uiPwd = document.querySelector('#uiPwd').value;
-			const uiPwdConfirm = document.querySelector('#uiPwdConfirm').value;
-			const uiName = document.querySelector('#uiName').value;
-			const uiMobile = document.querySelector('#uiMobile').value
-			const uiAddress = document.querySelector('#uiAddress').value;
-			// const selectedYear = document.querySelector('uiYear').value;
-			// const selectedMonth = document.querySelector('uiMonth').value;
-			// const selectedDay = document.querySelector('uiDay').value;
-			const uiBirth = (document.querySelector('#uiBirth').value).split('-').join('');
-			// const uiBirth  = uiBirth.split('-').join('');
-			const IdRegex = /^(?=.{8,})/;
-			const passwordRegex = /^(?=.*[!@#$%^&*])(?=.{8,})/;
-
-			console.log('아이디:', uiId);
-			console.log('비밀번호:', uiPwd);
-			console.log('비밀번호 확인:', uiPwdConfirm);
-			console.log('이름:', uiName);
-			console.log('전화번호:', uiMobile)
-			console.log('생년월일:', uiBirth);
-			console.log('주소:', uiAddress);
+        console.log('아이디:', uiId);
+        console.log('비밀번호:', uiPwd);
+        console.log('비밀번호 확인:', uiPwdConfirm);
+        console.log('이름:', uiName);
+        console.log('전화번호:', uiMobile)
+        console.log('생년월일:', uiBirth);
+        console.log('주소:', uiAddress);
 
 
-			if (!uiId) {
-				document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>아이디를 입력해주세요.</span>";
-				return;
-			} else {
-				document.querySelector('#errorUiId').innerHTML = "";
-			}
+        if (!uiId) {
+            document.querySelector('#errorUiId').innerHTML = "<span style='color: red;'>아이디를 입력해주세요.</span>";
+            return;
+        } else {
+            document.querySelector('#errorUiId').innerHTML = "";
+        }
 
-			if (uiPwd.length < 8 || uiPwd.length > 20) {
-				document.querySelector('#errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상 20자 이하여야 합니다.</span>";
-				return;
-			} else {
-				document.querySelector('#errorUiPwd').innerHTML = "";
-			}
+        if (uiPwd.length < 8 || uiPwd.length > 20) {
+            document.querySelector('#errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상 20자 이하여야 합니다.</span>";
+            return;
+        } else {
+            document.querySelector('#errorUiPwd').innerHTML = "";
+        }
 
-			if (uiPwd !== uiPwdConfirm) {
-				document.querySelector('#errorUiPwdConfirm').innerHTML = "<span style='color: red;'>비밀번호가 일치하지 않습니다.</span>";
-				return;
-			} else {
-				document.querySelector('#errorUiPwdConfirm').innerHTML = "";
-			}
+        if (uiPwd !== uiPwdConfirm) {
+            document.querySelector('#errorUiPwdConfirm').innerHTML = "<span style='color: red;'>비밀번호가 일치하지 않습니다.</span>";
+            return;
+        } else {
+            document.querySelector('#errorUiPwdConfirm').innerHTML = "";
+        }
 
-			if (!uiName) {
-				document.querySelector('#errorUiName').innerHTML = "<span style='color: red;'>이름을 입력해주세요.</span>";
-				return;
-			} else {
-				document.querySelector('#errorUiName').innerHTML = "";
-			}
+        if (!uiName) {
+            document.querySelector('#errorUiName').innerHTML = "<span style='color: red;'>이름을 입력해주세요.</span>";
+            return;
+        } else {
+            document.querySelector('#errorUiName').innerHTML = "";
+        }
 
-			if (!document.querySelector('#uiMobile').value) {
-				document.querySelector('#errorUiMobile').innerHTML = "<span style='color: red;'>전화번호를 입력해주세요.</span>";
-				return;
-			} else {
-				document.querySelector('#errorUiMobile').innerHTML = "";
-			}
+        if (!document.querySelector('#uiMobile').value) {
+            document.querySelector('#errorUiMobile').innerHTML = "<span style='color: red;'>전화번호를 입력해주세요.</span>";
+            return;
+        } else {
+            document.querySelector('#errorUiMobile').innerHTML = "";
+        }
 
-			if (!document.querySelector('#uiEmail').value) {
-				document.querySelector('#errorEmail').innerHTML = "<span style='color: red;'>이메일을 입력해주세요.</span>";
-				return;
-			} else {
-				document.querySelector('#errorEmail').innerHTML = "";
-			}
-			if (!document.querySelector('#uiBirth').value) {
-				document.querySelector('#errorBirth').innerHTML = "<span style='color: red;'>생년월일을 입력해주세요.</span>";
-				return;
-			} else {
-				document.querySelector('#errorBirth').innerHTML = "";
-			}
+        if (!document.querySelector('#uiEmail').value) {
+            document.querySelector('#errorEmail').innerHTML = "<span style='color: red;'>이메일을 입력해주세요.</span>";
+            return;
+        } else {
+            document.querySelector('#errorEmail').innerHTML = "";
+        }
+        if (!document.querySelector('#uiBirth').value) {
+            document.querySelector('#errorBirth').innerHTML = "<span style='color: red;'>생년월일을 입력해주세요.</span>";
+            return;
+        } else {
+            document.querySelector('#errorBirth').innerHTML = "";
+        }
 
-			if (!document.querySelector('#uiAddress').value) {
-				document.querySelector('#errorAddress').innerHTML = "<span style='color: red;'>주소를 입력해주세요.</span>";
-				return;
-			} else {
-				document.querySelector('#errorAddress').innerHTML = "";
+        if (!document.querySelector('#uiAddress').value) {
+            document.querySelector('#errorAddress').innerHTML = "<span style='color: red;'>주소를 입력해주세요.</span>";
+            return;
+        } else {
+            document.querySelector('#errorAddress').innerHTML = "";
 
-			}
-			if (!passwordRegex.test(uiPwd)) {
-				document.querySelector('#errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상이어야 하고,<br>특수문자가 하나 이상 포함되어야 합니다.</span>";
-				return;
-			} else {
-				document.querySelector('#errorUiPwd').innerHTML = "";
-			}
-			const data = {
-				uiId: document.querySelector('#uiId').value,
-				uiPwd: document.querySelector('#uiPwd').value,
-				uiName: document.querySelector('#uiName').value,
-				uiPhoneNum: document.querySelector('#uiMobile').value,
-				uiEmail: document.querySelector('#uiEmail').value,
-				uiBirth: uiBirth,
-				uiAddress: document.querySelector('#uiAddress').value
-			};
-			const res = await fetch('/join', {
-				method: 'POST',
-				body: JSON.stringify(data),
-				headers: {
-					'Content-Type': 'application/json;charset=UTF-8'
-				}
-			});
-			console.log(res);
+        }
+        if (!passwordRegex.test(uiPwd)) {
+            document.querySelector('#errorUiPwd').innerHTML = "<span style='color: red;'>비밀번호는 8자 이상이어야 하고,<br>특수문자가 하나 이상 포함되어야 합니다.</span>";
+            return;
+        } else {
+            document.querySelector('#errorUiPwd').innerHTML = "";
+        }
+        const data = {
+            uiId: document.querySelector('#uiId').value,
+            uiPwd: document.querySelector('#uiPwd').value,
+            uiName: document.querySelector('#uiName').value,
+            uiPhoneNum: document.querySelector('#uiMobile').value,
+            uiEmail: document.querySelector('#uiEmail').value,
+            uiBirth: uiBirth,
+            uiAddress: document.querySelector('#uiAddress').value
+        };
+        const res = await fetch('/join', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            }
+        });
+        console.log(res);
 
-			const result = await res.json();
+        const result = await res.json();
 
-			if (result) {
-				alert(`회원가입이 완료되었습니다. 로그인 해주세요.`);
-				location.href = '/page/user/login';
-			}
-		}
+        if (result) {
+            alert(`회원가입이 완료되었습니다. 로그인 해주세요.`);
+            location.href = '/page/user/login';
+        }
+    }
 
-		function searchAddress() {
-			const searchButton = document.querySelector('#searchButton');
-			searchButton.disabled = true; // 버튼 비활성화
-			new daum.Postcode({
-				oncomplete: function (data) {
-					if (data.buildingName != "") {
-						document.querySelector('#uiAddress').value = data.address + ` (${data.buildingName})`;
-					} else {
-						document.querySelector('#uiAddress').value = data.address
-					}
-					console.log(data)
-					searchButton.disabled = false; // 검색이 완료되면 버튼 활성화
-				},
-				onclose: function (state) {
-					if (state === "FORCE_CLOSE") {
-						searchButton.disabled = false; // 강제로 창이 닫힐 경우 버튼 활성화
-					}
-				}
-			}).open();
-		}
-	</script>
+    function searchAddress() {
+        const searchButton = document.querySelector('#searchButton');
+        searchButton.disabled = true; // 버튼 비활성화
+        new daum.Postcode({
+            oncomplete: function (data) {
+                if (data.buildingName != "") {
+                    document.querySelector('#uiAddress').value = data.address + ` (${data.buildingName})`;
+                } else {
+                    document.querySelector('#uiAddress').value = data.address
+                }
+                console.log(data)
+                searchButton.disabled = false; // 검색이 완료되면 버튼 활성화
+            },
+            onclose: function (state) {
+                if (state === "FORCE_CLOSE") {
+                    searchButton.disabled = false; // 강제로 창이 닫힐 경우 버튼 활성화
+                }
+            }
+        }).open();
+    }
+</script>
 </body>
 
 </html>

@@ -2,365 +2,351 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<link rel="shortcut icon" href="/assets/images/logos/favicon.ico">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+    <th:block th:replace="page/fragment/head :: f-head"></th:block>
+    <th:block th:replace="page/fragment/script :: f-script"></th:block>
+    <title>Document</title>
 
-	<link rel="stylesheet" href="/css/match/match-add.css">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-		rel="stylesheet" />
-	<link rel="stylesheet" href="/css/fragment/common.css">
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=604cb758f63da64f7c5e72d8fd9c83d0&libraries=services"></script>
-	<link
-		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:ital,wght@0,100;0,400;0,900;1,300;1,700;1,900&display=swap"
-		rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-		crossorigin="anonymous"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/match/match-add.css">
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=604cb758f63da64f7c5e72d8fd9c83d0&libraries=services"></script>
 </head>
 
 <body>
-	<div th:replace="page/fragment/header.html :: f-head"></div>
-	<div name="main" class="main">
-		<hr>
-		<div name="select-team" id="team-main">
-			<span>팀 선택</span>
-			<div id="select-team">
-				<div style="float: left;">
-					<button id="bas" onclick="selectTeamType(this)" value="야구"><img
-							src="/imgs/baseball.png"></img></button>
-				</div>
-				<div>
-					<button id="bak" onclick="selectTeamType(this)" value="농구" style="float: left;"><img
-							src="/imgs/basketball.png"></img></button>
-				</div>
-				<div>
-					<button id="soc" onclick="selectTeamType(this)" value="축구"><img
-							src="/imgs/soccerball.png"></img></button>
-				</div>
-			</div>
-			<div id="team-list" class="myTeam"></div>
-		</div>
-		<hr>
-		<div id="info-main">
-			<div id="info-main-left">
-				<span>날짜 및 시간</span>
-				<div id="date-input mb-3">
-					<input type="date" id="mbDate">
-				</div>
-				<div id="time-input mb-3">
-					<input type="time" id="mbTime">
-				</div>
-				<span>구장 가격</span>
-				<div class="price">
-					<input type="number" id="mbPay">
-					<p style="margin-left: 5px;">원</p>
-				</div>
-			</div>
-			<div id="info-main-right">
-				<span>세부사항</span>
-				<div>
-					<textarea placeholder="세부사항을 입력해 주세요 ex)조끼 유무, 유니폼 색깔" id="mbDesc"></textarea>
-				</div>
-				<div class="mt-3">
-					<span>구장사진 첨부(선택사항)</span>
-					<button class="btn btn-dark" onclick="addFileInput(this)">+</button>
-					<div id="fileDiv">
-					</div>
-				</div>
-			</div>
-		</div>
-		<hr>
+<div th:replace="page/fragment/header.html :: f-head"></div>
+<div name="main" class="main">
+    <hr>
+    <div name="select-team" id="team-main">
+        <span>팀 선택</span>
+        <div id="select-team">
+            <div style="float: left;">
+                <button id="bas" onclick="selectTeamType(this)" value="야구"><img
+                        src="/imgs/baseball.png"></img></button>
+            </div>
+            <div>
+                <button id="bak" onclick="selectTeamType(this)" value="농구" style="float: left;"><img
+                        src="/imgs/basketball.png"></img></button>
+            </div>
+            <div>
+                <button id="soc" onclick="selectTeamType(this)" value="축구"><img
+                        src="/imgs/soccerball.png"></img></button>
+            </div>
+        </div>
+        <div id="team-list" class="myTeam"></div>
+    </div>
+    <hr>
+    <div id="info-main">
+        <div id="info-main-left">
+            <span>날짜 및 시간</span>
+            <div id="date-input mb-3">
+                <input type="date" class="form-control" id="mbDate">
+            </div>
+            <div id="time-input mb-3">
+                <input type="time" class="form-control" id="mbTime">
+            </div>
+            <span>구장 가격</span>
+            <div class="price">
+                <input type="number" class="form-control" id="mbPay">
+                <p style="margin-left: 5px;">원</p>
+            </div>
+        </div>
+        <div id="info-main-right">
+            <span>세부사항</span>
+            <div>
+                <textarea placeholder="세부사항을 입력해 주세요 ex)조끼 유무, 유니폼 색깔" id="mbDesc"></textarea>
+            </div>
+            <div class="mt-3">
+                <span>구장사진 첨부(선택사항)</span>
+                <button class="btn btn-dark" onclick="addFileInput(this)">+</button>
+                <div id="fileDiv">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
 
-		<input type="text" id="sample5_address" placeholder="주소" disabled>
-		<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" class="btn btn-dark"
-			style="font-size: 13px;"><br>
-		<input type="text" id="address_detail" placeholder="구장이름">
-		<div id="map" style="width:100%;height:300px;margin-top:10px;display:none"></div>
-		<div id="okButton">
-			<button type="button" class="btn btn-dark" onclick="sendObj()">확인</button>
-		</div>
-	</div>
+    <input type="text" id="sample5_address" placeholder="주소" disabled>
+    <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" class="btn btn-dark"
+           style="font-size: 13px;"><br>
+    <input type="text" id="address_detail" placeholder="구장이름">
+    <div id="map" style="width:100%;height:300px;margin-top:10px;display:none"></div>
+    <div id="okButton">
+        <button type="button" class="btn btn-dark" onclick="sendObj()">확인</button>
+    </div>
+</div>
 
-	<script>
-
-
-		//내가 선택한 팀 번호
-		let selectedTeamNum;
-		let teamList;
-		let matchFiles;
-
-		const urlParams = new URL(location.href).searchParams;
-		const mbNum = urlParams.get('mbNum');
+<script>
 
 
-		async function getTeamInfos() {
-			const res = await fetch('/auth/team-infos/admin')
-			teamList = await res.json();
-			console.log(teamList);
-			//내가 선택한 종목 별로 소속된 팀 보여주기
+    //내가 선택한 팀 번호
+    let selectedTeamNum;
+    let teamList;
+    let matchFiles;
 
-			const matchRes = await fetch(`/auth/match-infos/${mbNum}`);
-			const matchInfo = await matchRes.json();
-			matchFiles = matchInfo.matchPhotos;
-			console.log(matchInfo);
-			document.querySelector('#mbDate').value = matchInfo.mbDate;
-			document.querySelector('#mbTime').value = matchInfo.mbTime;
-			document.querySelector('#mbDesc').value = matchInfo.mbDesc;
-			document.querySelector('#mbPay').value = matchInfo.mbPay;
-			for (let i = 0; i < matchFiles.length; i++) {
-				const matchFile = matchInfo.matchPhotos[i];
-				const html = `<div id="fileDiv${i + 1}">`
-					+ `<img src="${matchFile.mbpFilePath}" style="width:100px" id="img${i + 1}">`
-					+ `<input type="file" id="file${i + 1}" onchange="preview(this,'img${i + 1}', ${matchFile.mbpNum})" data-mbp-num=" ${matchFile.mbpNum}">`
-					+ `<button class="btn btn-dark" onclick="removeFileInput('fileDiv${i + 1}', ${matchFile.mbpNum})">-</button>`
-					+ `</div>`
-					+ ``;
-				document.querySelector('#fileDiv').insertAdjacentHTML('beforeend', html);
-			}
-		}
-
-		window.addEventListener('load', getTeamInfos);
+    const urlParams = new URL(location.href).searchParams;
+    const mbNum = urlParams.get('mbNum');
 
 
-		var now_utc = new Date().getTime();
-		var timeOff = new Date().getTimezoneOffset() * 60000;
-		var today = new Date(now_utc - timeOff).toISOString().split("T")[0];
-		document.querySelector('#mbDate').setAttribute("min", today);
+    async function getTeamInfos() {
+        const res = await fetch('/auth/team-infos/admin')
+        teamList = await res.json();
+        console.log(teamList);
+        //내가 선택한 종목 별로 소속된 팀 보여주기
+
+        const matchRes = await fetch(`/auth/match-infos/${mbNum}`);
+        const matchInfo = await matchRes.json();
+        matchFiles = matchInfo.matchPhotos;
+        console.log(matchInfo);
+        document.querySelector('#mbDate').value = matchInfo.mbDate;
+        document.querySelector('#mbTime').value = matchInfo.mbTime;
+        document.querySelector('#mbDesc').value = matchInfo.mbDesc;
+        document.querySelector('#mbPay').value = matchInfo.mbPay;
+        for (let i = 0; i < matchFiles.length; i++) {
+            const matchFile = matchInfo.matchPhotos[i];
+            const html = `<div id="fileDiv${i + 1}">`
+                + `<img src="${matchFile.mbpFilePath}" style="width:100px" id="img${i + 1}">`
+                + `<input type="file" id="file${i + 1}" onchange="preview(this,'img${i + 1}', ${matchFile.mbpNum})" data-mbp-num=" ${matchFile.mbpNum}">`
+                + `<button class="btn btn-dark" onclick="removeFileInput('fileDiv${i + 1}', ${matchFile.mbpNum})">-</button>`
+                + `</div>`
+                + ``;
+            document.querySelector('#fileDiv').insertAdjacentHTML('beforeend', html);
+        }
+    }
+
+    window.addEventListener('load', getTeamInfos);
 
 
-		function selectTeamType(obj) {
-			selectedTeamNum = null;
-			document.querySelector('#team-list').innerHTML = '';
-			for (team of teamList) {
-				let html = '';
-				if (team.taType == '농구') {
-					type = 'basketball';
-				} else if (team.taType == '야구') {
-					type = 'baseball';
-				} else if (team.taType == '축구') {
-					type = 'soccerball';
-				}
-				if (team.taType == obj.value) {
-					html += '<div id="team-list-div">'
-					html += `<button onclick="selectedTeam(this)" value="${team.taNum}" id="team${team.taNum}">`;
-
-					if (team.taFilePath != null && team.taFilePath != '') {
-						html += `<img src="${team.taFilePath}">`;
-					} else {
-						html += `<img src="/imgs/${type}.png">`;
-					}
-
-					html += '</button>';
-					html += `<span>${team.taName}<span>`;
-					html += '</div>';
-				}
-				document.querySelector('#team-list').innerHTML += html;
-			}
-		}
-
-		//팀 선택시 팀 번호 저장
-		function selectedTeam(obj) {
-			selectedTeamNum = obj.value;
-			let myTeams = document.querySelectorAll('.myTeam button');
-			for (i = 0; i < myTeams.length; i++) {
-				myTeams[i].style.backgroundColor = "gray";
-			}
-			document.querySelector(`#team${selectedTeamNum}`).style.backgroundColor = "black";
-			console.log(selectedTeamNum);
-		}
-
-		//카카오 맵 파트!!!!!!
-		//선택 주소 변수
-		let mdAddress;
-		let mbSido;
-		let mbSigungu;
-		let mbMapX;
-		let mbMapY;
+    var now_utc = new Date().getTime();
+    var timeOff = new Date().getTimezoneOffset() * 60000;
+    var today = new Date(now_utc - timeOff).toISOString().split("T")[0];
+    document.querySelector('#mbDate').setAttribute("min", today);
 
 
-		//카카오 지도 부분
-		var mapContainer = document.querySelector('#map'), // 지도를 표시할 div
-			mapOption = {
-				center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-				level: 5 // 지도의 확대 레벨
-			};
+    function selectTeamType(obj) {
+        selectedTeamNum = null;
+        document.querySelector('#team-list').innerHTML = '';
+        for (team of teamList) {
+            let html = '';
+            if (team.taType == '농구') {
+                type = 'basketball';
+            } else if (team.taType == '야구') {
+                type = 'baseball';
+            } else if (team.taType == '축구') {
+                type = 'soccerball';
+            }
+            if (team.taType == obj.value) {
+                html += '<div id="team-list-div">'
+                html += `<button onclick="selectedTeam(this)" value="${team.taNum}" id="team${team.taNum}">`;
 
-		//지도를 미리 생성
-		var map = new daum.maps.Map(mapContainer, mapOption);
-		//주소-좌표 변환 객체를 생성
-		var geocoder = new daum.maps.services.Geocoder();
-		//마커를 미리 생성
-		var marker = new daum.maps.Marker({
-			position: new daum.maps.LatLng(37.537187, 127.005476),
-			map: map
-		});
+                if (team.taFilePath != null && team.taFilePath != '') {
+                    html += `<img src="${team.taFilePath}">`;
+                } else {
+                    html += `<img src="/imgs/${type}.png">`;
+                }
 
+                html += '</button>';
+                html += `<span>${team.taName}<span>`;
+                html += '</div>';
+            }
+            document.querySelector('#team-list').innerHTML += html;
+        }
+    }
 
-		function sample5_execDaumPostcode() {
-			new daum.Postcode({
-				oncomplete: function (data) {
-					var addr = data.address; // 최종 주소 변수
-					// 주소 정보를 해당 필드에 넣는다.
-					document.querySelector("#sample5_address").value = addr;
-					// 주소로 상세 정보를 검색
-					geocoder.addressSearch(data.address, function (results, status) {
-						// 정상적으로 검색이 완료됐으면
-						if (status === daum.maps.services.Status.OK) {
+    //팀 선택시 팀 번호 저장
+    function selectedTeam(obj) {
+        selectedTeamNum = obj.value;
+        let myTeams = document.querySelectorAll('.myTeam button');
+        for (i = 0; i < myTeams.length; i++) {
+            myTeams[i].style.backgroundColor = "gray";
+        }
+        document.querySelector(`#team${selectedTeamNum}`).style.backgroundColor = "black";
+        console.log(selectedTeamNum);
+    }
 
-							var result = results[0]; //첫번째 결과의 값을 활용
-
-							// 해당 주소에 대한 좌표를 받아서
-							var coords = new daum.maps.LatLng(result.y, result.x);
-							// 지도를 보여준다.
-							mapContainer.style.display = "block";
-							map.relayout();
-							// 지도 중심을 변경한다.
-							map.setCenter(coords);
-							// 마커를 결과값으로 받은 위치로 옮긴다.
-							marker.setPosition(coords)
-							mdAddress = data.address;
-							mbSido = data.sido;
-							mbSigungu = data.sigungu;
-							mbMapX = result.x;
-							mbMapY = result.y;
-							console.log(data.buildingName);
-							if (data.buildingName != '') {
-								document.querySelector('#address_detail').value = data.buildingName;
-								document.querySelector('#address_detail').disabled = true;
-							} else {
-								document.querySelector('#address_detail').disabled = false;
-							}
-
-							console.log(data);
-							console.log(mdAddress, mbSido, mbSigungu, mbMapX, mbMapY)
-						}
-					});
-				}
-			}).open();
-		}
-
-		function preview(fileInput, imgId, mbpNum) {
-			for (const matchFile of matchFiles) {
-				if (mbpNum === matchFile.mbpNum) {
-					matchFile.status = 'UPDATE';
-					break;
-				}
-			}
-			document.querySelector(`#${imgId}`).src = URL.createObjectURL(fileInput.files[0]);
-			console.log(fileInput.files[0]);
-		}
+    //카카오 맵 파트!!!!!!
+    //선택 주소 변수
+    let mdAddress;
+    let mbSido;
+    let mbSigungu;
+    let mbMapX;
+    let mbMapY;
 
 
-		function addFileInput(button) {
-			const files = document.querySelectorAll('input[type=file]');
+    //카카오 지도 부분
+    var mapContainer = document.querySelector('#map'), // 지도를 표시할 div
+        mapOption = {
+            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+            level: 5 // 지도의 확대 레벨
+        };
 
-			if (files.length < 3) {
-				const fileId = 'file' + (files.length + 1);
-				const html = `<div id="fileDiv${files.length + 1}"><img src="" style="width:100px" id="img${files.length + 1}"><input type="file" id="${fileId}" onchange="preview(this,'img${files.length + 1}')">`
-					+ `<button onclick="removeFileInput('fileDiv${files.length + 1}')" class="btn btn-dark remove-btn">`
-					+ `-</button></div> `;
-				document.querySelector('#fileDiv').insertAdjacentHTML('beforeend', html);
-			} else {
-				alert('사진은 최대 3장까지 가능합니다');
-			}
-		}
-
-		function removeFileInput(divId, mbpNum) {
-			console.log(matchFiles);
-
-			for (const matchFile of matchFiles) {
-				if (mbpNum === matchFile.mbpNum) {
-					matchFile.status = 'DELETE';
-					break;
-				}
-			}
-			document.querySelector(`#${divId}`).remove();
-		}
+    //지도를 미리 생성
+    var map = new daum.maps.Map(mapContainer, mapOption);
+    //주소-좌표 변환 객체를 생성
+    var geocoder = new daum.maps.services.Geocoder();
+    //마커를 미리 생성
+    var marker = new daum.maps.Marker({
+        position: new daum.maps.LatLng(37.537187, 127.005476),
+        map: map
+    });
 
 
+    function sample5_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                var addr = data.address; // 최종 주소 변수
+                // 주소 정보를 해당 필드에 넣는다.
+                document.querySelector("#sample5_address").value = addr;
+                // 주소로 상세 정보를 검색
+                geocoder.addressSearch(data.address, function (results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
+
+                        var result = results[0]; //첫번째 결과의 값을 활용
+
+                        // 해당 주소에 대한 좌표를 받아서
+                        var coords = new daum.maps.LatLng(result.y, result.x);
+                        // 지도를 보여준다.
+                        mapContainer.style.display = "block";
+                        map.relayout();
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                        mdAddress = data.address;
+                        mbSido = data.sido;
+                        mbSigungu = data.sigungu;
+                        mbMapX = result.x;
+                        mbMapY = result.y;
+                        console.log(data.buildingName);
+                        if (data.buildingName != '') {
+                            document.querySelector('#address_detail').value = data.buildingName;
+                            document.querySelector('#address_detail').disabled = true;
+                        } else {
+                            document.querySelector('#address_detail').disabled = false;
+                        }
+
+                        console.log(data);
+                        console.log(mdAddress, mbSido, mbSigungu, mbMapX, mbMapY)
+                    }
+                });
+            }
+        }).open();
+    }
+
+    function preview(fileInput, imgId, mbpNum) {
+        for (const matchFile of matchFiles) {
+            if (mbpNum === matchFile.mbpNum) {
+                matchFile.status = 'UPDATE';
+                break;
+            }
+        }
+        document.querySelector(`#${imgId}`).src = URL.createObjectURL(fileInput.files[0]);
+        console.log(fileInput.files[0]);
+    }
 
 
+    function addFileInput(button) {
+        const files = document.querySelectorAll('input[type=file]');
 
-		//데이터 보내는 부분
-		async function sendObj() {
-			const files = document.querySelectorAll('input[type=file]');
-			const formData = new FormData();
-			const taNum = selectedTeamNum;
-			const mbDate = document.querySelector('#mbDate').value;
-			const mbTime = document.querySelector('#mbTime').value;
-			const mbDesc = document.querySelector('#mbDesc').value;
-			const mbPay = document.querySelector('#mbPay').value;
-			const mbAddressDetail = document.querySelector('#address_detail').value;
+        if (files.length < 3) {
+            const fileId = 'file' + (files.length + 1);
+            const html = `<div id="fileDiv${files.length + 1}"><img src="" style="width:100px" id="img${files.length + 1}"><input type="file" id="${fileId}" onchange="preview(this,'img${files.length + 1}')">`
+                + `<button onclick="removeFileInput('fileDiv${files.length + 1}')" class="btn btn-dark remove-btn">`
+                + `-</button></div> `;
+            document.querySelector('#fileDiv').insertAdjacentHTML('beforeend', html);
+        } else {
+            alert('사진은 최대 3장까지 가능합니다');
+        }
+    }
+
+    function removeFileInput(divId, mbpNum) {
+        console.log(matchFiles);
+
+        for (const matchFile of matchFiles) {
+            if (mbpNum === matchFile.mbpNum) {
+                matchFile.status = 'DELETE';
+                break;
+            }
+        }
+        document.querySelector(`#${divId}`).remove();
+    }
 
 
-			let i = 0;
-			for (; i < files.length; i++) {
-				if (files[i].files.length) {
-					formData.append(`matchPhotos[${i}].file`, files[i].files[0]);
-				}
-				if (files[i].getAttribute('data-mbp-num')) {
-					formData.append(`matchPhotos[${i}].mbpNum`, files[i].getAttribute('data-mbp-num'));
-					formData.append(`matchPhotos[${i}].status`, 'UPDATE');
-				} else {
-					formData.append(`matchPhotos[${i}].status`, 'INSERT');
-				}
-			}
-			for (const matchPhoto of matchFiles) {
-				if (matchPhoto.status === 'DELETE') {
-					formData.append(`matchPhotos[${i}].status`, 'DELETE');
-					formData.append(`matchPhotos[${i}].mbpNum`, `${matchPhoto.mbpNum}`);
-					formData.append(`matchPhotos[${i++}].mbpFilePath`, `${matchPhoto.mbpFilePath}`);
-				}
-			}
+    //데이터 보내는 부분
+    async function sendObj() {
+        const files = document.querySelectorAll('input[type=file]');
+        const formData = new FormData();
+        const taNum = selectedTeamNum;
+        const mbDate = document.querySelector('#mbDate').value;
+        const mbTime = document.querySelector('#mbTime').value;
+        const mbDesc = document.querySelector('#mbDesc').value;
+        const mbPay = document.querySelector('#mbPay').value;
+        const mbAddressDetail = document.querySelector('#address_detail').value;
 
-			if (!(taNum && mbDate && mbTime && mbPay && mbMapX && mbMapY && mdAddress && mbSido && mbSigungu && mbAddressDetail)) {
-				alert('정보를 입력해 주세요');
-				return false;
-			}
-			formData.append('taNum', taNum);
-			formData.append('mbDate', mbDate);
-			formData.append('mbTime', mbTime);
-			formData.append('mbDesc', mbDesc);
-			formData.append('mbPay', mbPay);
-			formData.append('mbMapX', mbMapX);
-			formData.append('mbMapY', mbMapY);
-			formData.append('mbAddress', mdAddress);
-			formData.append('mbAddressDetail', mbAddressDetail);
-			formData.append('mbSido', mbSido);
-			formData.append('mbSigungu', mbSigungu);
-			formData.append('mbNum', mbNum);
-			const res = await fetch('/auth/match-infos', {
-				method: 'PATCH',
-				body: formData
-			});
 
-			const result = await res.json();
-			if (result >= 1) {
-				alert('등록 성공');
-				location.href = '/page/match/match-board';
-			} else {
-				alert('등록 실패, 다시 시도해 주세요');
-				location.href = '/page/match/match-board';
-			}
-		}
-	</script>
+        let i = 0;
+        for (; i < files.length; i++) {
+            if (files[i].files.length) {
+                formData.append(`matchPhotos[${i}].file`, files[i].files[0]);
+            }
+            if (files[i].getAttribute('data-mbp-num')) {
+                formData.append(`matchPhotos[${i}].mbpNum`, files[i].getAttribute('data-mbp-num'));
+                formData.append(`matchPhotos[${i}].status`, 'UPDATE');
+            } else {
+                formData.append(`matchPhotos[${i}].status`, 'INSERT');
+            }
+        }
+        for (const matchPhoto of matchFiles) {
+            if (matchPhoto.status === 'DELETE') {
+                formData.append(`matchPhotos[${i}].status`, 'DELETE');
+                formData.append(`matchPhotos[${i}].mbpNum`, `${matchPhoto.mbpNum}`);
+                formData.append(`matchPhotos[${i++}].mbpFilePath`, `${matchPhoto.mbpFilePath}`);
+            }
+        }
 
-	<script>
-		window.addEventListener('scroll', () => {
-			if (window.scrollY > 50) {
-				header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
-				header.style.transform = 'translateY(-100%)';
-			} else {
-				header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
-				header.style.transform = 'translateY(0)';
-			}
-		});
-	</script>
+        if (!(taNum && mbDate && mbTime && mbPay && mbMapX && mbMapY && mdAddress && mbSido && mbSigungu && mbAddressDetail)) {
+            alert('정보를 입력해 주세요');
+            return false;
+        }
+        formData.append('taNum', taNum);
+        formData.append('mbDate', mbDate);
+        formData.append('mbTime', mbTime);
+        formData.append('mbDesc', mbDesc);
+        formData.append('mbPay', mbPay);
+        formData.append('mbMapX', mbMapX);
+        formData.append('mbMapY', mbMapY);
+        formData.append('mbAddress', mdAddress);
+        formData.append('mbAddressDetail', mbAddressDetail);
+        formData.append('mbSido', mbSido);
+        formData.append('mbSigungu', mbSigungu);
+        formData.append('mbNum', mbNum);
+        const res = await fetch('/auth/match-infos', {
+            method: 'PATCH',
+            body: formData
+        });
+
+        const result = await res.json();
+        if (result >= 1) {
+            alert('등록 성공');
+            location.href = '/page/match/match-board';
+        } else {
+            alert('등록 실패, 다시 시도해 주세요');
+            location.href = '/page/match/match-board';
+        }
+    }
+</script>
+
+<script>
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.style.opacity = '0'; // 스크롤 위치에 따라 내비게이션 바 숨김
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            header.style.opacity = '1'; // 스크롤 위치에 따라 내비게이션 바 표시
+            header.style.transform = 'translateY(0)';
+        }
+    });
+</script>
 </body>
 
 </html>

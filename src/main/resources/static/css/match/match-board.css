@@ -119,7 +119,7 @@ body {
 }
 
 .match-table {
-    width: 70%;
+    width: 100%;
     margin: 2rem auto 1rem;
     border-collapse: collapse;
     border-top: 1px solid #ccc;
@@ -181,7 +181,7 @@ body {
 .write-section {
     text-align: right;
     /*right: 0;*/
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -232,7 +232,7 @@ body {
     border-radius: 18px;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 768px) {
     .badge-possible {
         padding: 8px;
         font-size: 10px;
@@ -242,4 +242,39 @@ body {
         padding: 8px 15px;
         font-size: 10px;
     }
+}
+
+.range-container {
+    position: relative;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.value-marker {
+    position: absolute;
+    height: 30px;
+    width: 50px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 3px solid #111111;
+    top: -30px;
+    transform-origin: 50% 50%;
+    transform: translateX(-20%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #111;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    border: 1.8px solid #010101;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: #111;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -3.6px;
 }

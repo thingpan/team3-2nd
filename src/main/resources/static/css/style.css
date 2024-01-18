@@ -331,7 +331,7 @@ img {
     border-radius: 18px;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 768px) {
     .badge-possible {
         padding: 8px;
         font-size: 10px;

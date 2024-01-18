@@ -2,51 +2,11 @@
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8"/>
-    <link rel="shortcut icon" href="/assets/images/logos/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <th:block th:replace="page/fragment/head :: f-head"></th:block>
+    <th:block th:replace="page/fragment/script :: f-script"></th:block>
     <title>Team Rankings</title>
     <link href="/css/match/match-board.css" rel="stylesheet"/>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-          integrity="sha384-rUGe2zWI4SydJrIpsKkBKWfNBKUxB/HjDl+gJ1BbTV9ZodHTtjzDq6hy47MWLbFC" crossorigin="anonymous"/>
 </head>
-<style>
-    .range-container {
-        position: relative;
-        margin-top: 40px;
-        width: 100%;
-    }
-
-    .value-marker {
-        position: absolute;
-        height: 30px;
-        width: 50px;
-        background-color: #fff;
-        border-radius: 10px;
-        border: 3px solid #111111;
-        top: -30px;
-        transform-origin: 50% 50%;
-        transform: translateX(-20%);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #111;
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-        border: 1.8px solid #010101;
-        height: 18px;
-        width: 18px;
-        border-radius: 50%;
-        background: #111;
-        cursor: pointer;
-        -webkit-appearance: none;
-        margin-top: -3.6px;
-    }
-</style>
 
 <body>
 <div th:replace="page/fragment/header.html :: f-head"></div>
@@ -74,7 +34,6 @@
                 <select id="sido" name="sido" class="filter-select">
                     <option value="sido">시/도</option>
                 </select>
-
                 <script src="/js/mock/region.js"></script>
 
                 <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
@@ -123,9 +82,7 @@
 </div>
 
 <script type="module" src="/js/match/match-board-script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
+
 <script>
     var slider = document.querySelector("#point");
     var output = document.querySelector("#valueMarker");
