@@ -7,7 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.sp.team32ndproject.exception.AuthException;
+import com.sp.team32ndproject.common.exception.AuthException;
+
 
 
 @ControllerAdvice

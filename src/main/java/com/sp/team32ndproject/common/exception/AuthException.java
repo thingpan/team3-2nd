@@ -1,4 +1,4 @@
-package com.sp.team32ndproject.exception;
+package com.sp.team32ndproject.common.exception;
 
 public class AuthException extends RuntimeException{
 

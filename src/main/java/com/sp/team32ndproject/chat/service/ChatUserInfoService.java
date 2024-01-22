@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.sp.team32ndproject.chat.mapper.ChatUserInfoMapper;
 import com.sp.team32ndproject.chat.vo.ChatUserInfoVO;
-import com.sp.team32ndproject.exception.AuthException;
+import com.sp.team32ndproject.common.exception.AuthException;
 
 import lombok.RequiredArgsConstructor;
 
