@@ -12,6 +12,8 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+import org.springframework.web.socket.messaging.SessionSubscribeEvent;
+import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,8 +32,20 @@ public class WebSocketEventListener {
 		log.info("uiNum => {}",uiNum);
 		log.info("token => {}",token);
 	}
+	
 	@EventListener
 	public void disconnectionListener(SessionDisconnectEvent evt) {
 		log.info("disconnection => {}",evt);
 	}
+	
+	@EventListener//구독 할때
+	public void subscribeListener(SessionSubscribeEvent evt) {
+		log.info("subscribe => {}",evt);
+	}
+	
+	@EventListener
+	public void unsubscribeListener(SessionUnsubscribeEvent evt) {
+		log.info("unsubscribe => {}",evt);
+	}
+	
 }
