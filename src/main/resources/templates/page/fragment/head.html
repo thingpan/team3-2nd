@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <th:block th:fragment="f-head">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="shortcut icon" href="/assets/images/logos/favicon.ico">
-        <title>CSS, HEAD 공통</title>
 
-        <!-- fragment css -->
-        <link href="/css/fragment/common.css" rel="stylesheet">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="shortcut icon" href="/assets/images/logos/favicon.ico">
+		<title>CSS, HEAD 공통</title>
 
-        <!--    swiper 슬라이더 cdn -->
-        <link
-                rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-        />
+		<!-- fragment css -->
+		<link th:href="@{/css/fragment/common.css}" rel="stylesheet">
 
-        <!-- 부트스트랩 -->
-<!--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"-->
-<!--              integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"-->
-<!--              crossorigin="anonymous"/>-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-              crossorigin="anonymous">
+		<!--    swiper 슬라이더 cdn -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-        <!-- 구글 폰트 -->
-        <link
-                href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@200;300;400;500;600;700;800&display=swap"
-                rel="stylesheet"/>
-    </head>
+		<!-- 부트스트랩 -->
+		<!--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"-->
+		<!--              integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"-->
+		<!--              crossorigin="anonymous"/>-->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+			integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+		<!-- 구글 폰트 -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@200;300;400;500;600;700;800&display=swap"
+			rel="stylesheet" />
+	</head>
 </th:block>
 
 <body>
 </body>
+
 </html>
