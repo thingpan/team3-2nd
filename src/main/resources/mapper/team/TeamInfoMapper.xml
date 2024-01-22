@@ -34,7 +34,7 @@
 		#{taDesc},#{taType},#{taFilePath},#{taFileName}
 		);
 	</insert>
-
+<!-- team-members.html -->
 	<select id="selectTeamInfoByTaName"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
@@ -42,7 +42,7 @@
 
 	</select>
 
-
+<!-- team-rank.html ,team-setting.html -->
 	<select id="selectTeamInfo"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT *
@@ -87,7 +87,7 @@
 	</select>
 	
 	
-	<!--team-profile.js  -->
+	<!--team-profile.js ,team-settings.html  -->
 	<select id="selectTeamInfoByTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
@@ -148,7 +148,7 @@
 			</if>
 		</where>
 	</select>
-
+<!-- team-setting.html -->
 	<update id="updateTeamInfo"
 		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		UPDATE TEAM_INFO
@@ -182,7 +182,7 @@
 			<if test="taMatchCount != null and taMatchCount != ''">
 				TA_MATCH_COUNT = #{taMatchCount},
 			</if>
-			<if test="taPoint != null and taPoint != ''">
+			<if test="taPoint != null ">
 				TA_POINT = #{taPoint},
 			</if>
 			<if test="taMannerPoint != null and taMannerPoint != ''">
@@ -208,7 +208,7 @@
 			<if test="taMatchCount != null and taMatchCount != ''">
 				TA_MATCH_COUNT = #{taMatchCount},
 			</if>
-			<if test="taPoint != null and taPoint != ''">
+			<if test="taPoint != null">
 				TA_POINT = #{taPoint},
 			</if>
 			<if test="taMannerPoint != null and taMannerPoint != ''">

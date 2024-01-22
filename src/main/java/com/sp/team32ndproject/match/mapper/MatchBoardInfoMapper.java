@@ -12,7 +12,12 @@ public interface MatchBoardInfoMapper {
 	int updateMatchBoardInfoMbStatus(int mbNum);
 	MatchBoardInfoVO selectMatchInfo(int mbNum);
 	List<MatchBoardInfoVO> selectMatchList();
+	
+	//team-members.html
 	int deleteMatchBoardInfoActivityStatus(MatchBoardInfoVO match);
+	
+	//team-members.html //team-match-list.html
 	List<MatchBoardInfoVO> selectMatchInfosByTaNum(int taNum);
+	
 	int updateMatchBoardInfo(MatchBoardInfoVO matchBoardInfoVO);
 }

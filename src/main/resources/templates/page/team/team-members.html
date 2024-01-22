@@ -92,7 +92,6 @@
 
     async function doRelease(tuNum, uiName) {
 
-
         if (confirm(`${uiName}님을 방출 하시겠습니까?`) == true) {
 
             const res = await fetch(`/auth/team-user-infos/admin?tuNum=${tuNum}&taNum=${taNum}`, {
@@ -109,40 +108,20 @@
             return false;
         }
     }
-
-    async function getSessionUiNum() {
-
-        const res = await fetch('/auth/user-infos/user');
-        const user = await res.json();
-
-        if (user && user.uiNum) {
-            return user.uiNum;
-        } else {
-            return null;
-        }
-    }
-
     async function getUserRole() {
-
-        const uiNum = await getSessionUiNum();
         try {
-            const res = await fetch(`/auth/team-user-infos/role?uiNum=${uiNum}&taNum=${taNum}`);
+            const res = await fetch(`/auth/team-user-infos/role?taNum=${taNum}`);
             const userRole = await res.json();
             return userRole.tuRole;
         } catch {
             return 'user';
         }
     }
-
-
     async function teamLeave() {
         try {
-            const uiNum = await getSessionUiNum();
             const tuRole = await getUserRole();
-
-            if (uiNum != null) {
                 if (tuRole != null) {
-                    const res = await fetch(`/auth/team-user-infos?uiNum=${uiNum}&taNum=${taNum}&tuRole=${tuRole}`, {
+                    const res = await fetch(`/auth/team-user-infos?taNum=${taNum}&tuRole=${tuRole}`, {
                         method: 'DELETE'
                     });
 
@@ -154,7 +133,7 @@
                         getTeamUserInfoList();
                     }
                 }
-            }
+            
         } catch (error) {
             alert('팀에 속하지 않습니다.');
         }

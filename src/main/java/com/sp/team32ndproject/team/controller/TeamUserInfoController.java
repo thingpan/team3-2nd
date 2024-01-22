@@ -37,7 +37,7 @@ public class TeamUserInfoController {
 	}
 
 	// 가입신청 수락 컨트롤러
-	@PostMapping("/auth/team-user-infos")
+	@PostMapping("/auth/team-user-infos") //team-apply.js
 	public int insertTeamUserInfo(@RequestBody TeamSignUserInfoVO teamSignUserInfoVO) {
 		return teamUserInfoService.insertTeamUserInfoToUser(teamSignUserInfoVO);
 	}
@@ -58,10 +58,10 @@ public class TeamUserInfoController {
 	}
 
 	// 팀 탈퇴
-	@DeleteMapping("/auth/team-user-infos")
-	public MsgVO deleteTeamUser(@RequestParam int uiNum, @RequestParam int taNum, @RequestParam String tuRole) {
+	@DeleteMapping("/auth/team-user-infos")//team-members.html
+	public MsgVO deleteTeamUser(@AuthenticationPrincipal UserInfoVO user, @RequestParam int taNum, @RequestParam String tuRole) {
 		TeamUserInfoVO teamUserInfo = new TeamUserInfoVO();
-		teamUserInfo.setUiNum(uiNum);
+		teamUserInfo.setUiNum(user.getUiNum());
 		teamUserInfo.setTaNum(taNum);
 		teamUserInfo.setTuRole(tuRole);
 

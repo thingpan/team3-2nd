@@ -4,14 +4,15 @@
 <head>
     <th:block th:replace="page/fragment/head :: f-head"></th:block>
     <th:block th:replace="page/fragment/script :: f-script"></th:block>
-    <title>Document</title>
+    <title>매치 게시글 작성</title>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <link rel="stylesheet" href="/css/match/match-add.css">
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=604cb758f63da64f7c5e72d8fd9c83d0&libraries=services"></script>
 </head>
 
 <body>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=604cb758f63da64f7c5e72d8fd9c83d0&libraries=services"></script>
 <div th:replace="page/fragment/header.html :: f-head"></div>
+
 <div name="main" class="main">
     <hr>
     <div name="select-team" id="team-main">

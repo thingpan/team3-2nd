@@ -34,7 +34,7 @@
 	</select>
 
 
-
+<!-- team-match-list.html -->
 	<select id="selectMatchInfosByTaNum"
 		resultType="com.sp.team32ndproject.match.vo.MatchBoardInfoVO">
 		SELECT * FROM MATCH_BOARD_INFO

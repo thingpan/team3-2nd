@@ -13,7 +13,7 @@ public interface TeamSignUserInfoMapper {
 	//team-profile.js
 	int insertTeamSignUserInfo(TeamSignUserInfoVO teamSignUserInfoVO);
 	
-	//teamapply.js
+	//team-apply.js
 	List<TeamSignUserInfoVO> selectTeamSignUserInfosWithHelper(TeamSignUserInfoVO teamSignUserInfoVO);
 	
 	//team-setting.html //team-profile.js

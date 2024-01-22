@@ -10,6 +10,7 @@
 		UI_NUM,TSU_STATUS)
 		VALUES(#{taNum},#{uiNum},#{tsuStatus})
 	</insert>
+<!-- 	team-apply.js -->
 	<select id="selectTeamSignUserInfosWithHelper"
 		resultType="com.sp.team32ndproject.team.vo.TeamSignUserInfoVO">
 		SELECT TSU.TSU_NUM, TSU.TA_NUM, TSU.UI_NUM, TSU.TSU_STATUS,
@@ -31,6 +32,7 @@
 		WHERE UI_NUM = #{uiNum}
 		AND TA_NUM = #{taNum}
 	</select>
+<!-- 	team-apply.js -->
 	<delete id="deleteTeamSignUserInfo" 
 		parameterType="com.sp.team32ndproject.team.vo.TeamSignUserInfoVO">
 		DELETE FROM TEAM_SIGN_USER_INFO

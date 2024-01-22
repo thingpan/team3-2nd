@@ -2,11 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.sp.team32ndproject.team.mapper.TeamUserInfoMapper">
+	<!-- team-apply.js -->
 	<insert id="insertTeamUserInfo"
 		parameterType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
 		INSERT INTO TEAM_USER_INFO(UI_NUM, TA_NUM, TU_ROLE)
 		VALUES(#{uiNum},#{taNum},#{tuRole})
 	</insert>
+	
+<!-- 	team-members.html -->
 	<select id="selectTeamUserInfosWithHelper"
 		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
 		SELECT TU.TU_NUM, TU.UI_NUM, TU.TA_NUM, TU.TU_ROLE,
@@ -41,11 +44,14 @@
 		SELECT * FROM TEAM_USER_INFO
 		WHERE TA_NUM = #{taNum};
 	</select>
+	
+<!-- 	team-member.html -->
 	<delete id="deleteTeamUserInfo"
 		parameterType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
 		DELETE FROM TEAM_USER_INFO
 		WHERE TU_NUM = #{tuNum}
 	</delete>
+	<!-- 	team-member.html -->
 	<delete id="deleteTeamUser"
 		parameterType="com.sp.team32ndproject.team.vo.TeamUserInfoVO">
 		DELETE FROM TEAM_USER_INFO
@@ -54,7 +60,7 @@
 
 	</delete>
 	
-	<!--//team-profile.js //team-side.js-->
+	<!--//team-profile.js //team-side.js , team-members.html-->
 	<select id="TeamUserRole"
 		resultType="com.sp.team32ndproject.team.vo.TeamUserInfoVO"
 		>
