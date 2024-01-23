@@ -29,6 +29,8 @@ public class UserInfoVO implements UserDetails {
 	private String uiImgPath;
 	private String uiActiveStatus;
 	private String token;
+	private boolean login;
+	private String sessionId;
 
 	private Collection<? extends GrantedAuthority> authorities;
 	@Override
