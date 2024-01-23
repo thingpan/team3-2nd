@@ -88,6 +88,10 @@ public class UserInfoService implements UserDetailsService {
 		userInfoVO.setUiActiveStatus(request.get("uiActiveStatus"));
 		return userInfoMapper.updateUserInfos(userInfoVO);
 	}
+	
+	public List<UserInfoVO> selectUserInfos(UserInfoVO userInfoVO){
+		return userInfoMapper.selectUserInfos(userInfoVO);
+	}
 
 
 }
