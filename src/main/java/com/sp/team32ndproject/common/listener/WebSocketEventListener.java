@@ -53,7 +53,7 @@ public class WebSocketEventListener {
 				user.setLogin(true);
 			}
 		}
-		smt.convertAndSend("/enter-chat", users);
+		smt.convertAndSend("/topic/enter-chat", users);
 	}
 
 	@EventListener
@@ -70,7 +70,7 @@ public class WebSocketEventListener {
 				user.setLogin(true);
 			}
 		}
-		smt.convertAndSend("/enter-chat", users);
+		smt.convertAndSend("/topic/enter-chat", users);
 	}
 
 	@EventListener // 구독 할때
