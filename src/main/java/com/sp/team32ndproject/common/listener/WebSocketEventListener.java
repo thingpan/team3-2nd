@@ -75,6 +75,10 @@ public class WebSocketEventListener {
 
 	@EventListener // 구독 할때
 	public void subscribeListener(SessionSubscribeEvent evt) {
+		String destination = (String) evt.getMessage().getHeaders().get("simpDestination");
+		if("/topic/enter-chat".equals(destination)) {
+			smt.convertAndSend("/topic/enter-chat",users);
+		}
 		log.info("subscribe => {}", evt);
 	}
 
