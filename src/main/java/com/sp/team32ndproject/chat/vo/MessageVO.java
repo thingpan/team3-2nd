@@ -8,9 +8,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 public class MessageVO {
-	private String message;
+	private String Message;
 	private String sentTime;
 	private String receivedTime;
 	private String sender;
