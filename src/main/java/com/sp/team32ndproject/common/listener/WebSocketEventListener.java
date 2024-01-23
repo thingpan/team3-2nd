@@ -38,7 +38,7 @@ public class WebSocketEventListener {
 
 	@EventListener
 	public void connectionListener(SessionConnectedEvent evt) {
-		if (users == null) {
+		if (users == null || users.isEmpty()) {
 			List<UserInfoVO> tmpUsers = userService.selectUserInfos(null);
 			users = Collections.synchronizedList(tmpUsers);
 		}
@@ -59,15 +59,11 @@ public class WebSocketEventListener {
 	@EventListener
 	public void disconnectionListener(SessionDisconnectEvent evt) {
 		StompHeaderAccessor sha = StompHeaderAccessor.wrap(evt.getMessage());
-		GenericMessage<?> gm = (GenericMessage<?>) sha.getHeader(SimpMessageHeaderAccessor.CONNECT_MESSAGE_HEADER);
-		SimpMessageHeaderAccessor smha = SimpMessageHeaderAccessor.wrap(gm);
-		String sessionId = smha.getSessionId();
-		int idx = sessionIds.indexOf(sessionId);
-
+		String sessionId = sha.getSessionId();
 		for (UserInfoVO user : users) {
 			if (sessionId.equals(user.getSessionId())) {
-				user.setSessionId(sessionId);
-				user.setLogin(true);
+				user.setSessionId(null);
+				user.setLogin(false);
 			}
 		}
 		smt.convertAndSend("/topic/enter-chat", users);
