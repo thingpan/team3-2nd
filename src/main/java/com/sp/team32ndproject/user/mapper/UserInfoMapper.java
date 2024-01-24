@@ -14,7 +14,7 @@ public interface UserInfoMapper {
 	
 	int insertUserInfo(UserInfoVO user);
 
-	int updateUserInfos(UserInfoVO user); //mypage.html
+	int updateUserInfos(UserInfoVO user); // mypage.html
 
 	UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user); //mypage.html
 	

@@ -38,6 +38,6 @@ public interface TeamInfoMapper {
 	TeamInfoVO selectTeamByTaNum(int taNum);
 	
 	//team-members.html
-	int updateTeamTaActiveStatusInfo(TeamInfoVO teamInfoVO);
+	int updateTeamTaActiveStatusInfo(int taNum);
 
 }
