@@ -108,12 +108,7 @@ public class TeamUserInfoService {
 			} else if (teamUserInfoVO.size() == 1) {
 				int result = teamUserInfoMapper.deleteTeamUser(teamUserInfo);
 				if (result == 1) {
-					TeamInfoVO teamInfoVO = new TeamInfoVO();
-					String FulltaName = UUID.randomUUID() + "";
-					String taName = FulltaName.substring(0, 5);
-					teamInfoVO.setTaNum(taNum);
-					teamInfoVO.setTaName(taName);
-					int updateResult = teamInfoMapper.updateTeamTaActiveStatusInfo(teamInfoVO);
+					int updateResult = teamInfoMapper.updateTeamTaActiveStatusInfo(teamUserInfo.getTaNum());
 					if (updateResult == 1) {
 						List<MatchBoardInfoVO> matchBoardInfoVOs = matchBoardInfoMapper.selectMatchInfosByTaNum(taNum);
 						for (MatchBoardInfoVO matchBoardInfoVO : matchBoardInfoVOs) {
