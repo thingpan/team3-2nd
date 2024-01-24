@@ -79,7 +79,7 @@ public class SecurityBeanConfig {
 				.antMatchers("/login", "/user-infos/*", "/page/user/login", "/page/user/join", "/", "/team-infos",
 						"/match-infos", "/api/login", "/join","/chat" )
 				.permitAll()
-				.antMatchers("/page/team/team-settings", "/page/team/team-apply", "/page/match/match-status",
+				.antMatchers("/page/team/team-settings", "/page/team/team-apply", "/page/team/team-status",
 						"/page/team/record")
 				.access(new TeamParamAuthManager(teamInfoService)).antMatchers("/page/team/**")
 				.access(new TeamInfoAuthManager(teamInfoMapper)).anyRequest().authenticated())
