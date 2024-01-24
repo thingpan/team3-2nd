@@ -3,8 +3,8 @@
 <mapper
 	namespace="com.sp.team32ndproject.team.mapper.TeamInfoMapper">
 
-	
-	<select id="selectTeamInfoByTaTypeAndTaNum" 
+
+	<select id="selectTeamInfoByTaTypeAndTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
 		<where>
@@ -17,7 +17,7 @@
 			AND TA_ACTIVE_STATUS = 0
 		</where>
 	</select>
-	
+
 	<insert id="insertTeamInfo" useGeneratedKeys="true"
 		keyColumn="TA_NUM" keyProperty="taNum"
 		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
@@ -34,7 +34,7 @@
 		#{taDesc},#{taType},#{taFilePath},#{taFileName}
 		);
 	</insert>
-<!-- team-members.html -->
+	<!-- team-members.html -->
 	<select id="selectTeamInfoByTaName"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
@@ -42,7 +42,7 @@
 
 	</select>
 
-<!-- team-rank.html ,team-setting.html -->
+	<!-- team-rank.html ,team-setting.html -->
 	<select id="selectTeamInfo"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT *
@@ -85,9 +85,9 @@
 		WHERE TA_NUM = #{taNum}
 
 	</select>
-	
-	
-	<!--team-profile.js ,team-settings.html  -->
+
+
+	<!--team-profile.js ,team-settings.html -->
 	<select id="selectTeamInfoByTaNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
@@ -109,10 +109,11 @@
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
 		WHERE TA_NUM = #{taNum}
-		AND TA_TYPE = #{taType}
+		AND TA_TYPE =
+		#{taType}
 		AND TA_ACTIVE_STATUS = 0
 	</select>
-	
+
 	<select id="selectTeamRankByTeamType"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		SELECT * FROM TEAM_INFO
@@ -148,7 +149,7 @@
 			</if>
 		</where>
 	</select>
-<!-- team-setting.html -->
+	<!-- team-setting.html -->
 	<update id="updateTeamInfo"
 		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		UPDATE TEAM_INFO
@@ -232,12 +233,7 @@
 	<update id="updateTeamTaActiveStatusInfo"
 		parameterType="com.sp.team32ndproject.team.vo.TeamInfoVO">
 		UPDATE TEAM_INFO
-		<set>
-			<if test="taName != null and taName != ''">
-				TA_NAME = #{taName},
-			</if>
-			TA_ACTIVE_STATUS = 1
-		</set>
+		SET TA_ACTIVE_STATUS = 1
 		WHERE
 		TA_NUM = #{taNum}
 	</update>
