@@ -42,6 +42,8 @@
 		WHERE MD.MD_HOME_NUM =
 		#{taNum}
 		AND MD.MD_MATCH_STATUS = 0
+		ORDER BY
+		MD.MD_DATE DESC, MD.MD_TIME DESC
 	</select>
 
 	<select id="selectMatchDealInfosByAwayNumWithHelper"
@@ -56,6 +58,8 @@
 		TEAM_INFO TA ON TA.TA_NUM = MD.MD_HOME_NUM
 		WHERE MD.MD_AWAY_NUM =
 		#{taNum}
+		ORDER BY
+		MD.MD_DATE DESC, MD.MD_TIME DESC
 	</select>
 
 	<update id="updateMatchDealInfoMdMatchStatus"
