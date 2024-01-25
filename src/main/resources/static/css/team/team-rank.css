@@ -48,7 +48,6 @@ select {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    font-family: "Noto Sans KR", sans-serif;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
