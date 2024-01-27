@@ -260,6 +260,7 @@
             alert("비밀번호가 일치합니다!");
             document.querySelector('#current-password-input').value = '';
             $('#current-password-modal').modal('hide');
+            editButton.disabled = true;
             document.querySelector('.edit-profile-form').style.display = 'block';
         } else {
             alert("비밀번호가 일치하지않습니다!");
@@ -569,11 +570,10 @@
     const editButton = document.querySelector('#edit-button');
     const editProfileForm = document.querySelector('.edit-profile-form');
     const saveButton = document.querySelector('#save-profile');
-    // 정보 수정 버튼 클릭 시 이벤트 리스너
-
     // 완료 버튼 클릭 시 이벤트 리스너
     saveButton.addEventListener('click', function () {
         editProfileForm.style.display = 'none';
+        editButton.disabled = false;
     });
 </script>
 </body>
