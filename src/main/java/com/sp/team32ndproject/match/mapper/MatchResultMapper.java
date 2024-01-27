@@ -22,6 +22,10 @@ public interface MatchResultMapper {
   //record-script.js
     List<MatchResultVO> selectMatchResultInfos(MatchResultVO matchResultVO);
     
+    List<MatchResultVO> selectMatchResultInfosAll(MatchResultVO matchResultVO);
+    
+    List<MatchResultVO> selectMatchResultInfosStayAll(MatchResultVO matchResultVO);
+    
     
 }
 
