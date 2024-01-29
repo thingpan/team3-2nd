@@ -140,7 +140,10 @@ public class TeamInfoService {
 			TeamInfoVO teamInfoVO = new TeamInfoVO();
 			teamInfoVO.setTaType(taType);
 			teamInfoVO.setTaNum(teamUserInfoVO.getTaNum());
-			teamInfoVOs.add(teamInfoMapper.selectTeamInfoByTaTypeAndTaNum(teamInfoVO));  
+			TeamInfoVO teamInfoVO2 = teamInfoMapper.selectTeamInfoByTaTypeAndTaNum(teamInfoVO);
+			if(teamInfoVO2 != null) {
+				teamInfoVOs.add(teamInfoVO2); 
+			} 
 		}
 		
 		return teamInfoVOs;
