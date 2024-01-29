@@ -136,8 +136,8 @@
             errorDiv.innerText = "";
         }
     }
-
-    window.addEventListener('load', async function () {
+    
+    async function getTeamProfile () {
         // 현재 URL에서 taNum을 가져오기
         const urlParams = new URLSearchParams(window.location.search);
         const taNum = urlParams.get('taNum');
@@ -179,7 +179,9 @@
         } else {
             console.error('taNum이 없습니다.');
         }
-    });
+    }
+		
+    window.addEventListener('load',getTeamProfile)
 
     async function checkTeamName() {
         const taName = document.querySelector('#checkTeamNameInModal').value
@@ -235,7 +237,7 @@
 
                 if (result == 1) {
                     alert('팀 정보가 업데이트되었습니다.');
-                    location.href = `/page/team/record?taNum=${taNum}`
+                    getTeamProfile();
                 } else {
                     alert('저장 실패');
                 }
