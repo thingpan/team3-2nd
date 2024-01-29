@@ -3,7 +3,7 @@
 
 <mapper
 	namespace="com.sp.team32ndproject.match.mapper.MatchResultMapper">
-<!--  	record-script.js -->
+	<!-- record-script.js -->
 	<insert id="insertMatchResult"
 		parameterType="com.sp.team32ndproject.match.vo.MatchResultVO">
 		INSERT INTO MATCH_RESULT_INFO
@@ -13,7 +13,7 @@
 		#{taAwayNum}, #{mrRequestStatus})
 	</insert>
 
-	<update id="updateMatchResultInfo" 
+	<update id="updateMatchResultInfo"
 		parameterType="com.sp.team32ndproject.match.vo.MatchResultVO"
 		useGeneratedKeys="true" keyColumn="MR_REQUEST_STATUS,TA_HOME_NUM"
 		keyProperty="mrRequestStatus,taHomeNum">
@@ -44,15 +44,54 @@
 		WHERE MR_NUM = #{mrNum}
 	</update>
 
- <!--    record-script.js -->
+	<!-- record-script.js -->
+	<select id="selectMatchResultInfosStayAll"
+		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
+		SELECT MR.*, MD.MD_DATE, MD.MD_TIME, MD.MD_ADDRESS
+		FROM
+		MATCH_RESULT_INFO MR
+		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM = MR.MD_NUM
+		<where>
+			<if test="mrSearchType == 'all'">
+				(TA_HOME_NUM = #{taNum}
+				OR TA_AWAY_NUM = #{taNum})
+			</if>
+			AND NOT MR_REQUEST_STATUS = '3'
+		</where>
+		ORDER BY
+		MD_DATE DESC, MD_TIME DESC
+	</select>
+	
+	<select id="selectMatchResultInfosAll" 
+		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
+		SELECT MR.*, MD.MD_DATE, MD.MD_TIME, MD.MD_ADDRESS
+		FROM
+		MATCH_RESULT_INFO MR
+		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM = MR.MD_NUM
+		<where>
+			<if test="mrSearchType == 'all'">
+				(TA_HOME_NUM = #{taNum}
+				OR TA_AWAY_NUM = #{taNum})
+			</if>
+			AND MR_REQUEST_STATUS = '3'
+		</where>
+		ORDER BY
+		MD_DATE DESC, MD_TIME DESC
+	</select>
+	
 	<select id="selectMatchResultInfosStay"
 		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
 		SELECT MR.*, TA.TA_NAME, MD.MD_DATE, MD.MD_TIME, MD.MD_ADDRESS
 		FROM
 		MATCH_RESULT_INFO MR
-		INNER JOIN TEAM_INFO TA ON
-		TA.TA_NUM =
-		MR.TA_HOME_NUM
+		<if test="mrSearchType == 'away'">
+			INNER JOIN TEAM_INFO TA ON
+			TA.TA_NUM = MR.TA_HOME_NUM
+		</if>
+		<if test="mrSearchType == 'home'">
+			INNER JOIN TEAM_INFO TA ON
+			TA.TA_NUM = MR.TA_AWAY_NUM
+		</if>
 		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM = MR.MD_NUM
 		<where>
 			<if test="mrSearchType == 'all'">
@@ -71,15 +110,20 @@
 		MD_DATE DESC, MD_TIME DESC
 	</select>
 
-<!--  record-script.js -->
-	<select id="selectMatchResultInfos" 
+	<!-- record-script.js -->
+	<select id="selectMatchResultInfos"
 		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
 		SELECT MR.*, TA.TA_NAME, MD.MD_DATE, MD.MD_TIME, MD.MD_ADDRESS
 		FROM
 		MATCH_RESULT_INFO MR
-		INNER JOIN TEAM_INFO TA ON
-		TA.TA_NUM =
-		MR.TA_HOME_NUM
+		<if test="mrSearchType == 'away'">
+			INNER JOIN TEAM_INFO TA ON
+			TA.TA_NUM = MR.TA_HOME_NUM
+		</if>
+		<if test="mrSearchType == 'home'">
+			INNER JOIN TEAM_INFO TA ON
+			TA.TA_NUM = MR.TA_AWAY_NUM
+		</if>
 		INNER JOIN MATCH_DEAL_INFO MD ON MD.MD_NUM = MR.MD_NUM
 		<where>
 			<if test="mrSearchType == 'all'">
@@ -96,9 +140,9 @@
 		</where>
 		ORDER BY
 		MD_DATE DESC, MD_TIME DESC
-	</select >
-	
-	<select id="selectMatchResultInfo" 
+	</select>
+
+	<select id="selectMatchResultInfo"
 		resultType="com.sp.team32ndproject.match.vo.MatchResultVO">
 		SELECT * FROM MATCH_RESULT_INFO
 		WHERE MR_NUM = #{mrNum}

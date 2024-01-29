@@ -27,7 +27,8 @@ public class MatchResultService {
 	private TeamInfoService teamInfoService;
 	@Autowired
 	private TeamInfoMapper teamInfoMapper;
-	//record-script.js
+
+	// record-script.js
 	public MsgVO insertMatchResult(MatchResultVO matchResultVO) {
 		MsgVO msgVO = new MsgVO();
 		try {
@@ -46,14 +47,14 @@ public class MatchResultService {
 
 	public MsgVO updateMatchResultInfoFirst(MatchResultVO matchResultVO) {
 		MsgVO msgVO = new MsgVO();
-		if(matchResultVO.getMrRequestStatus().equals("1")){
-			if(matchResultVO.getMrHomeScore()>matchResultVO.getMrAwayScore()) {
+		if (matchResultVO.getMrRequestStatus().equals("1")) {
+			if (matchResultVO.getMrHomeScore() > matchResultVO.getMrAwayScore()) {
 				matchResultVO.setMrHomeResult("w");
 				matchResultVO.setMrAwayResult("l");
-			}else if(matchResultVO.getMrHomeScore()<matchResultVO.getMrAwayScore()) {
+			} else if (matchResultVO.getMrHomeScore() < matchResultVO.getMrAwayScore()) {
 				matchResultVO.setMrHomeResult("l");
 				matchResultVO.setMrAwayResult("w");
-			}else {
+			} else {
 				matchResultVO.setMrHomeResult("d");
 				matchResultVO.setMrAwayResult("d");
 			}
@@ -61,28 +62,86 @@ public class MatchResultService {
 		try {
 			matchResultMapper.updateMatchResultInfo(matchResultVO);
 			msgVO.setResultMsg("결과 입력 완료");
-			if(matchResultVO.getMrRequestStatus().equals("3")) {
+			if (matchResultVO.getMrRequestStatus().equals("3")) {
 				matchResultVO = matchResultMapper.selectMatchResultInfo(matchResultVO);
 				try {
 					teamInfoService.doUpdateHomeMatchResult(matchResultVO);
 					teamInfoService.doUpdateAwayMatchResult(matchResultVO);
-				}catch (Exception e) {
+				} catch (Exception e) {
 					// TODO: handle exception
 				}
 			}
 			return msgVO;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			msgVO.setResultMsg("결과 입력 실패 다시 시도 해주세요");
 			return msgVO;
 		}
 	}
-	//record-script.js 
-	public PageInfo<MatchResultVO> selectMatchResultInfosStay(MatchResultVO matchResultVO){
+
+	// record-script.js
+	public PageInfo<MatchResultVO> selectMatchResultInfosStay(MatchResultVO matchResultVO) {
+		if (matchResultVO.getMrSearchType().equals("all")) {
+			PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
+			List<MatchResultVO> matchResultVOs = matchResultMapper.selectMatchResultInfosStayAll(matchResultVO);
+			for (int i = 0; i < matchResultVOs.size(); i++) {
+				int myTaNum = matchResultVO.getTaNum();
+				int homeNum = matchResultVOs.get(i).getTaHomeNum();
+				int awayNum = matchResultVOs.get(i).getTaAwayNum();
+				String opTaName = "";
+				if (myTaNum == homeNum) {
+					TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(awayNum);
+					if (teamInfoVO != null) {
+						opTaName = teamInfoVO.getTaName();
+					} else {
+						opTaName = "삭제된 팀";
+					}
+					matchResultVOs.get(i).setTaName(opTaName);
+				} else if (myTaNum == awayNum) {
+					TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(homeNum);
+					if (teamInfoVO != null) {
+						opTaName = teamInfoVO.getTaName();
+					} else {
+						opTaName = "삭제된 팀";
+					}
+					matchResultVOs.get(i).setTaName(opTaName);
+				}
+			}
+			return new PageInfo<MatchResultVO>(matchResultVOs);
+		}
 		PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
 		return new PageInfo<>(matchResultMapper.selectMatchResultInfosStay(matchResultVO));
 	}
-	//record-script.js
-	public PageInfo<MatchResultVO> selectMatchResultInfos(MatchResultVO matchResultVO){
+
+	// record-script.js
+	public PageInfo<MatchResultVO> selectMatchResultInfos(MatchResultVO matchResultVO) {
+		if (matchResultVO.getMrSearchType().equals("all")) {
+			PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
+			List<MatchResultVO> matchResultVOs = matchResultMapper.selectMatchResultInfosAll(matchResultVO);
+			for (int i = 0; i < matchResultVOs.size(); i++) {
+				int myTaNum = matchResultVO.getTaNum();
+				int homeNum = matchResultVOs.get(i).getTaHomeNum();
+				int awayNum = matchResultVOs.get(i).getTaAwayNum();
+				String opTaName = "";
+				if (myTaNum == homeNum) {
+					TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(awayNum);
+					if (teamInfoVO != null) {
+						opTaName = teamInfoVO.getTaName();
+					} else {
+						opTaName = "삭제된 팀";
+					}
+					matchResultVOs.get(i).setTaName(opTaName);
+				} else if (myTaNum == awayNum) {
+					TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(homeNum);
+					if (teamInfoVO != null) {
+						opTaName = teamInfoVO.getTaName();
+					} else {
+						opTaName = "삭제된 팀";
+					}
+					matchResultVOs.get(i).setTaName(opTaName);
+				}
+			}
+			return new PageInfo<MatchResultVO>(matchResultVOs);
+		}
 		PageHelper.startPage(matchResultVO.getPage(), matchResultVO.getPageSize());
 		return new PageInfo<>(matchResultMapper.selectMatchResultInfos(matchResultVO));
 	}
