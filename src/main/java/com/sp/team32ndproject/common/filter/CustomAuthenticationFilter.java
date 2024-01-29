@@ -22,6 +22,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sp.team32ndproject.chat.util.DateUtil;
+import com.sp.team32ndproject.common.listener.WebSocketEventListener;
 import com.sp.team32ndproject.common.provider.JWTTokenProvider;
 import com.sp.team32ndproject.user.vo.UserInfoVO;
 
@@ -79,6 +81,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 				.path("/")
 				.maxAge(jwt.getTokenExpire())
 				.build();
+		for(UserInfoVO tmpUser : WebSocketEventListener.users) {
+			if(user.getUiNum() == tmpUser.getUiNum()) {
+				tmpUser.setLoginDate(DateUtil.getToDate());
+			}
+		}
 		response.addHeader(HttpHeaders.SET_COOKIE, resCookie.toString());
 		jsonWrite(response, om.writeValueAsString(user));
 	}

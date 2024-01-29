@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.sp.team32ndproject.chat.mapper.ChatUserInfoMapper">
+	namespace="com.sp.team32ndproject.chat.mapper.ChatMessageInfoMapper">
 
-	<insert id="insertChatUserInfo"
-		parameterType="com.sp.team32ndproject.chat.vo.ChatUserInfoVO">
-		INSERT INTO CHAT_USER_INFO(CHI_ID, CHI_NAME, CHI_PWD)
-		VALUES(#{chiId}, #{chiName}, #{chiPwd})
+	<insert id="insertChatMessageInfo"
+		parameterType="com.sp.team32ndproject.chat.vo.MessageVO">
+		INSERT INTO CHAT_MESSAGE_INFO(SENDER_UI_NUM, RECEIVE_UI_NUM, MESSAGE, SENTTIME, RECEIVEDTIME)
+		VALUES(#{senderUiNum}, #{receiveUiNum}, #{message}, #{senttime}, #{receivedtime})
 	</insert>
 	
-	<select id="selectChatUserInfoById">
+	<select id="selectChatMessageInfos"> 
 		SELECT * 
-		FROM CHAT_USER_INFO
-		WHERE CHI_ID = #{chiId}
+		FROM CHAT_MESSAGE_INFO
+		<where>
+		
+		</where>
 	</select>
 
 </mapper>

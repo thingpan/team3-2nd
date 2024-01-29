@@ -3,6 +3,7 @@ package com.sp.team32ndproject.common.listener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 
+import com.sp.team32ndproject.chat.util.DateUtil;
 import com.sp.team32ndproject.user.service.UserInfoService;
 import com.sp.team32ndproject.user.vo.UserInfoVO;
 
@@ -47,10 +49,13 @@ public class WebSocketEventListener {
 		SimpMessageHeaderAccessor smha = SimpMessageHeaderAccessor.wrap(gm);
 		int uiNum = Integer.parseInt(smha.getFirstNativeHeader("uiNum"));
 		String sessionId = smha.getSessionId();
+		String loginDate = DateUtil.getToDate();
+		
 		for (UserInfoVO user : users) {
 			if (user.getUiNum() == uiNum) {
 				user.setSessionId(sessionId);
 				user.setLogin(true);
+				user.setLoginDate(loginDate);
 			}
 		}
 		smt.convertAndSend("/topic/enter-chat", users);

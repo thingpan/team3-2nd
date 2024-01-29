@@ -2,6 +2,7 @@ package com.sp.team32ndproject.chat.service;
 
 import org.springframework.stereotype.Service;
 
+import com.sp.team32ndproject.chat.mapper.ChatMessageInfoMapper;
 import com.sp.team32ndproject.chat.mapper.ChatUserInfoMapper;
 import com.sp.team32ndproject.chat.vo.ChatUserInfoVO;
 import com.sp.team32ndproject.common.exception.AuthException;
