@@ -48,7 +48,6 @@
 }
 
 label {
-	width: 67px;
 	text-align: left;
 }
 
@@ -361,13 +360,15 @@ select {
 #create-team-btn {
 	margin-right: 5px;
 	width: 90px;
-	font-size: 15px;
+	font-size: 14px;
+	height:50px;
 }
 
 #edit-button {
 	margin-right: 5px;
 	width: 90px;
-	font-size: 15px;
+	font-size: 14px;
+	height:50px;
 }
 
 #changecurrentpasswordinput,

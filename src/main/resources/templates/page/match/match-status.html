@@ -1,59 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>가입 신청 목록</title>
+    <title>팀 매칭 현황</title>
     <th:block th:replace="page/fragment/t-head :: ft-head"></th:block>
     <th:block th:replace="page/fragment/t-script :: ft-script"></th:block>
-
-    <link rel="stylesheet" th:href="@{/css/team/team-apply.css}"/>
 </head>
-
 <body>
-<!--  Body Wrapper -->
+
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
      data-sidebar-position="fixed" data-header-position="fixed">
 
-    <!-- Sidebar Start -->
     <div th:replace="page/fragment/team-side.html :: f-side"></div>
-    <!--  Sidebar End -->
-    <!--  Main wrapper -->
+
     <div class="body-wrapper">
 
-        <!--  Header Start -->
         <div th:replace="page/fragment/team-head.html :: f-team-head"></div>
-        <!--  Header End -->
 
         <div class="container-fluid">
 
             <div th:replace="page/fragment/team-profile.html :: f-team-profile"></div>
 
-            <div class="col-lg-8 d-flex align-items-stretch" id="team-apply-table-top-div">
+            <div class="team-user-list">
                 <div class="card w-100">
                     <div class="card-body p-4">
-                        <h5 class="card-title fw-semibold mb-4">팀 가입 신청 목록</h5>
+                        <h5 class="card-title fw-semibold mb-4">매칭 현황</h5>
                         <div class="table-responsive">
                             <table class="table text-nowrap mb-0 align-middle">
                                 <thead class="text-dark fs-4">
                                 <tr>
-                                    <th class="border-bottom-0" id="name">
-                                        <h6 class="fw-semibold mb-0">이름</h6>
+                                    <th>
+                                        <h6 class="fw-semibold mb-0">구장</h6>
                                     </th>
-                                    <th class="border-bottom-0" id="address">
-                                        <h6 class="fw-semibold mb-0">주소</h6>
+                                    <th>
+                                        <h6 class="fw-semibold mb-0">상대팀</h6>
                                     </th>
-                                    <th class="border-bottom-0" id="phone-number">
-                                        <h6 class="fw-semibold mb-0">전화번호</h6>
+                                    <th>
+                                        <h6 class="fw-semibold mb-0">경기일시</h6>
                                     </th>
-                                    <th class="border-bottom-0" id="accept">
-                                        <h6 class="fw-semibold mb-0"></h6>
+                                    <th>
+                                        <h6 class="fw-semibold mb-0">신청상태</h6>
                                     </th>
-                                    <th class="border-bottom-0" id="refuse">
-                                        <h6 class="fw-semibold mb-0"></h6>
-                                    </th>
+
                                 </tr>
+                                <div class="form-group col-md-2">
+                                    <select class="form-select" id="sport-filter"
+                                            onchange="getSelectChangeListener(this)">
+                                        <option value="home" selected>Home</option>
+                                        <option value="away">Away</option>
+                                    </select>
+                                </div>
                                 </thead>
-                                <tbody id="membership-requests-info" style="text-align: center;">
+                                <tbody id="team-user-list-info">
+
                                 </tbody>
                             </table>
                         </div>
@@ -80,11 +79,14 @@
                         </div>
                     </div>
                 </div>
+
             </div>
+
         </div>
     </div>
 </div>
-<script src="/js/team/team-apply.js"></script>
+
+<script src="/js/match/match-status.js"></script>
 </body>
 
 </html>

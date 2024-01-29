@@ -164,10 +164,12 @@
 					placeholder="변경하려는 이메일을 입력해주세요.">
 			</div>
 			<hr>
-			<label for="password">비밀번호 :</label> <input type="password"
-				id="password" name="password" readonly>
-			<button id="change-password-button" class="btn btn-dark"
-				onclick="openChangePasswordPopup()">비밀번호 변경</button>
+			<div class="mb-2">
+				<label for="password">비밀번호 :</label> <input type="password"
+					id="password" name="password" readonly>
+				<button id="change-password-button" class="btn btn-dark"
+					onclick="openChangePasswordPopup()">비밀번호 변경</button>
+			</div>
 			<hr>
 			<label for="phone">전화번호 :</label> <input type="number" id="phone">
 			<hr>
@@ -260,6 +262,7 @@
             alert("비밀번호가 일치합니다!");
             document.querySelector('#current-password-input').value = '';
             $('#current-password-modal').modal('hide');
+            editButton.disabled = true;
             document.querySelector('.edit-profile-form').style.display = 'block';
         } else {
             alert("비밀번호가 일치하지않습니다!");
@@ -569,13 +572,10 @@
     const editButton = document.querySelector('#edit-button');
     const editProfileForm = document.querySelector('.edit-profile-form');
     const saveButton = document.querySelector('#save-profile');
-    // 정보 수정 버튼 클릭 시 이벤트 리스너
-    editButton.addEventListener('click', function () {
-        editProfileForm.style.display = 'block';
-    });
     // 완료 버튼 클릭 시 이벤트 리스너
     saveButton.addEventListener('click', function () {
         editProfileForm.style.display = 'none';
+        editButton.disabled = false;
     });
 </script>
 </body>

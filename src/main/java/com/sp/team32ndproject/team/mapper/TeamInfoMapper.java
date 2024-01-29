@@ -35,7 +35,6 @@ public interface TeamInfoMapper {
     int updateTeamInfo(TeamInfoVO teamInfoVO);
     int updateTeamInfoToHomeMatchResult(TeamInfoVO teamInfoVO);
     int updateTeamInfoToAwayMatchResult(TeamInfoVO teamInfoVO);
-	TeamInfoVO selectTeamByTaNum(int taNum);
 	
 	//team-members.html
 	int updateTeamTaActiveStatusInfo(int taNum);
