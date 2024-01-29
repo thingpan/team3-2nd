@@ -94,7 +94,7 @@ public class SecurityBeanConfig {
 					@Override
 					public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 						CorsConfiguration ccf = new CorsConfiguration();
-						ccf.setAllowedOrigins(List.of("https://localhost:3000", "https://matchmeifyoucan.today"));
+						ccf.setAllowedOrigins(List.of("https://localhost:3000", "https://matchmeifyoucan.today", "https://localhost:3001"));
 						ccf.setAllowedMethods(List.of("POST", "PATCH", "PUT", "GET", "DELETE", "OPTIONS"));
 						ccf.setAllowedHeaders(List.of("*"));
 						ccf.setAllowCredentials(true);

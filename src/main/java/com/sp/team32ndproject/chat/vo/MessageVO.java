@@ -19,4 +19,5 @@ public class MessageVO {
 	private String position;
 	private String type;
 	private String payload;
+	private boolean typing;
 }
