@@ -19,7 +19,7 @@ public class ChatMessageService {
 	private final ChatMessageInfoMapper chatMessageInfoMapper;
 	
 	public int insertChatMessageInfo(MessageVO messageVO) {
-		messageVO.setSentTime(DateUtil.getToDate());
+		messageVO.setCmiSentTime(DateUtil.getToDate());
 		return chatMessageInfoMapper.insertChatMessageInfo(messageVO);
 	}
 	
