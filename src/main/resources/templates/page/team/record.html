@@ -2,279 +2,286 @@
 <html lang="en">
 
 <head>
-	<title>팀 전적 페이지</title>
-	<th:block th:replace="page/fragment/t-head :: ft-head"></th:block>
-	<th:block th:replace="page/fragment/t-script :: ft-script"></th:block>
+    <title>팀 전적 페이지</title>
+    <th:block th:replace="page/fragment/t-head :: ft-head"></th:block>
+    <th:block th:replace="page/fragment/t-script :: ft-script"></th:block>
 
-	<link rel="stylesheet" href="/css/team/record.css" />
+    <link rel="stylesheet" href="/css/team/record.css"/>
 
 </head>
 
 <body>
-	<!-- 사이드바 영역 -->
+<!-- 사이드바 영역 -->
 
-	<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-		data-sidebar-position="fixed" data-header-position="fixed">
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
 
-		<div th:replace="page/fragment/team-side.html :: f-side"></div>
+    <div th:replace="page/fragment/team-side.html :: f-side"></div>
 
-		<div class="body-wrapper">
+    <div class="body-wrapper">
 
-			<div th:replace="page/fragment/team-head.html :: f-team-head"></div>
+        <div th:replace="page/fragment/team-head.html :: f-team-head"></div>
 
-			<div class="container-fluid">
+        <div class="container-fluid">
 
-				<div th:replace="page/fragment/team-profile.html :: f-team-profile"></div>
-				<div class="row">
+            <div th:replace="page/fragment/team-profile.html :: f-team-profile"></div>
+            <div class="row">
 
-					<div class="col-lg-4 d-flex align-items-stretch" id="match-record-div-top">
+                <div class="col-lg-4 d-flex align-items-stretch" id="match-record-div-top">
 
-						<div class="card w-100">
-							<div class="card-body p-4">
-								<h5 class="card-title fw-semibold mb-4">대기중</h5>
-								<div class="form-group col-md-2">
-									<select class="form-select" id="sport-filter"
-										onchange="getSelectChangeListenerStay(this)">
-										<option value="all" selected>All</option>
-										<option value="home">Home</option>
-										<option value="away">Away</option>
-									</select>
-								</div>
-								<div class="table-responsive">
-									<table class="table text-nowrap mb-0 align-middle">
-										<thead class="text-dark fs-4">
-											<tr>
-												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">위치</h6>
-												</th>
-												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">날짜|시간</h6>
-												</th>
-												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">홈|어웨이</h6>
-												</th>
-												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">상대팀</h6>
-												</th>
-												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">점수</h6>
-												</th>
-												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">결과</h6>
-												</th>
-											</tr>
-										</thead>
-										<tbody id="match-record-tbody-stay">
+                    <div class="card w-100">
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-semibold mb-4">대기중</h5>
+                            <div class="form-group col-md-2">
+                                <select class="form-select" id="sport-filter"
+                                        onchange="getSelectChangeListenerStay(this)">
+                                    <option value="all" selected>All</option>
+                                    <option value="home">Home</option>
+                                    <option value="away">Away</option>
+                                </select>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap mb-0 align-middle">
+                                    <thead class="text-dark fs-4">
+                                    <tr>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">위치</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">날짜|시간</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">홈|어웨이</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">상대팀</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">점수</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">결과</h6>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="match-record-tbody-stay">
 
-										</tbody>
-									</table>
-								</div>
+                                    </tbody>
+                                </table>
+                            </div>
 
-								<!-- 부트스트랩 Pagination -->
-								<div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
-									<nav aria-label="Page navigation">
-										<ul class="pagination justify-content-center" id="page-div-stay">
-											<li class="page-item">
-												<a class="page-link" href="#" aria-label="Previous">
-													<span aria-hidden="true">&laquo;</span>
-												</a>
-											</li>
-											<li class="page-item"><a class="page-link" href="#">1</a></li>
-											<li class="page-item"><a class="page-link" href="#">2</a></li>
-											<li class="page-item"><a class="page-link" href="#">3</a></li>
-											<li class="page-item"><a class="page-link" href="#">4</a></li>
-											<li class="page-item"><a class="page-link" href="#">5</a></li>
-											<li class="page-item">
-												<a class="page-link" href="#" aria-label="Next">
-													<span aria-hidden="true">&raquo;</span>
-												</a>
-											</li>
-										</ul>
-									</nav>
-								</div>
-							</div>
-						</div>
-					</div>
+                            <!-- 부트스트랩 Pagination -->
+                            <div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center" id="page-div-stay">
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-				</div>
-				<div class="row">
+            </div>
+            <div class="row">
 
-					<div class="col-lg-4 d-flex align-items-stretch" id="match-record-div-top">
+                <div class="col-lg-4 d-flex align-items-stretch" id="match-record-div-top">
 
-						<div class="card w-100">
-							<div class="card-body p-4">
-								<h5 class="card-title fw-semibold mb-4">완료</h5>
-								<div class="form-group col-md-2">
-									<select class="form-select" id="sport-filter"
-										onchange="getSelectChangeListener(this)">
-										<option value="all" selected>All</option>
-										<option value="home">Home</option>
-										<option value="away">Away</option>
-									</select>
-								</div>
-								<div class="table-responsive">
-									<table class="table text-nowrap mb-0 align-middle">
-										<thead class="text-dark fs-4">
-											<tr>
-												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">위치</h6>
-												</th>
-												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">날짜|시간</h6>
-												</th>
-												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">홈|어웨이</h6>
-												</th>
-												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">상대팀</h6>
-												</th>
-												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">점수</h6>
-												</th>
-												<th class="border-bottom-0">
-													<h6 class="fw-semibold mb-0">결과</h6>
-												</th>
-											</tr>
-										</thead>
-										<tbody id="match-record-tbody">
+                    <div class="card w-100">
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-semibold mb-4">완료</h5>
+                            <div class="form-group col-md-2">
+                                <select class="form-select" id="sport-filter"
+                                        onchange="getSelectChangeListener(this)">
+                                    <option value="all" selected>All</option>
+                                    <option value="home">Home</option>
+                                    <option value="away">Away</option>
+                                </select>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap mb-0 align-middle">
+                                    <thead class="text-dark fs-4">
+                                    <tr>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">위치</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">날짜|시간</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">홈|어웨이</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">상대팀</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">점수</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">결과</h6>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="match-record-tbody">
 
-										</tbody>
-									</table>
-								</div>
+                                    </tbody>
+                                </table>
+                            </div>
 
-								<!-- 부트스트랩 Pagination -->
-								<div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
-									<nav aria-label="Page navigation">
-										<ul class="pagination justify-content-center" id="pageDiv">
-											<li class="page-item">
-												<a class="page-link" href="#" aria-label="Previous">
-													<span aria-hidden="true">&laquo;</span>
-												</a>
-											</li>
-											<li class="page-item"><a class="page-link" href="#">1</a></li>
-											<li class="page-item"><a class="page-link" href="#">2</a></li>
-											<li class="page-item"><a class="page-link" href="#">3</a></li>
-											<li class="page-item"><a class="page-link" href="#">4</a></li>
-											<li class="page-item"><a class="page-link" href="#">5</a></li>
-											<li class="page-item">
-												<a class="page-link" href="#" aria-label="Next">
-													<span aria-hidden="true">&raquo;</span>
-												</a>
-											</li>
-										</ul>
-									</nav>
-								</div>
-							</div>
-						</div>
-					</div>
+                            <!-- 부트스트랩 Pagination -->
+                            <div class="pagination-class" style="margin-top: 5rem; margin-bottom: 3rem">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center" id="pageDiv">
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-				</div>
+            </div>
 
-			</div>
+        </div>
 
-			<div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="scoreModalLabel" style="text-align: center">
-								오늘 경기 정보를 입력해주세요!
-							</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<div class="modal-title-score">
-								<label for="scoreInput">
-									<h5>스코어</h5>
-								</label>
-							</div>
+        <div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="scoreModalLabel" style="text-align: center">
+                            오늘 경기 정보를 입력해주세요!
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-title-score">
+                            <label for="scoreInput">
+                                <h5>스코어</h5>
+                            </label>
+                        </div>
 
-							<div class="modal-score" style="display: flex; justify-content: space-evenly">
-								<div class="score-board">
-									<input type="number" id="homeScoreInput" style="
+                        <div class="modal-score" style="display: flex; justify-content: space-evenly">
+                            <div class="score-board">
+                                <input type="number" min="0" id="homeScoreInput" oninput="inputNumberOnly(this)" style="
                     width: 80px;
                     height: 100px;
                     text-align: center;
                     font-size: 32px;
-                  " /><br />
-									<label for="homeScoreInput">Home</label>
-								</div>
-								<label style="font-size: 32px; margin-top: 1.2rem">:</label>
-								<div class="score-board">
-									<input type="number" id="awayScoreInput" style="
+                  "/><br/>
+                                <script>
+									function inputNumberOnly(el) {
+										// 숫자와 소수점만 허용하고, 음수 기호는 제거
+										el.value = el.value.replace(/[^0-9.]/g, '');
+									}
+
+								</script>
+                                <label for="homeScoreInput">Home</label>
+                            </div>
+                            <label style="font-size: 32px; margin-top: 1.2rem">:</label>
+                            <div class="score-board">
+                                <input type="number" id="awayScoreInput" oninput="inputNumberOnly(this)" style="
                     width: 80px;
                     height: 100px;
                     text-align: center;
                     font-size: 32px;
-                  " />
-									<br />
-									<label for="awayScoreInput">Away</label>
-								</div>
-							</div>
+                  "/>
+                                <br/>
+                                <label for="awayScoreInput">Away</label>
+                            </div>
+                        </div>
 
-							<div class="emoji-container">
-								<span>매너점수 : &nbsp;</span>
+                        <div class="emoji-container">
+                            <span>매너점수 : &nbsp;</span>
 
-								<input type="number" id="mannerPointInput" placeholder="100점 만점입니다"
-									oninput="javascript: if (this.value > 100) this.value = 100;">
-								<!--
-                    <button class="emoji-option" id="emoji-sad">😟</button>
-                    <button class="emoji-option" id="emoji-happy">😀</button>
-                    <button class="emoji-option" id="emoji-excited">🤩</button>-->
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="history.go()">
-								취소
-							</button>
-							<button type="button" class="btn btn-primary" id="confirmButton"
-								onclick="updateFirstMatchResult()" data-dismiss="modal">
-								저장
-							</button>
-						</div>
-					</div>
-				</div>
+                            <input type="number" id="mannerPointInput" placeholder="100점 만점입니다"
+                                   oninput="javascript: if (this.value > 100) this.value = 100;">
+                            <!--
+                <button class="emoji-option" id="emoji-sad">😟</button>
+                <button class="emoji-option" id="emoji-happy">😀</button>
+                <button class="emoji-option" id="emoji-excited">🤩</button>-->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="history.go()">
+                            취소
+                        </button>
+                        <button type="button" class="btn btn-primary" id="confirmButton"
+                                onclick="updateFirstMatchResult()" data-dismiss="modal">
+                            저장
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-			</div>
+        </div>
 
-			<div class="modal fade" id="mannerModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="scoreModalLabel" style="text-align: center">
-								상대팀 매너점수를 입력 해주세요!
-							</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<div class="emoji-container">
-								<span>매너점수 : </span>
+        <div class="modal fade" id="mannerModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="scoreModalLabel" style="text-align: center">
+                            상대팀 매너점수를 입력 해주세요!
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="emoji-container">
+                            <span>매너점수 : </span>
 
-								<input type="number" id="mannerPointInput2" placeholder="100점 만점입니다"
-									oninput="javascript: if (this.value > 100) this.value = 100;">
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="history.go()">
-								취소
-							</button>
-							<button type="button" class="btn btn-primary" id="confirmButton"
-								onclick="updateFirstMatchResult()" data-dismiss="modal">
-								저장
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-	<script src="/js/team/record-script.js"></script>
+                            <input type="number" id="mannerPointInput2" placeholder="100점 만점입니다"
+                                   oninput="javascript: if (this.value > 100) this.value = 100;">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="history.go()">
+                            취소
+                        </button>
+                        <button type="button" class="btn btn-primary" id="confirmButton"
+                                onclick="updateFirstMatchResult()" data-dismiss="modal">
+                            저장
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="/js/team/record-script.js"></script>
 </body>
 
 </html>

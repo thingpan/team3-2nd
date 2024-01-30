@@ -475,7 +475,12 @@ async function updateFirstMatchResult() {
 		alert(result.resultMsg)
 
 		$('#scoreModal').modal('hide').data('bs.modal', null);
+		$('body').removeClass('modal-open');
+		$('.modal-backdrop').remove();
+
 		$('#mannerModal').modal('hide').data('bs.modal', null);
+		$('body').removeClass('modal-open');
+		$('.modal-backdrop').remove();
 
 		getAjaxList(undefined, undefined, doneStatus);
 		getAjaxListStay(undefined, undefined, stayStatus);
