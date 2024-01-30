@@ -9,15 +9,15 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MessageVO {
-	private String Message;
-	private String sentTime;
-	private String receivedTime;
-	private String sender;
-	private int senderUiNum;
-	private int receiveUiNum;
-	private String direction;
-	private String position;
-	private String type;
+	private String cmiMessage;
+	private String cmiSentTime;
+	private String cmiReceivedTime;
+	private String cmiSender;
+	private int cmiSenderUiNum;
+	private int cmiReceiveUiNum;
+	private String cmiDirection;
+	private String cmiPosition;
+	private String cmiType;
 	private String payload;
 	private boolean typing;
 }

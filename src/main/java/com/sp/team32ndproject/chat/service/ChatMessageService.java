@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sp.team32ndproject.chat.mapper.ChatMessageInfoMapper;
 import com.sp.team32ndproject.chat.util.DateUtil;
 import com.sp.team32ndproject.chat.vo.MessageVO;
@@ -21,7 +23,8 @@ public class ChatMessageService {
 		return chatMessageInfoMapper.insertChatMessageInfo(messageVO);
 	}
 	
-	public List<MessageVO> selectChatMessageInfos(MessageVO messageVO){
-		return chatMessageInfoMapper.selectChatMessageInfos(messageVO);
+	public PageInfo<MessageVO> selectChatMessageInfos(MessageVO messageVO){
+		PageHelper.startPage(1,100);
+		return PageInfo.of(chatMessageInfoMapper.selectChatMessageInfos(messageVO));
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.pagehelper.PageInfo;
 import com.sp.team32ndproject.chat.service.ChatMessageService;
 import com.sp.team32ndproject.chat.service.ChatUserInfoService;
 import com.sp.team32ndproject.chat.vo.EnterVO;
@@ -37,7 +38,7 @@ public class ChatController {
 	}
 	
 	@GetMapping("/chat/msg-infos")
-	public List<MessageVO> getMsgList(@ModelAttribute MessageVO messageVO) {
+	public PageInfo<MessageVO> getMsgList(@ModelAttribute MessageVO messageVO) {
 		log.info("MSGvo=>{}", messageVO);
 		return chatMessageService.selectChatMessageInfos(messageVO);
 	}
