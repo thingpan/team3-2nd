@@ -343,7 +343,7 @@ async function matchRequest() {
 }
 
 function goTeamPage(obj) {
-    location.href = `/page/match/match-record?taNum=${obj.value}`;
+    location.href = `/page/team/team-record?taNum=${obj.value}`;
 }
 
 function doGoUpdatePage() {
