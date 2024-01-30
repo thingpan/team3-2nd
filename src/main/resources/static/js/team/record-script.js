@@ -4,6 +4,7 @@ let mrNum;
 let mrRequestStatus;
 let stayStatus;
 let doneStatus;
+let updateStatus;
 const urlParams = new URLSearchParams(window.location.search);
 const taNum = urlParams.get('taNum');
 
@@ -56,9 +57,9 @@ async function getAjaxListStay(evt, page, mrSearchType) {
 	const startBlock = (Math.ceil(page / blockSize) - 1) * blockSize + 1;
 	let endBlock = startBlock + blockSize - 1;
 	let pageHtml = '';
-	
 
-	console.log("대기중 전적",pageInfos);
+
+	console.log("대기중 전적", pageInfos);
 
 	if (endBlock > pageBlock) {
 		endBlock = pageBlock;
@@ -105,7 +106,7 @@ async function getAjaxListStay(evt, page, mrSearchType) {
 					html += `</td>`
 					html += `<td class="border-bottom-0">`
 					html += `
-							 <span style="cursor: pointer" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNumAndMrRequestStatus(${matchStatus.mrNum}, 1)">경기종료</span>
+							 <span style="cursor: pointer" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNumAndMrRequestStatus(${matchStatus.mrNum}, 1,'input')">경기종료</span>
 							 `
 					html += `</td>`
 					html += `</tr>`
@@ -153,7 +154,7 @@ async function getAjaxListStay(evt, page, mrSearchType) {
 					html += `</td>`
 					html += `<td class="border-bottom-0">`
 					html += `
-							 <span style="cursor: pointer" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNumAndMrRequestStatus(${matchStatus.mrNum},1)">거절(다시입력)</span>
+							 <span style="cursor: pointer" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#scoreModal" onclick="saveMrNumAndMrRequestStatus(${matchStatus.mrNum},1,'input')">거절(다시입력)</span>
 							 `
 					html += `</td>`
 					html += `</tr>`
@@ -206,8 +207,8 @@ async function getAjaxListStay(evt, page, mrSearchType) {
 					html += `</td>`
 					html += `<td class="border-bottom-0">`
 					html += `<div>
-							 <button class="btn btn-secondary m-1" id="accept-button" data-bs-toggle="modal" data-bs-target="#mannerModal" onclick="saveMrNumAndMrRequestStatus(${matchStatus.mrNum},3)">수락</button>
-							 <button class="btn btn-danger m-1" onclick="saveMrNumAndMrRequestStatus(${matchStatus.mrNum},2,1)">거절</button>
+							 <button class="btn btn-secondary m-1" id="accept-button" data-bs-toggle="modal" data-bs-target="#mannerModal" onclick="saveMrNumAndMrRequestStatus(${matchStatus.mrNum},3,'accept')">수락</button>
+							 <button class="btn btn-danger m-1" onclick="saveMrNumAndMrRequestStatus(${matchStatus.mrNum},2,'deny')">거절</button>
 							 </div>`
 					html += `</td>`
 					html += `</tr>`
@@ -269,7 +270,7 @@ async function getAjaxList(evt, page, mrSearchType) {
 	let endBlock = startBlock + blockSize - 1;
 	let pageHtml = '';
 
-	console.log("완료된 전적",pageInfos);
+	console.log("완료된 전적", pageInfos);
 
 	if (endBlock > pageBlock) {
 		endBlock = pageBlock;
@@ -374,13 +375,15 @@ async function getAjaxList(evt, page, mrSearchType) {
 function saveMrNumAndMrRequestStatus(mrNum, mrRequestStatus, check) {
 	this.mrNum = mrNum;
 	this.mrRequestStatus = mrRequestStatus;
-	if(check){
+	updateStatus = check;
+	if (check === 'deny') {
 		updateFirstMatchResult();
 	}
 	console.log(mrNum);
 }
 
 async function updateFirstMatchResult() {
+
 	let homeScore = document.querySelector('#homeScoreInput').value;
 	let awayScore = document.querySelector('#awayScoreInput').value;
 	let awayMannerPoint = document.querySelector('#mannerPointInput').value;
@@ -388,50 +391,104 @@ async function updateFirstMatchResult() {
 	let mrNum = this.mrNum;
 	let mrRequestStatus = this.mrRequestStatus;
 
-	const body = {
-		mrNum: mrNum,
-		mrHomeScore: homeScore,
-		mrAwayScore: awayScore,
-		mrAwayMannerPoint: awayMannerPoint,
-		mrHomeMannerPoint: homeMannerPoint,
-		mrRequestStatus: mrRequestStatus
-	
-	};
-	const res = await fetch(`/match-result-infos`, {
-		method: 'PATCH',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(body)
-	});
-	const result = await res.json();
-	alert(result.resultMsg)
+	if (updateStatus === 'input') {
+		if (!(homeScore && awayScore && awayMannerPoint)) {
+			alert('정보를 입력 해주세요!');
+		} else {
+			const body = {
+				mrNum: mrNum,
+				mrHomeScore: homeScore,
+				mrAwayScore: awayScore,
+				mrAwayMannerPoint: awayMannerPoint,
+				mrHomeMannerPoint: homeMannerPoint,
+				mrRequestStatus: mrRequestStatus
 
-	// $('#scoreModal').modal('hide').data('bs.modal', null);
-	// $('#mannerModal').modal('hide').data('bs.modal', null);
+			};
+			const res = await fetch(`/match-result-infos`, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(body)
+			});
+			const result = await res.json();
+			alert(result.resultMsg)
 
-	// $('#scoreModal').on('hidden.bs.modal', function () {
-	// 	$('.modal-backdrop').remove();
-	// });
-	//
-	// $('#mannerModal').on('hidden.bs.modal', function () {
-	// 	$('.modal-backdrop').remove();
-	// });
-	//
-	$('#scoreModal').modal('hide').data('bs.modal', null);
-	$('body').removeClass('modal-open');
-	$('.modal-backdrop').remove();
+			$('#scoreModal').modal('hide').data('bs.modal', null);
+			$('#mannerModal').modal('hide').data('bs.modal', null);
 
-	$('#mannerModal').modal('hide').data('bs.modal', null);
-	$('body').removeClass('modal-open');
-	$('.modal-backdrop').remove();
+			getAjaxList(undefined, undefined, doneStatus);
+			getAjaxListStay(undefined, undefined, stayStatus);
 
 
 
+		}
+	} else if (updateStatus === 'accept') {
+		if (!homeMannerPoint) {
+			alert('정보를 입력 해주세요!');
+		} else {
+			const body = {
+				mrNum: mrNum,
+				mrHomeScore: homeScore,
+				mrAwayScore: awayScore,
+				mrAwayMannerPoint: awayMannerPoint,
+				mrHomeMannerPoint: homeMannerPoint,
+				mrRequestStatus: mrRequestStatus
+
+			};
+			const res = await fetch(`/match-result-infos`, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(body)
+			});
+			const result = await res.json();
+			alert(result.resultMsg)
+
+			$('#scoreModal').modal('hide').data('bs.modal', null);
+			$('#mannerModal').modal('hide').data('bs.modal', null);
+
+			getAjaxList(undefined, undefined, doneStatus);
+			getAjaxListStay(undefined, undefined, stayStatus);
 
 
-	getAjaxList(undefined, undefined, doneStatus);
-	getAjaxListStay(undefined, undefined, stayStatus);
+		}
+	} else {
+		const body = {
+			mrNum: mrNum,
+			mrHomeScore: homeScore,
+			mrAwayScore: awayScore,
+			mrAwayMannerPoint: awayMannerPoint,
+			mrHomeMannerPoint: homeMannerPoint,
+			mrRequestStatus: mrRequestStatus
+
+		};
+		const res = await fetch(`/match-result-infos`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(body)
+		});
+		const result = await res.json();
+		alert(result.resultMsg)
+
+		$('#scoreModal').modal('hide').data('bs.modal', null);
+		$('body').removeClass('modal-open');
+		$('.modal-backdrop').remove();
+
+		$('#mannerModal').modal('hide').data('bs.modal', null);
+		$('body').removeClass('modal-open');
+		$('.modal-backdrop').remove();
+
+		getAjaxList(undefined, undefined, doneStatus);
+		getAjaxListStay(undefined, undefined, stayStatus);
+
+
+	}
+
+
 
 }
 

@@ -162,7 +162,6 @@ window.addEventListener('load', async function () {
     }
 
     for (const team of teamList) {
-        console.log("away team을 찾아서", team.taNum);
         let html = '';
         if (matchInfo.mbType == team.taType) {
             if (team.taType == '농구') {

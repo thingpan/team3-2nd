@@ -77,11 +77,11 @@ public class SecurityBeanConfig {
 	SecurityFilterChain securityTeamPageFilterChain(HttpSecurity hs) throws Exception {
 		hs.authorizeHttpRequests((auth) -> auth
 				.antMatchers("/login", "/user-infos/*", "/page/user/login", "/page/user/join", "/", "/team-infos",
-						"/match-infos", "/api/login", "/join","/chat" )
+						"/match-infos", "/api/login", "/join","/chat/**" )
 				.permitAll()
 				.antMatchers("/page/team/team-settings", "/page/team/team-apply", "/page/match/match-status",
 						"/page/team/record")
-				.access(new TeamParamAuthManager(teamInfoService)).antMatchers("/page/team/**")
+				.access(new TeamParamAuthManager(teamInfoService)).antMatchers("/page/match/**") //이놈이 문제 원래는 .antMatchers("/page/team/**") 일케 되어있었음
 				.access(new TeamInfoAuthManager(teamInfoMapper)).anyRequest().authenticated())
 				.formLogin(formLogin -> formLogin.loginPage("/page/user/login").usernameParameter("uiId")
 						.passwordParameter("uiPwd").loginProcessingUrl("/login").defaultSuccessUrl("/", true)

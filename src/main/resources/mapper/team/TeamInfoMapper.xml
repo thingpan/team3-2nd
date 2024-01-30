@@ -95,6 +95,12 @@
 		AND NOT
 		TA_ACTIVE_STATUS = 1
 	</select>
+	
+	<select id="selectTeamInfoByTaNumWithOutStatus"
+		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">
+		SELECT * FROM TEAM_INFO
+		WHERE TA_NUM = #{taNum}
+	</select>
 
 	<select id="selectTeamInfosByUiNum"
 		resultType="com.sp.team32ndproject.team.vo.TeamInfoVO">

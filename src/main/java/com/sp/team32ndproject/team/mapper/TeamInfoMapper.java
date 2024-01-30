@@ -30,6 +30,7 @@ public interface TeamInfoMapper {
 	List<TeamInfoVO> selectTeamInfosByUiNumAndTaType(TeamInfoVO teamInfoVO);
 	List<TeamInfoVO> selectTeamRankByTeamType(TeamInfoVO teamInfoVO);
     List<TeamInfoVO> selectTeamUserInfo(int uiNum);
+    TeamInfoVO selectTeamInfoByTaNumWithOutStatus(int taNum);
     
   //team-setting.html
     int updateTeamInfo(TeamInfoVO teamInfoVO);

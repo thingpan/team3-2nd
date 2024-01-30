@@ -5,15 +5,18 @@
 
 	<insert id="insertChatMessageInfo"
 		parameterType="com.sp.team32ndproject.chat.vo.MessageVO">
-		INSERT INTO CHAT_MESSAGE_INFO(SENDER_UI_NUM, RECEIVE_UI_NUM, MESSAGE, SENTTIME, RECEIVEDTIME)
-		VALUES(#{senderUiNum}, #{receiveUiNum}, #{message}, #{senttime}, #{receivedtime})
+		INSERT INTO CHAT_MESSAGE_INFO(SENDER_UI_NUM, RECEIVE_UI_NUM, MESSAGE, SENT_TIME, RECEIVED_TIME)
+		VALUES(#{senderUiNum}, #{receiveUiNum}, #{message}, #{sentTime}, #{receivedTime})
 	</insert>
 	
 	<select id="selectChatMessageInfos"> 
 		SELECT * 
 		FROM CHAT_MESSAGE_INFO
 		<where>
-		
+		 	(SENDER_UI_NUM = #{senderUiNum} AND
+		 	RECEIVE_UI_NUM = #{receiveUiNum}) OR
+		 	(SENDER_UI_NUM = #{receiveUiNum} AND
+		 	RECEIVE_UI_NUM = #{senderUiNum})
 		</where>
 	</select>
 

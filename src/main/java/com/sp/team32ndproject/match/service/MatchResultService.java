@@ -123,7 +123,7 @@ public class MatchResultService {
 				int awayNum = matchResultVOs.get(i).getTaAwayNum();
 				String opTaName = "";
 				if (myTaNum == homeNum) {
-					TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(awayNum);
+					TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNumWithOutStatus(awayNum);
 					if (teamInfoVO != null) {
 						opTaName = teamInfoVO.getTaName();
 					} else {
@@ -131,7 +131,7 @@ public class MatchResultService {
 					}
 					matchResultVOs.get(i).setTaName(opTaName);
 				} else if (myTaNum == awayNum) {
-					TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(homeNum);
+					TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNumWithOutStatus(homeNum);
 					if (teamInfoVO != null) {
 						opTaName = teamInfoVO.getTaName();
 					} else {
