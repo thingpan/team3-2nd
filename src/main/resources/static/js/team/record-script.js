@@ -407,8 +407,28 @@ async function updateFirstMatchResult() {
 	const result = await res.json();
 	alert(result.resultMsg)
 
+	// $('#scoreModal').modal('hide').data('bs.modal', null);
+	// $('#mannerModal').modal('hide').data('bs.modal', null);
+
+	// $('#scoreModal').on('hidden.bs.modal', function () {
+	// 	$('.modal-backdrop').remove();
+	// });
+	//
+	// $('#mannerModal').on('hidden.bs.modal', function () {
+	// 	$('.modal-backdrop').remove();
+	// });
+	//
 	$('#scoreModal').modal('hide').data('bs.modal', null);
+	$('body').removeClass('modal-open');
+	$('.modal-backdrop').remove();
+
 	$('#mannerModal').modal('hide').data('bs.modal', null);
+	$('body').removeClass('modal-open');
+	$('.modal-backdrop').remove();
+
+
+
+
 
 	getAjaxList(undefined, undefined, doneStatus);
 	getAjaxListStay(undefined, undefined, stayStatus);
