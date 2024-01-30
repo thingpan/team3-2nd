@@ -173,12 +173,3 @@ input::-webkit-inner-spin-button {
 	margin-top: 30px;
 	margin-bottom: 30px;
 }
-
-#file1 {
-	margin-bottom: 18px;
-}
-
-#file2,
-#file3 {
-	margin-left: 6px;
-}
