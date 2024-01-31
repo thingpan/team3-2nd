@@ -36,15 +36,15 @@ async function getAwayAjaxList(evt, page) {
 	}
 
 	if (startBlock != 1) {
-		pageHtml += `<li class="page-item"><a class="page-link" aria-label="Previous" href="javascript:void(0)" onclick="getTeamUserInfoList(event,${startBlock - 1})"><span aria-hidden="true">&laquo;</span></a></li>`;
+		pageHtml += `<li class="page-item"><a class="page-link" aria-label="Previous" href="javascript:void(0)" onclick="getAwayAjaxList(event,${startBlock - 1})"><span aria-hidden="true">&laquo;</span></a></li>`;
 	}
 
 	for (let i = startBlock; i <= endBlock; i++) {
-		pageHtml += `<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="getTeamUserInfoList(event,${i})">${i}</a></li>`;
+		pageHtml += `<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="getAwayAjaxList(event,${i})">${i}</a></li>`;
 	}
 
 	if (endBlock < pageBlock) {
-		pageHtml += `<li class="page-item"><a  class="page-link" aria-label="Next" href="javascript:void(0)" onclick="getTeamUserInfoList(event,${endBlock + 1})"><span aria-hidden="true">&raquo;</span></a></li>`;
+		pageHtml += `<li class="page-item"><a  class="page-link" aria-label="Next" href="javascript:void(0)" onclick="getAwayAjaxList(event,${endBlock + 1})"><span aria-hidden="true">&raquo;</span></a></li>`;
 	}
 
 	document.querySelector('#pageDiv').innerHTML = pageHtml;
@@ -109,15 +109,15 @@ async function getHomeAjaxList(evt, page) {
 	}
 
 	if (startBlock != 1) {
-		pageHtml += `<li class="page-item"><a class="page-link" aria-label="Previous" href="javascript:void(0)" onclick="getTeamUserInfoList(event,${startBlock - 1})"><span aria-hidden="true">&laquo;</span></a></li>`;
+		pageHtml += `<li class="page-item"><a class="page-link" aria-label="Previous" href="javascript:void(0)" onclick="getHomeAjaxList(event,${startBlock - 1})"><span aria-hidden="true">&laquo;</span></a></li>`;
 	}
 
 	for (let i = startBlock; i <= endBlock; i++) {
-		pageHtml += `<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="getTeamUserInfoList(event,${i})">${i}</a></li>`;
+		pageHtml += `<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="getHomeAjaxList(event,${i})">${i}</a></li>`;
 	}
 
 	if (endBlock < pageBlock) {
-		pageHtml += `<li class="page-item"><a  class="page-link" aria-label="Next" href="javascript:void(0)" onclick="getTeamUserInfoList(event,${endBlock + 1})"><span aria-hidden="true">&raquo;</span></a></li>`;
+		pageHtml += `<li class="page-item"><a  class="page-link" aria-label="Next" href="javascript:void(0)" onclick="getHomeAjaxList(event,${endBlock + 1})"><span aria-hidden="true">&raquo;</span></a></li>`;
 	}
 
 	document.querySelector('#pageDiv').innerHTML = pageHtml;
