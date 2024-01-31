@@ -1,5 +1,6 @@
 package com.sp.team32ndproject.user.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.core.Authentication;
@@ -64,6 +65,11 @@ public class UserInfoController {
     public int updateUserProfile(@AuthenticationPrincipal UserInfoVO user, @RequestBody Map<String, String>request) {
          return  userInfoService.updateUserProfile(user.getUiNum(), request);
     }
+	
+	@GetMapping("/user-infos")
+	public List<UserInfoVO> getUserInfos(){
+		return userInfoService.selectUserInfos(null);
+	}
 	
 
 }

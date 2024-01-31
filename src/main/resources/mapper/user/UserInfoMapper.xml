@@ -16,6 +16,8 @@
 		AND UI_ACTIVE_STATUS = 0
 	</select>
 	
+	
+	
 	<select id="selectUserInfos" 
 		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">
 		SELECT * FROM USER_INFO
