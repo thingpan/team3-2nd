@@ -7,7 +7,12 @@ async function getTeamInfo1() {
 	console.log(teamInfo);
 	document.querySelector('#taName').innerHTML = teamInfo.taName;
 	document.querySelector('#taDesc').innerHTML = teamInfo.taDesc;
-
+	
+	if(teamInfo.taActiveStatus === "1"){
+		alert('삭제된 팀입니다.')
+		history.back();
+		return;
+	}
 	if (teamInfo.taType == '농구') {
 		type = 'basketball';
 	} else if (teamInfo.taType == '야구') {

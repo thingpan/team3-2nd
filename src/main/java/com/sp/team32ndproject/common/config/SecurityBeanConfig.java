@@ -79,10 +79,12 @@ public class SecurityBeanConfig {
 				.antMatchers("/login", "/user-infos/*", "/page/user/login", "/page/user/join", "/", "/team-infos",
 						"/match-infos", "/api/login", "/join","/chat/**", "/user-infos" )
 				.permitAll()
-				.antMatchers("/page/team/team-settings", "/page/team/team-apply", "/page/match/match-status",
+				.antMatchers("/page/team/team-settings", "/page/team/team-apply", "/page/team/team-status",
 						"/page/team/record")
-				.access(new TeamParamAuthManager(teamInfoService)).antMatchers("/page/match/**") //이놈이 문제 원래는 .antMatchers("/page/team/**") 일케 되어있었음
-				.access(new TeamInfoAuthManager(teamInfoMapper)).anyRequest().authenticated())
+				.access(new TeamParamAuthManager(teamInfoService))
+				//.antMatchers("/page/team/**") //이놈이 문제 원래는 .antMatchers("/page/team/**") 일케 되어있었음
+				//.access(new TeamInfoAuthManager(teamInfoMapper))
+				.anyRequest().authenticated())
 				.formLogin(formLogin -> formLogin.loginPage("/page/user/login").usernameParameter("uiId")
 						.passwordParameter("uiPwd").loginProcessingUrl("/login").defaultSuccessUrl("/", true)
 						.failureUrl(

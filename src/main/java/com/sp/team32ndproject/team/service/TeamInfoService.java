@@ -125,6 +125,11 @@ public class TeamInfoService {
 	public TeamInfoVO selectTeamInfoByTaNum(int taNum, UserInfoVO user) {
 		TeamInfoVO teamInfoVO = new TeamInfoVO();
 		teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(taNum);
+		if(teamInfoVO == null) {
+			TeamInfoVO teamInfoVO2 = new TeamInfoVO();
+			teamInfoVO2.setTaActiveStatus("1");
+			return teamInfoVO2;
+		}
 		if (teamSignUserInfoMapper.selectTeamSignUserInfoByUiNumAndTaNum(user.getUiNum(), taNum) != null) {
 			teamInfoVO.setTaSignStatus("1");
 		} else {
