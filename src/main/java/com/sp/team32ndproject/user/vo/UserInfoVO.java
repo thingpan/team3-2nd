@@ -32,7 +32,6 @@ public class UserInfoVO implements UserDetails {
 	private String loginDate;
 	private boolean login;
 	private String sessionId;
-
 	private Collection<? extends GrantedAuthority> authorities;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

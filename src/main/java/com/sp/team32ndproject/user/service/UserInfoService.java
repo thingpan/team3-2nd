@@ -92,6 +92,4 @@ public class UserInfoService implements UserDetailsService {
 	public List<UserInfoVO> selectUserInfos(UserInfoVO userInfoVO){
 		return userInfoMapper.selectUserInfos(userInfoVO);
 	}
-
-
 }

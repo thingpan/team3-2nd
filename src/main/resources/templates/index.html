@@ -5,7 +5,7 @@
     <th:block th:replace="page/fragment/head :: f-head"></th:block>
     <th:block th:replace="page/fragment/script :: f-script"></th:block>
 
-    <link href="/css/style.css" rel="stylesheet"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
     <script type="module" src="/js/main.js"></script>
 </head>
 
@@ -14,9 +14,9 @@
 
 <div class="swiper container">
     <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="imgs/soccer.jpeg" alt="Slide 1"/></div>
-        <div class="swiper-slide"><img src="imgs/baseball.JPG" alt="Slide 2"/></div>
-        <div class="swiper-slide"><img src="imgs/basketball.jpg" alt="Slide 3"/></div>
+        <div class="swiper-slide"><img th:src="@{imgs/soccer.jpeg}" alt="Slide 1"/></div>
+        <div class="swiper-slide"><img th:src="@{imgs/baseball.JPG}" alt="Slide 2"/></div>
+        <div class="swiper-slide"><img th:src="@{imgs/basketball.jpg}" alt="Slide 3"/></div>
     </div>
     <div class="swiper-pagination"></div>
 </div>
@@ -41,7 +41,7 @@
                 <!-- 데이터를 동적으로 받아오는 부분 -->
                 <tbody id="tBody"></tbody>
                 <div class="bottom-caption">
-                    <a href="/page/team/team-rank" class="ranking-view-more">더보기 &gt;</a>
+                    <a th:href="@{/page/team/team-rank}" class="ranking-view-more">더보기 &gt;</a>
                 </div>
             </table>
         </div>
@@ -113,7 +113,7 @@
             <tbody id="schedule"></tbody>
         </table>
         <div class="schedule-caption">
-            <a href="/page/match/match-board.html" class="schedule-view-more">전체 일정 확인하기 &gt;</a>
+            <a th:href="@{/page/match/match-board.html}" class="schedule-view-more">전체 일정 확인하기 &gt;</a>
         </div>
     </div>
 </section>

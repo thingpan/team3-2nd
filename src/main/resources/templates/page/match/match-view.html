@@ -8,7 +8,7 @@
     <script type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=604cb758f63da64f7c5e72d8fd9c83d0&libraries=services,clusterer,drawing">
     </script>
-    <link rel="stylesheet" href="/css/match/match-view.css">
+    <link rel="stylesheet" th:href="@{/css/match/match-view.css}">
 </head>
 
 <body>
@@ -122,7 +122,7 @@
     </div>
 
 </div>
-<script src="/js/match/match-view.js"></script>
+<script th:src="@{/js/match/match-view.js}"></script>
 
 <script>
     window.addEventListener('scroll', () => {

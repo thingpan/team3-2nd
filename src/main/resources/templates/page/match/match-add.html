@@ -6,7 +6,7 @@
     <th:block th:replace="page/fragment/script :: f-script"></th:block>
     <title>매치 게시글 작성</title>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <link rel="stylesheet" href="/css/match/match-add.css">
+    <link rel="stylesheet" th:href="@{/css/match/match-add.css}">
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=604cb758f63da64f7c5e72d8fd9c83d0&libraries=services"></script>
 </head>
 
@@ -20,15 +20,15 @@
         <div id="select-team">
             <div style="float: left;">
                 <button id="bas" onclick="selectTeamType(this)" value="야구"><img
-                        src="/imgs/baseball.png"></img></button>
+                        th:src="@{/imgs/baseball.png}"></img></button>
             </div>
             <div>
                 <button id="bak" onclick="selectTeamType(this)" value="농구" style="float: left;"><img
-                        src="/imgs/basketball.png"></img></button>
+                        th:src="@{/imgs/basketball.png}"></img></button>
             </div>
             <div>
                 <button id="soc" onclick="selectTeamType(this)" value="축구"><img
-                        src="/imgs/soccerball.png"></img></button>
+                        th:src="@{/imgs/soccerball.png}"></img></button>
             </div>
         </div>
         <div id="team-list" class="myTeam"></div>

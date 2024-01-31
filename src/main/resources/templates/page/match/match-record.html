@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-	<title>팀 정보 페이지</title>
+	<title>팀 전적 페이지</title>
 	<th:block th:replace="page/fragment/t-head :: ft-head"></th:block>
 	<th:block th:replace="page/fragment/t-script :: ft-script"></th:block>
-	<link rel="stylesheet" href="/css/match/match-record.css" />
+	<link rel="stylesheet" th:href="@{/css/match/match-record.css}" />
 </head>
 
 <body>
@@ -130,7 +130,7 @@
 		</div>
 	</div>
 
-	<script src="/js/match/match-record.js"></script>
+	<script th:src="@{/js/match/match-record.js}"></script>
 </body>
 
 </html>

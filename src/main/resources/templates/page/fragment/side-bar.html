@@ -15,7 +15,7 @@
 			<div>
 				<div class="nav__brand">
 					<ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
-					<a href="/" class="nav__logo" style="text-decoration: none">MMIYC</a>
+					<a th:href="@{/}" class="nav__logo" style="text-decoration: none">MMIYC</a>
 				</div>
 
 				<div class="nav__list">
@@ -62,7 +62,7 @@
 	</div>
 	</nav>
 	</div>
-	<script src="/js/fragment/side-bar.js"></script>
+	<script th:src="@{/js/fragment/side-bar.js}"></script>
 	<script>
 		async function getSessionUiNum() {
 

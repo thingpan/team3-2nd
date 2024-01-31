@@ -6,13 +6,13 @@
     <th:block th:replace="page/fragment/script :: f-script"></th:block>
     <header th:fragment="f-head" id="header">
         <nav class="navbar" style="align-items: center">
-            <a href="/"> <img href="/" src="/imgs/logo-1.png" title="로고"/></a>
+            <a th:href="@{/}"> <img th:href="@{/}" th:src="@{/imgs/logo-1.png}" title="로고"/></a>
 
             <ul class="navbar__menu">
                 <div class="navbar__menus">
-                    <li><a href="/page/match/match-board">Match</a></li>
-                    <li><a href="/page/user/mypage">MyPage</a></li>
-                    <li><a href="/page/team/team-rank">Rank</a></li>
+                    <li><a th:href="@{/page/match/match-board}">Match</a></li>
+                    <li><a th:href="@{/page/user/mypage}">MyPage</a></li>
+                    <li><a th:href="@{/page/team/team-rank}">Rank</a></li>
                 </div>
                 <div class="buttons">
 

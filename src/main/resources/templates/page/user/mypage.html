@@ -5,7 +5,7 @@
 <th:block th:replace="page/fragment/head :: f-head"></th:block>
 <th:block th:replace="page/fragment/script :: f-script"></th:block>
 <title>마이페이지</title>
-<link rel="stylesheet" href="/css/user/mypage.css">
+<link rel="stylesheet" th:href="@{/css/user/mypage.css}">
 
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -134,19 +134,19 @@
 					<div style="float: left;">
 						<button id="basketball" onclick="selectTeamType(this)"
 							data-value="농구">
-							<img src="/imgs/basketball.png" alt="Basketball"></img>
+							<img th:src="@{/imgs/basketball.png}" alt="Basketball"></img>
 						</button>
 					</div>
 					<div style="float: left;">
 						<button id="baseball" onclick="selectTeamType(this)"
 							data-value="야구">
-							<img src="/imgs/baseball.png" alt="Baseball"></img>
+							<img th:src="@{/imgs/baseball.png}" alt="Baseball"></img>
 						</button>
 					</div>
 					<div style="float: left;">
 						<button id="soccerball" onclick="selectTeamType(this)"
 							data-value="축구">
-							<img src="/imgs/soccerball.png" alt="Soccer"></img>
+							<img th:src="@{/imgs/soccerball.png}" alt="Soccer"></img>
 						</button>
 					</div>
 					<div id="team-list"></div>
@@ -204,7 +204,7 @@
 		</button>
 		<button type="button" id="cancel-password-change" class="btn btn-dark">취소</button>
 	</div>
-	<script src="/js/mock/region.js"></script>
+	<script th:src="@{/js/mock/region.js}"></script>
 	<script>
     function closeModalAndShowAlert() {
         // Bootstrap 모달 닫기

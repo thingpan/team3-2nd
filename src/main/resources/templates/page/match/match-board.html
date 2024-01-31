@@ -5,7 +5,7 @@
 <th:block th:replace="page/fragment/head :: f-head"></th:block>
 <th:block th:replace="page/fragment/script :: f-script"></th:block>
 <title>매치 게시판</title>
-<link href="/css/match/match-board.css" rel="stylesheet" />
+<link th:href="@{/css/match/match-board.css}" rel="stylesheet" />
 </head>
 
 <body>
@@ -33,7 +33,7 @@
 					</select> <select id="sido" name="sido" class="filter-select">
 						<option value="sido">시/도</option>
 					</select>
-					<script src="/js/mock/region.js"></script>
+					<script th:src="@{/js/mock/region.js}"></script>
 
 					<input type="checkbox" class="btn-check" id="btn-check"
 						autocomplete="off"> <label id="checkText"

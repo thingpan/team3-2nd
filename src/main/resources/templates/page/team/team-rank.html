@@ -5,7 +5,7 @@
     <th:block th:replace="page/fragment/head :: f-head"></th:block>
     <th:block th:replace="page/fragment/script :: f-script"></th:block>
     <title>팀 랭킹</title>
-    <link rel="stylesheet" href="/css/team/team-rank.css">
+    <link rel="stylesheet" th:href="@{/css/team/team-rank.css}">
 
     <!-- 팀 랭크만 부트스트랩 4 안쓰면 깨짐.. -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -34,7 +34,7 @@
                 <select id="sido" name="sido" class="form-control">
                     <option value="">시/도</option>
                 </select>
-                <script src="/js/mock/region.js"></script>
+                <script th:src="@{/js/mock/region.js}"></script>
             </div>
         </div>
         <div class="range-container">
