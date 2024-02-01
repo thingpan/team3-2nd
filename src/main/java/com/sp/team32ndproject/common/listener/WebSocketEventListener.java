@@ -65,6 +65,7 @@ public class WebSocketEventListener {
 	public void disconnectionListener(SessionDisconnectEvent evt) {
 		StompHeaderAccessor sha = StompHeaderAccessor.wrap(evt.getMessage());
 		String sessionId = sha.getSessionId();
+		
 		for (UserInfoVO user : users) {
 			if (sessionId.equals(user.getSessionId())) {
 				user.setSessionId(null);
@@ -85,7 +86,10 @@ public class WebSocketEventListener {
 
 	@EventListener
 	public void unsubscribeListener(SessionUnsubscribeEvent evt) {
-		log.info("unsubscribe => {}", evt);
+		String destination = (String) evt.getMessage().getHeaders().get("simpDestination");
+		if("/topic/enter-chat".equals(destination)) {
+			smt.convertAndSend("/topic/enter-chat",users);
+		}
 	}
 
 }
