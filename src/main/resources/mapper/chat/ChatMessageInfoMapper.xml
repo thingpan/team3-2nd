@@ -5,8 +5,8 @@
 
 	<insert id="insertChatMessageInfo"
 		parameterType="com.sp.team32ndproject.chat.vo.MessageVO">
-		INSERT INTO CHAT_MESSAGE_INFO(CMI_SENDER_UI_NUM, CMI_RECEIVE_UI_NUM, CMI_MESSAGE, CMI_SENT_TIME, CMI_RECEIVED_TIME)
-		VALUES(#{cmiSenderUiNum}, #{cmiReceiveUiNum}, #{cmiMessage}, #{cmiSentTime}, #{cmiEeceivedTime})
+		INSERT INTO CHAT_MESSAGE_INFO(CMI_SENDER_UI_NUM, CMI_RECEIVE_UI_NUM, CMI_MESSAGE, CMI_SENT_TIME)
+		VALUES(#{cmiSenderUiNum}, #{cmiReceiveUiNum}, #{cmiMessage}, #{cmiSentTime})
 	</insert>
 	
 	<select id="selectChatMessageInfos"> 
@@ -17,6 +17,7 @@
 		 	CMI_RECEIVE_UI_NUM = #{cmiReceiveUiNum}) OR
 		 	(CMI_SENDER_UI_NUM = #{cmiReceiveUiNum} AND
 		 	CMI_RECEIVE_UI_NUM = #{cmiSenderUiNum})
+		 	ORDER BY CMI_SENT_TIME 
 		</where>
 	</select>
 

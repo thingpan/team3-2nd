@@ -29,11 +29,11 @@ public class ChatController {
 	private final UserInfoService userService;
 	private final ChatMessageService chatMessageService;
 	
-	@MessageMapping("/chat/{opUiNum}/{uiNum}")
-	public void chat(@DestinationVariable("uiNum") int uiNum, @DestinationVariable("opUiNum") int opUiNum, MessageVO message) {
+	@MessageMapping("/chat/{uiNum}")
+	public void chat(@DestinationVariable("uiNum") int uiNum, MessageVO message) {
 		log.info("message=>{}", message);
-		smt.convertAndSend("/topic/chat/" + uiNum, message);
-		smt.convertAndSend("/topic/chat/" + opUiNum, message);
+		smt.convertAndSend("/topic/chat/" + message.getCmiSenderUiNum(),message);
+		smt.convertAndSend("/topic/chat/" + message.getCmiReceiveUiNum(),message);
 		chatMessageService.insertChatMessageInfo(message);
 	}
 	
