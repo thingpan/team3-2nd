@@ -182,13 +182,25 @@ document.addEventListener('DOMContentLoaded', function () {
         scheduleTable.innerHTML = '';
 
         const top5MatchBoards = filteredMatchBoards.slice(0, 5);
-
+		const headerRow = scheduleTable.insertRow();
+		headerRow.innerHTML = `
+    	<th style="text-align:left; width: 25%;">매칭시간</th>
+    	<th style="text-align:center; width: 25%;">장소</th>
+    	<th style="text-align:center; width: 25%;">팀 점수</th>
+    	<th style="text-align:right; width: 25%;">팀 매치 신청상태</th>
+								`	;
         if (top5MatchBoards.length === 0) {
             const noScheduleMessage = document.createElement('div');
-            noScheduleMessage.classList.add('schedule-none');
-            noScheduleMessage.textContent = '경기 일정이 없습니다.';
+        	noScheduleMessage.classList.add('schedule-none');
+			noScheduleMessage.textContent = '경기 일정이 없습니다.';
 
-            scheduleTable.appendChild(noScheduleMessage);
+			// 중앙 정렬을 위한 스타일 적용
+			noScheduleMessage.style.textAlign = 'center';
+
+			const noScheduleRow = scheduleTable.insertRow();
+			const noScheduleCell = noScheduleRow.insertCell();
+			noScheduleCell.colSpan = 4; // 4개의 열을 병합
+			noScheduleCell.appendChild(noScheduleMessage);
         } else {
             top5MatchBoards.forEach(apiScheduleItem => {
                 const row = scheduleTable.insertRow();
