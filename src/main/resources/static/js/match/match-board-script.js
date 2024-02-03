@@ -32,65 +32,68 @@ document.addEventListener('DOMContentLoaded', function() {
 		console.log("matchBoardInfos", matchBoardInfos);
 	}
 
+
 	// 캘린더 업데이트 함수
-	function updateCalendar(date) {
-		calendar.innerHTML = '';
+function updateCalendar(date) {
+    calendar.innerHTML = '';
 
-		for (let i = 0; i <= 6; i++) {
-			const day = new Date(date);
-			day.setDate(date.getDate() + i);
+    for (let i = 0; i <= 6; i++) {
+        const day = new Date(date);
+        day.setDate(date.getDate() + i);
 
-			const today = new Date();
-			today.setHours(0, 0, 0, 0);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-			if (day < today) {
-				continue;
-			}
+        if (day < today) {
+            continue;
+        }
 
-			const dayDiv = document.createElement('div');
-			dayDiv.classList.add('day');
+        const dayDiv = document.createElement('div');
+        dayDiv.classList.add('day');
 
-			const dayDate = day.getDate();
-			const dayName = day.toLocaleDateString('en-US', { weekday: 'short' });
+        const dayDate = day.getDate();
+        const dayMonth = day.toLocaleDateString('en-US', { month: 'short' }); 
+        const dayName = day.toLocaleDateString('en-US', { weekday: 'short' });
 
-			dayDiv.textContent = `${dayDate}\n${dayName}`;
-			dayDiv.setAttribute('data-dayname', dayName);
+        dayDiv.textContent = `${dayDate}\n${dayMonth} ${dayName}`;
+        dayDiv.setAttribute('data-dayname', dayName);
 
-			// 주말 색상 추가
-			if (dayName === 'Sun') {
-				dayDiv.classList.add('sunday');
-			} else if (dayName === 'Sat') {
-				dayDiv.classList.add('saturday');
-			}
+        // 주말 색상 추가
+        if (dayName === 'Sun') {
+            dayDiv.classList.add('sunday');
+        } else if (dayName === 'Sat') {
+            dayDiv.classList.add('saturday');
+        }
 
-			if (selectedDateDiv && dayDiv === selectedDateDiv) {
-				dayDiv.classList.add('selected');
-			}
+        if (selectedDateDiv && dayDiv === selectedDateDiv) {
+            dayDiv.classList.add('selected');
+        }
 
-			dayDiv.addEventListener('click', () => {
-				if (selectedDateDiv) {
-					selectedDateDiv.classList.remove('selected');
-				}
-				selectDate(dayDiv);
-				selectedDateDiv = dayDiv;
+        dayDiv.addEventListener('click', () => {
+            if (selectedDateDiv) {
+                selectedDateDiv.classList.remove('selected');
+            }
+            selectDate(dayDiv);
+            selectedDateDiv = dayDiv;
 
-				// 클릭한 날짜를 선택된 날짜로 업데이트
-				selectedDate = new Date(day);
-				showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
-			});
+            // 클릭한 날짜를 선택된 날짜로 업데이트
+            selectedDate = new Date(day);
+            showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
+        });
 
-			calendar.appendChild(dayDiv);
+        calendar.appendChild(dayDiv);
 
-			if (i === 0) {
-				selectDate(dayDiv);
-				selectedDateDiv = dayDiv;
+        if (i === 0) {
+            selectDate(dayDiv);
+            selectedDateDiv = dayDiv;
 
-				// 초기 선택일을 클릭한 날짜로 변경
-				selectedDate = new Date(day);
-				showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
-			}
-		}
-	}
+            // 초기 선택일을 클릭한 날짜로 변경
+            selectedDate = new Date(day);
+            showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
+        }
+    }
+}
+
 
 	// 이벤트 리스너 함수
 	async function onFilterChange() {
