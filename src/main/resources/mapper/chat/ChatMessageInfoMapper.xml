@@ -23,7 +23,7 @@
 		CMI_RECEIVE_UI_NUM = #{cmiReceiveUiNum}) OR
 		(CMI_SENDER_UI_NUM = #{cmiReceiveUiNum} AND
 		CMI_RECEIVE_UI_NUM = #{cmiSenderUiNum})
-		ORDER BY CMI_SENT_TIME ASC
+		ORDER BY CMI_SENT_TIME 
 	</select>
 
 </mapper>
