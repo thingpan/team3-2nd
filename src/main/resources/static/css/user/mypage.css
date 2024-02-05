@@ -124,6 +124,7 @@ label {
 	border-radius: 50%;
 	cursor: pointer;
 	border: 1px solid #ccc;
+	object-fit: cover;
 }
 
 .profile-container {
@@ -392,6 +393,7 @@ select {
 	cursor: pointer;
 	margin-top: 20px;
 	border: 1px solid #ccc;
+	object-fit: cover;
 }
 
 .filter-select {
