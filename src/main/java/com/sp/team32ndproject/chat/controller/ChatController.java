@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.pagehelper.PageInfo;
 import com.sp.team32ndproject.chat.service.ChatMessageService;
 import com.sp.team32ndproject.chat.service.ChatUserInfoService;
+import com.sp.team32ndproject.chat.util.DateUtil;
 import com.sp.team32ndproject.chat.vo.EnterVO;
 import com.sp.team32ndproject.chat.vo.MessageVO;
 import com.sp.team32ndproject.common.listener.WebSocketEventListener;
@@ -32,6 +33,7 @@ public class ChatController {
 	@MessageMapping("/chat/{uiNum}")
 	public void chat(@DestinationVariable("uiNum") int uiNum, MessageVO message) {
 		log.info("message=>{}", message);
+		message.setCmiSentTime(DateUtil.getToDate());
 		smt.convertAndSend("/topic/chat/" + message.getCmiSenderUiNum(),message);
 		smt.convertAndSend("/topic/chat/" + message.getCmiReceiveUiNum(),message);
 		chatMessageService.insertChatMessageInfo(message);
