@@ -20,4 +20,5 @@ public class MessageVO {
 	private String cmiType;
 	private String payload;
 	private boolean typing;
+	private int unreadCnt;
 }
