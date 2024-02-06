@@ -28,6 +28,6 @@ public class ChatMessageService {
 		return PageInfo.of(chatMessageInfoMapper.selectChatMessageInfos(messageVO));
 	}
 	public boolean updateChatMessageInfoReceivedTime(MessageVO messageVO) {
-		return chatMessageInfoMapper.updateChatMessageInfoReceivedTime(messageVO)==1;
+		return chatMessageInfoMapper.updateChatMessageInfoReceivedTime(messageVO)>0;
 	}
 }
