@@ -47,6 +47,6 @@ public class ChatController {
 	}
 	@GetMapping("/chat-user-infos/{uiNum}")
 	public List<UserInfoVO> selectUserInfosForChat(@PathVariable("uiNum")int uiNum){
-		return userService.selectUserInfosForChat(uiNum);
+		return userService.selectUserInfosforChat(uiNum);
 	}
 }

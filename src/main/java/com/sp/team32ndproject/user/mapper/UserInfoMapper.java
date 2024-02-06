@@ -19,5 +19,5 @@ public interface UserInfoMapper {
 	UserInfoVO selectUserInfoByUiNum(@AuthenticationPrincipal UserInfoVO user); //mypage.html
 	
 	List<UserInfoVO> selectUserInfos(UserInfoVO userInfoVO);
-	List<UserInfoVO> selectUserInfosForChat(int uiNum );
+	List<UserInfoVO> selectUserInfosforChat(int uiNum );
 }
