@@ -34,66 +34,64 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 	// 캘린더 업데이트 함수
-function updateCalendar(date) {
-    calendar.innerHTML = '';
+   function updateCalendar(date) {
+            calendar.innerHTML = '';
 
-    for (let i = 0; i <= 6; i++) {
-        const day = new Date(date);
-        day.setDate(date.getDate() + i);
+            for (let i = 0; i <= 6; i++) {
+                const day = new Date(date);
+                day.setDate(date.getDate() + i);
 
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
 
-        if (day < today) {
-            continue;
-        }
+                if (day < today) {
+                    continue;
+                }
 
-        const dayDiv = document.createElement('div');
-        dayDiv.classList.add('day');
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('day');
 
-        const dayDate = day.getDate();
-        const dayMonth = day.toLocaleDateString('en-US', { month: 'short' }); 
-        const dayName = day.toLocaleDateString('en-US', { weekday: 'short' });
+                const dayDate = day.getDate();
+                const dayName = day.toLocaleDateString('en-US', {weekday: 'short'});
 
-        dayDiv.textContent = `${dayDate}\n${dayMonth} ${dayName}`;
-        dayDiv.setAttribute('data-dayname', dayName);
+                dayDiv.textContent = `${dayDate}\n${dayName}`;
+                dayDiv.setAttribute('data-dayname', dayName);
 
-        // 주말 색상 추가
-        if (dayName === 'Sun') {
-            dayDiv.classList.add('sunday');
-        } else if (dayName === 'Sat') {
-            dayDiv.classList.add('saturday');
-        }
+                // 주말 색상 추가
+                if (dayName === 'Sun') {
+                    dayDiv.classList.add('sunday');
+                } else if (dayName === 'Sat') {
+                    dayDiv.classList.add('saturday');
+                }
 
-        if (selectedDateDiv && dayDiv === selectedDateDiv) {
-            dayDiv.classList.add('selected');
-        }
+                if (selectedDateDiv && dayDiv === selectedDateDiv) {
+                    dayDiv.classList.add('selected');
+                }
 
-        dayDiv.addEventListener('click', () => {
-            if (selectedDateDiv) {
-                selectedDateDiv.classList.remove('selected');
+                dayDiv.addEventListener('click', () => {
+                    if (selectedDateDiv) {
+                        selectedDateDiv.classList.remove('selected');
+                    }
+                    selectDate(dayDiv);
+                    selectedDateDiv = dayDiv;
+
+                    // 클릭한 날짜를 선택된 날짜로 업데이트
+                    selectedDate = new Date(day);
+                    showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
+                });
+
+                calendar.appendChild(dayDiv);
+
+                if (i === 0) {
+                    selectDate(dayDiv);
+                    selectedDateDiv = dayDiv;
+
+                    // 초기 선택일을 클릭한 날짜로 변경
+                    selectedDate = new Date(day);
+                    showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
+                }
             }
-            selectDate(dayDiv);
-            selectedDateDiv = dayDiv;
-
-            // 클릭한 날짜를 선택된 날짜로 업데이트
-            selectedDate = new Date(day);
-            showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
-        });
-
-        calendar.appendChild(dayDiv);
-
-        if (i === 0) {
-            selectDate(dayDiv);
-            selectedDateDiv = dayDiv;
-
-            // 초기 선택일을 클릭한 날짜로 변경
-            selectedDate = new Date(day);
-            showSchedule(selectedDate, selectedSport, selectedSido, selectedPoint);
         }
-    }
-}
-
 
 	// 이벤트 리스너 함수
 	async function onFilterChange() {
@@ -252,7 +250,7 @@ function updateCalendar(date) {
     	<th style="text-align:left; width: 25%;">매칭시간</th>
     	<th style="text-align:center; width: 25%;">장소</th>
     	<th style="text-align:center; width: 25%;">팀 점수</th>
-    	<th style="text-align:right; width: 25%;">팀 매치 신청상태</th>
+    	<th style="text-align:center;   letter-spacing: 5px; width: 25%;">신청상태</th>
 								`	;
 
 

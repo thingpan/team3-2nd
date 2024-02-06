@@ -26,6 +26,20 @@
 		UI_CREDAT, UI_CRETIM
 		 FROM USER_INFO
 	</select>
+		<select id="selectUserInfosforChat" 
+		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">
+		SELECT UI_NUM ,UI_NAME, UI_ID, UI_PHONE_NUM,
+		UI_BIRTH,
+		UI_EMAIL, UI_ADDRESS,
+		UI_CREDAT, UI_CRETIM ,UI_IMG_PATH,
+		 FROM USER_INFO
+		 (SELECT COUNT(1)FROM CHAT_MESSAGE_INFO CMI
+		 WHERE CMI_SENDER_UI_NUM=UI.UI_NUM
+		 AND CMI_RECEIVE_UI_NUM=#{uiNum}
+		 AND CMI_RECEIVED_TIME IS NULL) UNREAD_CNT
+		 FROM USER_INFO UI
+		 WHERE UI_NUM!=#{uiNum}
+	</select>
 	
 	<select id="selectUserInfoByUiId"
 		resultType="com.sp.team32ndproject.user.vo.UserInfoVO">

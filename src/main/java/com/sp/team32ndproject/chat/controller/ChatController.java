@@ -7,6 +7,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
@@ -43,5 +44,9 @@ public class ChatController {
 	public PageInfo<MessageVO> getMsgList(@ModelAttribute MessageVO messageVO) {
 		log.info("MSGvo=>{}", messageVO);
 		return chatMessageService.selectChatMessageInfos(messageVO);
+	}
+	@GetMapping("/chat-user-infos/{uiNum}")
+	public List<UserInfoVO> selectUserInfosForChat(@PathVariable("uiNum")int uiNum){
+		return userService.selectUserInfosForChat(uiNum);
 	}
 }

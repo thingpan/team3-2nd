@@ -92,4 +92,7 @@ public class UserInfoService implements UserDetailsService {
 	public List<UserInfoVO> selectUserInfos(UserInfoVO userInfoVO){
 		return userInfoMapper.selectUserInfos(userInfoVO);
 	}
+	public List<UserInfoVO> selectUserInfosForChat(int uiNum){
+		return userInfoMapper.selectUserInfosForChat(uiNum);
+	}
 }
