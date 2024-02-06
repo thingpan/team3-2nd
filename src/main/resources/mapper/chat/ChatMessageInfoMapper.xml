@@ -10,14 +10,15 @@
 		VALUES(#{cmiSenderUiNum}, #{cmiReceiveUiNum}, #{cmiMessage},
 		#{cmiSentTime})
 	</insert>
-
+	<update id="updateChatMessageInfoReceivedTime">
+	UPDATE CHAT_MESSAGE_INFO
+	SET CMI_RECEIVED_TIME=#{cmiReceivedTime}
+	WHERE CMI_SENDER_UI_NUM=#{cmiSenderUiNum}
+	AND CMI_RECEIVE_UI_NUM=#{cmiReceiveUiNum}
+	</update>
+	
 	<select id="selectChatMessageInfos">
-		SELECT *,
-		(SELECT COUNT(1) FROM CHAT_MESSAGE_INFO
-		WHERE CMI_SENDER_UI_NUM=#{cmiSenderUiNum} 
-		AND CMI_RECEIVE_UI_NUM=#{cmiReceiveUiNum}
-		AND CMI_RECEIVED_TIME IS NULL) AS UNREAD_CNT
-		
+		SELECT *		
 		FROM CHAT_MESSAGE_INFO
 		WHERE (CMI_SENDER_UI_NUM = #{cmiSenderUiNum} AND
 		CMI_RECEIVE_UI_NUM = #{cmiReceiveUiNum}) OR

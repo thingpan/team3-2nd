@@ -27,4 +27,7 @@ public class ChatMessageService {
 		PageHelper.startPage(1,100);
 		return PageInfo.of(chatMessageInfoMapper.selectChatMessageInfos(messageVO));
 	}
+	public boolean updateChatMessageInfoReceivedTime(MessageVO messageVO) {
+		return chatMessageInfoMapper.updateChatMessageInfoReceivedTime(messageVO)==1;
+	}
 }

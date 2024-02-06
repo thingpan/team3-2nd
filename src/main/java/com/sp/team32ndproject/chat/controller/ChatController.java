@@ -8,6 +8,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
@@ -48,5 +50,10 @@ public class ChatController {
 	@GetMapping("/chat-user-infos/{uiNum}")
 	public List<UserInfoVO> selectUserInfosForChat(@PathVariable("uiNum")int uiNum){
 		return userService.selectUserInfosforChat(uiNum);
+	}
+	@PutMapping("/message-log")
+	public boolean messageLog(@RequestBody MessageVO messageVO) {
+		messageVO.setCmiReceivedTime(DateUtil.getToDate());
+		return chatMessageService.updateChatMessageInfoReceivedTime(messageVO);
 	}
 }
