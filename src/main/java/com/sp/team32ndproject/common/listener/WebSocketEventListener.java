@@ -36,7 +36,7 @@ public class WebSocketEventListener {
 	public static List<Integer> uiNums = Collections.synchronizedList(new ArrayList<>());
 	public static List<String> sessionIds = Collections.synchronizedList(new ArrayList<>());
 	public static List<UserInfoVO> users = Collections.synchronizedList(new ArrayList<>());
-	public static Map<String,Integer> connectedMap=Collections.synchronizedMap(new HashMap<>());
+	public static Map<String,UserInfoVO> connectedMap=Collections.synchronizedMap(new HashMap<>());
 	private final SimpMessagingTemplate smt;
 	private final UserInfoService userService;
 
@@ -50,21 +50,17 @@ public class WebSocketEventListener {
 		UserInfoVO userInfoVO = new UserInfoVO();
 		userInfoVO.setUiNum(uiNum);
 		UserInfoVO connectedUser =userService.selectUserInfoByUiNum(userInfoVO);
-		String sessionId =sha.getSessionId();
-		connectedMap.put(sessionId,uiNum);
 		connectedUser.setLogin(true);
+		String sessionId =sha.getSessionId();
+		connectedMap.put(sessionId,connectedUser);
 		smt.convertAndSend("/topic/enter-chat", connectedUser);
 	}
 	@EventListener
 	public void disconnectionListener(SessionDisconnectEvent evt) {
 		StompHeaderAccessor sha = StompHeaderAccessor.wrap(evt.getMessage());
 		String sessionId = sha.getSessionId();
-		int uiNum =connectedMap.get(sessionId);
-		UserInfoVO userInfoVO = new UserInfoVO();
-		userInfoVO.setUiNum(uiNum);
-		UserInfoVO connectedUser =userService.selectUserInfoByUiNum(userInfoVO);
-		smt.convertAndSend("/topic/enter-chat", connectedUser);
-		
+		UserInfoVO disconnectedUser =connectedMap.remove(sessionId);
+		smt.convertAndSend("/topic/enter-chat",disconnectedUser);		
 	}
 
 	@EventListener // 구독 할때
