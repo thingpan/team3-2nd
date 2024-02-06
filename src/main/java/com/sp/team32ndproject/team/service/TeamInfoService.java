@@ -179,7 +179,7 @@ public class TeamInfoService {
 		log.info("matchResultVO => {}", matchResultVO);
 		TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(matchResultVO.getTaHomeNum());
 		if (matchResultVO.getMrHomeResult().equals("w")) {
-			int pointResult = teamInfoVO.getTaPoint() + 3;
+			int pointResult = teamInfoVO.getTaPoint() + 30;
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchWinCntResult = teamInfoVO.getTaWinCnt() + 1;
 			int matchMannerPoint = teamInfoVO.getTaMannerPoint() + matchResultVO.getMrHomeMannerPoint();
@@ -189,8 +189,8 @@ public class TeamInfoService {
 			teamInfoVO.setTaWinCnt(matchWinCntResult);
 		} else if (matchResultVO.getMrHomeResult().equals("l")) {
 			int pointResult = 0;
-			if (teamInfoVO.getTaPoint() >= 3) {
-				pointResult = teamInfoVO.getTaPoint() - 3;
+			if (teamInfoVO.getTaPoint() >= 20) {
+				pointResult = teamInfoVO.getTaPoint() - 20;
 			}
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchLooseCntResult = teamInfoVO.getTaLooseCnt() + 1;
@@ -213,7 +213,7 @@ public class TeamInfoService {
 	public void doUpdateAwayMatchResult(MatchResultVO matchResultVO) {
 		TeamInfoVO teamInfoVO = teamInfoMapper.selectTeamInfoByTaNum(matchResultVO.getTaAwayNum());
 		if (matchResultVO.getMrAwayResult().equals("w")) {
-			int pointResult = teamInfoVO.getTaPoint() + 3;
+			int pointResult = teamInfoVO.getTaPoint() + 30;
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchWinCntResult = teamInfoVO.getTaWinCnt() + 1;
 			int matchMannerPoint = teamInfoVO.getTaMannerPoint() + matchResultVO.getMrAwayMannerPoint();
@@ -223,8 +223,8 @@ public class TeamInfoService {
 			teamInfoVO.setTaWinCnt(matchWinCntResult);
 		} else if (matchResultVO.getMrAwayResult().equals("l")) {
 			int pointResult = 0;
-			if (teamInfoVO.getTaPoint() >= 3) {
-				pointResult = teamInfoVO.getTaPoint() - 3;
+			if (teamInfoVO.getTaPoint() >= 20) {
+				pointResult = teamInfoVO.getTaPoint() - 20;
 			}
 			int matchCntResult = teamInfoVO.getTaMatchCount() + 1;
 			int matchLooseCntResult = teamInfoVO.getTaLooseCnt() + 1;
