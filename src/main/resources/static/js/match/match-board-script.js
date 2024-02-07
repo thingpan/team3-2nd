@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
     	<th style="text-align:left; width: 25%;">매칭시간</th>
     	<th style="text-align:center; width: 25%;">장소</th>
     	<th style="text-align:center; width: 25%;">팀 점수</th>
-    	<th style="text-align:center;   letter-spacing: 5px; width: 25%;">신청상태</th>
+    	<th style="text-align:center; width: 25%;">신청상태</th>
 								`	;
 
 
@@ -303,6 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				if (apiScheduleItem.mbStatus === "0") {
 					status = '신청가능';
 					badgeStyle = 'badge-possible';
+					
 				} else if (apiScheduleItem.mbStatus === "1") {
 					status = '마감';
 					badgeStyle = 'badge-deadline';

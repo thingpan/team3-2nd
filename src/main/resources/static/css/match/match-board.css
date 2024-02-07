@@ -137,7 +137,7 @@ body {
 }
 
 .match-table td:last-child {
-    text-align: right;
+    text-align: center;
 }
 
 .match-table th.time {
