@@ -43,7 +43,7 @@
                                         <h6 class="fw-semibold mb-0">전화번호</h6>
                                     </th>
                                     <th>
-                                        <h6 class="fw-semibold mb-0">방출</h6>
+                                        <h6 class="fw-semibold mb-0" id="team-side">방출</h6>
                                     </th>
                                 </tr>
                                 </thead>
@@ -144,6 +144,29 @@
     let pageSize = 5;
     const blockSize = 5;
 
+		    async function loadTeamOutDisplay() {
+			try {
+				const urlParams = new URL(location.href).searchParams;
+				const taNum = urlParams.get('taNum');
+				const res = await fetch(`/auth/team-user-infos/role?taNum=${taNum}`);
+				const userRole = await res.json();
+				console.log('uiRole', userRole);
+				if (userRole && userRole.tuRole === "USER") {
+					document.querySelector('#team-side').style.display = 'none';
+
+					return userRole.tuRole
+				} else if (userRole && userRole.tuRole === "ADMIN") {
+					return userRole.tuRole
+				}
+				else if (userRole && userRole.tuRole === null) {
+					document.querySelector('#team-side').style.display = 'none';
+				}
+			} catch (error) {
+				document.querySelector('#team-side').style.display = 'none';
+
+			}
+		}
+	    loadTeamOutDisplay();
 
     const getTeamUserInfoList = async function (evt, page) {
         if (!page) {
