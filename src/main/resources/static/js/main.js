@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
     	<th style="text-align:left; width: 25%;">매칭시간</th>
     	<th style="text-align:center; width: 25%;">장소</th>
     	<th style="text-align:center; width: 25%;">팀 점수</th>
-    	<th style="text-align:right; width: 25%;">팀 매치 신청상태</th>
+    	<th style="text-align:center; width: 25%;">신청상태</th>
 								`	;
         if (top5MatchBoards.length === 0) {
             const noScheduleMessage = document.createElement('div');
