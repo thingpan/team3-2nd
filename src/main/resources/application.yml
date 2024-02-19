@@ -27,6 +27,8 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+    pathmatch:
+      matching-strategy: ant-path-matcher
 mybatis:
   mapper-locations : mapper/**/*.xml
   configuration :

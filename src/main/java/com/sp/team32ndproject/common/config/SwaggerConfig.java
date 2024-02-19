@@ -21,7 +21,7 @@ public class SwaggerConfig {
 				.useDefaultResponseMessages(false)
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.project.secu"))
+				.apis(RequestHandlerSelectors.basePackage("com.sp.team32ndproject"))
 				.paths(PathSelectors.any())
 				.build();
 	}
