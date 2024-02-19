@@ -77,7 +77,18 @@ public class SecurityBeanConfig {
 	SecurityFilterChain securityTeamPageFilterChain(HttpSecurity hs) throws Exception {
 		hs.authorizeHttpRequests((auth) -> auth
 				.antMatchers("/login", "/user-infos/*", "/page/user/login", "/page/user/join", "/", "/team-infos",
-						"/match-infos", "/api/login", "/join","/chat/**", "/user-infos" )
+						"/match-infos", "/api/login", "/join","/chat/**", "/user-infos",
+						"/api/v2/**",
+                        "/v2/api-docs",
+                        "/swagger-resources",
+                        "/swagger-resources/**",
+                        "/configuration/ui",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**",
+                        /* swagger v3 */
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**")
 				.permitAll()
 				.antMatchers("/page/team/team-settings", "/page/team/team-apply", "/page/team/team-status",
 						"/page/team/record")
